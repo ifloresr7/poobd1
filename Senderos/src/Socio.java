@@ -1,7 +1,6 @@
 abstract class Socio {
     private int numeroSocio;
     private String nombre;
-
     // Constructor
     public Socio(int numeroSocio, String nombre) {
         this.numeroSocio = numeroSocio;
