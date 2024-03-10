@@ -1,4 +1,4 @@
-class Seguro {
+class SeguroModel {
     // Enumeración para los tipos de seguro
     public enum TipoSeguro {
         BASICO,
@@ -9,7 +9,7 @@ class Seguro {
     private double precio;
 
     // Constructor
-    public Seguro(TipoSeguro tipo, double precio) {
+    public SeguroModel(TipoSeguro tipo, double precio) {
         this.tipo = tipo;
         this.precio = precio;
     }

@@ -1,9 +1,9 @@
-class SocioEstandar extends Socio {
+class SocioEstandar extends SocioModel {
     private String NIF;
-    private Seguro seguro;
+    private SeguroModel seguro;
 
     // Constructor
-    public SocioEstandar(int numeroSocio, String nombre, String NIF, Seguro seguro) {
+    public SocioEstandar(int numeroSocio, String nombre, String NIF, SeguroModel seguro) {
         super(numeroSocio, nombre);
         this.NIF = NIF;
         this.seguro = seguro;
@@ -14,7 +14,7 @@ class SocioEstandar extends Socio {
         return NIF;
     }
 
-    public Seguro getSeguro() {
+    public SeguroModel getSeguro() {
         return seguro;
     }
 
@@ -23,7 +23,7 @@ class SocioEstandar extends Socio {
         this.NIF = NIF;
     }
 
-    public void setSeguro(Seguro seguro) {
+    public void setSeguro(SeguroModel seguro) {
         this.seguro = seguro;
     }
 

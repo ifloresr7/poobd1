@@ -1,6 +1,5 @@
-class SocioInfantil extends Socio {
+class SocioInfantil extends SocioModel {
     private int numeroSocioPadreMadre;
-
     // Constructor
     public SocioInfantil(int numeroSocio, String nombre, int numeroSocioPadreMadre) {
         super(numeroSocio, nombre);

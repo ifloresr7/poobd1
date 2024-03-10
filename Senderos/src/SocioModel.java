@@ -1,16 +1,15 @@
-class Federacion {
-    private String codigo;
+abstract class SocioModel {
+    private int numeroSocio;
     private String nombre;
-
     // Constructor
-    public Federacion(String codigo, String nombre) {
-        this.codigo = codigo;
+    public SocioModel(int numeroSocio, String nombre) {
+        this.numeroSocio = numeroSocio;
         this.nombre = nombre;
     }
 
     // Getters
-    public String getCodigo() {
-        return codigo;
+    public int getNumeroSocio() {
+        return numeroSocio;
     }
 
     public String getNombre() {
@@ -18,8 +17,8 @@ class Federacion {
     }
 
     // Setters
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setNumeroSocio(int numeroSocio) {
+        this.numeroSocio = numeroSocio;
     }
 
     public void setNombre(String nombre) {
@@ -29,9 +28,10 @@ class Federacion {
     // Método toString
     @Override
     public String toString() {
-        return "Federacion{" +
-                "codigo='" + codigo + '\'' +
+        return "Socio{" +
+                "numeroSocio=" + numeroSocio +
                 ", nombre='" + nombre + '\'' +
                 '}';
     }
 }
+

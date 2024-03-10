@@ -1,9 +1,9 @@
-class SocioFederado extends Socio {
+class SocioFederado extends SocioModel {
     private String NIF;
-    private Federacion federacion;
+    private FederacionModel federacion;
 
     // Constructor
-    public SocioFederado(int numeroSocio, String nombre, String NIF, Federacion federacion) {
+    public SocioFederado(int numeroSocio, String nombre, String NIF, FederacionModel federacion) {
         super(numeroSocio, nombre);
         this.NIF = NIF;
         this.federacion = federacion;
@@ -14,7 +14,7 @@ class SocioFederado extends Socio {
         return NIF;
     }
 
-    public Federacion getFederacion() {
+    public FederacionModel getFederacion() {
         return federacion;
     }
 
@@ -23,7 +23,7 @@ class SocioFederado extends Socio {
         this.NIF = NIF;
     }
 
-    public void setFederacion(Federacion federacion) {
+    public void setFederacion(FederacionModel federacion) {
         this.federacion = federacion;
     }
 

@@ -1,13 +1,13 @@
 import java.util.Date;
 
-class Inscripcion {
+class InscripcionModel {
     private int numeroInscripcion;
-    private Socio socio;
-    private Excursion excursion;
+    private SocioModel socio;
+    private ExcursionModel excursion;
     private Date fechaInscripcion;
 
     // Constructor
-    public Inscripcion(int numeroInscripcion, Socio socio, Excursion excursion, Date fechaInscripcion) {
+    public InscripcionModel(int numeroInscripcion, SocioModel socio, ExcursionModel excursion, Date fechaInscripcion) {
         this.numeroInscripcion = numeroInscripcion;
         this.socio = socio;
         this.excursion = excursion;
@@ -19,11 +19,11 @@ class Inscripcion {
         return numeroInscripcion;
     }
 
-    public Socio getSocio() {
+    public SocioModel getSocio() {
         return socio;
     }
 
-    public Excursion getExcursion() {
+    public ExcursionModel getExcursion() {
         return excursion;
     }
 
@@ -36,11 +36,11 @@ class Inscripcion {
         this.numeroInscripcion = numeroInscripcion;
     }
 
-    public void setSocio(Socio socio) {
+    public void setSocio(SocioModel socio) {
         this.socio = socio;
     }
 
-    public void setExcursion(Excursion excursion) {
+    public void setExcursion(ExcursionModel excursion) {
         this.excursion = excursion;
     }
 
