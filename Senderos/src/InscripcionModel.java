@@ -1,6 +1,6 @@
 import java.util.Date;
 
-class InscripcionModel {
+class InscripcionModel extends AppController {
     private int numeroInscripcion;
     private SocioModel socio;
     private ExcursionModel excursion;

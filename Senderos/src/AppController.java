@@ -1,6 +1,13 @@
-public class AppController {
+public class AppController{
     static AppView View = new AppView();
     static boolean cerrarApp = false;
+
+    /**
+     * Constructs.
+     */
+    public AppController() {
+    }
+
     //Inicio del menu de la APP.
     public static void inicio() {
         do {
@@ -31,7 +38,7 @@ public class AppController {
                 crearExcursion();
                 break;
             case 2:
-                mostarEscursionFecha();
+                mostarExcursionFecha();
                 break;
             case 3:
                 inicio();
@@ -41,8 +48,8 @@ public class AppController {
     public static void crearExcursion() {
         View.menuCrearExcursionView();
     }
-    public static void mostarEscursionFecha() {
-        View.menuMostarEscursionFechaView();
+    public static void mostarExcursionFecha() {
+        View.menuMostarExcursionFechaView();
     }
     //Metodos de control para Socios.
     public static void gestionSocios() {

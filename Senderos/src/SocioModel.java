@@ -1,4 +1,4 @@
-abstract class SocioModel {
+abstract class SocioModel extends AppController {
     private int numeroSocio;
     private String nombre;
     // Constructor

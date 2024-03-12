@@ -1,14 +1,8 @@
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.Scanner;
-public class ExcursionModel {
-    //Teclado, colores de texto y limpieza de consola.
-    static Scanner teclado = new Scanner(System.in);
-    static String h1 = "\033[33m";
-    static String p = "\u001B[0m";
-    static String p2 = "\033[36m";
-    static String error = "\033[31m";
-    static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
+public class ExcursionModel extends AppController {
     //Propiedades de clase
+    ArrayList<ExcursionModel> excursion;
     private String codigo;
     private String descripcion;
     private Date fecha;
@@ -22,6 +16,7 @@ public class ExcursionModel {
         this.numeroDias = numeroDias;
         this.precioInscripcion = precioInscripcion;
     }
+
     // Getters
     public String getCodigo() {
         return codigo;

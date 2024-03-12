@@ -1,5 +1,5 @@
 import java.util.Scanner;
-public class AppView{
+public class AppView extends AppController {
     //Teclado, colores de texto y limpieza de consola.
     static Scanner teclado = new Scanner(System.in);
     static String h1 = "\033[33m";
@@ -22,10 +22,10 @@ public class AppView{
         System.out.println("    3. Volver");
     }
     void menuCrearExcursionView() {
-        System.out.println(limpiezaConsola + "  - Formulario para crear escursiones");
+        System.out.println(limpiezaConsola + "  - Formulario para crear excursiones");
     }
-    void menuMostarEscursionFechaView() {
-        System.out.println(limpiezaConsola + "  - Formulario para mostrar escursiones segun fecha");
+    void menuMostarExcursionFechaView() {
+        System.out.println(limpiezaConsola + "  - Formulario para mostrar excursiones segun fecha");
     }
     void menuGestionSociosView() {
         System.out.println(limpiezaConsola + h1 + "---GESTIÓN DE SOCIOS---" + p);
