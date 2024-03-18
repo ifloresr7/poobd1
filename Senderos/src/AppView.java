@@ -2,8 +2,8 @@ import java.util.Scanner;
 public class AppView extends AppController {
     //Teclado, colores de texto y limpieza de consola.
     static Scanner teclado = new Scanner(System.in);
-    static String h1 = "\033[33m";
-    static String p = "\u001B[0m";
+    static String h1 = "\033[38;5;208m";
+    static String p = "\u001B[38;5;220m";
     static String p2 = "\033[36m";
     static String error = "\033[31m";
     static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
