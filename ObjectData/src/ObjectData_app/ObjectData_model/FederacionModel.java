@@ -1,15 +1,18 @@
-abstract class SocioModel extends AppController {
-    private int numeroSocio;
+package ObjectData_app.ObjectData_model;
+
+public class FederacionModel {
+    private String codigo;
     private String nombre;
+
     // Constructor
-    public SocioModel(int numeroSocio, String nombre) {
-        this.numeroSocio = numeroSocio;
+    public FederacionModel(String codigo, String nombre) {
+        this.codigo = codigo;
         this.nombre = nombre;
     }
 
     // Getters
-    public int getNumeroSocio() {
-        return numeroSocio;
+    public String getCodigo() {
+        return codigo;
     }
 
     public String getNombre() {
@@ -17,8 +20,8 @@ abstract class SocioModel extends AppController {
     }
 
     // Setters
-    public void setNumeroSocio(int numeroSocio) {
-        this.numeroSocio = numeroSocio;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public void setNombre(String nombre) {
@@ -28,10 +31,9 @@ abstract class SocioModel extends AppController {
     // Método toString
     @Override
     public String toString() {
-        return "Socio{" +
-                "numeroSocio=" + numeroSocio +
+        return "Federacion{" +
+                "codigo='" + codigo + '\'' +
                 ", nombre='" + nombre + '\'' +
                 '}';
     }
 }
-

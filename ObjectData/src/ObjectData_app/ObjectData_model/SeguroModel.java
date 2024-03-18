@@ -1,3 +1,4 @@
+package ObjectData_app.ObjectData_model;
 class SeguroModel {
     // Enumeración para los tipos de seguro
     public enum TipoSeguro {

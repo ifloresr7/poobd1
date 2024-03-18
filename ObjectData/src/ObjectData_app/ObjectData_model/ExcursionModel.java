@@ -1,8 +1,9 @@
-import java.util.ArrayList;
+package ObjectData_app.ObjectData_model;
+
 import java.util.Date;
-public class ExcursionModel extends AppController {
+
+public class ExcursionModel{
     //Propiedades de clase
-    ArrayList<ExcursionModel> excursion;
     private String codigo;
     private String descripcion;
     private Date fecha;

@@ -1,6 +1,7 @@
+package ObjectData_app.ObjectData_model;
 import java.util.Date;
 
-class InscripcionModel extends AppController {
+public class InscripcionModel{
     private int numeroInscripcion;
     private SocioModel socio;
     private ExcursionModel excursion;

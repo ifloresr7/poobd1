@@ -1,7 +1,8 @@
-class SocioInfantil extends SocioModel {
+package ObjectData_app.ObjectData_model;
+public class SocioInfantilModel extends SocioModel {
     private int numeroSocioPadreMadre;
     // Constructor
-    public SocioInfantil(int numeroSocio, String nombre, int numeroSocioPadreMadre) {
+    public SocioInfantilModel(int numeroSocio, String nombre, int numeroSocioPadreMadre) {
         super(numeroSocio, nombre);
         this.numeroSocioPadreMadre = numeroSocioPadreMadre;
     }

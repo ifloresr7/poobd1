@@ -1,12 +1,13 @@
-class SocioFederado extends SocioModel {
+package ObjectData_app.ObjectData_model;
+public class SocioEstandarModel extends SocioModel {
     private String NIF;
-    private FederacionModel federacion;
+    private SeguroModel seguro;
 
     // Constructor
-    public SocioFederado(int numeroSocio, String nombre, String NIF, FederacionModel federacion) {
+    public SocioEstandarModel(int numeroSocio, String nombre, String NIF, SeguroModel seguro) {
         super(numeroSocio, nombre);
         this.NIF = NIF;
-        this.federacion = federacion;
+        this.seguro = seguro;
     }
 
     // Getters
@@ -14,8 +15,8 @@ class SocioFederado extends SocioModel {
         return NIF;
     }
 
-    public FederacionModel getFederacion() {
-        return federacion;
+    public SeguroModel getSeguro() {
+        return seguro;
     }
 
     // Setters
@@ -23,18 +24,19 @@ class SocioFederado extends SocioModel {
         this.NIF = NIF;
     }
 
-    public void setFederacion(FederacionModel federacion) {
-        this.federacion = federacion;
+    public void setSeguro(SeguroModel seguro) {
+        this.seguro = seguro;
     }
 
     // Método toString
     @Override
     public String toString() {
-        return "SocioFederado{" +
+        return "SocioEstandar{" +
                 "numeroSocio=" + getNumeroSocio() +
                 ", nombre='" + getNombre() + '\'' +
                 ", NIF='" + NIF + '\'' +
-                ", federacion=" + federacion +
+                ", seguro=" + seguro +
                 '}';
     }
 }
+
