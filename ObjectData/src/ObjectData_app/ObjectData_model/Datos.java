@@ -1,7 +1,4 @@
-package ObjectData_app;
-//Se añaden los tipos de modelo
-import ObjectData_app.ObjectData_model.*;
-
+package ObjectData_app.ObjectData_model;
 import java.util.ArrayList;
 
 public class Datos {
