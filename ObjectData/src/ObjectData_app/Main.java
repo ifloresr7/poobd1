@@ -7,6 +7,7 @@ import ObjectData_app.ObjectData_controller.AppController;
 
 public class Main{
     public static void main(String[] args) {
-        AppController.inicio();
+        AppController APP = new AppController();
+        APP.inicio();
     }
 }
