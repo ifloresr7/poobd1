@@ -1,5 +1,6 @@
+package ObjectData_app.ObjectData_view;
 import java.util.Scanner;
-public class AppView extends AppController {
+public class AppMenuView {
     //Teclado, colores de texto y limpieza de consola.
     static Scanner teclado = new Scanner(System.in);
     static String h1 = "\033[33m";
@@ -8,26 +9,20 @@ public class AppView extends AppController {
     static String error = "\033[31m";
     static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
     //Propiedades de clase
-    void menuInicioView() {
+    public void menuInicioView() {
         System.out.println(limpiezaConsola + h1 + "---MENU PRINCIPAL DE LA APLICACION---" + p);
         System.out.println("    1. Gestión Excursiones");
         System.out.println("    2. Gestión de Socios");
         System.out.println("    3. Gestión de Inscripciones");
         System.out.println("    4. Salir");
     }
-    void menuGestionExcursionesView() {
+    public void menuGestionExcursionesView() {
         System.out.println(limpiezaConsola + h1 + "---GESTIÓN DE EXCURSIONES---" + p);
         System.out.println("    1. Añadir Excursión");
         System.out.println("    2. Mostrar Excursiones con filtro entre fechas");
         System.out.println("    3. Volver");
     }
-    void menuCrearExcursionView() {
-        System.out.println(limpiezaConsola + "  - Formulario para crear excursiones");
-    }
-    void menuMostarExcursionFechaView() {
-        System.out.println(limpiezaConsola + "  - Formulario para mostrar excursiones segun fecha");
-    }
-    void menuGestionSociosView() {
+    public void menuGestionSociosView() {
         System.out.println(limpiezaConsola + h1 + "---GESTIÓN DE SOCIOS---" + p);
         System.out.println("    1. Añadir Socio Estándar");
         System.out.println("    2. Modificar tipo de seguro de un socio estándar");
@@ -38,55 +33,26 @@ public class AppView extends AppController {
         System.out.println("    7. Mostrar Factura mensual por socios");
         System.out.println("    8. Volver");
     }
-    void formCrearSocioEstandarView() {
-        System.out.println(limpiezaConsola + "  - Formulario Añadir Socio Estándar");
-    }
-    void formModificarTipoSeguroView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Modificar tipo de seguro de un socio estándar");
-    }
-    void formCrearSocioFederadoView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Añadir Socio Federado");
-    }
-    void formCrearSocioInfantilView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Añadir Socio Infantil");
-    }
-    void formEliminarSocioView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Eliminar socio");
-    }
-    void formMostrarSocioView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Mostrar Socios (Todos o por tipo de socio)");
-    }
-    void formMostrarFacturaMensualSocioView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Mostrar Factura mensual por socios");
-    }
-    void menuGestionInscripcionesView() {
+    public void menuGestionInscripcionesView() {
         System.out.println(limpiezaConsola + h1 + "---GESTIÓN DE INSCRIPCIONES---" + p);
         System.out.println("    1. Añadir Inscripción");
         System.out.println("    2. Eliminar Inscripción");
         System.out.println("    3. Mostrar inscripciones con las opciones de filtrar por socio y/o fechas");
         System.out.println("    4. Volver");
     }
-    void formCrearInscripcionView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Crear inscripcion");
-    }
-    void formEliminarInscripcionView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Eliminar inscripcion");
-    }
-    void formMostrarInscripcionView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Mostrar inscripciones con las opciones de filtrar por socio y/o fechas");
-    }
-    int getOpcionView(int valores) {
+    public int getOpcionView(int value) {
         try {
-            System.out.print(p2 + "Elije una opción válida (1-" + valores + "): " + p);
+            System.out.print(p2 + "Elije una opción válida (1-" + value + "): " + p);
             int opcion = Integer.parseInt(teclado.nextLine());
-            if (opcion < 1 || opcion > valores) {
+            if (opcion < 1 || opcion > value) {
                 System.out.println(error + "Opción no válida." + p);
-                return getOpcionView(valores);
+                return getOpcionView(value);
             }
             return opcion;
         } catch (NumberFormatException e) {
             System.out.println(error + "Opción no válida. Debe ingresar un número." + p);
-            return getOpcionView(valores);
+            return getOpcionView(value);
         }
     }
 }
+
