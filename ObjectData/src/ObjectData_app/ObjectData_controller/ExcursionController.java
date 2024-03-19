@@ -1,5 +1,7 @@
 package ObjectData_app.ObjectData_controller;
 //Se añade la vista principal
+import java.util.UUID;
+
 
 import ObjectData_app.ObjectData_model.ExcursionModel;
 import ObjectData_app.ObjectData_view.ExcursionesView;
@@ -16,14 +18,15 @@ public class ExcursionController{
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     //Inicio del menu de la APP.
-    public static int obtenerIdExcursion()
-    {
-        int numeroExcursion = datos.getExcursiones().size() + 1;
-        return numeroExcursion;
+    public static String obtenerIdExcursion() {
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString().substring(0, 8); // Tomar los primeros 8 caracteres
     }
+
+
     public static void addExcursion(String descripcion,String fecha,String numDias,String precio) {
         // Convertir la cadena de fecha a un objeto Date
-        int numeroExcursion = obtenerIdExcursion();
+        String numeroExcursion = obtenerIdExcursion();
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Date data = null;
         try {
