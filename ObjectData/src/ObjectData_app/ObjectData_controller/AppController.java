@@ -7,7 +7,7 @@ public class AppController {
     static boolean cerrarApp = false;
     // Inicio del menu de la APP.
     public static void inicio() {
-        do {
+        do { 
             menuView.menuInicioView();
             int opcion = menuView.getOpcionView(4);
             switch (opcion) {

@@ -50,6 +50,12 @@ public class ExcursionModel{
     public void setPrecioInscripcion(double precioInscripcion) {
         this.precioInscripcion = precioInscripcion;
     }
+
+    void crearExcursion(a,b,c,d,e){
+        ExcursionModel Excursion = new ExcursionModel(a,b,c,d,e);
+        datos.ExcursionModel[] = Excursion;
+    }
+
     //Metodos
     public String toString() {
         return "Excursion{" +
