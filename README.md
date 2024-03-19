@@ -1,5 +1,10 @@
 # ObjectData SENDERISMO🏔
-
+## Members 👨‍💻
+- Adrián Catalán
+- Ismael Flores
+- Jordi Montserrat
+- Marina Romero
+- Maria Rovira
 ## General Objective📝
 Develop and Implement a management application using advanced Java programming techniques (advanced class libraries, creation of graphical user interfaces, and data persistence in SGBDOR).
 
