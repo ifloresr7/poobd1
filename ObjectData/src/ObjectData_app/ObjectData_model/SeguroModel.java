@@ -1,5 +1,5 @@
 package ObjectData_app.ObjectData_model;
-class SeguroModel {
+public class SeguroModel {
     // Enumeración para los tipos de seguro
     public enum TipoSeguro {
         BASICO,
