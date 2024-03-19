@@ -62,9 +62,7 @@ public class Datos {
                     if (lectura.length == 2) {
                         String codigo = lectura[0].trim();
                         String nombre = lectura[1].trim();
-                        // Aquí puedes hacer lo que necesites con el código y el nombre de la federación,
-                        // como crear un objeto Federacion y almacenarlo en una lista, por ejemplo.
-                        // Por ejemplo:
+
                         FederacionModel federacion = new FederacionModel(codigo, nombre);
                         federaciones.add(federacion);
                         System.out.println("Federación cargada: " + federacion.getNombre());
