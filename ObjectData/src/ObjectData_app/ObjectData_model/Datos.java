@@ -1,4 +1,5 @@
 package ObjectData_app.ObjectData_model;
+
 import java.util.ArrayList;
 
 public class Datos {
@@ -8,4 +9,15 @@ public class Datos {
     ArrayList<SocioEstandarModel> socioEstandar;
     ArrayList<InscripcionModel> inscripcion;
     ArrayList<FederacionModel> federacion;
+
+    // Constructor
+    public Datos() {
+        excursion = new ArrayList<>();
+        socioInfantil = new ArrayList<>();
+        socioFederado = new ArrayList<>();
+        socioEstandar = new ArrayList<>();
+        inscripcion = new ArrayList<>();
+        federacion = new ArrayList<>();
+    }
+    
 }

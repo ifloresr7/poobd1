@@ -1,5 +1,8 @@
 package ObjectData_app.ObjectData_view;
 import java.util.Scanner;
+
+import ObjectData_app.ObjectData_controller.SocioController;
+
 public class SocioView {
     //Teclado, colores de texto y limpieza de consola.
     static Scanner teclado = new Scanner(System.in);
@@ -9,8 +12,11 @@ public class SocioView {
     static String error = "\033[31m";
     static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
     //Propiedades de clase
-    public void formCrearSocioEstandarView() {
+    public String[] formCrearSocioEstandarView() {
         System.out.println(limpiezaConsola + "  - Formulario Añadir Socio Estándar");
+        String nombre = "pedro";
+        String dni = "74345882M";
+        return new String[] {nombre, dni};
     }
     public void formModificarTipoSeguroView() {
         System.out.println(limpiezaConsola + "  - Formulario para Modificar tipo de seguro de un socio estándar");

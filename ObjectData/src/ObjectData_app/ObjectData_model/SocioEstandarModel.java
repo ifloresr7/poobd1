@@ -1,4 +1,5 @@
 package ObjectData_app.ObjectData_model;
+
 public class SocioEstandarModel extends SocioModel {
     private String NIF;
     private SeguroModel seguro;
@@ -10,33 +11,18 @@ public class SocioEstandarModel extends SocioModel {
         this.seguro = seguro;
     }
 
-    // Getters
-    public String getNIF() {
-        return NIF;
-    }
+    // Método para agregar un socio estandar a la lista en Datos
+    public void addSocioEstandar(SocioEstandarModel socioEstandar) {
+        // Se genera una instancia de Datos y se añaden los datos.
+        Datos datos = new Datos();
+        datos.socioEstandar.add(socioEstandar);
 
-    public SeguroModel getSeguro() {
-        return seguro;
-    }
-
-    // Setters
-    public void setNIF(String NIF) {
-        this.NIF = NIF;
-    }
-
-    public void setSeguro(SeguroModel seguro) {
-        this.seguro = seguro;
-    }
-
-    // Método toString
-    @Override
-    public String toString() {
-        return "SocioEstandar{" +
-                "numeroSocio=" + getNumeroSocio() +
-                ", nombre='" + getNombre() + '\'' +
-                ", NIF='" + NIF + '\'' +
-                ", seguro=" + seguro +
-                '}';
+        // Para el ejemplo devolvemos el valor del array de Datos desde aqui:
+        // Para imprimir el contenido del array
+        for (SocioEstandarModel socio : datos.socioEstandar) {
+            System.out.println("Número de socio: " + socio.getNumeroSocio());
+            System.out.println("Nombre: " + socio.getNombre());
+            // Puedes imprimir más atributos si los tienes en SocioEstandarModel
+        }
     }
 }
-
