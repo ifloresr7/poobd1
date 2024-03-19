@@ -1,9 +1,12 @@
 package ObjectData_app.ObjectData_controller;
 //Se añade la vista principal
 import ObjectData_app.ObjectData_view.AppMenuView;
+import ObjectData_app.ObjectData_model.Datos;
+import ObjectData_app.ObjectData_view.ExcursionesView;
 
 public class AppController {
     static AppMenuView menuView = new AppMenuView();
+    static Datos datos = new Datos();
     static boolean cerrarApp = false;
     // Inicio del menu de la APP.
     public static void inicio() {
@@ -32,10 +35,12 @@ public class AppController {
         int opcion = menuView.getOpcionView(3);
         switch (opcion) {
             case 1:
-                ExcursionController.crearExcursion();
+                ExcursionesView excursion = new ExcursionesView();
+                excursion.menuCrearExcursionView();
                 break;
             case 2:
-                ExcursionController.mostarExcursionFecha();
+                ExcursionesView excursion2 = new ExcursionesView();
+                excursion2.menuMostarExcursionFechaView();
                 break;
             case 3:
                 inicio();

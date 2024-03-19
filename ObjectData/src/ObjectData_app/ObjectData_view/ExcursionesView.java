@@ -1,6 +1,9 @@
 package ObjectData_app.ObjectData_view;
 import ObjectData_app.ObjectData_controller.ExcursionController;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 public class ExcursionesView {
     //Teclado, colores de texto y limpieza de consola.
@@ -12,19 +15,27 @@ public class ExcursionesView {
     static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
     //Metodos de clase
     public void menuCrearExcursionView() {
+
         System.out.println(limpiezaConsola + "  - Formulario para crear excursiones");
         System.out.println("Ingrese el nombre de la excursión:");
         String descripcion = teclado.nextLine();
         System.out.println("Ingrese la fecha de la excursión (formato dd/mm/yyyy):");
         String fecha = teclado.nextLine();
         System.out.println("Ingrese el número de días de la excursión:");
-        int numDias = teclado.nextInt();
+        String numDias = teclado.nextLine();
         System.out.println("Ingrese el precio de inscripción de la excursión:");
-        double precio = teclado.nextDouble();
+        String precio = teclado.nextLine();
         ExcursionController.addExcursion(descripcion,fecha,numDias,precio);
         System.out.println("Excursión registrada con éxito.");
     }
     public void menuMostarExcursionFechaView() {
         System.out.println(limpiezaConsola + "  - Formulario para mostrar excursiones segun fecha");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        System.out.println("Ingrese la fecha Inicio en formato yyyy-MM-dd: ");
+        String inputDate = teclado.nextLine();
+        System.out.println("Ingrese la fecha Fin en formato yyyy-MM-dd: ");
+        String inputDate1 = teclado.nextLine();
+
+        ExcursionController.mostrarExcursionFecha(inputDate1, inputDate);
     }
 }

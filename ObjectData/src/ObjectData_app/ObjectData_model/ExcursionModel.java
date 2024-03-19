@@ -4,13 +4,13 @@ import java.util.Date;
 
 public class ExcursionModel{
     //Propiedades de clase
-    private String codigo;
+    private int codigo;
     private String descripcion;
     private Date fecha;
     private int numeroDias;
     private double precioInscripcion;
     // Constructor
-    public ExcursionModel(String codigo, String descripcion, Date fecha, int numeroDias, double precioInscripcion) {
+    public ExcursionModel(int codigo, String descripcion, Date fecha, int numeroDias, double precioInscripcion) {
         this.codigo = codigo;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -19,7 +19,7 @@ public class ExcursionModel{
     }
 
     // Getters
-    public String getCodigo() {
+    public int getCodigo() {
         return codigo;
     }
     public String getDescripcion() {
@@ -35,7 +35,7 @@ public class ExcursionModel{
         return precioInscripcion;
     }
     // Setters
-    public void setCodigo(String codigo) {
+    public void setCodigo(int codigo) {
         this.codigo = codigo;
     }
     public void setDescripcion(String descripcion) {
@@ -51,10 +51,7 @@ public class ExcursionModel{
         this.precioInscripcion = precioInscripcion;
     }
 
-    void crearExcursion(a,b,c,d,e){
-        ExcursionModel Excursion = new ExcursionModel(a,b,c,d,e);
-        datos.ExcursionModel[] = Excursion;
-    }
+
 
     //Metodos
     public String toString() {
