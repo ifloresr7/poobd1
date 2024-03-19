@@ -20,7 +20,7 @@ public class ExcursionController{
     //Inicio del menu de la APP.
     public static String obtenerIdExcursion() {
         UUID uuid = UUID.randomUUID();
-        return uuid.toString().substring(0, 8); // Tomar los primeros 8 caracteres
+        return uuid.toString().substring(0, 10); // Tomar los primeros 10 caracteres
     }
 
 
