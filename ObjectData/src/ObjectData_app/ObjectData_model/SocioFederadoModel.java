@@ -10,18 +10,16 @@ public class SocioFederadoModel extends SocioModel {
         this.federacion = federacion;
     }
 
-    // Getters
     public String getNIF() {
         return NIF;
     }
 
-    public FederacionModel getFederacion() {
-        return federacion;
-    }
-
-    // Setters
     public void setNIF(String NIF) {
         this.NIF = NIF;
+    }
+
+    public FederacionModel getFederacion() {
+        return federacion;
     }
 
     public void setFederacion(FederacionModel federacion) {

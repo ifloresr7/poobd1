@@ -28,6 +28,7 @@ public class ExcursionController{
         String fecha = retorno[1];
         String numDias = retorno[2];
         String precio = retorno[3];
+        
         //Se usa para obtener un ID dinamico para la excursion
         String numeroExcursion = obtenerIdExcursion();
         //Se genera la variable para almacenar la fecha y se crea la excepción
@@ -41,10 +42,13 @@ public class ExcursionController{
         int num = Integer.parseInt(numDias);
         // Convertir la cadena del precio a un número de punto flotante (double)
         double coste = Double.parseDouble(precio);
+
         //Se genera el conjunto de BBDD en la variable excursion
         ExcursionModel excursion = new ExcursionModel(numeroExcursion, descripcion, date, num, coste);
         //Se llama al metodo crearExcursion del modelo ExcursionModel, se pasa tanto la instancia BBDD como el objeto creado
-        excursion.crearExcursionModel(BBDD, excursion);
+        String respuesta = excursion.crearExcursionModel(BBDD, excursion);
+        //Devuelvo la respuesta del modelo y la imprimo en la vista
+        View.estadoFinal(respuesta);
     }
 
     public static void mostrarExcursionFecha(Datos BBDD) {
