@@ -10,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+
 public class ExcursionController{
     //Se inicializa una vista de ExcursionesView
     static ExcursionesView View = new ExcursionesView();

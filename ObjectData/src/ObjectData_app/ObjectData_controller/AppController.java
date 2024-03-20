@@ -1,7 +1,8 @@
 package ObjectData_app.ObjectData_controller;
 //Se añade la vista principal
 import ObjectData_app.ObjectData_view.AppMenuView;
-import ObjectData_app.ObjectData_model.Datos;
+
+import ObjectData_app.ObjectData_model.*;
 
 public class AppController {
     static AppMenuView menuView = new AppMenuView();
@@ -10,7 +11,7 @@ public class AppController {
     public static void inicio(Datos BBDD) {
         do { 
             menuView.menuInicioView();
-            int opcion = menuView.getOpcionView(4);
+            int opcion = menuView.getOpcionView(5);
             switch (opcion) {
                 case 1:
                     gestionExcursiones(BBDD);
@@ -22,11 +23,16 @@ public class AppController {
                     gestionInscripciones(BBDD);
                     break;
                 case 4:
+                    CargarDatosModel cargarDatos = new CargarDatosModel();
+                    cargarDatos.cargarDatos(BBDD);
+                    break;
+                case 5:
                     cerrarApp = true;
                     break;
             }
         } while (!cerrarApp);
     }
+
     // Metodos de control para Excursiones.
     public static void gestionExcursiones(Datos BBDD) {
         menuView.menuGestionExcursionesView();

@@ -4,9 +4,9 @@
 package ObjectData_app.ObjectData_controller;
 import ObjectData_app.ObjectData_model.Datos;
 
-public class Main{
+public class Main {
     public static void main(String[] args) {
-        //Se inicializa la base de BBDD virtual.
+        // Se inicializa la base de BBDD virtual.
         Datos BBDD = new Datos();
         AppController APP = new AppController();
         APP.inicio(BBDD);

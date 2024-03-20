@@ -15,7 +15,8 @@ public class AppMenuView {
         System.out.println("    1. Gestión Excursiones");
         System.out.println("    2. Gestión de Socios");
         System.out.println("    3. Gestión de Inscripciones");
-        System.out.println("    4. Salir");
+        System.out.println("    4. Cargar datos iniciales");
+        System.out.println("    5. Salir");
     } 
     public void menuGestionExcursionesView() {
         System.out.println(limpiezaConsola + h2 + "---GESTIÓN DE EXCURSIONES---" + p);

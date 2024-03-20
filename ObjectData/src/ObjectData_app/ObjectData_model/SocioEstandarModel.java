@@ -33,11 +33,10 @@ public class SocioEstandarModel extends SocioModel {
         try {
             BBDD.socioEstandar.add(socioEstandar);
             // int num = 1;
-            // for (SocioEstandarModel socio : BBDD.socioEstandar) {
-            //     System.out.println("\n---- Socio " + num);
-            //     System.out.println("- Numero Socio: " + socio.getNumeroSocio());
-            //     System.out.println("- Nombre Socio: " + socio.getNombre());
-            //     System.out.println("- Seguro: " + socioEstandar.getSeguro());
+            // for (FederacionModel federacion : BBDD.federacion) {
+            //     System.out.println("\n---- Federación " + num);
+            //     System.out.println("- getCodigo: " + federacion.getCodigo());
+            //     System.out.println("- getNombre: " + federacion.getNombre());
             //     num++;
             // }
             return "Se guardo correctamente!";

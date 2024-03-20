@@ -30,7 +30,7 @@ public class ExcursionesView {
         String inputDate = teclado.nextLine();
         System.out.println("Ingrese la fecha Fin en formato yyyy-MM-dd: ");
         String inputDate1 = teclado.nextLine();
-        // ExcursionController.mostrarExcursionFecha(inputDate1, inputDate);
+        ExcursionController.mostrarExcursionFecha(inputDate1, inputDate);
     }
     //Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al guardar, Guardado Correcto, No se encontro fecha, etc"
     public void estadoFinal(String respuesta){

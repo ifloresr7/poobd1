@@ -1,8 +1,8 @@
 package ObjectData_app.ObjectData_model;
 
 public class FederacionModel {
-    private String codigo;
-    private String nombre;
+    String codigo;
+    String nombre;
 
     // Constructor
     public FederacionModel(String codigo, String nombre) {
