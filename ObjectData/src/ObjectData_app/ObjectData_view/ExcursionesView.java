@@ -1,5 +1,6 @@
 package ObjectData_app.ObjectData_view;
 
+import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class ExcursionesView {
@@ -23,14 +24,17 @@ public class ExcursionesView {
         String precio = teclado.nextLine();
         return new String[] {descripcion,fecha,numDias,precio};
     }
-    public void menuMostarExcursionFechaView() {
+
+   public String[] menuMostarExcursionFechaView() {
         System.out.println(limpiezaConsola + "  - Formulario para mostrar excursiones segun fecha");
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println("Ingrese la fecha Inicio en formato yyyy-MM-dd: ");
         String inputDate = teclado.nextLine();
         System.out.println("Ingrese la fecha Fin en formato yyyy-MM-dd: ");
         String inputDate1 = teclado.nextLine();
-        ExcursionController.mostrarExcursionFecha(inputDate1, inputDate);
+        return new String [] {inputDate,inputDate1};
+        
+        // ExcursionController.mostrarExcursionFecha(inputDate1, inputDate);
     }
     //Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al guardar, Guardado Correcto, No se encontro fecha, etc"
     public void estadoFinal(String respuesta){
