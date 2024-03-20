@@ -14,7 +14,6 @@ public class ExcursionController{
     //Se inicializa una vista de ExcursionesView
     static ExcursionesView View = new ExcursionesView();
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-
     //Metodo para crear una ID ramdon
     public static String obtenerIdExcursion() {
         UUID uuid = UUID.randomUUID();
@@ -48,30 +47,7 @@ public class ExcursionController{
         excursion.crearExcursionModel(BBDD, excursion);
     }
 
-    public static void mostrarExcursionFecha(String fechaIni, String fechaFin) {
-        Date fechaI = null;
-        Date fechaF = null;
-        try {
-            fechaI = sdf.parse(fechaIni);
-            System.out.println("Fecha ingresada: " + sdf.format(fechaI));
-        } catch (ParseException e) {
-            System.out.println("Formato de fecha inválido. Utilice el formato yyyy-MM-dd.");
-        }
-        try {
-            fechaF = sdf.parse(fechaFin);
-            System.out.println("Fecha ingresada: " + sdf.format(fechaF));
-        } catch (ParseException e) {
-            System.out.println("Formato de fecha inválido. Utilice el formato yyyy-MM-dd.");
-        }
-        for (ExcursionModel excursion : BBDD.getExcursiones()) {
-            Date fechaExcursion = excursion.getFecha();
-            if (fechaExcursion.after(fechaF) && fechaExcursion.before(fechaI)) {
-                // La excursión está dentro del rango de fechas, así que la mostramos usando su método toString
-                System.out.println(excursion);
-
-                // Indicamos que se encontró al menos una excursión dentro del rango
-            }
-        }
+    public static void mostrarExcursionFecha(Datos BBDD) {
 
     }
 }
