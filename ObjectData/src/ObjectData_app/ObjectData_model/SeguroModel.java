@@ -41,5 +41,7 @@ public class SeguroModel {
                 ", precio=" + precio +
                 '}';
     }
+
+    //Metodos propios
 }
 

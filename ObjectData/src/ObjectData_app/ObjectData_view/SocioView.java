@@ -2,14 +2,11 @@ package ObjectData_app.ObjectData_view;
 
 import java.util.Scanner;
 
-import ObjectData_app.ObjectData_controller.SocioController;
-import ObjectData_app.ObjectData_model.SeguroModel;
-import ObjectData_app.ObjectData_model.SeguroModel.TipoSeguro;
-
 public class SocioView {
     // Teclado, colores de texto y limpieza de consola.
     static Scanner teclado = new Scanner(System.in);
     static String h1 = "\033[33m";
+    static String h2 = "\033[32m";
     static String p = "\u001B[0m";
     static String p2 = "\033[36m";
     static String error = "\033[31m";
@@ -17,10 +14,12 @@ public class SocioView {
 
     // Propiedades de clase
     public String[] formCrearSocioEstandarView() {
-        System.out.println(limpiezaConsola + "  - Formulario Añadir Socio Estándar");
-        String nombre = "pedro";
-        String dni = "74345882M";
-        return new String[] { nombre, dni };
+        System.out.println(limpiezaConsola + h1 + "--- Formulario Añadir Socio Estándar ---" + p);
+        System.out.print(p2 + "- Nombre: " + p);
+        String nombre = teclado.nextLine();
+        System.out.print(p2 + "- DNI: " + p);
+        String DNI = teclado.nextLine();
+        return new String[] { nombre, DNI };
     }
 
     public void formModificarTipoSeguroView() {
@@ -47,17 +46,21 @@ public class SocioView {
         System.out.println(limpiezaConsola + "  - Formulario para Mostrar Factura mensual por socios");
     }
 
-    public SeguroModel seleccionarSeguroView() {
-        System.out.println("Se Elige Seguro");
-        TipoSeguro tipo = TipoSeguro.BASICO;
-        System.out.println("Se Elige Precio");
-        double precio = 34.44;
-        return new SeguroModel(tipo, precio);
+    public String[] seleccionarSeguroView() {
+        System.out.println(h2 + "-- Tipos de seguros --" + p);
+        System.out.println("    1. Basico");
+        System.out.println("    2. Completo");
+        System.out.print(p2 + "- Elige el tipo de seguro: " + p);
+        String tipo = teclado.nextLine();
+        System.out.print(p2 + "- Ingrese el precio de inscripción de la excursión (Ejem: 25.75): " + p);
+        String precio = teclado.nextLine();
+        return new String[] {tipo, precio};
     }
 
-    // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al
-    // guardar, Guardado Correcto, etc"
-    public void respuestaController(String respuesta) {
-        System.out.println(respuesta);
+    // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al guardar, Guardado Correcto, los objetos o lo que sea..., es decir los datos almacenados entre otros mensajes."
+    public void respuestaControllerView(String respuesta) {
+        System.out.println(limpiezaConsola + respuesta);
+        System.out.println("\nPulsa un tecla para continuar...");
+        teclado.nextLine();
     }
 }

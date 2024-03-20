@@ -3,11 +3,10 @@ package ObjectData_app.ObjectData_controller;
 import ObjectData_app.ObjectData_model.SocioEstandarModel;
 
 import java.util.Random;
-import java.util.UUID;
 
 import ObjectData_app.ObjectData_model.Datos;
 import ObjectData_app.ObjectData_model.SeguroModel;
-
+import ObjectData_app.ObjectData_model.SeguroModel.TipoSeguro;
 //Se añade la vista socio
 import ObjectData_app.ObjectData_view.SocioView;
 
@@ -21,7 +20,7 @@ public class SocioController {
         for (int i = 0; i < 10; i++) {
             id = id * 10 + rand.nextInt(9) + 1;
         }
-        if(id < 0){
+        if (id < 0) {
             return id * -1;
         }
         return id;
@@ -29,21 +28,51 @@ public class SocioController {
 
     // Metodo para añadir un socio estandar
     public static void crearSocioEstandar(Datos BBDD) {
-        String[] retorno = View.formCrearSocioEstandarView(); //Se llama a la vista para pedir el nombre y el DNI del usuario
-        String nombre = retorno[0]; //El primer parametro del array sera el nombre
-        String NIF = retorno[1]; //El segundo parametro del array es el DNI
-
-        //Se pide el seguro mediante la vista
-        SeguroModel seguro = View.seleccionarSeguroView();
-
+        //Se llama a la vista para pedir el nombre y el DNI del usuario
+        String[] retorno = View.formCrearSocioEstandarView();
+        String nombre = retorno[0]; // El primer parametro del array sera el nombre
+        String NIF = retorno[1]; // El segundo parametro del array es el DNI
         // Método para generar un número de socio aleatorio
-        int numeroSocio = generarID(); //Número de socio
-
-        // Método para crear un socio con un número de socio generado dinámicamente
-        SocioEstandarModel socio = new SocioEstandarModel(numeroSocio, nombre, NIF, seguro);
-
-        // Suponiendo que existe una instancia de alguna clase que gestione una colección de socios
-        socio.crearSocioEstandar(BBDD, socio);
+        int numeroSocio = generarID(); // Número de socio
+        //Mandamos el numero de socio a la pantalla:
+        View.respuestaControllerView("   - Numero de socio generado: " + numeroSocio);
+        // Tratamiento del seguro
+        String[] retornoSeguro;
+        TipoSeguro tipoSeguro = null;
+        Double precioSeguro = null;
+        boolean comprobarTipoSeguro = false;
+        boolean comprobarPrecioSeguro = false;
+        //Excepciones de tipo y precio
+        do {
+            // Se piden los datos del seguro mediante la vista seleccionarSeguroView
+            retornoSeguro = View.seleccionarSeguroView();
+            // Se hace el tratamiento de los datos retornados desde la vista.
+            if (retornoSeguro[0].equals("1")) {
+                tipoSeguro = TipoSeguro.BASICO;
+                comprobarTipoSeguro = true;
+            } else if (retornoSeguro[0].equals("2")) {
+                tipoSeguro = TipoSeguro.COMPLETO;
+                comprobarTipoSeguro = true;
+            } else {
+                View.respuestaControllerView("No se ha podido comprobar el tipo de seguro.");
+                continue;
+            }
+            try {
+                precioSeguro = Double.parseDouble(retornoSeguro[1]);
+                comprobarPrecioSeguro = true;
+            } catch (NumberFormatException error) {
+                View.respuestaControllerView("El precio del seguro no es válido. Por favor, ingrese un valor numérico. Error: " + error);
+                continue;
+            }
+        } while (!comprobarTipoSeguro || !comprobarPrecioSeguro);
+        // Creamos el objeto de tipo llamado seguroModel
+        SeguroModel seguroModel = new SeguroModel(tipoSeguro, precioSeguro);
+        // Creamos un objeto de tipo llamado socioModel con los datos correctos
+        SocioEstandarModel socioModel = new SocioEstandarModel(numeroSocio, nombre, NIF, seguroModel);
+        // Enviamos la información al modelo para que añada el socio a la BBDD
+        String respuesta = socioModel.crearSocioEstandar(BBDD, socioModel);
+        // Una vez que el modelo responde confirmando la acción, enviamos la respuesta recibida por parte modelo al controlador hacia la vista.
+        View.respuestaControllerView(respuesta);
     }
 
     public static void modificarSeguroSocioEstandar(Datos BBDD) {

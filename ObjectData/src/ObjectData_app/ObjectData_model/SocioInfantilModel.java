@@ -2,6 +2,7 @@ package ObjectData_app.ObjectData_model;
 
 public class SocioInfantilModel extends SocioModel {
     private int numeroSocioPadreMadre;
+
     // Constructor
     public SocioInfantilModel(int numeroSocio, String nombre, int numeroSocioPadreMadre) {
         super(numeroSocio, nombre);
@@ -9,8 +10,13 @@ public class SocioInfantilModel extends SocioModel {
     }
 
     // Getter y Setter
-    public int getNumeroSocioPadreMadre() {return numeroSocioPadreMadre;}
-    public void setNumeroSocioPadreMadre(int numeroSocioPadreMadre) {this.numeroSocioPadreMadre = numeroSocioPadreMadre;}
+    public int getNumeroSocioPadreMadre() {
+        return numeroSocioPadreMadre;
+    }
+
+    public void setNumeroSocioPadreMadre(int numeroSocioPadreMadre) {
+        this.numeroSocioPadreMadre = numeroSocioPadreMadre;
+    }
 
     // Método toString
     @Override
@@ -20,5 +26,16 @@ public class SocioInfantilModel extends SocioModel {
                 ", nombre='" + getNombre() + '\'' +
                 ", numeroSocioPadreMadre=" + numeroSocioPadreMadre +
                 '}';
+    }
+
+    // Metodos propios
+    // Crear socio infantil
+    public String crearSocioEstandar(Datos BBDD, SocioInfantilModel socio) {
+        try {
+            BBDD.socioInfantil.add(socio);
+            return "Se guardo correctamente!";
+        } catch (Exception error) {
+            return "Fallo al guardar: " + error;
+        }
     }
 }

@@ -30,6 +30,7 @@ public class ExcursionModel {
             return "Fallo al guardar: " + error;
         }
     }
+
     // Pendiente de implementar el filtro de fechas
     public static void mostrarExcursiones(Datos BBDD) {
         try {
@@ -37,7 +38,6 @@ public class ExcursionModel {
                 System.out.println("¡No hay excursiones para mostrar!");
                 return;
             }
-    
             for (ExcursionModel excursion : BBDD.excursion) {
                 System.out.println(excursion);
             }
@@ -45,4 +45,5 @@ public class ExcursionModel {
             System.out.println("Fallo al mostrar las excursiones: " + error.getMessage());
         }
     }
+    
 }

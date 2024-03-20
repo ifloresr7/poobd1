@@ -36,4 +36,15 @@ public class SocioFederadoModel extends SocioModel {
                 ", federacion=" + federacion +
                 '}';
     }
+
+    //Metodos propios
+    //Crear socio Federado
+    public String crearSocioEstandar(Datos BBDD, SocioFederadoModel socio) {
+        try {
+            BBDD.socioFederado.add(socio);
+            return "Se guardo correctamente!";
+        } catch (Exception error) {
+            return "Fallo al guardar: " + error;
+        }
+    }
 }
