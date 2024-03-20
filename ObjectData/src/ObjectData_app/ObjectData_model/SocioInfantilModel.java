@@ -1,4 +1,5 @@
 package ObjectData_app.ObjectData_model;
+
 public class SocioInfantilModel extends SocioModel {
     private int numeroSocioPadreMadre;
     // Constructor
@@ -7,15 +8,9 @@ public class SocioInfantilModel extends SocioModel {
         this.numeroSocioPadreMadre = numeroSocioPadreMadre;
     }
 
-    // Getter
-    public int getNumeroSocioPadreMadre() {
-        return numeroSocioPadreMadre;
-    }
-
-    // Setter
-    public void setNumeroSocioPadreMadre(int numeroSocioPadreMadre) {
-        this.numeroSocioPadreMadre = numeroSocioPadreMadre;
-    }
+    // Getter y Setter
+    public int getNumeroSocioPadreMadre() {return numeroSocioPadreMadre;}
+    public void setNumeroSocioPadreMadre(int numeroSocioPadreMadre) {this.numeroSocioPadreMadre = numeroSocioPadreMadre;}
 
     // Método toString
     @Override

@@ -1,5 +1,6 @@
 package ObjectData_app.ObjectData_model;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -20,8 +21,13 @@ public class ExcursionModel {
         this.precioInscripcion = precioInscripcion;
     }
 
-    public void crearExcursionModel(Datos BBDD, ExcursionModel excursion) {
-        BBDD.excursion.add(excursion);
+    public String crearExcursionModel(Datos BBDD, ExcursionModel excursion) {
+        try {
+            BBDD.excursion.add(excursion);
+            return "Se guardo correctamente!";
+        } catch (Exception error) {
+            return "Fallo al guardar: " + error;
+        }
     }
 
     public static void añadirExcursion(Datos datos, ExcursionModel nuevaExcursion) {

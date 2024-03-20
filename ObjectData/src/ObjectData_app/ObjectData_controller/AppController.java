@@ -2,7 +2,6 @@ package ObjectData_app.ObjectData_controller;
 //Se añade la vista principal
 import ObjectData_app.ObjectData_view.AppMenuView;
 import ObjectData_app.ObjectData_model.Datos;
-import ObjectData_app.ObjectData_view.ExcursionesView;
 
 public class AppController {
     static AppMenuView menuView = new AppMenuView();
