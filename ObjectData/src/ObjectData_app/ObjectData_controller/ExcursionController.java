@@ -10,7 +10,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-
 public class ExcursionController{
     //Se inicializa una vista de ExcursionesView
     static ExcursionesView View = new ExcursionesView();
@@ -39,10 +38,26 @@ public class ExcursionController{
         } catch (ParseException e) {
             e.printStackTrace(); // Manejar la excepción apropiadamente
         }
+        
         // Convertir la cadena del número de días a un entero
-        int num = Integer.parseInt(numDias);
+        int num = 0;
+        try {
+            num = Integer.parseInt(numDias);
+        } catch (NumberFormatException e) {
+            // En caso de que el número de días no sea un entero válido
+            System.out.println("Error: El número de días debe ser un entero válido.");
+            e.printStackTrace(); // Opcional: Mostrar el rastro de la excepción
+        }
+
         // Convertir la cadena del precio a un número de punto flotante (double)
-        double coste = Double.parseDouble(precio);
+        double coste = 0;
+        try {
+            coste = Double.parseDouble(precio);
+        } catch (NumberFormatException e) {
+            // En caso de que el precio no sea un número de punto flotante válido
+            System.out.println("Error: El precio debe ser un número válido.");
+            e.printStackTrace(); // Opcional: Mostrar el rastro de la excepción
+        }
 
         //Se genera el conjunto de BBDD en la variable excursion
         ExcursionModel excursion = new ExcursionModel(numeroExcursion, descripcion, date, num, coste);
@@ -53,6 +68,26 @@ public class ExcursionController{
     }
 
     public static void mostrarExcursionFecha(Datos BBDD) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String[] retorno = View.menuMostarExcursionFechaView();
 
+        try {
+            if (retorno[0].isEmpty() || retorno[1].isEmpty()) {
+                throw new IllegalArgumentException("Error: Debe proporcionar ambas fechas.");
+            }
+
+            Date fechaInicio = sdf.parse(retorno[0]);
+            Date fechaFin = sdf.parse(retorno[1]);
+
+            ExcursionModel.mostrarExcursiones(BBDD, fechaInicio, fechaFin);
+
+        } catch (ParseException | IllegalArgumentException e) {
+            // En caso de error de formato de fecha o falta de fechas
+            if (e instanceof ParseException) {
+                System.out.println("Error: Formato de fecha incorrecto. Debe ser yyyy-MM-dd");
+            } else {
+                System.out.println("Error: " + e.getMessage());
+            }
+        }
     }
 }
