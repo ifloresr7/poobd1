@@ -1,5 +1,9 @@
 package ObjectData_app.ObjectData_controller;
 import ObjectData_app.ObjectData_model.SocioEstandarModel;
+
+import java.util.Random;
+import java.util.UUID;
+
 import ObjectData_app.ObjectData_model.Datos;
 import ObjectData_app.ObjectData_model.SeguroModel;
 
@@ -17,6 +21,29 @@ public class SocioController{
 
         //Se debe implementar la logia para generar el numero de socio de forma dinamica.
         int numeroSocio = 3; //Número de socio
+        // Método para generar un número de socio aleatorio
+        public class SocioController {
+        
+            // Método para generar un número de socio aleatorio
+            public static int generarNumeroSocio() {
+                Random random = new Random();
+                return random.nextInt(1000) + 1; // Genera un número aleatorio entre 1 y 1000
+            }
+        
+            // Método para crear un socio con un número de socio generado dinámicamente
+            public static SocioModel crearSocio(String nombre) {
+                int numeroSocio = generarNumeroSocio();
+                return new SocioModel(numeroSocio, nombre);
+            }
+        
+            public static void main(String[] args) {
+                SocioModel socio = crearSocio("Juan");
+                System.out.println("Número de Socio generado dinámicamente: " + socio.getNumeroSocio());
+            }
+        }
+        
+
+
 
         //Se debera crear una vista para poder añadir un seguro.
         SeguroModel seguro = new SeguroModel(null, numeroSocio);
