@@ -21,48 +21,28 @@ public class ExcursionModel {
         this.precioInscripcion = precioInscripcion;
     }
 
+    // Métodos
     public String crearExcursionModel(Datos BBDD, ExcursionModel excursion) {
         try {
             BBDD.excursion.add(excursion);
-            return "Se guardo correctamente!";
+            return "¡Se ha guardado correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
         }
     }
-
-    public static void añadirExcursion(Datos datos, ExcursionModel nuevaExcursion) {
-        datos.getExcursiones().add(nuevaExcursion);
-        System.out.println("Excursión añadida correctamente.");
-    }
-
-    public static void modificarExcursion(Datos datos, int indice, ExcursionModel excursionModificada) {
-        ArrayList<ExcursionModel> excursiones = datos.getExcursiones();
-        if (indice >= 0 && indice < excursiones.size()) {
-            excursiones.set(indice, excursionModificada);
-            System.out.println("Excursión modificada correctamente.");
-        } else {
-            System.out.println("El índice proporcionado está fuera de rango.");
-        }
-    }
-
-    public static void mostrarExcursiones(Datos datos) {
-        ArrayList<ExcursionModel> excursiones = datos.getExcursiones();
-        if (excursiones.isEmpty()) {
-            System.out.println("No hay excursiones para mostrar.");
-        } else {
-            for (ExcursionModel excursion : excursiones) {
+    // Pendiente de implementar el filtro de fechas
+    public static void mostrarExcursiones(Datos BBDD) {
+        try {
+            if (BBDD.excursion.isEmpty()) {
+                System.out.println("¡No hay excursiones para mostrar!");
+                return;
+            }
+    
+            for (ExcursionModel excursion : BBDD.excursion) {
                 System.out.println(excursion);
             }
-        }
-    }
-
-    public static void eliminarExcursion(Datos datos, int indice) {
-        ArrayList<ExcursionModel> excursiones = datos.getExcursiones();
-        if (indice >= 0 && indice < excursiones.size()) {
-            excursiones.remove(indice);
-            System.out.println("Excursión eliminada correctamente.");
-        } else {
-            System.out.println("El índice proporcionado está fuera de rango.");
+        } catch (Exception error) {
+            System.out.println("Fallo al mostrar las excursiones: " + error.getMessage());
         }
     }
 }
