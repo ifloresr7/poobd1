@@ -10,15 +10,31 @@ public class SocioEstandarModel extends SocioModel {
         this.NIF = NIF;
         this.seguro = seguro;
     }
-    
-    //Getters y Setters
-    public String getNIF() {return NIF;}
-    public void setNIF(String NIF) {this.NIF = NIF;}
-    public SeguroModel getSeguro() {return seguro;}
-    public void setSeguro(SeguroModel seguro) {this.seguro = seguro;}
+
+    // Getters y Setters
+    public String getNIF() {
+        return NIF;
+    }
+
+    public void setNIF(String NIF) {
+        this.NIF = NIF;
+    }
+
+    public SeguroModel getSeguro() {
+        return seguro;
+    }
+
+    public void setSeguro(SeguroModel seguro) {
+        this.seguro = seguro;
+    }
 
     // Método para agregar un socio estandar a la lista en Datos
-    public void addSocioEstandar(Datos BBDD, SocioEstandarModel socioEstandar) {
-        BBDD.socioEstandar.add(socioEstandar);
+    public String crearSocioEstandar(Datos BBDD, SocioEstandarModel socioEstandar) {
+        try {
+            BBDD.socioEstandar.add(socioEstandar);
+            return "Se guardo correctamente!";
+        } catch (Exception error) {
+            return "Fallo al guardar: " + error;
+        }
     }
 }
