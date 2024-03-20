@@ -13,6 +13,6 @@ public class SocioEstandarModel extends SocioModel {
 
     // Método para agregar un socio estandar a la lista en Datos
     public void addSocioEstandar(SocioEstandarModel socioEstandar) {
-
+        
     }
 }

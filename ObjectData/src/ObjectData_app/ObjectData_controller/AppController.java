@@ -6,22 +6,21 @@ import ObjectData_app.ObjectData_view.ExcursionesView;
 
 public class AppController {
     static AppMenuView menuView = new AppMenuView();
-    static Datos datos = new Datos();
     static boolean cerrarApp = false;
     // Inicio del menu de la APP.
-    public static void inicio() {
+    public static void inicio(Datos BBDD) {
         do { 
             menuView.menuInicioView();
             int opcion = menuView.getOpcionView(4);
             switch (opcion) {
                 case 1:
-                    gestionExcursiones();
+                    gestionExcursiones(BBDD);
                     break;
                 case 2:
-                    gestionSocios();
+                    gestionSocios(BBDD);
                     break;
                 case 3:
-                    gestionInscripciones();
+                    gestionInscripciones(BBDD);
                     break;
                 case 4:
                     cerrarApp = true;
@@ -30,70 +29,68 @@ public class AppController {
         } while (!cerrarApp);
     }
     // Metodos de control para Excursiones.
-    public static void gestionExcursiones() {
+    public static void gestionExcursiones(Datos BBDD) {
         menuView.menuGestionExcursionesView();
         int opcion = menuView.getOpcionView(3);
         switch (opcion) {
             case 1:
-                ExcursionesView excursion = new ExcursionesView();
-                excursion.menuCrearExcursionView();
+                ExcursionController.crearExcursion(BBDD);
                 break;
             case 2:
-                ExcursionesView excursion2 = new ExcursionesView();
-                excursion2.menuMostarExcursionFechaView();
+                ExcursionController.mostrarExcursionFecha(BBDD);
                 break;
             case 3:
-                inicio();
+                inicio(BBDD);
                 break;
         }
     }
     // Metodos de control para Socios.
-    public static void gestionSocios() {
+    public static void gestionSocios(Datos BBDD) {
         menuView.menuGestionSociosView();
         int opcion = menuView.getOpcionView(8);
         switch (opcion) {
             case 1:
-                SocioController.crearSocioEstandar();
+                SocioController.crearSocioEstandar(BBDD);
                 break;
             case 2:
-                SocioController.modificarSeguroSocioEstandar();
+                SocioController.modificarSeguroSocioEstandar(BBDD);
                 break;
             case 3:
-                SocioController.crearSocioFederado();
+                SocioController.crearSocioFederado(BBDD);
                 break;
             case 4:
-                SocioController.crearSocioInfantil();
+                SocioController.crearSocioInfantil(BBDD);
                 break;
             case 5:
-                SocioController.eliminarSocio();
+                SocioController.eliminarSocio(BBDD);
                 break;
             case 6:
-                SocioController.mostrarSocio();
+                SocioController.mostrarSocio(BBDD);
                 break;
             case 7:
-                SocioController.facturaMensualSocio();
+                SocioController.facturaMensualSocio(BBDD);
                 break;
             case 8:
-                inicio();
+                inicio(BBDD);
                 break;
         }
     }
     // Metodos de control para Inscripciones.
-    public static void gestionInscripciones() {
+    public static void gestionInscripciones(Datos BBDD) {
         menuView.menuGestionInscripcionesView();
         int opcion = menuView.getOpcionView(4);
         switch (opcion) {
             case 1:
-                InscripcionController.crearInscripcion();
+                InscripcionController.crearInscripcion(BBDD);
                 break;
             case 2:
-                InscripcionController.eliminarInscripcion();
+                InscripcionController.eliminarInscripcion(BBDD);
                 break;
             case 3:
-                InscripcionController.mostrarInscripcion();
+                InscripcionController.mostrarInscripcion(BBDD);
                 break;
             case 4:
-                inicio();
+                inicio(BBDD);
                 break;
         }
     }

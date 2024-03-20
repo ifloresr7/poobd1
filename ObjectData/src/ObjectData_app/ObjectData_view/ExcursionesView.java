@@ -14,8 +14,7 @@ public class ExcursionesView {
     static String error = "\033[31m";
     static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
     //Metodos de clase
-    public void menuCrearExcursionView() {
-
+    public String[] menuCrearExcursionView() {
         System.out.println(limpiezaConsola + "  - Formulario para crear excursiones");
         System.out.println("Ingrese el nombre de la excursión:");
         String descripcion = teclado.nextLine();
@@ -25,8 +24,7 @@ public class ExcursionesView {
         String numDias = teclado.nextLine();
         System.out.println("Ingrese el precio de inscripción de la excursión:");
         String precio = teclado.nextLine();
-        ExcursionController.addExcursion(descripcion,fecha,numDias,precio);
-        System.out.println("Excursión registrada con éxito.");
+        return new String[] {descripcion,fecha,numDias,precio};
     }
     public void menuMostarExcursionFechaView() {
         System.out.println(limpiezaConsola + "  - Formulario para mostrar excursiones segun fecha");
