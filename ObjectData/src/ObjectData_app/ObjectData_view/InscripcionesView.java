@@ -9,8 +9,13 @@ public class InscripcionesView {
     static String error = "\033[31m";
     static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
     //Metodos de clase
-    public void formCrearInscripcionView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Crear inscripcion");
+    public String[] formCrearInscripcionView() {
+        System.out.println(limpiezaConsola + h1 + "  - Formulario para Crear inscripcion" + p);
+        System.out.print(p2 + "Introduzca el nombre del socio: " + p);
+        String nombre = teclado.nextLine();
+        System.out.print(p2 + "Introduzca el identificador de la excursión:" + p);
+        String id = teclado.nextLine();
+        return new String[] { nombre, id };
     }
     public void formEliminarInscripcionView() {
         System.out.println(limpiezaConsola + "  - Formulario para Eliminar inscripcion");
