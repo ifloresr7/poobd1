@@ -1,7 +1,5 @@
 package ObjectData_app.ObjectData_model;
 
-import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Date;
 
 public class ExcursionModel {

@@ -1,10 +1,7 @@
 package ObjectData_app.ObjectData_view;
-import ObjectData_app.ObjectData_controller.ExcursionController;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Scanner;
+
 public class ExcursionesView {
     //Teclado, colores de texto y limpieza de consola.
     static Scanner teclado = new Scanner(System.in);
