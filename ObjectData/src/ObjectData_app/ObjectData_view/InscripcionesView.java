@@ -13,21 +13,46 @@ public class InscripcionesView {
 
     // Metodos de clase
     public String[] formCrearInscripcionView() {
-        System.out.println(limpiezaConsola + h1 + "  - Formulario para Crear inscripcion" + p);
-        System.out.print(p2 + "Introduzca el nombre del socio: " + p);
-        String nombre = teclado.nextLine();
-        System.out.print(p2 + "Introduzca el identificador de la excursión:" + p);
-        String id = teclado.nextLine();
-        return new String[] { nombre, id };
+        System.out.println(limpiezaConsola + h1 + "  - Formulario para Crear Inscripción" + p);
+        System.out.print(p2 + "Introduzca el número de inscripción: " + p);
+        String numInscripcion = teclado.nextLine();
+        System.out.print(p2 + "Introduzca el número de socio: " + p);
+        String numSocio = teclado.nextLine();
+        System.out.print(p2 + "Introduzca el identificador de la excursión: " + p);
+        String idExcursion = teclado.nextLine();
+        return new String[] { numInscripcion, numSocio, idExcursion };
     }
 
-    public void formEliminarInscripcionView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Eliminar inscripcion");
+    
+    public String formEliminarInscripcionView() {
+        System.out.println(limpiezaConsola + h1 + "  - Formulario para Eliminar Inscripción" + p);
+        System.out.print(p2 + "Introduzca el número de inscripción a eliminar: " + p);
+        String numInscripcion = teclado.nextLine();
+        return numInscripcion;
     }
 
-    public void formMostrarInscripcionView() {
-        System.out.println(limpiezaConsola
-                + "  - Formulario para Mostrar inscripciones con las opciones de filtrar por socio y/o fechas");
+    public String[] formMostrarInscripcionView() {
+        System.out.println(limpiezaConsola + h1 + "  - Formulario para Mostrar Inscripciones" + p);
+        System.out.println(p2 + "Opciones de filtrado:");
+        System.out.println("1. Filtrar por socio");
+        System.out.println("2. Filtrar por fechas");
+        System.out.print("Seleccione una opción (1 o 2): ");
+        String opcion = teclado.nextLine();
+
+        if (opcion.equals("1")) {
+            System.out.print(p2 + "Introduzca el número de socio para filtrar: " + p);
+            String numSocio = teclado.nextLine();
+            return new String[] { numSocio };
+        } else if (opcion.equals("2")) {
+            System.out.print(p2 + "Introduzca la fecha de inicio para el filtro (dd/mm/aaaa): " + p);
+            String fechaInicio = teclado.nextLine();
+            System.out.print(p2 + "Introduzca la fecha de fin para el filtro (dd/mm/aaaa): " + p);
+            String fechaFin = teclado.nextLine();
+            return new String[] { fechaInicio, fechaFin };
+        } else {
+            System.out.println(error + "Opción no válida." + p);
+            return new String[] {};
+        }
     }
 
     // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al
