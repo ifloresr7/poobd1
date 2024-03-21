@@ -39,7 +39,7 @@ public class SocioFederadoModel extends SocioModel {
 
     //Metodos propios
     //Crear socio Federado
-    public String crearSocioEstandar(Datos BBDD, SocioFederadoModel socio) {
+    public String crearSocioFederado(Datos BBDD, SocioFederadoModel socio) {
         try {
             BBDD.socioFederado.add(socio);
             return "Se guardo correctamente!";
