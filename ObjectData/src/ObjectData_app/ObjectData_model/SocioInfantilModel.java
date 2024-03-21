@@ -30,7 +30,7 @@ public class SocioInfantilModel extends SocioModel {
 
     // Metodos propios
     // Crear socio infantil
-    public String crearSocioEstandar(Datos BBDD, SocioInfantilModel socio) {
+    public String crearSocioInfantil(Datos BBDD, SocioInfantilModel socio) {
         try {
             BBDD.socioInfantil.add(socio);
             return "Se guardo correctamente!";

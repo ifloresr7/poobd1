@@ -33,13 +33,12 @@ public class SocioView {
         return new String[]{};
     }
     
-    public String selectorFederaciones (String listado){
+    public String[] selectorFederacionesView(String listado){
         System.out.println(limpiezaConsola + h1 + "  - Selección de Federación" + p);
         System.out.println(listado);
         System.out.print(p2 + "Seleccione la federación (Ingrese el código alfanumérico): " + p);
         String federacionSeleccionada = teclado.nextLine();
-        return federacionSeleccionada;
-    }
+        return new String[] {federacionSeleccionada};
     }
 
     public String[] formCrearSocioInfantilView() {

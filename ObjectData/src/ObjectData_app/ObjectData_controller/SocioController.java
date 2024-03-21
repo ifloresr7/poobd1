@@ -39,7 +39,7 @@ public class SocioController {
         // Método para generar un número de socio aleatorio
         int numeroSocio = generarID(); // Número de socio
         // Mandamos el numero de socio a la pantalla:
-        View.respuestaControllerView("   - Numero de socio generado: " + numeroSocio);
+        View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
         // Pido el seguro
         SeguroModel seguroModel = obtenerSeguro();
         // Creamos un objeto de tipo llamado socioModel con los datos correctos
@@ -83,35 +83,72 @@ public class SocioController {
         // Método para generar un número de socio aleatorio
         int numeroSocio = generarID(); // Número de socio
         //Mandamos el numero de socio a la pantalla:
-        View.respuestaControllerView(" - Numero de socio generado: " + numeroSocio);
-        // Creamos un objeto de tipo llamado socioModel con los datos correctos
-        String listado = FederacionModel.obtenerListadoFederacion(BBDD);
-
-        String[] retorno = View.selectorFederacionView(listado);
+        View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
+        // Pido el listado de federaciones y el numero de federaciones disponibles;
+        String[] listaFederaciones = FederacionModel.obtenerListadoFederacion(BBDD);
+        String listado = listaFederaciones[0];
+        int opcionesDiponibles = Integer.parseInt(listaFederaciones[1]);
+        // Se genera el control de excepcion para opcion seleccionada no valida.
         int seleccion = 0;
-        try{
-            seleccion = Integer.parseInt(retorno[0]);
-        }catch (Exception e){
-            
-        }
-        FederacionModel federacion = federacion.;
-        //int numeroSocio, String nombre, String NIF, FederacionModel federacion)
-        SocioFederadoModel socioModel = new SocioFederadoModel(numeroSocio, nombre, NIF, federacion);
+        boolean opcionOk = false;
+        do{
+            String[] opcion = View.selectorFederacionesView(listado);
+            try{
+                seleccion = Integer.parseInt(opcion[0]);
+            }catch (Exception e){
+                View.respuestaControllerView("Opcion no valida, debes introducir un valor numerico.");
+                continue;
+            }
+            if(seleccion <= 0 || seleccion >= opcionesDiponibles){
+                View.respuestaControllerView("Opcion no valida, selecciona una opcion disponible.");
+                continue;
+            }else{
+                opcionOk = true;
+                continue;
+            }
+        }while(!opcionOk);
+        //Con este metodo del modelo obtengo el objeto seleccionado por el usuario
+        FederacionModel federacion = FederacionModel.obtenerFederacion(BBDD, seleccion);
+        //Creamos el objeto con los datos recolectados.
+        SocioFederadoModel socio = new SocioFederadoModel(numeroSocio, nombre, NIF, federacion);
         // Enviamos la información al modelo para que añada el socio a la BBDD
-        String respuesta = socioModel.crearSocioFederado(BBDD, socioModel);
+        String respuesta = socio.crearSocioFederado(BBDD, socio);
         // Una vez que el modelo responde confirmando la acción, enviamos la respuesta recibida por parte modelo al controlador hacia la vista.
         View.respuestaControllerView(respuesta);
     }
 
     public static void crearSocioInfantil(Datos BBDD) {
-        // int numeroSocioPadreOMadre = generarID();
-        // View.respuestaControllerView(" - Numero de socio generado: " +
-        // numeroSocioPadreOMadre);
-        // SocioInfantilModel socioModel = new
-        // SocioInfantilModel(numeroSocioPadreOMadre, "Nombre del Socio Infantil", true,
-        // 0);
-        // String respuesta = socioModel.crearSocioInfantil(BBDD, socioModel);
-        // System.out.println("Socio infantil creado con éxito.");
+        //Se llama a la vista para pedir el nombre
+        String[] retorno = View.formCrearSocioInfantilView();
+        String nombre = retorno[0];
+        // Método para generar un número de socio aleatorio
+        int numeroSocio = generarID(); // Número de socio
+        //Mandamos el numero de socio a la pantalla:
+        View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
+        // Se genera el control de excepcion para opcion seleccionada no valida.
+        boolean codigoOk = false;
+        int numeroParental = 0;
+        do{
+            String[] retornoNun = View.numeroSocioParentalView();
+            try{
+                numeroParental = Integer.parseInt(retornoNun[0]);
+            }catch (Exception e){
+                View.respuestaControllerView("Opcion no valida, debes introducir un valor numerico.");
+                continue;
+            }
+            if(!SocioModel.comprobarSocioByCodigo(BBDD, numeroParental)){
+                View.respuestaControllerView("No se a encontrado un socio con ese codigo.");
+                continue;
+            }else{
+                codigoOk = true;
+            }
+        }while(!codigoOk);
+        //Creamos el objeto con los datos recolectados.
+        SocioInfantilModel socio = new SocioInfantilModel(numeroSocio, nombre, numeroParental);
+        // Enviamos la información al modelo para que añada el socio a la BBDD
+        String respuesta = socio.crearSocioInfantil(BBDD, socio);
+        // Una vez que el modelo responde confirmando la acción, enviamos la respuesta recibida por parte modelo al controlador hacia la vista.
+        View.respuestaControllerView(respuesta);
     }
 
     public static void eliminarSocio(Datos BBDD) {
