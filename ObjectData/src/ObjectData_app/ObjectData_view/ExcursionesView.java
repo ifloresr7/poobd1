@@ -1,6 +1,5 @@
 package ObjectData_app.ObjectData_view;
 
-import java.text.SimpleDateFormat;
 import java.util.Scanner;
 
 public class ExcursionesView {
@@ -11,6 +10,7 @@ public class ExcursionesView {
     static String p2 = "\033[36m";
     static String error = "\033[31m";
     static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
+
     //Metodos de clase
     public String[] menuCrearExcursionView() {
         System.out.println(limpiezaConsola + "  - Formulario para crear excursiones");
@@ -25,15 +25,16 @@ public class ExcursionesView {
         return new String[] {descripcion,fecha,numDias,precio};
     }
 
-   public String[] menuMostarExcursionFechaView() {
+    // Este metodo muestra excursiones por fecha
+    public String[] menuMostarExcursionFechaView() {
         System.out.println(limpiezaConsola + "  - Formulario para mostrar excursiones segun fecha");
         System.out.println("Ingrese la fecha Inicio en formato yyyy-MM-dd: ");
         String inputDate = teclado.nextLine();
         System.out.println("Ingrese la fecha Fin en formato yyyy-MM-dd: ");
         String inputDate2 = teclado.nextLine();
         return new String [] {inputDate,inputDate2};
-
     }
+    
     // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al guardar, Guardado Correcto, los objetos o lo que sea..., es decir los datos almacenados entre otros mensajes."
     public void respuestaControllerView(String respuesta) {
         System.out.println(respuesta);

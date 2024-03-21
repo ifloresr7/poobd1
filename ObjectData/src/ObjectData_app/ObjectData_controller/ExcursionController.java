@@ -77,8 +77,9 @@ public class ExcursionController{
             Date fechaInicio = sdf.parse(retorno[0]);
             Date fechaFin = sdf.parse(retorno[1]);
 
-            ExcursionModel.mostrarExcursiones(BBDD, fechaInicio, fechaFin);
-
+            String respuesta = ExcursionModel.mostrarExcursiones(BBDD, fechaInicio, fechaFin);
+            View.respuestaControllerView(respuesta);
+            
         } catch (ParseException | IllegalArgumentException e) {
             // En caso de error de formato de fecha o falta de fechas
             if (e instanceof ParseException) {
