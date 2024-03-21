@@ -60,4 +60,27 @@ public abstract class SocioModel {
         // Si no se encuentra en ninguna lista, devolver false
         return false;
     }
+       public static boolean buscarSocioNombre(Datos BBDD, String nombre) {
+
+        // Comprobar en la lista de socios estándar
+        for (SocioEstandarModel socio : BBDD.socioEstandar) {
+            if (socio.getNombre().equals(nombre)) {
+                return true;
+            }
+        }
+        // Comprobar en la lista de socios federados
+        for (SocioFederadoModel socio : BBDD.socioFederado) {
+            if (socio.getNombre().equals(nombre)) {
+                return true;
+            }
+        }
+        // Comprobar en la lista de socios infantiles
+        for (SocioInfantilModel socio : BBDD.socioInfantil) {
+            if (socio.getNombre().equals(nombre)) {
+                return true;
+            }
+        }
+        // Si no se encuentra en ninguna lista, devolver false
+        return false;
+    }
 }
