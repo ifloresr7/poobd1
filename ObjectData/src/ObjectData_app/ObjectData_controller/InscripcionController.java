@@ -24,31 +24,45 @@ public class InscripcionController{
         String nombre = retorno[0]; // El primer parametro del array será el nombre
         String id = retorno[1];
         int numeroInscripcion = generarID();
-
     }
+
     public static void eliminarInscripcion(Datos BBDD) {
 
     }
+
     public static void mostrarInscripcion(Datos BBDD) {
-        String retorno =View.formMostrarInscripcionView();
         boolean chequeo = false;
         int opcion = 0;
         do{
+            String retorno = View.formMostrarInscripcionView();
             try{
-                opcion= Integer.parseInt(retorno);
-
+                opcion = Integer.parseInt(retorno);
             }catch(Exception e){
-                View.respuestaControllerView("Debes introducir un valor númerico");
+                View.respuestaControllerView("Debes introducir un valor númerico.");
                 continue;
             }
-
-            if(opcion==1){
-                
+            if(opcion == 1 || opcion == 2){
+                chequeo = true;
+            }else{
+                View.respuestaControllerView("Debes selecciona una opcion valida.");
+                continue;
             }
         } while(!chequeo);
+        switch (opcion) {
+            case 1:
+                mostrarInscripcionPorSocio();
+                break;
+            case 2:
+                mostrarInscripcionPorFecha();
+                break;
+        }
+    }
+    public static void mostrarInscripcionPorSocio(){
+        String[] retorno = View.formFiltrarPorSocio();
 
     }
-
-
+    public static void mostrarInscripcionPorFecha(){
+        String[] retorno = View.formFiltrarPorFechas();
+    }
 
 }

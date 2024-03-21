@@ -33,13 +33,13 @@ public class InscripcionesView {
 
     public String formMostrarInscripcionView() {
         System.out.println(limpiezaConsola + h1 + "  - Formulario para Mostrar Inscripciones" + p);
-        System.out.println(p2 + "Opciones de filtrado:");
-        System.out.println("1. Filtrar por socio");
-        System.out.println("2. Filtrar por fechas");
-        System.out.print("Seleccione una opción (1 o 2): ");
+        System.out.println(p2 + "Opciones de filtrado:" + p);
+        System.out.println("    - 1. Filtrar por socio");
+        System.out.println("    - 2. Filtrar por fechas");
+        System.out.print(p2 + "Seleccione una opción (1 o 2): " + p);
         String opcion = teclado.nextLine();
         return opcion;
-    }
+    } 
 
     public String[] formFiltrarPorSocio() {
         System.out.println(p2 + "Introduzca el número de socio para filtrar: " + p);
