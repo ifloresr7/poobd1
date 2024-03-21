@@ -49,6 +49,24 @@ public class AppController {
                 break;
         }
     }
+    public static void anadirSocio(Datos BBDD) {
+        menuView.añadirSocioView();
+        int opcion = menuView.getOpcionView(4);
+        switch (opcion) {
+            case 1:
+                SocioController.crearSocioEstandar(BBDD);
+                break;
+            case 2:
+                SocioController.crearSocioFederado(BBDD);
+                break;
+            case 3:
+                SocioController.crearSocioInfantil(BBDD);
+                break;
+            case 4:
+                inicio(BBDD);
+                break;
+        }
+    }
     // Metodos de control para Socios.
     public static void gestionSocios(Datos BBDD) {
         menuView.menuGestionSociosView();
@@ -80,6 +98,7 @@ public class AppController {
                 break;
         }
     }
+
     // Metodos de control para Inscripciones.
     public static void gestionInscripciones(Datos BBDD) {
         menuView.menuGestionInscripcionesView();

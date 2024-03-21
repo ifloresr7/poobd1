@@ -3,12 +3,12 @@ import java.util.Date;
 
 public class InscripcionModel{
     private int numeroInscripcion;
-    private SocioModel socio;
-    private ExcursionModel excursion;
+    private String socio;
+    private String excursion;
     private Date fechaInscripcion;
 
     // Constructor
-    public InscripcionModel(int numeroInscripcion, SocioModel socio, ExcursionModel excursion, Date fechaInscripcion) {
+    public InscripcionModel(int numeroInscripcion, String socio, String excursion, Date fechaInscripcion) {
         this.numeroInscripcion = numeroInscripcion;
         this.socio = socio;
         this.excursion = excursion;
@@ -20,11 +20,11 @@ public class InscripcionModel{
         return numeroInscripcion;
     }
 
-    public SocioModel getSocio() {
+    public String getSocio() {
         return socio;
     }
 
-    public ExcursionModel getExcursion() {
+    public String getExcursion() {
         return excursion;
     }
 
@@ -37,11 +37,11 @@ public class InscripcionModel{
         this.numeroInscripcion = numeroInscripcion;
     }
 
-    public void setSocio(SocioModel socio) {
+    public void setSocio(String socio) {
         this.socio = socio;
     }
 
-    public void setExcursion(ExcursionModel excursion) {
+    public void setExcursion(String excursion) {
         this.excursion = excursion;
     }
 
@@ -58,5 +58,13 @@ public class InscripcionModel{
                 ", excursion=" + excursion +
                 ", fechaInscripcion=" + fechaInscripcion +
                 '}';
+    }
+    public String crearInscripcion(Datos BBDD, InscripcionModel inscripcion) {
+        try {
+            BBDD.inscripcion.add(inscripcion);
+            return "Se guardo correctamente!";
+        } catch (Exception error) {
+            return "Fallo al guardar: " + error;
+        }
     }
 }

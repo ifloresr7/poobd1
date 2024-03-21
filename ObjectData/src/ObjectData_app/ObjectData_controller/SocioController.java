@@ -86,36 +86,36 @@ public class SocioController {
         View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
         // Pido el listado de federaciones y el numero de federaciones disponibles;
         String[] listaFederaciones = FederacionModel.obtenerListadoFederacion(BBDD);
-        String listado = listaFederaciones[0];
+        // String[] listado = listaFederaciones[]{};
         int opcionesDiponibles = Integer.parseInt(listaFederaciones[1]);
         // Se genera el control de excepcion para opcion seleccionada no valida.
         int seleccion = 0;
         boolean opcionOk = false;
-        do{
-            String[] opcion = View.selectorFederacionesView(listado);
-            try{
-                seleccion = Integer.parseInt(opcion[0]);
-            }catch (Exception e){
-                View.respuestaControllerView("Opcion no valida, debes introducir un valor numerico.");
-                continue;
-            }
-            if(seleccion <= 0 || seleccion >= opcionesDiponibles){
-                View.respuestaControllerView("Opcion no valida, selecciona una opcion disponible.");
-                continue;
-            }else{
-                opcionOk = true;
-                continue;
-            }
-        }while(!opcionOk);
-        //Con este metodo del modelo obtengo el objeto seleccionado por el usuario
-        FederacionModel federacion = FederacionModel.obtenerFederacion(BBDD, seleccion);
-        //Creamos el objeto con los datos recolectados.
-        SocioFederadoModel socio = new SocioFederadoModel(numeroSocio, nombre, NIF, federacion);
-        // Enviamos la información al modelo para que añada el socio a la BBDD
-        String respuesta = socio.crearSocioFederado(BBDD, socio);
-        // Una vez que el modelo responde confirmando la acción, enviamos la respuesta recibida por parte modelo al controlador hacia la vista.
-        View.respuestaControllerView(respuesta);
+        //do{
+          //  String  = View.selectorFederacionesView(listado);
+            //try{
+                //seleccion = Integer.parseInt(opcion[0]);
+            //}catch (Exception e){
+              //  View.respuestaControllerView("Opcion no valida, debes introducir un valor numerico.");
+               // continue;
     }
+           // if(seleccion <= 0 || seleccion >= opcionesDiponibles){
+             //   View.respuestaControllerView("Opcion no valida, selecciona una opcion disponible.");
+              //  continue;
+           // }else{
+             //   opcionOk = true;
+              //  continue;
+            //}
+        //}while(!opcionOk);
+        //Con este metodo del modelo obtengo el objeto seleccionado por el usuario
+        //FederacionModel federacion = FederacionModel.obtenerFederacion(BBDD, seleccion);
+        //Creamos el objeto con los datos recolectados.
+        //SocioFederadoModel socio = new SocioFederadoModel(numeroSocio, nombre, NIF, federacion);
+        // Enviamos la información al modelo para que añada el socio a la BBDD
+        //String respuesta = socio.crearSocioFederado(BBDD, socio);
+        // Una vez que el modelo responde confirmando la acción, enviamos la respuesta recibida por parte modelo al controlador hacia la vista.
+        //View.respuestaControllerView(respuesta);
+
 
     public static void crearSocioInfantil(Datos BBDD) {
         //Se llama a la vista para pedir el nombre

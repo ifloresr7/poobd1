@@ -24,6 +24,14 @@ public class AppMenuView {
         System.out.println("    2. Mostrar Excursiones con filtro entre fechas");
         System.out.println("    3. Volver");
     }
+    public void añadirSocioView(){
+        System.out.println("El socio no existe se añadirá un nuevo socio" );
+        System.out.println(h2 + "---GESTIÓN DE SOCIOS---" + p);
+        System.out.println("    1. Añadir Socio Estándar");
+        System.out.println("    2. Añadir Socio Federado");
+        System.out.println("    3. Añadir Socio Infantil");
+        System.out.println("    4. Volver");
+    }
     public void menuGestionSociosView() {
         System.out.println(limpiezaConsola + h2 + "---GESTIÓN DE SOCIOS---" + p);
         System.out.println("    1. Añadir Socio Estándar");

@@ -12,18 +12,22 @@ public class InscripcionesView {
     static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
 
     // Metodos de clase
-    public String[] formCrearInscripcionView() {
+    public String formCrearInscripcionView() {
         System.out.println(limpiezaConsola + h1 + "  - Formulario para Crear Inscripción" + p);
-        System.out.print(p2 + "Introduzca el número de inscripción: " + p);
-        String numInscripcion = teclado.nextLine();
         System.out.print(p2 + "Introduzca el número de socio: " + p);
         String numSocio = teclado.nextLine();
-        System.out.print(p2 + "Introduzca el identificador de la excursión: " + p);
-        String idExcursion = teclado.nextLine();
-        return new String[] { numInscripcion, numSocio, idExcursion };
+        return numSocio;
+    }
+    public void errorInscripcion()
+    {
+        System.out.println(p2 + "La excursión no existe, se ha anulado la inscripción.");
     }
 
-    
+    public String formSeguirInscripcionView() {
+        System.out.print(p2 + "Introduzca el identificador de la excursión: " + p);
+        String idExcursion = teclado.nextLine();
+        return idExcursion;
+    }
     public String formEliminarInscripcionView() {
         System.out.println(limpiezaConsola + h1 + "  - Formulario para Eliminar Inscripción" + p);
         System.out.print(p2 + "Introduzca el número de inscripción a eliminar: " + p);

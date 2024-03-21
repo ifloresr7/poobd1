@@ -20,6 +20,18 @@ public class ExcursionModel {
     }
 
     // Métodos
+    public static boolean buscarExcursion(Datos BBDD, String nombre)
+    {
+        boolean encontrado=false;
+        // Comprobar en la lista de socios estándar
+        for (ExcursionModel excursion : BBDD.excursion) {
+            if (excursion.codigo.equals(nombre)) {
+                encontrado=true;
+            }
+        }
+        return encontrado;
+
+    }
     public String crearExcursionModel(Datos BBDD, ExcursionModel excursion) {
         try {
             BBDD.excursion.add(excursion);

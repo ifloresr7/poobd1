@@ -83,4 +83,5 @@ public abstract class SocioModel {
         // Si no se encuentra en ninguna lista, devolver false
         return false;
     }
+
 }
