@@ -64,7 +64,7 @@ public class ExcursionController{
         //Se llama al metodo crearExcursion del modelo ExcursionModel, se pasa tanto la instancia BBDD como el objeto creado
         String respuesta = excursion.crearExcursionModel(BBDD, excursion);
         //Devuelvo la respuesta del modelo y la imprimo en la vista
-        View.estadoFinal(respuesta);
+        View.respuestaControllerView(respuesta);
     }
 
     public static void mostrarExcursionFecha(Datos BBDD) {

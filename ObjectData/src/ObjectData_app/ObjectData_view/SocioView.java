@@ -22,28 +22,34 @@ public class SocioView {
         return new String[] { nombre, DNI };
     }
 
-    public void formModificarTipoSeguroView() {
+    public String[] formModificarTipoSeguroView() {
         System.out.println(limpiezaConsola + "  - Formulario para Modificar tipo de seguro de un socio estándar");
+        return new String[]{};
     }
 
-    public void formCrearSocioFederadoView() {
+    public String[] formCrearSocioFederadoView() {
         System.out.println(limpiezaConsola + "  - Formulario para Añadir Socio Federado");
+        return new String[]{};
     }
 
-    public void formCrearSocioInfantilView() {
+    public String[] formCrearSocioInfantilView() {
         System.out.println(limpiezaConsola + "  - Formulario para Añadir Socio Infantil");
+        return new String[]{};
     }
 
-    public void formEliminarSocioView() {
+    public String[] formEliminarSocioView() {
         System.out.println(limpiezaConsola + "  - Formulario para Eliminar socio");
+        return new String[]{};
     }
 
-    public void formMostrarSocioView() {
+    public String[] formMostrarSocioView() {
         System.out.println(limpiezaConsola + "  - Formulario para Mostrar Socios (Todos o por tipo de socio)");
+        return new String[]{};
     }
 
-    public void formMostrarFacturaMensualSocioView() {
+    public String[] formMostrarFacturaMensualSocioView() {
         System.out.println(limpiezaConsola + "  - Formulario para Mostrar Factura mensual por socios");
+        return new String[]{};
     }
 
     public String[] seleccionarSeguroView() {
@@ -59,7 +65,7 @@ public class SocioView {
 
     // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al guardar, Guardado Correcto, los objetos o lo que sea..., es decir los datos almacenados entre otros mensajes."
     public void respuestaControllerView(String respuesta) {
-        System.out.println(limpiezaConsola + respuesta);
+        System.out.println(respuesta);
         System.out.println("\nPulsa un tecla para continuar...");
         teclado.nextLine();
     }
