@@ -76,10 +76,34 @@ public class SocioController {
         // Una vez que el modelo responde confirmando la acción, enviamos la respuesta recibida por parte modelo al controlador hacia la vista.
         View.respuestaControllerView(respuesta);
     }
-
-    public static void modificarSeguroSocioEstandar(Datos BBDD) {
+    
+    public static void modificarSeguroSocioEstandar(Datos BBDD, int numeroSocio) {
+        // Obtener el socio de la base de datos utilizando su número de socio
+        SocioEstandarModel socioModel = BBDD.obtenerSocioEstandar(numeroSocio);
+        if (socioModel == null) {
+            System.out.println("No se encontró un socio con el número de socio proporcionado.");
+            return;
+        }
+        // Mostrar la información del socio y su seguro actual
+        View.mostrarInformacionSocio(socioModel);
+        // Solicitar al usuario que seleccione el nuevo tipo de seguro y su precio
+        String[] datosNuevoSeguro = View.seleccionarNuevoSeguro();
+        // Validar y procesar los datos del nuevo seguro
+        TipoSeguro tipoSeguro = null;
+        double precioSeguro = 0.0;
+        try {
+            tipoSeguro = TipoSeguro.valueOf(datosNuevoSeguro[0]);
+            precioSeguro = Double.parseDouble(datosNuevoSeguro[1]);
+        } catch (IllegalArgumentException e) {
+            System.out.println("Error al procesar los datos del nuevo seguro.");
+            return;
+        }
+        // Actualizar el seguro del socio en la base de datos
+        socioModel.setSeguro(new SeguroModel(tipoSeguro, precioSeguro));
+        BBDD.actualizarSocioEstandar(socioModel);
+        System.out.println("El seguro del socio se ha actualizado correctamente.");
     }
-
+    
     public static void crearSocioFederado(Datos BBDD) {
         //Se llama a la vista para pedir el nombre y el DNI del usuario
         String[] retorno = View.formCrearSocioFederadoView();
