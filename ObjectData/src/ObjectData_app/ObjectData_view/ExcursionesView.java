@@ -16,7 +16,7 @@ public class ExcursionesView {
         System.out.println(limpiezaConsola + "  - Formulario para crear excursiones");
         System.out.println("Ingrese el nombre de la excursión:");
         String descripcion = teclado.nextLine();
-        System.out.println("Ingrese la fecha de la excursión (formato dd/mm/yyyy):");
+        System.out.println("Ingrese la fecha de la excursión (formato yyyy-MM-dd):");
         String fecha = teclado.nextLine();
         System.out.println("Ingrese el número de días de la excursión:");
         String numDias = teclado.nextLine();
@@ -34,7 +34,7 @@ public class ExcursionesView {
         return new String [] {inputDate,inputDate2};
 
     }
-    // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al guardar, Guardado Correcto, los objetos o lo que sea..., es decir los datos almacenados entre otros mensajes."
+    // Este metodo se usa para devolver respuestas del controlador, tipo: "Fall10/o al guardar, Guardado Correcto, los objetos o lo que sea..., es decir los datos almacenados entre otros mensajes."
     public void respuestaControllerView(String respuesta) {
         System.out.println(respuesta);
         System.out.println("\nPulsa un tecla para continuar...");
