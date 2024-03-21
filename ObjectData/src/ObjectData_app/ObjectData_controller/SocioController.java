@@ -1,6 +1,8 @@
 package ObjectData_app.ObjectData_controller;
 
 import ObjectData_app.ObjectData_model.SocioEstandarModel;
+import ObjectData_app.ObjectData_model.SocioFederadoModel;
+import ObjectData_app.ObjectData_model.SocioInfantilModel;
 
 import java.util.Random;
 
@@ -79,13 +81,41 @@ public class SocioController {
     }
 
     public static void crearSocioFederado(Datos BBDD) {
+        //Se llama a la vista para pedir el nombre y el DNI del usuario
+        String[] retorno = View.formCrearSocioFederadoView();
+        String nombre = retorno[0]; // El primer parametro del array sera el nombre
+        String NIF = retorno[1]; // El segundo parametro del array es el DNI
+        // Método para generar un número de socio aleatorio
+        int numeroSocio = generarID(); // Número de socio
+        //Mandamos el numero de socio a la pantalla:
+        View.respuestaControllerView("   - Numero de socio generado: " + numeroSocio);  
+        // Creamos un objeto de tipo llamado socioModel con los datos correctos
+        SocioFederadoModel socioModel = new SocioFederadoModel(numeroSocio, nombre, NIF);
+        // Enviamos la información al modelo para que añada el socio a la BBDD
+        String respuesta = socioModel.crearSocioFederado(BBDD, socioModel);
+        // Una vez que el modelo responde confirmando la acción, enviamos la respuesta recibida por parte modelo al controlador hacia la vista.
+        View.respuestaControllerView(respuesta);
     }
 
     public static void crearSocioInfantil(Datos BBDD) {
+         int numeroSocioPadreOMadre = generarID();
+         View.respuestaControllerView("   - Numero de socio generado: " + numeroSocioPadreOMadre);  
+         SocioInfantilModel socioModel = new SocioInfantilModel(numeroSocioPadreOMadre, "Nombre del Socio Infantil", true, 0);
+         String respuesta = socioModel.crearSocioInfantil(BBDD, socioModel);
+         System.out.println("Socio infantil creado con éxito.");
     }
 
-    public static void eliminarSocio(Datos BBDD) {
+    public static void eliminarSocio(Datos BBDD, int numeroSocio) {
+        // Llamamos al método en el modelo para eliminar al socio de la base de datos
+        boolean eliminado = BBDD.eliminarSocio(numeroSocio);
+        // Verificamos si el socio fue eliminado correctamente
+        if (eliminado) {
+            System.out.println("El socio con número de socio " + numeroSocio + " ha sido eliminado correctamente.");
+        } else {
+            System.out.println("No se pudo eliminar el socio con número de socio " + numeroSocio + ". El socio no existe en la base de datos.");
+        }
     }
+    
 
     public static void mostrarSocio(Datos BBDD) {
     }
