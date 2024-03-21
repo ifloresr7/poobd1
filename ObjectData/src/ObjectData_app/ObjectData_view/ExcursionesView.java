@@ -35,8 +35,10 @@ public class ExcursionesView {
         
         // ExcursionController.mostrarExcursionFecha(inputDate1, inputDate);
     }
-    //Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al guardar, Guardado Correcto, No se encontro fecha, etc"
-    public void estadoFinal(String respuesta){
+    // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al guardar, Guardado Correcto, los objetos o lo que sea..., es decir los datos almacenados entre otros mensajes."
+    public void respuestaControllerView(String respuesta) {
         System.out.println(respuesta);
+        System.out.println("\nPulsa un tecla para continuar...");
+        teclado.nextLine();
     }
 }
