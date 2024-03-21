@@ -31,28 +31,28 @@ public class InscripcionesView {
         return numInscripcion;
     }
 
-    public String[] formMostrarInscripcionView() {
+    public String formMostrarInscripcionView() {
         System.out.println(limpiezaConsola + h1 + "  - Formulario para Mostrar Inscripciones" + p);
         System.out.println(p2 + "Opciones de filtrado:");
         System.out.println("1. Filtrar por socio");
         System.out.println("2. Filtrar por fechas");
         System.out.print("Seleccione una opción (1 o 2): ");
         String opcion = teclado.nextLine();
+        return opcion;
+    }
 
-        if (opcion.equals("1")) {
-            System.out.print(p2 + "Introduzca el número de socio para filtrar: " + p);
-            String numSocio = teclado.nextLine();
-            return new String[] { numSocio };
-        } else if (opcion.equals("2")) {
-            System.out.print(p2 + "Introduzca la fecha de inicio para el filtro (dd/mm/aaaa): " + p);
-            String fechaInicio = teclado.nextLine();
-            System.out.print(p2 + "Introduzca la fecha de fin para el filtro (dd/mm/aaaa): " + p);
-            String fechaFin = teclado.nextLine();
-            return new String[] { fechaInicio, fechaFin };
-        } else {
-            System.out.println(error + "Opción no válida." + p);
-            return new String[] {};
-        }
+    public String[] formFiltrarPorSocio() {
+        System.out.println(p2 + "Introduzca el número de socio para filtrar: " + p);
+        String numSocio = teclado.nextLine();
+        return new String[]{numSocio};
+    }
+
+    public String[] formFiltrarPorFechas() {
+        System.out.println(p2 + "Introduzca la fecha de inicio para el filtro (dd/mm/aaaa): " + p);
+        String fechaInicio = teclado.nextLine();
+        System.out.println(p2 + "Introduzca la fecha de fin para el filtro (dd/mm/aaaa): " + p);
+        String fechaFin = teclado.nextLine();
+        return new String[]{fechaInicio, fechaFin};
     }
 
     // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al

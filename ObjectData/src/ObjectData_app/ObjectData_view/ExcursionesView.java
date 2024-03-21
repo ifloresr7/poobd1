@@ -34,6 +34,8 @@ public class ExcursionesView {
         String inputDate2 = teclado.nextLine();
         return new String [] {inputDate,inputDate2};
     }
+
+    
     
     // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al guardar, Guardado Correcto, los objetos o lo que sea..., es decir los datos almacenados entre otros mensajes."
     public void respuestaControllerView(String respuesta) {
