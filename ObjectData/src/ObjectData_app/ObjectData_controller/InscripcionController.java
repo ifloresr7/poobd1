@@ -30,7 +30,25 @@ public class InscripcionController{
 
     }
     public static void mostrarInscripcion(Datos BBDD) {
-        
+        String retorno =View.formMostrarInscripcionView();
+        boolean chequeo = false;
+        int opcion = 0;
+        do{
+            try{
+                opcion= Integer.parseInt(retorno);
+
+            }catch(Exception e){
+                View.respuestaControllerView("Debes introducir un valor númerico");
+                continue;
+            }
+
+            if(opcion==1){
+                
+            }
+        } while(!chequeo);
+
     }
+
+
 
 }
