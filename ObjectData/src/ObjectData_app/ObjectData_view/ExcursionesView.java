@@ -27,12 +27,11 @@ public class ExcursionesView {
 
    public String[] menuMostarExcursionFechaView() {
         System.out.println(limpiezaConsola + "  - Formulario para mostrar excursiones segun fecha");
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         System.out.println("Ingrese la fecha Inicio en formato yyyy-MM-dd: ");
         String inputDate = teclado.nextLine();
         System.out.println("Ingrese la fecha Fin en formato yyyy-MM-dd: ");
-        String inputDate1 = teclado.nextLine();
-        return new String [] {inputDate,inputDate1};
+        String inputDate2 = teclado.nextLine();
+        return new String [] {inputDate,inputDate2};
         
         // ExcursionController.mostrarExcursionFecha(inputDate1, inputDate);
     }

@@ -1,0 +1,10 @@
+ex001, ruta por el montseny, 2024-04-20, 1, 9.90
+ex001, Ruta por el Montseny, 2024-04-20, 1, 9.90
+ex002, Visita al Valle de Arán, 2024-05-15, 2, 19.50
+ex003, Senderismo en Picos de Europa, 2024-06-10, 3, 29.75
+ex004, Tour por la Costa Brava, 2024-07-05, 2, 24.80
+ex005, Exploración del Pirineo Catalán, 2024-08-20, 4, 39.99
+ex006, Descubriendo la Ruta del Cid, 2024-09-12, 3, 34.25
+ex007, Recorrido por el Parque Nacional de Ordesa y Monte Perdido, 2024-10-30, 2, 19.90
+ex008, Aventura en Sierra Nevada, 2024-11-18, 3, 29.50
+ex009, Tour en Bicicleta por el Delta del Ebro, 2024-12-05, 1, 14.75

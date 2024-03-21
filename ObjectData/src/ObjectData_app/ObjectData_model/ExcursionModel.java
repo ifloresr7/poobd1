@@ -30,7 +30,7 @@ public class ExcursionModel {
     }
 
     // Pendiente de implementar el filtro de fechas
-    public static void mostrarExcursiones(Datos BBDD) {
+    public static void mostrarExcursiones(Datos BBDD, Date fechaInicio, Date fechaFin) {
         try {
             if (BBDD.excursion.isEmpty()) {
                 System.out.println("¡No hay excursiones para mostrar!");
