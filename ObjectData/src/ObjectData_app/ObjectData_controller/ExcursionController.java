@@ -45,8 +45,7 @@ public class ExcursionController{
             num = Integer.parseInt(numDias);
         } catch (NumberFormatException e) {
             // En caso de que el número de días no sea un entero válido
-            System.out.println("Error: El número de días debe ser un entero válido.");
-            e.printStackTrace(); // Opcional: Mostrar el rastro de la excepción
+            View.respuestaControllerView("Error: El número de días debe ser un entero válido.");
         }
 
         // Convertir la cadena del precio a un número de punto flotante (double)
@@ -55,8 +54,7 @@ public class ExcursionController{
             coste = Double.parseDouble(precio);
         } catch (NumberFormatException e) {
             // En caso de que el precio no sea un número de punto flotante válido
-            System.out.println("Error: El precio debe ser un número válido.");
-            e.printStackTrace(); // Opcional: Mostrar el rastro de la excepción
+            View.respuestaControllerView("Error: El precio debe ser un número válido.");
         }
 
         //Se genera el conjunto de BBDD en la variable excursion
@@ -84,9 +82,9 @@ public class ExcursionController{
         } catch (ParseException | IllegalArgumentException e) {
             // En caso de error de formato de fecha o falta de fechas
             if (e instanceof ParseException) {
-                System.out.println("Error: Formato de fecha incorrecto. Debe ser yyyy-MM-dd");
+                View.respuestaControllerView("Error: Formato de fecha incorrecto. Debe ser yyyy-MM-dd");
             } else {
-                System.out.println("Error: " + e.getMessage());
+                View.respuestaControllerView("Error: " + e.getMessage());
             }
         }
     }
