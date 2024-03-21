@@ -164,7 +164,8 @@ public class SocioController {
         // }
     }
 
-    public static void mostrarSocio(Datos BBDD) {
+    public static void mostrarSocio (Datos BBDD) {
+    
     }
 
     public static void facturaMensualSocio(Datos BBDD) {
