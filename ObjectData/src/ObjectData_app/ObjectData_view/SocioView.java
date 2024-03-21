@@ -31,6 +31,15 @@ public class SocioView {
         System.out.println(limpiezaConsola + "  - Formulario para Añadir Socio Federado");
         return new String[]{};
     }
+    
+    public String selectorFederaciones (String listado){
+        System.out.println(limpiezaConsola + h1 + "  - Selección de Federación" + p);
+        System.out.println(listado);
+        System.out.print(p2 + "Seleccione la federación (Ingrese el código alfanumérico): " + p);
+        String federacionSeleccionada = teclado.nextLine();
+        return federacionSeleccionada;
+    }
+    }
 
     public String[] formCrearSocioInfantilView() {
         System.out.println(limpiezaConsola + "  - Formulario para Añadir Socio Infantil");
