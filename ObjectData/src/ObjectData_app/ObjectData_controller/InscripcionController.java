@@ -32,4 +32,5 @@ public class InscripcionController{
     public static void mostrarInscripcion(Datos BBDD) {
         
     }
+
 }
