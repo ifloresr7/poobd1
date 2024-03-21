@@ -1,6 +1,6 @@
 package ObjectData_app.ObjectData_model;
 
-abstract class SocioModel {
+public abstract class SocioModel {
     private int numeroSocio;
     private String nombre;
 
@@ -38,7 +38,7 @@ abstract class SocioModel {
     }
 
     // Método para comprobar si un socio existe mediante el numeroSocio
-    public boolean comprobarSocioByCodigo(Datos BBDD, int codigoSocio) {
+    public static boolean comprobarSocioByCodigo(Datos BBDD, int codigoSocio) {
         // Comprobar en la lista de socios estándar
         for (SocioEstandarModel socio : BBDD.socioEstandar) {
             if (socio.getNumeroSocio() == codigoSocio) {

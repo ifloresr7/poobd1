@@ -24,7 +24,8 @@ public class SocioView {
 
     public String[] formModificarTipoSeguroView() {
         System.out.println(limpiezaConsola + "  - Formulario para Modificar tipo de seguro de un socio estándar");
-        return new String[]{};
+        String numSocio = teclado.nextLine();
+        return new String[]{numSocio};
     }
 
     public String[] formCrearSocioFederadoView() {

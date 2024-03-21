@@ -1,5 +1,7 @@
 package ObjectData_app.ObjectData_model;
 
+import ObjectData_app.ObjectData_model.Datos;
+
 public class FederacionModel {
     String codigo;
     String nombre;
@@ -31,9 +33,28 @@ public class FederacionModel {
     // Método toString
     @Override
     public String toString() {
-        return "Federacion{" +
-                "codigo='" + codigo + '\'' +
-                ", nombre='" + nombre + '\'' +
-                '}';
+        return "Codigo: " + codigo + " | Nombre: " + nombre;
+    }
+
+    //Metodos porpios
+    public static String obtenerListadoFederacion(Datos BBDD){
+        String listado = "";
+        int num = 1;
+        for (FederacionModel federacion : BBDD.federacion) {
+            listado += "\n" + num + ". " + federacion.toString();
+            num++;
+        }
+        return listado;
+    }
+
+    public static FederacionModel obtenerFederacion(Datos BBDD, int seleccion){
+        int contador = 1;
+        for (FederacionModel federacion : BBDD.federacion) {
+            if(contador == seleccion){
+                return federacion;
+            }
+            contador++;
+        }
+        return null;
     }
 }
