@@ -2,6 +2,9 @@ package ObjectData_app.ObjectData_controller;
 
 //Se añade la vista principal
 import ObjectData_app.ObjectData_view.AppMenuView;
+import ObjectData_app.ObjectData_view.InscripcionesView;
+
+import javax.swing.text.View;
 
 import ObjectData_app.ObjectData_model.*;
 
