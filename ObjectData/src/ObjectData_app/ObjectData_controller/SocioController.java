@@ -9,6 +9,7 @@ import java.util.Random;
 
 import ObjectData_app.ObjectData_model.Datos;
 import ObjectData_app.ObjectData_model.FederacionModel;
+import ObjectData_app.ObjectData_model.InscripcionModel;
 import ObjectData_app.ObjectData_model.SeguroModel;
 import ObjectData_app.ObjectData_model.SeguroModel.TipoSeguro;
 //Se añade la vista socio
@@ -185,7 +186,7 @@ public class SocioController {
                 continue;
             }
             // Creamos la excepción para verificar que el ID socio introducido existe.
-            if (!SocioModel.comprobarSocioByCodigo(BBDD, numeroParental)) {
+            if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroParental)) {
                 View.respuestaControllerView("No se a encontrado un socio con ese codigo.");
                 continue;
             } else {
@@ -202,10 +203,8 @@ public class SocioController {
         // Volvemos al menu principal de la gestión de los socios.
         AppController.gestionSocios(BBDD);
     }
-
     public static void eliminarSocio(Datos BBDD) {
         String[] listado = SocioModel.listarSociosModel(BBDD);
-
         View.listadoSociosView(listado[0]);
         // // Llamamos al método en el modelo para eliminar al socio de la base de datos
         // boolean eliminado = BBDD.eliminarSocio(numeroSocio);
@@ -218,7 +217,6 @@ public class SocioController {
         // numeroSocio + ". El socio no existe en la base de datos.");
         // }
     }
-
     public static void mostrarSocio(Datos BBDD) {
         // Excepcion para la conversion del numero de tipo String a Int y opcion
         // seleccionada valida
@@ -244,16 +242,13 @@ public class SocioController {
                 View.respuestaControllerView("\nListado de todos los socios: " + SocioModel.listarSociosModel(BBDD)[0]);
                 break;
             case 2:
-                View.respuestaControllerView(
-                        "\nListado de socios estandar: " + SocioModel.listarSociosEstandarModel(BBDD)[0]);
+                View.respuestaControllerView("\nListado de socios estandar: " + SocioModel.listarSociosEstandarModel(BBDD)[0]);
                 break;
             case 3:
-                View.respuestaControllerView(
-                        "\nListado de socios federados: " + SocioModel.listarSociosFederadosModel(BBDD)[0]);
+                View.respuestaControllerView("\nListado de socios federados: " + SocioModel.listarSociosFederadosModel(BBDD)[0]);
                 break;
             case 4:
-                View.respuestaControllerView(
-                        "\nListado de socios infantiles: " + SocioModel.listarSociosInfantilesModel(BBDD)[0]);
+                View.respuestaControllerView("\nListado de socios infantiles: " + SocioModel.listarSociosInfantilesModel(BBDD)[0]);
                 break;
             case 5:
                 AppController.gestionSocios(BBDD);
@@ -262,7 +257,6 @@ public class SocioController {
                 AppController.gestionSocios(BBDD);
         }
     }
-
     public static void facturaMensualSocio(Datos BBDD) {
         int numSocio = 0;
         boolean valoresComprobados = false;
@@ -295,36 +289,45 @@ public class SocioController {
         } while (!valoresComprobados);
         if (tipoSocio == "estandar") {
             //Coste de la cuota
-            respuesta = "\n    - Coste de la cuota: " + cuotaMensual + "Euros";
+            respuesta += "\n    - Coste de la cuota: " + cuotaMensual + "Euros";
             // Obtenemos el precio del seguro contratado.
             Double precioSeguro = SocioEstandarModel.getSocioEstandar(BBDD, numSocio).getSeguro().getPrecio();
-            respuesta = "\n    - Coste del seguro: " + precioSeguro + "Euros";
-            
+            // Obtener listado de escursiones y precio:
+            String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numSocio);
+            respuesta += retorno[0];
+            // Precio del seguro.
+            respuesta += "\n    - Coste del seguro: " + precioSeguro + "Euros";
             //Se genera el precio final de facturación
-            facturacion = cuotaMensual + precioSeguro;
+            facturacion = cuotaMensual + precioSeguro + Double.parseDouble(retorno[1]);
             //Se manda el resultado a la vista
-            respuesta = "\n El socio factura "+facturacion+"Euros mensuales.";
+            respuesta += "\n El socio factura "+facturacion+"Euros mensuales.";
         } else if (tipoSocio == "federado") {
             //Aplicamos un despues de la cuota mensual 5%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 5 / 100);
-
+            // Obtener listado de escursiones y precio:
+            String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numSocio);
+            respuesta += retorno[0];
+            // Se calcula el descuento de las escursiones de este socio. 10%
+            Double descuentoExcursiones = Double.parseDouble(retorno[1]) - (Double.parseDouble(retorno[1]) * 10 / 100);
             //Se genera el precio final de facturación
-            facturacion = precioCuotaDescuento;
+            facturacion = precioCuotaDescuento + descuentoExcursiones;
             //Se manda el resultado a la vista
-            respuesta = "El socio factura "+facturacion+"Euros mensuales.";
+            respuesta += "\n El socio factura "+facturacion+"Euros mensuales. (Descuentos incluidos en el precio final)";
         } else if (tipoSocio == "infantil") {
             //Aplicamos un descuento de la cuota mensual 50%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 50 / 100);
+            // Obtener listado de escursiones y precio:
+            String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numSocio);
+            respuesta += retorno[0];
             //Se genera el precio final de facturación
             facturacion = precioCuotaDescuento;
             //Se manda el resultado a la vista
-            respuesta = "El socio factura "+facturacion+"Euros mensuales.";
+            respuesta += "\n El socio factura "+facturacion+"Euros mensuales.";
         }
         View.respuestaControllerView(respuesta);
         // Volvemos al menu principal de la gestión de los socios.
         AppController.gestionSocios(BBDD);
     }
-
     public static SeguroModel seguroSocio() {
         // Tratamiento del seguro
         TipoSeguro tipoSeguro = null;
