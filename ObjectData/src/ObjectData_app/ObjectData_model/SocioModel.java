@@ -87,7 +87,7 @@ public abstract class SocioModel {
 
     public static String[] listarSociosModel(Datos BBDD) {
         // Comprobar en la lista de socios estándar
-        String listado = "";
+        String listado = "  - Sin datos.";
         int contador = 1;
         for (SocioEstandarModel socio : BBDD.socioEstandar) {
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
@@ -110,7 +110,7 @@ public abstract class SocioModel {
     }
 
     public static String[] listarSociosEstandarModel(Datos BBDD) {
-        String listado = "";
+        String listado = "  - Sin datos.";
         int contador = 1;
         for (SocioEstandarModel socio : BBDD.socioEstandar) {
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
@@ -121,7 +121,7 @@ public abstract class SocioModel {
     }
 
     public static String[] listarSociosFederadosModel(Datos BBDD) {
-        String listado = "";
+        String listado = "  - Sin datos.";
         int contador = 1;
         for (SocioFederadoModel socio : BBDD.socioFederado) {
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
@@ -133,7 +133,7 @@ public abstract class SocioModel {
     }
 
     public static String[] listarSociosInfantilesModel(Datos BBDD) {
-        String listado = "";
+        String listado = "  - Sin datos.";
         int contador = 1;
         for (SocioInfantilModel socio : BBDD.socioInfantil) {
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "

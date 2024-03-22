@@ -6,7 +6,7 @@ import ObjectData_app.ObjectData_view.AppMenuView;
 import ObjectData_app.ObjectData_model.*;
 
 public class AppController {
-    static AppMenuView menuView = new AppMenuView();
+    static AppMenuView View = new AppMenuView();
     static boolean cerrarApp = false;
 
     // Inicio del menu de la APP.
@@ -16,10 +16,11 @@ public class AppController {
         // de este modo para poder ejecutar los test
         CargarDatosModel cargarDatos = new CargarDatosModel();
         cargarDatos.cargarDatos(BBDD);
+        View.respuestaControllerView("Base de datos cargada.");
         // Ahora si, arracamos el menu principal de la aplicación.
         do {
-            menuView.menuInicioView();
-            int opcion = menuView.getOpcionView(5);
+            View.menuInicioView();
+            int opcion = View.getOpcionView(4);
             switch (opcion) {
                 case 1:
                     gestionExcursiones(BBDD);
@@ -39,8 +40,8 @@ public class AppController {
 
     // Metodos de control para Excursiones.
     public static void gestionExcursiones(Datos BBDD) {
-        menuView.menuGestionExcursionesView();
-        int opcion = menuView.getOpcionView(3);
+        View.menuGestionExcursionesView();
+        int opcion = View.getOpcionView(3);
         switch (opcion) {
             case 1:
                 ExcursionController.crearExcursion(BBDD);
@@ -56,8 +57,8 @@ public class AppController {
 
     // Metodos de control para Socios.
     public static void gestionSocios(Datos BBDD) {
-        menuView.menuGestionSociosView();
-        int opcion = menuView.getOpcionView(6);
+        View.menuGestionSociosView();
+        int opcion = View.getOpcionView(6);
         switch (opcion) {
             case 1:
                 SocioController.crearNuevoSocio(BBDD);
@@ -82,8 +83,8 @@ public class AppController {
 
     // Metodos de control para Inscripciones.
     public static void gestionInscripciones(Datos BBDD) {
-        menuView.menuGestionInscripcionesView();
-        int opcion = menuView.getOpcionView(4);
+        View.menuGestionInscripcionesView();
+        int opcion = View.getOpcionView(4);
         switch (opcion) {
             case 1:
                 InscripcionController.crearInscripcion(BBDD);
@@ -99,4 +100,5 @@ public class AppController {
                 break;
         }
     }
+    
 }
