@@ -165,8 +165,57 @@ public class SocioController {
     }
 
     public static void mostrarSocio (Datos BBDD) {
-    
+        boolean chequeo = false;
+        int opcion = 0;
+        do{
+            String retorno = View.formMostrarSocioView();
+            try{
+                opcion = Integer.parseInt(retorno);
+            }catch(Exception e){
+                View.respuestaControllerView("Debes introducir un valor númerico.");
+                continue;
+            }
+            if(opcion == 1 || opcion == 4){
+                chequeo = true;
+            }else{
+                View.respuestaControllerView("Debes selecciona una opcion valida.");
+                continue;
+            }
+        } while(!chequeo);
+        switch (opcion) {
+            case 1:
+            
+                mostrarTodosLosSocios();
+                break;
+            case 2:
+                mostrarSocioFederado();
+                break;  
+                
+            case 3:
+                mostrarSocioInfantil();
+                break;
+            case 4:
+                mostrarSocioEstandar();
+                break;        
+        }
     }
+    public static void mostrarTodosLosSocios(){
+        String[] retorno = View.formMostrarTododslosSociosView();
+    }
+
+    public static void mostrarSocioFederado(){
+        String[] retorno = View.formMostrarSociosFeredarosView();
+    }
+   
+    public static void mostrarSocioInfantil(){
+        String[] retorno = View.formMostrarSociosInfantilView();
+    }
+   
+    public static void mostrarSocioEstandar(){
+        String[] retorno = View.formMostrarSociosEstandarView();
+
+    }
+   
 
     public static void facturaMensualSocio(Datos BBDD) {
     }
