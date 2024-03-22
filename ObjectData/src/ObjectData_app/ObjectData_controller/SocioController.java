@@ -294,9 +294,11 @@ public class SocioController {
             }
         } while (!valoresComprobados);
         if (tipoSocio == "estandar") {
+            //Coste de la cuota
+            respuesta = "\n    - Coste de la cuota: " + cuotaMensual + "Euros";
             // Obtenemos el precio del seguro contratado.
             Double precioSeguro = SocioEstandarModel.getSocioEstandar(BBDD, numSocio).getSeguro().getPrecio();
-            respuesta = "\n    - Coste del seguro: " + precioSeguro;
+            respuesta = "\n    - Coste del seguro: " + precioSeguro + "Euros";
             
             //Se genera el precio final de facturación
             facturacion = cuotaMensual + precioSeguro;
