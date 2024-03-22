@@ -43,7 +43,7 @@ public class InscripcionController {
             if (numeroSocio == 0) {
                 AppController.gestionInscripciones(BBDD);
                 break;
-            } else if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroExcursion)) {
+            } else if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroSocio)) {
                 View.respuestaControllerView("Socio no encontrado.");
                 continue;
             } else {
@@ -56,7 +56,8 @@ public class InscripcionController {
         do {
             String retorno = View.formListadoExcursionesView(listadoExcursiones[0]);
             try {
-                numeroExcursion = Integer.parseInt(retorno);
+                int opcion = Integer.parseInt(retorno);
+                numeroExcursion = ExcursionModel.obtenerExcursion(BBDD, opcion).getNumeroExcursion();
             } catch (Exception e) {
                 View.respuestaControllerView("Debes introducir un valor númerico.");
                 continue;

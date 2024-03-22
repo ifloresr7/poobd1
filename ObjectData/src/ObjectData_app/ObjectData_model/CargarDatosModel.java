@@ -63,9 +63,9 @@ public class CargarDatosModel {
                             System.out.println("Error al parsear la línea: " + cadena);
                             e.printStackTrace();
                         }
-                        ExcursionModel excursion = new ExcursionModel(codigo, descripcion, fecha, numeroDias, precioInscripcion);
+                        ExcursionModel excursion = new ExcursionModel(Integer.parseInt(codigo), descripcion, fecha, numeroDias, precioInscripcion);
                         BBDD.excursion.add(excursion);
-                        System.out.println("Excursión cargada: " + excursion);
+                        System.out.println("Excursión cargada: " + excursion.getDescripcion());
                     } else {
                         System.out.println("Error en el formato de la línea: " + cadena);
                     }

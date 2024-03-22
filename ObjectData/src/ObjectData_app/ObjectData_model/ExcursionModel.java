@@ -110,7 +110,7 @@ public class ExcursionModel {
         int contador = 0;
         for (ExcursionModel excursion : BBDD.excursion) {
             contador++;
-            listado += "\n    - " + contador + ". " + excursion.toString();
+            listado += "\n    - " + contador + ". Descripción: " + excursion.getDescripcion() + " | Precio: " + excursion.getPrecioInscripcion();
         }
         if (contador == 0) {
             listado = "- Sin datos.";
@@ -121,10 +121,10 @@ public class ExcursionModel {
     // Metodo para obtener la excursion mediante seleccion
     public static ExcursionModel obtenerExcursion(Datos BBDD, int seleccion) {
         int contador = 0;
-        for (ExcursionModel escursion : BBDD.excursion) {
+        for (ExcursionModel excursion : BBDD.excursion) {
             contador++;
             if (contador == seleccion) {
-                return escursion;
+                return excursion;
             }
         }
         return null;

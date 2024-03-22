@@ -101,4 +101,14 @@ public class InscripcionModel{
         }
         return new String[] {listado, String.valueOf(total)};
     }
+
+    //Metodo para comprobar si un usuario tiene inscripciones
+    public static boolean comprobarIncripcionPorNumeroSocio(Datos BBDD, int numSocio){
+        for (InscripcionModel inscripcion : BBDD.inscripcion) {
+            if(inscripcion.getNumeroSocio() == numSocio){
+                return true;
+            }
+        }
+        return false;
+    }
 }

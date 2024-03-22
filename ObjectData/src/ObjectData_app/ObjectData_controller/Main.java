@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         // Se inicializa la base de BBDD virtual.
         Datos BBDD = new Datos();
+        AppController.cargarDatosController(BBDD);
         AppController.inicio(BBDD);
     }
 }

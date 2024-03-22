@@ -216,6 +216,7 @@ public class SocioController {
         // System.out.println("No se pudo eliminar el socio con número de socio " +
         // numeroSocio + ". El socio no existe en la base de datos.");
         // }
+        
     }
     public static void mostrarSocio(Datos BBDD) {
         // Excepcion para la conversion del numero de tipo String a Int y opcion
