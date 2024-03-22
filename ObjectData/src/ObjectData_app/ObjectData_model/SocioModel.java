@@ -38,7 +38,7 @@ public abstract class SocioModel {
     }
 
     // Método para comprobar si un socio existe mediante el numeroSocio
-    public static boolean comprobarSocioByCodigo(Datos BBDD, int codigoSocio) {
+    public static boolean comprobarSocioPorNumSocio(Datos BBDD, int codigoSocio) {
         // Comprobar en la lista de socios estándar
         for (SocioEstandarModel socio : BBDD.socioEstandar) {
             if (socio.getNumeroSocio() == codigoSocio) {
@@ -61,8 +61,31 @@ public abstract class SocioModel {
         return false;
     }
 
-    public static boolean buscarSocioNombre(Datos BBDD, String nombre) {
+    // Método para obtener el tipo de socio de un socio si existe mediante el numeroSocio
+    public static String obtenerTipoSocioPorNumSocio(Datos BBDD, int codigoSocio) {
+        // Comprobar en la lista de socios estándar
+        for (SocioEstandarModel socio : BBDD.socioEstandar) {
+            if (socio.getNumeroSocio() == codigoSocio) {
+                return "estandar";
+            }
+        }
+        // Comprobar en la lista de socios federados
+        for (SocioFederadoModel socio : BBDD.socioFederado) {
+            if (socio.getNumeroSocio() == codigoSocio) {
+                return "federado";
+            }
+        }
+        // Comprobar en la lista de socios infantiles
+        for (SocioInfantilModel socio : BBDD.socioInfantil) {
+            if (socio.getNumeroSocio() == codigoSocio) {
+                return "infantil";
+            }
+        }
+        // Si no se encuentra en ninguna lista, devolver false
+        return null;
+    }
 
+    public static boolean buscarSocioNombre(Datos BBDD, String nombre) {
         // Comprobar en la lista de socios estándar
         for (SocioEstandarModel socio : BBDD.socioEstandar) {
             if (socio.getNombre().equals(nombre)) {
@@ -87,59 +110,73 @@ public abstract class SocioModel {
 
     public static String[] listarSociosModel(Datos BBDD) {
         // Comprobar en la lista de socios estándar
-        String listado = "  - Sin datos.";
-        int contador = 1;
+        String listado = "";
+        int contador = 0;
         for (SocioEstandarModel socio : BBDD.socioEstandar) {
+            contador++;
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
                     + socio.getNombre() + " | Tipo de socio: Estandar";
-            contador++;
         }
         // Comprobar en la lista de socios federados
         for (SocioFederadoModel socio : BBDD.socioFederado) {
+            contador++;
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
                     + socio.getNombre() + " | Tipo de socio: Federado";
-            contador++;
         }
-        // Añadir usuarios a la lista 
+        // Añadir usuarios a la lista
         for (SocioInfantilModel socio : BBDD.socioInfantil) {
+            contador++;
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
                     + socio.getNombre() + " | Tipo de socio: Infantil";
-            contador++;
+
+        }
+        if (contador == 0) {
+            listado = "\n  - Sin datos.";
         }
         return new String[] { listado, String.valueOf(contador) };
     }
 
     public static String[] listarSociosEstandarModel(Datos BBDD) {
-        String listado = "  - Sin datos.";
-        int contador = 1;
+        String listado = "";
+        int contador = 0;
         for (SocioEstandarModel socio : BBDD.socioEstandar) {
+            contador++;
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
                     + socio.getNombre() + " | NIF: " + socio.getNIF() + " | Seguro: " + socio.seguro.getTipo();
-            contador++;
+        }
+        if (contador == 0) {
+            listado = "\n  - Sin datos.";
         }
         return new String[] { listado, String.valueOf(contador) };
     }
 
     public static String[] listarSociosFederadosModel(Datos BBDD) {
-        String listado = "  - Sin datos.";
-        int contador = 1;
+        String listado = "";
+        int contador = 0;
         for (SocioFederadoModel socio : BBDD.socioFederado) {
+            contador++;
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
                     + socio.getNombre() + " | NIF: " + socio.getNIF() + " | Federación: "
                     + socio.federacion.getNombre();
-            contador++;
+        }
+        if (contador == 0) {
+            listado = "\n  - Sin datos.";
         }
         return new String[] { listado, String.valueOf(contador) };
     }
 
     public static String[] listarSociosInfantilesModel(Datos BBDD) {
-        String listado = "  - Sin datos.";
-        int contador = 1;
+        String listado = "";
+        int contador = 0;
         for (SocioInfantilModel socio : BBDD.socioInfantil) {
+            contador++;
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
                     + socio.getNombre() + " | Numero socio parental: " + socio.getNumeroSocioPadreMadre();
-            contador++;
+        }
+        if (contador == 0) {
+            listado = "\n  - Sin datos.";
         }
         return new String[] { listado, String.valueOf(contador) };
     }
+
 }

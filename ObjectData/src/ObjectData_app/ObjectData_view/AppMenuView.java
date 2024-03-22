@@ -18,14 +18,14 @@ public class AppMenuView {
         System.out.println("    1. Gestión Excursiones");
         System.out.println("    2. Gestión de Socios");
         System.out.println("    3. Gestión de Inscripciones");
-        System.out.println("    4. Salir");
+        System.out.println("    4. Salir de la aplicación");
     }
 
     public void menuGestionExcursionesView() {
         System.out.println(limpiezaConsola + h2 + "---GESTIÓN DE EXCURSIONES---" + p);
         System.out.println("    1. Añadir Excursión");
         System.out.println("    2. Mostrar Excursiones con filtro entre fechas");
-        System.out.println("    3. Volver");
+        System.out.println("    3. Volver al menu principal");
     }
 
     public void menuGestionSociosView() {
@@ -35,7 +35,7 @@ public class AppMenuView {
         System.out.println("    3. Eliminar socio.");
         System.out.println("    4. Mostrar Socios.");
         System.out.println("    5. Mostrar Factura mensual por socio.");
-        System.out.println("    6. Volver");
+        System.out.println("    6. Volver al menu principal");
     }
 
     public void menuGestionInscripcionesView() {
@@ -43,7 +43,7 @@ public class AppMenuView {
         System.out.println("    1. Añadir Inscripción");
         System.out.println("    2. Eliminar Inscripción");
         System.out.println("    3. Mostrar inscripciones con las opciones de filtrar por socio y/o fechas");
-        System.out.println("    4. Volver");
+        System.out.println("    4. Volver al menu principal");
     }
 
     public int getOpcionView(int value) {

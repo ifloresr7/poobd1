@@ -49,7 +49,6 @@ public class SocioEstandarModel extends SocioModel {
     public static SocioEstandarModel getSocioEstandar(Datos BBDD, int numeroSocio) {
         for (SocioEstandarModel socioEstandar : BBDD.socioEstandar) {
             if(socioEstandar.getNumeroSocio() == numeroSocio){
-
                 return socioEstandar;
             }
         }

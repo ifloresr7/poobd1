@@ -47,4 +47,13 @@ public class SocioFederadoModel extends SocioModel {
             return "Fallo al guardar: " + error;
         }
     }
+    public SocioFederadoModel getSocioFederado(Datos BBDD, int numSocio) {
+        for(SocioFederadoModel socio : BBDD.socioFederado){
+            if(numSocio == socio.getNumeroSocio()){
+                return socio;
+            }
+        }
+        return null;
+    }
+
 }

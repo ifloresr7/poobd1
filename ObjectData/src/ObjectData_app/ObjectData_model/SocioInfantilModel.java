@@ -38,4 +38,12 @@ public class SocioInfantilModel extends SocioModel {
             return "Fallo al guardar: " + error;
         }
     }
+    public SocioInfantilModel getSocioInfantil(Datos BBDD, int numSocio) {
+        for(SocioInfantilModel socio : BBDD.socioInfantil){
+            if(numSocio == socio.getNumeroSocio()){
+                return socio;
+            }
+        }
+        return null;
+    }
 }

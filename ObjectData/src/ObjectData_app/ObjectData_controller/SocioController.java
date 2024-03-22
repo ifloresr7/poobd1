@@ -49,7 +49,7 @@ public class SocioController {
                 View.respuestaControllerView("ERROR! Debes seleccionar una opción valida.");
             }
         } while (!opcionValida);
-        //Se carga el formulario de registro de un nuevo socio.
+        // Se carga el formulario de registro de un nuevo socio.
         switch (opcion) {
             case 1:
                 crearSocioEstandar(BBDD);
@@ -61,6 +61,8 @@ public class SocioController {
                 crearSocioInfantil(BBDD);
                 break;
             case 4:
+                AppController.gestionSocios(BBDD);
+            default:
                 AppController.gestionSocios(BBDD);
         }
     }
@@ -84,6 +86,8 @@ public class SocioController {
         // Una vez que el modelo responde confirmando la acción, enviamos la respuesta
         // recibida por parte modelo al controlador hacia la vista.
         View.respuestaControllerView(respuesta);
+        // Volvemos al menu principal de la gestión de los socios.
+        AppController.gestionSocios(BBDD);
     }
 
     public static void modificarSeguroSocioEstandar(Datos BBDD) {
@@ -110,6 +114,8 @@ public class SocioController {
         } else {
             View.respuestaControllerView("No se a podido encontrar el socio.");
         }
+        // Volvemos al menu principal de la gestión de los socios.
+        AppController.gestionSocios(BBDD);
     }
 
     public static void crearSocioFederado(Datos BBDD) {
@@ -153,6 +159,8 @@ public class SocioController {
         // Una vez que el modelo responde confirmando la acción, enviamos la respuesta
         // recibida por parte modelo al controlador hacia la vista.
         View.respuestaControllerView(respuesta);
+        // Volvemos al menu principal de la gestión de los socios.
+        AppController.gestionSocios(BBDD);
     }
 
     public static void crearSocioInfantil(Datos BBDD) {
@@ -191,6 +199,8 @@ public class SocioController {
         // Una vez que el modelo responde confirmando la acción, enviamos la respuesta
         // recibida por parte modelo al controlador hacia la vista.
         View.respuestaControllerView(respuesta);
+        // Volvemos al menu principal de la gestión de los socios.
+        AppController.gestionSocios(BBDD);
     }
 
     public static void eliminarSocio(Datos BBDD) {
@@ -210,7 +220,8 @@ public class SocioController {
     }
 
     public static void mostrarSocio(Datos BBDD) {
-        // Excepcion para la conversion del numero de tipo String a Int y opcion seleccionada valida
+        // Excepcion para la conversion del numero de tipo String a Int y opcion
+        // seleccionada valida
         int opcion = 0;
         boolean opcionValida = false;
         do {
@@ -227,27 +238,89 @@ public class SocioController {
                 View.respuestaControllerView("ERROR! Debes seleccionar una opción valida.");
             }
         } while (!opcionValida);
-        //Se carga el formulario de registro de un nuevo socio.
+        // Se carga el formulario de registro de un nuevo socio.
         switch (opcion) {
             case 1:
                 View.respuestaControllerView("\nListado de todos los socios: " + SocioModel.listarSociosModel(BBDD)[0]);
                 break;
             case 2:
-                View.respuestaControllerView("\nListado de socios estandar: " + SocioModel.listarSociosEstandarModel(BBDD)[0]);
+                View.respuestaControllerView(
+                        "\nListado de socios estandar: " + SocioModel.listarSociosEstandarModel(BBDD)[0]);
                 break;
             case 3:
-                View.respuestaControllerView("\nListado de socios federados: " + SocioModel.listarSociosFederadosModel(BBDD)[0]);
+                View.respuestaControllerView(
+                        "\nListado de socios federados: " + SocioModel.listarSociosFederadosModel(BBDD)[0]);
                 break;
             case 4:
-                View.respuestaControllerView("\nListado de socios infantiles: " + SocioModel.listarSociosInfantilesModel(BBDD)[0]);
+                View.respuestaControllerView(
+                        "\nListado de socios infantiles: " + SocioModel.listarSociosInfantilesModel(BBDD)[0]);
                 break;
             case 5:
                 AppController.gestionSocios(BBDD);
                 break;
+            default:
+                AppController.gestionSocios(BBDD);
         }
     }
 
     public static void facturaMensualSocio(Datos BBDD) {
+        int numSocio = 0;
+        boolean valoresComprobados = false;
+        String tipoSocio = "";
+        Double facturacion = 0.0;
+        final Double cuotaMensual = 30.00;
+        String respuesta = "\nFacturacion del socio: ";
+        // Excepciones
+        do {
+            // Se muestran la vista y se piden datos.
+            String retorno = View.formMostrarFacturaMensualSocioView();
+            // Se hace el parse de tipo de dato de String a Int.
+            try {
+                numSocio = Integer.parseInt(retorno);
+            } catch (NumberFormatException error) {
+                View.respuestaControllerView("Debes insertar un valor númerico valido.");
+                continue;
+            }
+            // Se comprueba que el usuario no quiere salir del metodo y se comprueban otros datos
+            if (numSocio == 0) {
+                AppController.gestionSocios(BBDD);
+                break;
+            } else if (SocioModel.comprobarSocioPorNumSocio(BBDD, numSocio)) {
+                tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD, numSocio);
+                valoresComprobados = true;
+            } else {
+                View.respuestaControllerView("No se a podido encontrar el socio.");
+                continue;
+            }
+        } while (!valoresComprobados);
+        if (tipoSocio == "estandar") {
+            // Obtenemos el precio del seguro contratado.
+            Double precioSeguro = SocioEstandarModel.getSocioEstandar(BBDD, numSocio).getSeguro().getPrecio();
+            respuesta = "\n    - Coste del seguro: " + precioSeguro;
+            
+            //Se genera el precio final de facturación
+            facturacion = cuotaMensual + precioSeguro;
+            //Se manda el resultado a la vista
+            respuesta = "\n El socio factura "+facturacion+"Euros mensuales.";
+        } else if (tipoSocio == "federado") {
+            //Aplicamos un despues de la cuota mensual 5%
+            Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 5 / 100);
+
+            //Se genera el precio final de facturación
+            facturacion = precioCuotaDescuento;
+            //Se manda el resultado a la vista
+            respuesta = "El socio factura "+facturacion+"Euros mensuales.";
+        } else if (tipoSocio == "infantil") {
+            //Aplicamos un descuento de la cuota mensual 50%
+            Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 50 / 100);
+            //Se genera el precio final de facturación
+            facturacion = precioCuotaDescuento;
+            //Se manda el resultado a la vista
+            respuesta = "El socio factura "+facturacion+"Euros mensuales.";
+        }
+        View.respuestaControllerView(respuesta);
+        // Volvemos al menu principal de la gestión de los socios.
+        AppController.gestionSocios(BBDD);
     }
 
     public static SeguroModel seguroSocio() {
