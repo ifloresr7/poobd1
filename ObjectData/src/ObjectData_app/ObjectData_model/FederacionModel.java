@@ -1,7 +1,5 @@
 package ObjectData_app.ObjectData_model;
 
-import ObjectData_app.ObjectData_model.Datos;
-
 public class FederacionModel {
     String codigo;
     String nombre;
@@ -44,9 +42,7 @@ public class FederacionModel {
             listado += "\n    - " + contador + ". " + federacion.toString();
             contador++;
         }
-        String opcionesDisponibles = String.valueOf(contador);
-        
-        return new String[] {listado, opcionesDisponibles};
+        return new String[] {listado, String.valueOf(contador)};
     }
 
     public static FederacionModel obtenerFederacion(Datos BBDD, int seleccion){

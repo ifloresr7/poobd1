@@ -1,4 +1,5 @@
 package ObjectData_app.ObjectData_controller;
+
 //Se añade la vista principal
 import ObjectData_app.ObjectData_view.AppMenuView;
 import ObjectData_app.ObjectData_view.InscripcionesView;
@@ -10,9 +11,16 @@ import ObjectData_app.ObjectData_model.*;
 public class AppController {
     static AppMenuView menuView = new AppMenuView();
     static boolean cerrarApp = false;
+
     // Inicio del menu de la APP.
     public static void inicio(Datos BBDD) {
-        do { 
+        // Se cargan los datos de forma automatica, se podria añadir un case en el
+        // swicht del menu principal para cargar los datos manualmente pero lo hacemos
+        // de este modo para poder ejecutar los test
+        CargarDatosModel cargarDatos = new CargarDatosModel();
+        cargarDatos.cargarDatos(BBDD);
+        // Ahora si, arracamos el menu principal de la aplicación.
+        do {
             menuView.menuInicioView();
             int opcion = menuView.getOpcionView(5);
             switch (opcion) {
@@ -26,10 +34,6 @@ public class AppController {
                     gestionInscripciones(BBDD);
                     break;
                 case 4:
-                    CargarDatosModel cargarDatos = new CargarDatosModel();
-                    cargarDatos.cargarDatos(BBDD);
-                    break;
-                case 5:
                     cerrarApp = true;
                     break;
             }
@@ -52,33 +56,28 @@ public class AppController {
                 break;
         }
     }
+
     // Metodos de control para Socios.
     public static void gestionSocios(Datos BBDD) {
         menuView.menuGestionSociosView();
-        int opcion = menuView.getOpcionView(8);
+        int opcion = menuView.getOpcionView(6);
         switch (opcion) {
             case 1:
-                SocioController.crearSocioEstandar(BBDD);
+                SocioController.crearNuevoSocio(BBDD);
                 break;
             case 2:
                 SocioController.modificarSeguroSocioEstandar(BBDD);
                 break;
             case 3:
-                SocioController.crearSocioFederado(BBDD);
-                break;
-            case 4:
-                SocioController.crearSocioInfantil(BBDD);
-                break;
-            case 5:
                 SocioController.eliminarSocio(BBDD);
                 break;
-            case 6:
+            case 4:
                 SocioController.mostrarSocio(BBDD);
                 break;
-            case 7:
+            case 5:
                 SocioController.facturaMensualSocio(BBDD);
                 break;
-            case 8:
+            case 6:
                 inicio(BBDD);
                 break;
         }

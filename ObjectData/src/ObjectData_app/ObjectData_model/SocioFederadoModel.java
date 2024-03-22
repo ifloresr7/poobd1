@@ -1,7 +1,7 @@
 package ObjectData_app.ObjectData_model;
 public class SocioFederadoModel extends SocioModel {
-    private String NIF;
-    private FederacionModel federacion;
+    String NIF;
+    FederacionModel federacion;
 
     // Constructor
     public SocioFederadoModel(int numeroSocio, String nombre, String NIF, FederacionModel federacion) {

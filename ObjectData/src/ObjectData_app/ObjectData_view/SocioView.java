@@ -12,7 +12,17 @@ public class SocioView {
     static String error = "\033[31m";
     static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
 
-    // Propiedades de clase
+    // Metodos de la clase
+    public String crearNuevoSocioView() {
+        System.out.println(h2 + "--- CREAR SOCIO POR TIPO ---" + p);
+        System.out.println("    1. Añadir Socio Estándar.");
+        System.out.println("    2. Añadir Socio Federado.");
+        System.out.println("    3. Añadir Socio Infantil.");
+        System.out.println("    4. Volver al menú de gestión de socios.");
+        System.out.println(p2 + "Seleccione una opcion: " + p);
+        return teclado.nextLine();
+    }
+
     public String[] formCrearSocioEstandarView() {
         System.out.println(limpiezaConsola + h1 + "--- Formulario Añadir Socio Estándar ---" + p);
         System.out.print(p2 + "- Nombre: " + p);
@@ -26,7 +36,7 @@ public class SocioView {
         System.out.println(limpiezaConsola + "  - Formulario para Modificar tipo de seguro de un socio estándar");
         System.out.print(p2 + "- Numero de Socio: " + p);
         String numeroSocio = teclado.nextLine();
-        return new String[]{ numeroSocio};
+        return new String[] { numeroSocio };
     }
 
     public String[] formCrearSocioFederadoView() {
@@ -35,90 +45,54 @@ public class SocioView {
         String nombre = teclado.nextLine();
         System.out.print(p2 + "- Nif: " + p);
         String NIF = teclado.nextLine();
-        return new String[]{nombre,NIF};
+        return new String[] { nombre, NIF };
     }
-    
-    public String selectorFederacionesView (String listado){
+
+    public String[] selectorFederacionesView(String listado) {
         System.out.println(limpiezaConsola + h1 + "  - Selección de Federación" + p);
         System.out.println(listado);
         System.out.print(p2 + "Seleccione la federación (Ingrese el numero que quieres seleccionar): " + p);
         String federacionSeleccionada = teclado.nextLine();
-        return federacionSeleccionada;
+        return new String[] { federacionSeleccionada };
     }
-    
+
     public String[] formCrearSocioInfantilView() {
         System.out.println(limpiezaConsola + h1 + "  - Formulario para Añadir Socio Infantil" + p);
         System.out.print(p2 + "- Nombre del niño: " + p);
         String nombre = teclado.nextLine();
-        return new String[]{nombre};
+        return new String[] { nombre };
     }
 
-    public String[] numeroSocioParentalView (){
+    public String[] numeroSocioParentalView() {
         System.out.println(limpiezaConsola + h1 + "  - Indica el numero de Socio Parental" + p);
         System.out.print(p2 + "- Numero de socio del padre: " + p);
         String numeroParental = teclado.nextLine();
-        return new String [] {numeroParental}
+        return new String[] { numeroParental };
+    }
+
+    public String listadoSociosView(){
+        System.out.println(limpiezaConsola + "- Indica el tipo de socio que quieres mostrar: ");
+        System.out.println("    1. Todos los socios.");
+        System.out.println("    2. Socios Estándar.");
+        System.out.println("    3. Socios Federados.");
+        System.out.println("    4. Socio Infantiles.");
+        System.out.println("    5. Volver al menú de gestión de socios.");
+        System.out.println(p2 + "Seleccione una opcion: " + p);
+        return teclado.nextLine();
     }
 
     public String[] formEliminarSocioView() {
         System.out.println(limpiezaConsola + "  - Formulario para Eliminar socio");
         System.out.print(p2 + "- Numero de socio: " + p);
         String numeroSocio = teclado.nextLine();
-        return new String[]{numeroSocio};
+        return new String[] { numeroSocio };
     }
-
-    public String[] formMostrarSocioView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Mostrar Socios (Todos o por tipo de socio)");
-        System.out.println(p2 + "Opciones de filtrado:" + p);
-        System.out.println("    - 1. Mostrar todos los socios");
-        System.out.println("    - 2. Mostrar socios federados");
-        System.out.println("    - 3. Mostrar socios infantil");
-        System.out.println("    - 4. Mostrar socios estandar");
-        System.out.print(p2 + "Seleccione una opción (1,2,3,4): " + p);
-        String opcion = teclado.nextLine();
-        return opcion;
-    }
-
-    public String[] formMostrarTododslosSociosView() {
-        System.out.println(limpiezaConsola + "  - Mostrar todos los socios");
-        System.out.print(p2 + "- Numero de socio: " + p);
-        String numeroSocio = teclado.nextLine();
-        return new String[]{numeroSocio};
-    }
-
-    public String[] formMostrarSociosFeredarosView() {
-        System.out.println(limpiezaConsola + "  - Mostrar los socios feredaros");
-        System.out.print(p2 + "- Numero de socio: " + p);
-        String numeroSocio = teclado.nextLine();
-        System.out.print(p2 + "- Nombre del socio: " + p);
-        String nombreSocio = teclado.nextLine();
-        return new String[]{numeroSocio,nombreSocio};
-    }
-
-    
-    public String[] formMostrarSociosInfantilView() {
-        System.out.println(limpiezaConsola + "  - Mostrar socios estandar");
-        System.out.print(p2 + "- Numero de socio: " + p);
-        String numeroSocio = teclado.nextLine();
-        System.out.print(p2 + "- Nombre del socio: " + p);
-        String nombreSocio = teclado.nextLine();
-        return new String[]{numeroSocio,nombreSocio};
-
-    
-    public String[] formMostrarSociosEstandarView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Eliminar socio");
-        System.out.print(p2 + "- Numero de socio: " + p);
-        String numeroSocio = teclado.nextLine();
-        System.out.print(p2 + "- Nombre del socio: " + p);
-        String nombreSocio = teclado.nextLine();
-        return new String[]{numeroSocio,nombreSocio};
-
 
     public String[] formMostrarFacturaMensualSocioView() {
         System.out.println(limpiezaConsola + "  - Formulario para Mostrar Factura mensual por socios");
         System.out.print(p2 + "- Numero de socio: " + p);
         String numeroSocio = teclado.nextLine();
-        return new String[]{};
+        return new String[] { numeroSocio };
     }
 
     public String[] seleccionarSeguroView() {
@@ -127,12 +101,12 @@ public class SocioView {
         System.out.println("    2. Completo");
         System.out.print(p2 + "- Elige el tipo de seguro: " + p);
         String tipo = teclado.nextLine();
-        System.out.print(p2 + "- Ingrese el precio de inscripción de la excursión (Ejem: 25.75): " + p);
-        String precio = teclado.nextLine();
-        return new String[] {tipo, precio};
+        return new String[] { tipo };
     }
 
-    // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al guardar, Guardado Correcto, los objetos o lo que sea..., es decir los datos almacenados entre otros mensajes."
+    // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al
+    // guardar, Guardado Correcto, los objetos o lo que sea..., es decir los datos
+    // almacenados entre otros mensajes."
     public void respuestaControllerView(String respuesta) {
         System.out.println(respuesta);
         System.out.println("\nPulsa un tecla para continuar...");

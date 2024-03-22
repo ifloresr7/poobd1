@@ -31,12 +31,9 @@ public class InscripcionController{
         String res=null;
         String nombre = retorno;
         Boolean correcto = SocioModel.buscarSocioNombre(BBDD,retorno);
-        if(!correcto)
-        {
-            AppController.anadirSocio(BBDD);
-        }
-        else
-        {
+        if(!correcto){
+            View.respuestaControllerView("Socio no encontrado.");
+        }else{
             retorno2 = View.formSeguirInscripcionView();
         }
         int numeroInscripcion = generarID();
