@@ -15,8 +15,7 @@ public class AppMenuView {
         System.out.println("    1. Gestión Excursiones");
         System.out.println("    2. Gestión de Socios");
         System.out.println("    3. Gestión de Inscripciones");
-        System.out.println("    4. Cargar datos iniciales");
-        System.out.println("    5. Salir");
+        System.out.println("    4. Salir");
     } 
     public void menuGestionExcursionesView() {
         System.out.println(limpiezaConsola + h2 + "---GESTIÓN DE EXCURSIONES---" + p);
@@ -24,24 +23,15 @@ public class AppMenuView {
         System.out.println("    2. Mostrar Excursiones con filtro entre fechas");
         System.out.println("    3. Volver");
     }
-    public void añadirSocioView(){
-        System.out.println("El socio no existe se añadirá un nuevo socio" );
-        System.out.println(h2 + "---GESTIÓN DE SOCIOS---" + p);
-        System.out.println("    1. Añadir Socio Estándar");
-        System.out.println("    2. Añadir Socio Federado");
-        System.out.println("    3. Añadir Socio Infantil");
-        System.out.println("    4. Volver");
-    }
+
     public void menuGestionSociosView() {
         System.out.println(limpiezaConsola + h2 + "---GESTIÓN DE SOCIOS---" + p);
-        System.out.println("    1. Añadir Socio Estándar");
-        System.out.println("    2. Modificar tipo de seguro de un socio estándar");
-        System.out.println("    3. Añadir Socio Federado");
-        System.out.println("    4. Añadir Socio Infantil");
-        System.out.println("    5. Eliminar socio");
-        System.out.println("    6. Mostrar Socios (Todos o por tipo de socio)");
-        System.out.println("    7. Mostrar Factura mensual por socios");
-        System.out.println("    8. Volver");
+        System.out.println("    1. Añadir nuevo socio.");
+        System.out.println("    2. Modificar tipo de seguro de un socio estándar.");
+        System.out.println("    3. Eliminar socio.");
+        System.out.println("    4. Mostrar Socios.");
+        System.out.println("    5. Mostrar Factura mensual por socio.");
+        System.out.println("    6. Volver");
     }
     public void menuGestionInscripcionesView() {
         System.out.println(limpiezaConsola + h2 + "---GESTIÓN DE INSCRIPCIONES---" + p);
@@ -52,7 +42,7 @@ public class AppMenuView {
     }
     public int getOpcionView(int value) {
         try {
-            System.out.print(p2 + "Elije una opción válida (1-" + value + "): " + p);
+            System.out.print(p2 + "Elije una opción válida (1 - " + value + "): " + p);
             int opcion = Integer.parseInt(teclado.nextLine());
             if (opcion < 1 || opcion > value) {
                 System.out.println(error + "Opción no válida." + p);
