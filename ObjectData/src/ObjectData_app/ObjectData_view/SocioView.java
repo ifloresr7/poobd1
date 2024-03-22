@@ -57,7 +57,7 @@ public class SocioView {
         System.out.println(limpiezaConsola + h1 + "  - Indica el numero de Socio Parental" + p);
         System.out.print(p2 + "- Numero de socio del padre: " + p);
         String numeroParental = teclado.nextLine();
-        return new String [] {numeroParental};
+        return new String [] {numeroParental}
     }
 
     public String[] formEliminarSocioView() {
@@ -67,7 +67,7 @@ public class SocioView {
         return new String[]{numeroSocio};
     }
 
-    public String formMostrarSocioView() {
+    public String[] formMostrarSocioView() {
         System.out.println(limpiezaConsola + "  - Formulario para Mostrar Socios (Todos o por tipo de socio)");
         System.out.println(p2 + "Opciones de filtrado:" + p);
         System.out.println("    - 1. Mostrar todos los socios");
@@ -77,10 +77,41 @@ public class SocioView {
         System.out.print(p2 + "Seleccione una opción (1,2,3,4): " + p);
         String opcion = teclado.nextLine();
         return opcion;
-
     }
 
+    public String[] formMostrarTododslosSociosView() {
+        System.out.println(limpiezaConsola + "  - Mostrar todos los socios");
+        System.out.print(p2 + "- Numero de socio: " + p);
+        String numeroSocio = teclado.nextLine();
+        return new String[]{numeroSocio};
+    }
 
+    public String[] formMostrarSociosFeredarosView() {
+        System.out.println(limpiezaConsola + "  - Mostrar los socios feredaros");
+        System.out.print(p2 + "- Numero de socio: " + p);
+        String numeroSocio = teclado.nextLine();
+        System.out.print(p2 + "- Nombre del socio: " + p);
+        String nombreSocio = teclado.nextLine();
+        return new String[]{numeroSocio,nombreSocio};
+    }
+
+    
+    public String[] formMostrarSociosInfantilView() {
+        System.out.println(limpiezaConsola + "  - Mostrar socios estandar");
+        System.out.print(p2 + "- Numero de socio: " + p);
+        String numeroSocio = teclado.nextLine();
+        System.out.print(p2 + "- Nombre del socio: " + p);
+        String nombreSocio = teclado.nextLine();
+        return new String[]{numeroSocio,nombreSocio};
+
+    
+    public String[] formMostrarSociosEstandarView() {
+        System.out.println(limpiezaConsola + "  - Formulario para Eliminar socio");
+        System.out.print(p2 + "- Numero de socio: " + p);
+        String numeroSocio = teclado.nextLine();
+        System.out.print(p2 + "- Nombre del socio: " + p);
+        String nombreSocio = teclado.nextLine();
+        return new String[]{numeroSocio,nombreSocio};
 
 
     public String[] formMostrarFacturaMensualSocioView() {

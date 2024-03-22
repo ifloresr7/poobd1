@@ -1,6 +1,9 @@
 package ObjectData_app.ObjectData_controller;
 //Se añade la vista principal
 import ObjectData_app.ObjectData_view.AppMenuView;
+import ObjectData_app.ObjectData_view.InscripcionesView;
+
+import javax.swing.text.View;
 
 import ObjectData_app.ObjectData_model.*;
 
@@ -45,24 +48,6 @@ public class AppController {
                 ExcursionController.mostrarExcursionFecha(BBDD);
                 break;
             case 3:
-                inicio(BBDD);
-                break;
-        }
-    }
-    public static void anadirSocio(Datos BBDD) {
-        menuView.añadirSocioView();
-        int opcion = menuView.getOpcionView(4);
-        switch (opcion) {
-            case 1:
-                SocioController.crearSocioEstandar(BBDD);
-                break;
-            case 2:
-                SocioController.crearSocioFederado(BBDD);
-                break;
-            case 3:
-                SocioController.crearSocioInfantil(BBDD);
-                break;
-            case 4:
                 inicio(BBDD);
                 break;
         }
