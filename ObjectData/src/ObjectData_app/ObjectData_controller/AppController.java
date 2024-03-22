@@ -1,12 +1,9 @@
 package ObjectData_app.ObjectData_controller;
 
-//Se añade la vista principal
+//Se importan las libreas
 import ObjectData_app.ObjectData_view.AppMenuView;
-import ObjectData_app.ObjectData_view.InscripcionesView;
-
-import javax.swing.text.View;
-
-import ObjectData_app.ObjectData_model.*;
+import ObjectData_app.ObjectData_model.Datos;
+import ObjectData_app.ObjectData_model.CargarDatosModel;
 
 public class AppController {
     static AppMenuView View = new AppMenuView();
@@ -19,7 +16,7 @@ public class AppController {
         // de este modo para poder ejecutar los test
         CargarDatosModel cargarDatos = new CargarDatosModel();
         cargarDatos.cargarDatos(BBDD);
-        View.respuestaControllerView("Base de datos cargada.");
+        View.respuestaControllerView("\n\n\n\n\n\n\n\n\n\n\nBase de datos cargada.");
         // Ahora si, arracamos el menu principal de la aplicación.
         do {
             View.menuInicioView();
