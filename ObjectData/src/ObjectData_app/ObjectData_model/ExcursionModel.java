@@ -69,7 +69,19 @@ public class ExcursionModel {
         }
     }
 
+    public static String obtenerNombreExcursionPorId(Datos BBDD, int idExcursion) {
+        // Iterar sobre la lista de excursiones para encontrar la excursión con el ID dado
+        for (ExcursionModel excursion : BBDD.excursion) {
+            if (excursion.getNumeroExcursion()==idExcursion) {
+                return excursion.getDescripcion(); // Devolver el nombre de la excursión si se encuentra la coincidencia
+            }
+        }
+        return "Nombre de excursión desconocido"; // Devolver un mensaje de error si no se encuentra la excursión
+    }
+
+
     // Metodo para mostrar escursiones por fecha
+
     public static String mostrarExcursiones(Datos BBDD, Date fechaInicio, Date fechaFin) {
         // Primero comprueba que haya excursiones dentro del ArrayList
         try {

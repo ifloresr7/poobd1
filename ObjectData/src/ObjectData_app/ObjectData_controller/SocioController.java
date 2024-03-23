@@ -205,7 +205,7 @@ public class SocioController {
     }
     public static void eliminarSocio(Datos BBDD) {
         String[] listado = SocioModel.listarSociosModel(BBDD);
-        View.listadoSociosView(listado[0]);
+        //View.listadoSociosView(listado[0]);
         // // Llamamos al método en el modelo para eliminar al socio de la base de datos
         // boolean eliminado = BBDD.eliminarSocio(numeroSocio);
         // // Verificamos si el socio fue eliminado correctamente

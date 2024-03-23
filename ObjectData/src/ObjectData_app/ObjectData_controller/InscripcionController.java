@@ -103,10 +103,10 @@ public class InscripcionController {
                 View.respuestaControllerView("Debes introducir un valor númerico.");
                 continue;
             }
-            if(opcion == 0){
+            if (opcion == 0) {
                 AppController.gestionInscripciones(BBDD);
                 break;
-            }else if (opcion == 1 || opcion == 2) {
+            } else if (opcion == 1 || opcion == 2) {
                 valoresComprobados = true;
             } else {
                 View.respuestaControllerView("Debes selecciona una opcion valida.");
@@ -115,21 +115,33 @@ public class InscripcionController {
         } while (!valoresComprobados);
         switch (opcion) {
             case 1:
-                mostrarInscripcionPorSocio();
+                mostrarInscripcionPorSocio(BBDD);
                 break;
             case 2:
-                mostrarInscripcionPorFecha();
+                mostrarInscripcionPorFecha(BBDD);
                 break;
         }
     }
 
-    public static void mostrarInscripcionPorSocio() {
+    public static void mostrarInscripcionPorSocio(Datos BBDD) {
         String[] retorno = View.formFiltrarPorSocio();
-
+        View.respuestaControllerView("\nListado de todas las inscripciones para el socio seleccionado: " + InscripcionModel.listarInscripciones(BBDD)[0]);
     }
 
-    public static void mostrarInscripcionPorFecha() {
+    public static void mostrarInscripcionPorFecha(Datos BBDD) {
         String[] retorno = View.formFiltrarPorFechas();
+        if (retorno != null && retorno.length == 2) {
+            String fechaInicio = retorno[0];
+            String fechaFin = retorno[1];
+            String[] inscripciones = InscripcionModel.listarInscripcionesFecha(BBDD, fechaInicio, fechaFin);
+            if (inscripciones != null && inscripciones.length > 0) {
+                View.respuestaControllerView("\n Listado de inscripciones por rango de fechas: " + inscripciones[0]);
+            } else {
+                View.respuestaControllerView("\n No se encontraron inscripciones para el rango de fechas especificado.");
+            }
+        } else {
+            View.respuestaControllerView("\n Error al obtener las fechas de filtrado.");
+        }
     }
 
 }

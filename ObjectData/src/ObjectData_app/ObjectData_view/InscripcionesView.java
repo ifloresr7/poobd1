@@ -22,15 +22,11 @@ public class InscripcionesView {
     public String formListadoExcursionesView(String listado){
         System.out.println(limpiezaConsola + h2 + "- Listado de excursiones." + p);
         System.out.println(listado);
-        System.out.print(p2 + "Ingrese el número ordinal de la federación que quieres seleccionar (Use 0 para cancelar y volver al menú): " + p);
+        System.out.print(p2 + "Ingrese el número ordinal de la excursión que quieres seleccionar (Use 0 para cancelar y volver al menú): " + p);
         return  teclado.nextLine();
     }
 
-    public String formSeguirInscripcionView() {
-        System.out.print(p2 + "Introduzca el identificador de la excursión: " + p);
-        String idExcursion = teclado.nextLine();
-        return idExcursion;
-    }
+
     public String formEliminarInscripcionView() {
         System.out.println(limpiezaConsola + h1 + "  - Formulario para Eliminar Inscripción" + p);
         System.out.print(p2 + "Introduzca el número de inscripción a eliminar: " + p);
@@ -46,7 +42,7 @@ public class InscripcionesView {
         System.out.print(p2 + "Seleccione una opción (1 o 2): " + p);
         String opcion = teclado.nextLine();
         return opcion;
-    } 
+    }
 
     public String[] formFiltrarPorSocio() {
         System.out.println(p2 + "Introduzca el número de socio para filtrar: " + p);

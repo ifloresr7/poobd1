@@ -14,6 +14,41 @@ public class InscripcionModel{
         this.numeroExcursion = numeroExcursion;
         this.fechaInscripcion = fechaInscripcion;
     }
+    public static String[] listarInscripcionesFecha(Datos BBDD, String FechaI,String FechaF)
+    {
+        String listado = "";
+        int contador = 0;
+
+        for (InscripcionModel inscripcion : BBDD.inscripcion) {
+
+            contador++;
+            //listado += "\n    - " + contador + ".Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
+              //      + nombreExcursion + " | Fecha de inscripcion: " + inscripcion.getFechaInscripcion() ;
+        }
+        if (contador == 0) {
+            listado = "\n  - Sin datos.";
+        }
+        return new String[] { listado, String.valueOf(contador) };
+    }
+    public static String[] listarInscripciones(Datos BBDD)
+    {
+        String listado = "";
+        int contador = 0;
+
+        for (InscripcionModel inscripcion : BBDD.inscripcion) {
+            String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(BBDD, inscripcion.getNumeroExcursion());
+            String nombreSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD,inscripcion.numeroSocio);
+            contador++;
+            listado += "\n    - " + contador + ".Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
+                    + nombreExcursion + " | Fecha de inscripcion: " + inscripcion.getFechaInscripcion() ;
+        }
+        if (contador == 0) {
+            listado = "\n  - Sin datos.";
+        }
+        return new String[] { listado, String.valueOf(contador) };
+    }
+
+
     // Getters
     public int getNumeroInscripcion() {
         return numeroInscripcion;
