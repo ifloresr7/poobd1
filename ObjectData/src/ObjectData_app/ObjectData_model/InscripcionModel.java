@@ -54,6 +54,7 @@ public class InscripcionModel{
         for (InscripcionModel inscripcion : BBDD.inscripcion) {
             String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(BBDD, inscripcion.getNumeroExcursion());
             String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD,inscripcion.numeroSocio);
+            String nombreSocio = SocioModel.obtenerNombreSocio(BBDD, inscripcion.numeroSocio);
             double precio = ExcursionModel.obtenerPrecioExcursion(BBDD,inscripcion.numeroExcursion);
 
             if(tipoSocio=="Federado")

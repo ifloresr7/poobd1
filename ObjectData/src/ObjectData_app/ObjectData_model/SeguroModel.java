@@ -12,7 +12,14 @@ public class SeguroModel {
     // Constructor
     public SeguroModel(TipoSeguro tipo, double precio) {
         this.tipo = tipo;
-        this.precio = precio;
+        switch (tipo) {
+            case BASICO:
+                this.precio = basico;
+                break;
+            case COMPLETO:
+                this.precio = completo;
+                break;
+        }
     }
 
     // Getters

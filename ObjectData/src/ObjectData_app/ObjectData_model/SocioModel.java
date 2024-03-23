@@ -149,7 +149,7 @@ public abstract class SocioModel {
         }
         return new String[] { listado, String.valueOf(contador) };
     }
-    public String obtenerNombreSocio(Datos BBDD, int numeroSocio)
+    public static String obtenerNombreSocio(Datos BBDD, int numeroSocio)
     {
 
         String nombre=null;
