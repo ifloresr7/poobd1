@@ -50,12 +50,23 @@ public class InscripcionModel{
     {
         String listado = "";
         int contador = 0;
+
         for (InscripcionModel inscripcion : BBDD.inscripcion) {
             String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(BBDD, inscripcion.getNumeroExcursion());
-            String nombreSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD,inscripcion.numeroSocio);
+            String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD,inscripcion.numeroSocio);
+            double precio = ExcursionModel.obtenerPrecioExcursion(BBDD,inscripcion.numeroExcursion);
+
+            if(tipoSocio=="Federado")
+            {
+                precio= precio * 0.1;
+            }
+            if (tipoSocio=="Estandard")
+            {
+                    //double precioSeguro = SocioModel.obtenerPrecioSeguro(BBDD,);
+            }
             contador++;
             listado += "\n    - " + contador + ".Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
-                    + nombreExcursion + " | Fecha de inscripcion: " + inscripcion.getFechaInscripcion() ;
+                    + nombreExcursion + " | Fecha de inscripcion: " + inscripcion.getFechaInscripcion() + " | Precio de la inscripcion: " + precio;
         }
         if (contador == 0) {
             listado = "\n  - Sin datos.";

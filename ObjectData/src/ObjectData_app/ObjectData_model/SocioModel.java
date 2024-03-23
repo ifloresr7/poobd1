@@ -205,4 +205,23 @@ public abstract class SocioModel {
         return new String[] { listado, String.valueOf(contador) };
     }
 
+    private static String obtenerTipoSocioPorNumeroSocio(Datos BBDD, int numeroSocio) {
+        // Buscar en el array de socios federados
+        for (SocioFederadoModel socio : BBDD.socioFederado) {
+            if (socio.getNumeroSocio() == numeroSocio) {
+                return "Federado";
+            }
+        }
+
+        // Buscar en el array de socios infantiles
+        for (SocioInfantilModel socio : BBDD.socioInfantil) {
+            if (socio.getNumeroSocio() == numeroSocio) {
+                return "Infantil";
+            }
+        }
+
+        // Si no se encuentra en los arrays de socios federados e infantiles, se asume que es socio estándar
+        return "Estándar";
+    }
+
 }
