@@ -92,29 +92,24 @@ public class ExcursionModel {
     }
 
     // Metodo para mostrar escursiones por fecha
-
     public static String mostrarExcursiones(Datos BBDD, Date fechaInicio, Date fechaFin) {
+        String listado = "";
+        int contador = 0;
         // Primero comprueba que haya excursiones dentro del ArrayList
-        try {
-            if (BBDD.excursion.isEmpty()) {
-                return "¡No hay excursiones para mostrar!";
+        for (ExcursionModel excursion : BBDD.excursion) {
+            // Comprueba si la fecha de la excursión está dentro del rango introducido e
+            // imprime la info de la misma
+            if (!excursion.fecha.before(fechaInicio) && !excursion.fecha.after(fechaFin)) {
+                contador++;
+                listado += "\n    - " +contador+". Código: " + excursion.numeroExcursion + " | Descripción: " + excursion.descripcion + " | Fecha: "
+                        + excursion.fecha + " | Número de días: " + excursion.numeroDias
+                        + " | Precio de inscripción: " + excursion.precioInscripcion;
             }
-            for (ExcursionModel excursion : BBDD.excursion) {
-                // Comprueba si la fecha de la excursión está dentro del rango introducido e
-                // imprime la info de la misma
-                if (!excursion.fecha.before(fechaInicio) && !excursion.fecha.after(fechaFin)) {
-                    return "Código: " + excursion.numeroExcursion + ", Descripción: " + excursion.descripcion + ", Fecha: "
-                            + excursion.fecha + ", Número de días: " + excursion.numeroDias
-                            + ", Precio de inscripción: " + excursion.precioInscripcion;
-                } else {
-                    // Si no hay escursion entonces esto:
-                    return "No hay excursiones disponibles entre las fechas proporcionadas.";
-                }
-            }
-        } catch (Exception error) {
-            return "Fallo al mostrar las excursiones: " + error;
         }
-        return null;
+        if(contador == 0){
+            listado = "- Sin datos.";
+        }
+        return listado;
     }
 
     // Metodo para comprobar si existe una excursion
