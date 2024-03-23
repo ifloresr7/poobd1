@@ -73,11 +73,17 @@ public class SocioEstandarModel extends SocioModel {
         }
         return false;
     }
+    public static double obtenerPrecioSeguro(Datos BBDD, String nombreSocio) {
+        // Buscar el socio por nombre en los arrays correspondientes
+        for (SocioEstandarModel socio : BBDD.socioEstandar) {
+            if (socio.getNombre().equals(nombreSocio)) {
+                // Una vez encontrado el socio, obtenemos el tipo de seguro que tiene
+                SeguroModel seguro = socio.getSeguro();
+                double precioSeguro = seguro.getPrecio();
+                return precioSeguro;
+            }
+        }
+        // Devolver un valor predeterminado si no se encuentra el socio
+        return 0.0;
+    }
 }
-
-// int num = 1;
-// for (SocioEstandarModel socio : BBDD.socioEstandar) {
-//     System.out.println("\n---- socio " + num);
-//     System.out.println(socio.toString());
-//     num++;
-// }

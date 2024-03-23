@@ -16,8 +16,7 @@ public class InscripcionModel{
         this.numeroExcursion = numeroExcursion;
         this.fechaInscripcion = fechaInscripcion;
     }
-    public static String[] listarInscripcionesFecha(Datos BBDD, String FechaI,String FechaF)
-    {
+    public static String[] listarInscripcionesFecha(Datos BBDD, String FechaI, String FechaF) {
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Formato de fecha
 
         // Parsear las fechas de inicio y fin
@@ -26,54 +25,103 @@ public class InscripcionModel{
             fechaInicio = sdf.parse(FechaI);
             fechaFin = sdf.parse(FechaF);
         } catch (ParseException e) {
+            // Mensaje de error si hay un problema con el formato de fecha
+            System.out.println("Error al parsear las fechas: " + e.getMessage());
             return new String[]{"Error en el formato de fecha.", "0"};
         }
+
         String listado = "";
         int contador = 0;
 
         for (InscripcionModel inscripcion : BBDD.inscripcion) {
-            Date fechaInscripcion = inscripcion.getFechaInscripcion();
+            Date fechaInscripcion = inscripcion.fechaInscripcion;
+
+            // Mensaje de depuración para verificar las fechas de inscripción
+            System.out.println("Fecha de inscripción: " + fechaInscripcion);
             if (fechaInscripcion.after(fechaInicio) && fechaInscripcion.before(fechaFin)) {
                 String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(BBDD, inscripcion.getNumeroExcursion());
-                String nombreSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD,inscripcion.numeroSocio);
+                String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD,inscripcion.getNumeroSocio());
+                String nombreSocio = SocioModel.obtenerNombreSocio(BBDD, inscripcion.getNumeroSocio());
+                double precio = ExcursionModel.obtenerPrecioExcursion(BBDD, inscripcion.getNumeroExcursion());
+                if (tipoSocio.equals("Federado")) {
+                    precio = precio - (precio * 0.1);
+                }
+                if (tipoSocio.equals("Estandar")) {
+                    double precioSeguro = SocioEstandarModel.obtenerPrecioSeguro(BBDD, nombreSocio);
+                    precio = precio + precioSeguro;
+                }
                 contador++;
-                listado += "\n    - " + contador + ".Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
-                         + nombreExcursion + " | Fecha de inscripcion: " + inscripcion.getFechaInscripcion();
+                listado += "\n    - " + contador + ".Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.numeroInscripcion + " | Excursión: "
+                        + nombreExcursion + " | Fecha de inscripcion: " + inscripcion.fechaInscripcion + " | Precio de la inscripcion: " + precio;
+            }
+            if (contador == 0) {
+                listado = "\n  - Sin datos.";
             }
         }
-        if (contador == 0) {
-            listado = "\n  - Sin datos.";
+            return new String[]{listado, String.valueOf(contador)};
         }
-        return new String[] { listado, String.valueOf(contador) };
-    }
+
     public static String[] listarInscripciones(Datos BBDD)
     {
+
         String listado = "";
         int contador = 0;
 
         for (InscripcionModel inscripcion : BBDD.inscripcion) {
-            String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(BBDD, inscripcion.getNumeroExcursion());
-            String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD,inscripcion.numeroSocio);
-            String nombreSocio = SocioModel.obtenerNombreSocio(BBDD, inscripcion.numeroSocio);
-            double precio = ExcursionModel.obtenerPrecioExcursion(BBDD,inscripcion.numeroExcursion);
 
-            if(tipoSocio=="Federado")
-            {
-                precio= precio * 0.1;
+                String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(BBDD, inscripcion.getNumeroExcursion());
+                String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD, inscripcion.getNumeroSocio());
+                String nombreSocio = SocioModel.obtenerNombreSocio(BBDD, inscripcion.getNumeroSocio());
+                double precio = ExcursionModel.obtenerPrecioExcursion(BBDD, inscripcion.getNumeroExcursion());
+
+                if (tipoSocio.equals("Federado")) {
+                    precio -= (precio * 0.1);
+                }
+                if (tipoSocio.equals("Estandar")) {
+                    double precioSeguro = SocioEstandarModel.obtenerPrecioSeguro(BBDD, nombreSocio);
+                    precio += precioSeguro;
+                }
+                contador++;
+                listado += "\n    - " + contador + ". Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
+                        + nombreExcursion + " | Fecha de inscripción: " + inscripcion.getFechaInscripcion() + " | Precio de la inscripción: " + precio;
             }
-            if (tipoSocio=="Estandard")
+
+            if (contador == 0)
             {
-                    //double precioSeguro = SocioModel.obtenerPrecioSeguro(BBDD,);
+                listado = "\n  - Sin datos.";
             }
-            contador++;
-            listado += "\n    - " + contador + ".Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
-                    + nombreExcursion + " | Fecha de inscripcion: " + inscripcion.getFechaInscripcion() + " | Precio de la inscripcion: " + precio;
+            return new String[] { listado, String.valueOf(contador) };
+        }
+
+    public static String[] listarInscripciones(Datos BBDD, int numeroSocio) {
+        String listado = "";
+        int contador = 0;
+
+        for (InscripcionModel inscripcion : BBDD.inscripcion) {
+            if (inscripcion.getNumeroSocio() == numeroSocio) {
+                String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(BBDD, inscripcion.getNumeroExcursion());
+                String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD, inscripcion.getNumeroSocio());
+                String nombreSocio = SocioModel.obtenerNombreSocio(BBDD, inscripcion.getNumeroSocio());
+                double precio = ExcursionModel.obtenerPrecioExcursion(BBDD, inscripcion.getNumeroExcursion());
+
+                if (tipoSocio.equals("Federado")) {
+                    precio -= (precio * 0.1);
+                }
+                if (tipoSocio.equals("Estandar")) {
+                    double precioSeguro = SocioEstandarModel.obtenerPrecioSeguro(BBDD, nombreSocio);
+                    precio += precioSeguro;
+                }
+                contador++;
+                listado += "\n    - " + contador + ". Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
+                        + nombreExcursion + " | Fecha de inscripción: " + inscripcion.getFechaInscripcion() + " | Precio de la inscripción: " + precio;
+            }
         }
         if (contador == 0) {
             listado = "\n  - Sin datos.";
         }
         return new String[] { listado, String.valueOf(contador) };
     }
+
 
     public static boolean eliminarInscripcionNumero(Datos bbdd, int num) {
         for (int i = 0; i < bbdd.inscripcion.size(); i++) {

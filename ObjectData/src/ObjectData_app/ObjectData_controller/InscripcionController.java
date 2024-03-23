@@ -125,14 +125,20 @@ public class InscripcionController {
 
     public static void mostrarInscripcionPorSocio(Datos BBDD) {
         String[] retorno = View.formFiltrarPorSocio();
+        if (retorno != null && retorno.length > 0) {
+            String numSocio = retorno[0];
+            int numeroSocio = Integer.parseInt(numSocio);
         View.respuestaControllerView("\nListado de todas las inscripciones para el socio seleccionado: "
-                + InscripcionModel.listarInscripciones(BBDD)[0]);
+                + InscripcionModel.listarInscripciones(BBDD,numeroSocio)[0]);
+    }
     }
 
     public static void eliminarInscripcion(Datos BBDD) {
+
         View.respuestaControllerView(
                 "\nListado de todas las inscripciones " + InscripcionModel.listarInscripciones(BBDD)[0]);
         String retorno = View.formEliminarInscripcionView();
+
         int num;
         try {
             num = Integer.parseInt(retorno);

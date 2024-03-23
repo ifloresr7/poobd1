@@ -62,28 +62,6 @@ public abstract class SocioModel {
     }
 
     // Método para obtener el tipo de socio de un socio si existe mediante el numeroSocio
-    public static String obtenerTipoSocioPorNumSocio(Datos BBDD, int codigoSocio) {
-        // Comprobar en la lista de socios estándar
-        for (SocioEstandarModel socio : BBDD.socioEstandar) {
-            if (socio.getNumeroSocio() == codigoSocio) {
-                return socio.getNombre() ;
-            }
-        }
-        // Comprobar en la lista de socios federados
-        for (SocioFederadoModel socio : BBDD.socioFederado) {
-            if (socio.getNumeroSocio() == codigoSocio) {
-                return socio.getNombre();
-            }
-        }
-        // Comprobar en la lista de socios infantiles
-        for (SocioInfantilModel socio : BBDD.socioInfantil) {
-            if (socio.getNumeroSocio() == codigoSocio) {
-                return socio.getNombre();
-            }
-        }
-        // Si no se encuentra en ninguna lista, devolver false
-        return null;
-    }
 
     public static boolean buscarSocioNombre(Datos BBDD, String nombre) {
         // Comprobar en la lista de socios estándar
@@ -205,7 +183,7 @@ public abstract class SocioModel {
         return new String[] { listado, String.valueOf(contador) };
     }
 
-    private static String obtenerTipoSocioPorNumeroSocio(Datos BBDD, int numeroSocio) {
+    public static String obtenerTipoSocioPorNumSocio(Datos BBDD, int numeroSocio) {
         // Buscar en el array de socios federados
         for (SocioFederadoModel socio : BBDD.socioFederado) {
             if (socio.getNumeroSocio() == numeroSocio) {
@@ -221,7 +199,7 @@ public abstract class SocioModel {
         }
 
         // Si no se encuentra en los arrays de socios federados e infantiles, se asume que es socio estándar
-        return "Estándar";
+        return "Estandar";
     }
 
 }
