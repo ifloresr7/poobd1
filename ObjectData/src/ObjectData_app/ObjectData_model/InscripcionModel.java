@@ -1,4 +1,6 @@
 package ObjectData_app.ObjectData_model;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class InscripcionModel{
@@ -16,14 +18,28 @@ public class InscripcionModel{
     }
     public static String[] listarInscripcionesFecha(Datos BBDD, String FechaI,String FechaF)
     {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Formato de fecha
+
+        // Parsear las fechas de inicio y fin
+        Date fechaInicio, fechaFin;
+        try {
+            fechaInicio = sdf.parse(FechaI);
+            fechaFin = sdf.parse(FechaF);
+        } catch (ParseException e) {
+            return new String[]{"Error en el formato de fecha.", "0"};
+        }
         String listado = "";
         int contador = 0;
 
         for (InscripcionModel inscripcion : BBDD.inscripcion) {
-
-            contador++;
-            //listado += "\n    - " + contador + ".Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
-              //      + nombreExcursion + " | Fecha de inscripcion: " + inscripcion.getFechaInscripcion() ;
+            Date fechaInscripcion = inscripcion.getFechaInscripcion();
+            if (fechaInscripcion.after(fechaInicio) && fechaInscripcion.before(fechaFin)) {
+                String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(BBDD, inscripcion.getNumeroExcursion());
+                String nombreSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD,inscripcion.numeroSocio);
+                contador++;
+                listado += "\n    - " + contador + ".Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
+                         + nombreExcursion + " | Fecha de inscripcion: " + inscripcion.getFechaInscripcion();
+            }
         }
         if (contador == 0) {
             listado = "\n  - Sin datos.";
@@ -34,7 +50,6 @@ public class InscripcionModel{
     {
         String listado = "";
         int contador = 0;
-
         for (InscripcionModel inscripcion : BBDD.inscripcion) {
             String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(BBDD, inscripcion.getNumeroExcursion());
             String nombreSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD,inscripcion.numeroSocio);
