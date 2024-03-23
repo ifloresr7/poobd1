@@ -14,46 +14,48 @@ public class InscripcionesView {
 
     // Metodos de clase
     public String formCrearInscripcionView() {
-        System.out.println(limpiezaConsola + h1 + "  - Formulario para Crear Inscripción" + p);
-        System.out.print(p2 + "Introduzca el número de socio: " + p);
+        System.out.println(limpiezaConsola + h1 + "-- CREA UNA INSCRIPCIÓN --" + p);
+        System.out.println("NOTA: Puede cancelar la creación de la inscripción al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.print(p2 + "- Introduzca el número de socio: " + p);
         String numSocio = teclado.nextLine();
         return numSocio;
     }
     public String formListadoExcursionesView(String listado){
         System.out.println(limpiezaConsola + h2 + "- Listado de excursiones." + p);
         System.out.println(listado);
-        System.out.print(p2 + "Ingrese el número ordinal de la excursión que quieres seleccionar (Use 0 para cancelar y volver al menú): " + p);
+        System.out.print(p2 + "- Ingrese el número de la excursión que quieres seleccionar: " + p);
         return  teclado.nextLine();
     }
 
 
     public String formEliminarInscripcionView() {
-        System.out.println(limpiezaConsola + h1 + "  - Formulario para Eliminar Inscripción" + p);
-        System.out.print(p2 + "Introduzca el número de inscripción a eliminar: " + p);
+        System.out.println(limpiezaConsola + h1 + "-- ELIMINA UNA INSCRIPCIÓN --" + p);
+        System.out.println("NOTA: Puede cancelar la eliminación de una inscripción al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.print(p2 + "- Introduzca el número de inscripción a eliminar: " + p);
         String numInscripcion = teclado.nextLine();
         return numInscripcion;
     }
 
     public String formMostrarInscripcionView() {
-        System.out.println(limpiezaConsola + h1 + "  - Formulario para Mostrar Inscripciones" + p);
-        System.out.println(p2 + "Opciones de filtrado:" + p);
+        System.out.println(limpiezaConsola + h1 + "-- MOSTRAR INSCRIPCIONES --" + p);
+        System.out.println(p2 + "Indique una opción de filtrado:" + p);
         System.out.println("    - 1. Filtrar por socio");
         System.out.println("    - 2. Filtrar por fechas");
-        System.out.print(p2 + "Seleccione una opción (1 o 2): " + p);
+        System.out.print(p2 + "- Seleccione una opción (1 o 2): " + p);
         String opcion = teclado.nextLine();
         return opcion;
     }
 
     public String[] formFiltrarPorSocio() {
-        System.out.println(p2 + "Introduzca el número de socio para filtrar: " + p);
+        System.out.println(p2 + "- Introduzca el número de socio para filtrar: " + p);
         String numSocio = teclado.nextLine();
         return new String[]{numSocio};
     }
 
     public String[] formFiltrarPorFechas() {
-        System.out.println(p2 + "Introduzca la fecha de inicio para el filtro (dd/mm/aaaa): " + p);
+        System.out.println(p2 + "- Introduzca la fecha de inicio para el filtro (dd/mm/aaaa): " + p);
         String fechaInicio = teclado.nextLine();
-        System.out.println(p2 + "Introduzca la fecha de fin para el filtro (dd/mm/aaaa): " + p);
+        System.out.println(p2 + "- Introduzca la fecha de fin para el filtro (dd/mm/aaaa): " + p);
         String fechaFin = teclado.nextLine();
         return new String[]{fechaInicio, fechaFin};
     }

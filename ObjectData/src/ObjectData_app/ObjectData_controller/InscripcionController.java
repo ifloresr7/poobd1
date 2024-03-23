@@ -33,17 +33,20 @@ public class InscripcionController {
         int numeroExcursion = 0;
         do {
             String retorno = View.formCrearInscripcionView();
+            // Compruebo que el usuario de la app no quiera Cancelar y salir.
+            if (retorno == "") {
+                View.respuestaControllerView("Operación cancelada.");
+                AppController.gestionInscripciones(BBDD);
+                break;
+            }
             try {
                 numeroSocio = Integer.parseInt(retorno);
             } catch (Exception e) {
                 View.respuestaControllerView("Debes introducir un valor númerico.");
                 continue;
             }
-            // Compruebo que el usuario de la app no quiera Cancelar y salir.
-            if (numeroSocio == 0) {
-                AppController.gestionInscripciones(BBDD);
-                break;
-            } else if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroSocio)) {
+            // COmpruebo que el socio exista
+            if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroSocio)) {
                 View.respuestaControllerView("Socio no encontrado.");
                 continue;
             } else {
@@ -78,7 +81,8 @@ public class InscripcionController {
         // Mandamos el numero de inscripcion generado a la pantalla:
         View.respuestaControllerView("- Número de inscripción generado: " + numeroInscripcion);
         // Creamos un objeto de tipo llamado inscripcion con los datos correctos
-        InscripcionModel inscripcion = new InscripcionModel(numeroInscripcion, numeroSocio, numeroExcursion, new Date());
+        InscripcionModel inscripcion = new InscripcionModel(numeroInscripcion, numeroSocio, numeroExcursion,
+                new Date());
         // Enviamos la información al modelo para que añada la inscripción a la BBDD
         String respuesta = InscripcionModel.crearInscripcion(BBDD, inscripcion);
         // Una vez que el modelo responde confirmando la acción, enviamos la respuesta
@@ -87,8 +91,6 @@ public class InscripcionController {
         // Volvemos al menu principal de la gestión de los socios.
         AppController.gestionInscripciones(BBDD);
     }
-
-
 
     public static void mostrarInscripcion(Datos BBDD) {
         boolean valoresComprobados = false;
@@ -121,14 +123,15 @@ public class InscripcionController {
         }
     }
 
-    public static void mostrarInscripcionPorSocio(Datos BBDD)
-    {
+    public static void mostrarInscripcionPorSocio(Datos BBDD) {
         String[] retorno = View.formFiltrarPorSocio();
-        View.respuestaControllerView("\nListado de todas las inscripciones para el socio seleccionado: " + InscripcionModel.listarInscripciones(BBDD)[0]);
+        View.respuestaControllerView("\nListado de todas las inscripciones para el socio seleccionado: "
+                + InscripcionModel.listarInscripciones(BBDD)[0]);
     }
-    public static void eliminarInscripcion(Datos BBDD)
-    {
-        View.respuestaControllerView("\nListado de todas las inscripciones " + InscripcionModel.listarInscripciones(BBDD)[0]);
+
+    public static void eliminarInscripcion(Datos BBDD) {
+        View.respuestaControllerView(
+                "\nListado de todas las inscripciones " + InscripcionModel.listarInscripciones(BBDD)[0]);
         String retorno = View.formEliminarInscripcionView();
         int num;
         try {
@@ -142,10 +145,10 @@ public class InscripcionController {
         if (inscripcionEliminada) {
             View.respuestaControllerView("La inscripción ha sido eliminada exitosamente.");
         } else {
-            View.respuestaControllerView("No se pudo eliminar la inscripción. Verifique el número de inscripción y asegúrese de que la fecha de inscripción sea anterior a la fecha de la excursión.");
+            View.respuestaControllerView(
+                    "No se pudo eliminar la inscripción. Verifique el número de inscripción y asegúrese de que la fecha de inscripción sea anterior a la fecha de la excursión.");
         }
     }
-
 
     public static void mostrarInscripcionPorFecha(Datos BBDD) {
         String[] retorno = View.formFiltrarPorFechas();
@@ -156,7 +159,8 @@ public class InscripcionController {
             if (inscripciones != null && inscripciones.length > 0) {
                 View.respuestaControllerView("\n Listado de inscripciones por rango de fechas: " + inscripciones[0]);
             } else {
-                View.respuestaControllerView("\n No se encontraron inscripciones para el rango de fechas especificado.");
+                View.respuestaControllerView(
+                        "\n No se encontraron inscripciones para el rango de fechas especificado.");
             }
         } else {
             View.respuestaControllerView("\n Error al obtener las fechas de filtrado.");

@@ -5,7 +5,7 @@ public class SeguroModel {
         BASICO,
         COMPLETO
     }
-
+    private static final Double basico = 25.50, completo = 45.00;
     private TipoSeguro tipo;
     private double precio;
 
