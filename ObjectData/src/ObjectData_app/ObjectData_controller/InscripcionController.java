@@ -88,9 +88,7 @@ public class InscripcionController {
         AppController.gestionInscripciones(BBDD);
     }
 
-    public static void eliminarInscripcion(Datos BBDD) {
 
-    }
 
     public static void mostrarInscripcion(Datos BBDD) {
         boolean valoresComprobados = false;
@@ -123,10 +121,31 @@ public class InscripcionController {
         }
     }
 
-    public static void mostrarInscripcionPorSocio(Datos BBDD) {
+    public static void mostrarInscripcionPorSocio(Datos BBDD)
+    {
         String[] retorno = View.formFiltrarPorSocio();
         View.respuestaControllerView("\nListado de todas las inscripciones para el socio seleccionado: " + InscripcionModel.listarInscripciones(BBDD)[0]);
     }
+    public static void eliminarInscripcion(Datos BBDD)
+    {
+        View.respuestaControllerView("\nListado de todas las inscripciones " + InscripcionModel.listarInscripciones(BBDD)[0]);
+        String retorno = View.formEliminarInscripcionView();
+        int num;
+        try {
+            num = Integer.parseInt(retorno);
+        } catch (NumberFormatException e) {
+            // Manejar el caso en que el usuario no ingrese un número válido
+            View.respuestaControllerView("El número de inscripción ingresado no es válido.");
+            return;
+        }
+        boolean inscripcionEliminada = InscripcionModel.eliminarInscripcionNumero(BBDD, num);
+        if (inscripcionEliminada) {
+            View.respuestaControllerView("La inscripción ha sido eliminada exitosamente.");
+        } else {
+            View.respuestaControllerView("No se pudo eliminar la inscripción. Verifique el número de inscripción y asegúrese de que la fecha de inscripción sea anterior a la fecha de la excursión.");
+        }
+    }
+
 
     public static void mostrarInscripcionPorFecha(Datos BBDD) {
         String[] retorno = View.formFiltrarPorFechas();

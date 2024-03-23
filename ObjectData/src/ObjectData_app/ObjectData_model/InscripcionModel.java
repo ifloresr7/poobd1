@@ -63,6 +63,34 @@ public class InscripcionModel{
         return new String[] { listado, String.valueOf(contador) };
     }
 
+    public static boolean eliminarInscripcionNumero(Datos bbdd, int num) {
+        for (int i = 0; i < bbdd.inscripcion.size(); i++) {
+            InscripcionModel inscripcion = bbdd.inscripcion.get(i);
+            if (inscripcion.getNumeroInscripcion() == num) {
+                // Obtener el número de excursión de la inscripción
+                int numExcursion = inscripcion.getNumeroExcursion();
+
+                // Buscar la fecha de la excursión correspondiente en el array de excursiones
+                for (ExcursionModel excursion : bbdd.excursion) {
+                    if (excursion.getNumeroExcursion() == numExcursion) {
+                        // Comparar la fecha de inscripción con la fecha de la excursión
+                        if (inscripcion.getFechaInscripcion().before(excursion.getFecha())) {
+                            bbdd.inscripcion.remove(i); // Eliminar la inscripción de la lista
+                            return true;
+                        } else {
+                            // Si la fecha de inscripción es después de la fecha de la excursión, no se puede eliminar
+                            return false;
+                        }
+                    }
+                }
+                // Si no se encontró la excursión correspondiente, no se puede determinar si la inscripción se puede eliminar
+                return false;
+            }
+        }
+        // Si no se encontró la inscripción con el número proporcionado
+        return false;
+    }
+
 
     // Getters
     public int getNumeroInscripcion() {
