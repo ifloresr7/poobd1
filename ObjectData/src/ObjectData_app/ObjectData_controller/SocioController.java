@@ -8,6 +8,7 @@ import ObjectData_app.ObjectData_model.SocioModel;
 import java.util.Random;
 
 import ObjectData_app.ObjectData_model.Datos;
+import ObjectData_app.ObjectData_model.ExcursionModel;
 import ObjectData_app.ObjectData_model.FederacionModel;
 import ObjectData_app.ObjectData_model.InscripcionModel;
 import ObjectData_app.ObjectData_model.SeguroModel;
@@ -288,7 +289,7 @@ public class SocioController {
                 continue;
             }
         } while (!valoresComprobados);
-        if (tipoSocio == "estandar") {
+        if (tipoSocio == "Estandar") {
             //Coste de la cuota
             respuesta += "\n    - Coste de la cuota: " + cuotaMensual + "Euros";
             // Obtenemos el precio del seguro contratado.
@@ -302,7 +303,7 @@ public class SocioController {
             facturacion = cuotaMensual + precioSeguro + Double.parseDouble(retorno[1]);
             //Se manda el resultado a la vista
             respuesta += "\n El socio factura "+facturacion+"Euros mensuales.";
-        } else if (tipoSocio == "federado") {
+        } else if (tipoSocio == "Federado") {
             //Aplicamos un despues de la cuota mensual 5%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 5 / 100);
             // Obtener listado de escursiones y precio:
@@ -314,7 +315,7 @@ public class SocioController {
             facturacion = precioCuotaDescuento + descuentoExcursiones;
             //Se manda el resultado a la vista
             respuesta += "\n El socio factura "+facturacion+"Euros mensuales. (Descuentos incluidos en el precio final)";
-        } else if (tipoSocio == "infantil") {
+        } else if (tipoSocio == "Infantil") {
             //Aplicamos un descuento de la cuota mensual 50%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 50 / 100);
             // Obtener listado de escursiones y precio:

@@ -12,7 +12,7 @@ import java.util.Random;
 public class ExcursionController {
     // Se inicializa una vista de ExcursionesView
     static ExcursionesView View = new ExcursionesView();
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
     // Metodo para crear una ID ramdon de 10 digitos
     public static int generarID() {
@@ -66,10 +66,10 @@ public class ExcursionController {
                 View.respuestaControllerView("Error: El precio debe ser un número válido.");
                 continue;
             }
-            // Método para generar un número de socio aleatorio
-            int numeroExcursion = generarID(); // Número de socio
-            // Mandamos el numero de socio a la pantalla:
-            View.respuestaControllerView("- Numero de socio generado: " + numeroExcursion);
+            // Método para generar un número de excursión aleatorio
+            int numeroExcursion = generarID(); // Número de excursión
+            // Mandamos el numero de excursión a la pantalla:
+            View.respuestaControllerView("- Número de excursión generado: " + numeroExcursion);
             // Se genera el conjunto de BBDD en la variable excursion
             ExcursionModel excursion = new ExcursionModel(numeroExcursion, descripcion, date, num, coste);
             // Se llama al metodo crearExcursion del modelo ExcursionModel, se pasa tanto la
@@ -84,7 +84,6 @@ public class ExcursionController {
     }
 
     public static void mostrarExcursionFecha(Datos BBDD) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         boolean finalizar = false;
         do {
             String[] retorno = View.menuMostarExcursionFechaView();
@@ -106,7 +105,7 @@ public class ExcursionController {
                 View.respuestaControllerView(respuesta);
                 finalizar = true;
             } catch (Exception e) {
-                View.respuestaControllerView("Error: Formato de fecha incorrecto. Debe ser yyyy-MM-dd");
+                View.respuestaControllerView("Error: Formato de fecha incorrecto. Debe ser yyyy-MM-dd HH:mm");
             }
         } while (!finalizar);
         // Al finalizar vuelvo al menu de excursiones

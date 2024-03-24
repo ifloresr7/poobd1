@@ -1,0 +1,10 @@
+123456789, Juan Pérez, 12345678A, SeguroModel{tipo=BASICO- precio=25.5}
+234567890, María García, 23456789B, SeguroModel{tipo=COMPLETO- precio=45.0}
+345678901, Carlos Martínez, 34567890C, SeguroModel{tipo=BASICO- precio=25.5}
+456789012, Laura Sánchez, 45678901D, SeguroModel{tipo=COMPLETO- precio=45.0}
+567890123, Ana Rodríguez, 56789012E, SeguroModel{tipo=BASICO- precio=25.5}
+678901234, David López, 67890123F, SeguroModel{tipo=COMPLETO- precio=45.0}
+789012345, Sofía Fernández, 78901234G, SeguroModel{tipo=BASICO- precio=25.5}
+890123456, Manuel González, 89012345H, SeguroModel{tipo=COMPLETO- precio=45.0}
+901234567, Marta Ruiz, 90123456I, SeguroModel{tipo=BASICO- precio=25.5}
+1234567890, Pablo Hernández, 12345678J, SeguroModel{tipo=COMPLETO- precio=45.0}

@@ -61,31 +61,6 @@ public abstract class SocioModel {
         return false;
     }
 
-    // Método para obtener el tipo de socio de un socio si existe mediante el numeroSocio
-
-    public static boolean buscarSocioNombre(Datos BBDD, String nombre) {
-        // Comprobar en la lista de socios estándar
-        for (SocioEstandarModel socio : BBDD.socioEstandar) {
-            if (socio.getNombre().equals(nombre)) {
-                return true;
-            }
-        }
-        // Comprobar en la lista de socios federados
-        for (SocioFederadoModel socio : BBDD.socioFederado) {
-            if (socio.getNombre().equals(nombre)) {
-                return true;
-            }
-        }
-        // Comprobar en la lista de socios infantiles
-        for (SocioInfantilModel socio : BBDD.socioInfantil) {
-            if (socio.getNombre().equals(nombre)) {
-                return true;
-            }
-        }
-        // Si no se encuentra en ninguna lista, devolver false
-        return false;
-    }
-
     public static String[] listarSociosModel(Datos BBDD) {
         // Comprobar en la lista de socios estándar
         String listado = "";
@@ -127,33 +102,27 @@ public abstract class SocioModel {
         }
         return new String[] { listado, String.valueOf(contador) };
     }
-    public static String obtenerNombreSocio(Datos BBDD, int numeroSocio)
-    {
 
-        String nombre=null;
-        for (SocioInfantilModel socio : BBDD.socioInfantil)
-        {
-            if (socio.getNumeroSocio()==numeroSocio)
-            {
+    public static String obtenerNombreSocio(Datos BBDD, int numeroSocio) {
+        String nombre = null;
+        for (SocioInfantilModel socio : BBDD.socioInfantil) {
+            if (socio.getNumeroSocio() == numeroSocio) {
                 nombre = socio.getNombre();
             }
         }
-        for (SocioFederadoModel socio : BBDD.socioFederado)
-        {
-            if (socio.getNumeroSocio()==numeroSocio)
-            {
+        for (SocioFederadoModel socio : BBDD.socioFederado) {
+            if (socio.getNumeroSocio() == numeroSocio) {
                 nombre = socio.getNombre();
             }
         }
-        for (SocioEstandarModel socio : BBDD.socioEstandar)
-        {
-            if (socio.getNumeroSocio()==numeroSocio)
-            {
+        for (SocioEstandarModel socio : BBDD.socioEstandar) {
+            if (socio.getNumeroSocio() == numeroSocio) {
                 nombre = socio.getNombre();
             }
         }
         return nombre;
     }
+
     public static String[] listarSociosFederadosModel(Datos BBDD) {
         String listado = "";
         int contador = 0;
@@ -183,23 +152,28 @@ public abstract class SocioModel {
         return new String[] { listado, String.valueOf(contador) };
     }
 
-    public static String obtenerTipoSocioPorNumSocio(Datos BBDD, int numeroSocio) {
-        // Buscar en el array de socios federados
+    // Método para obtener el tipo de socio de un socio si existe mediante el
+    // numeroSocio
+    public static String obtenerTipoSocioPorNumSocio(Datos BBDD, int codigoSocio) {
+        // Comprobar en la lista de socios estándar
+        for (SocioEstandarModel socio : BBDD.socioEstandar) {
+            if (socio.getNumeroSocio() == codigoSocio) {
+                return "Estandar";
+            }
+        }
+        // Comprobar en la lista de socios federados
         for (SocioFederadoModel socio : BBDD.socioFederado) {
-            if (socio.getNumeroSocio() == numeroSocio) {
+            if (socio.getNumeroSocio() == codigoSocio) {
                 return "Federado";
             }
         }
-
-        // Buscar en el array de socios infantiles
+        // Comprobar en la lista de socios infantiles
         for (SocioInfantilModel socio : BBDD.socioInfantil) {
-            if (socio.getNumeroSocio() == numeroSocio) {
+            if (socio.getNumeroSocio() == codigoSocio) {
                 return "Infantil";
             }
         }
-
-        // Si no se encuentra en los arrays de socios federados e infantiles, se asume que es socio estándar
-        return "Estandar";
+        // Si no se encuentra en ninguna lista, devolver false
+        return null;
     }
-
 }

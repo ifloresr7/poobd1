@@ -1,8 +1,10 @@
 package ObjectData_app.ObjectData_model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class ExcursionModel {
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
     // Propiedades de clase
     int numeroExcursion;
     String descripcion;
@@ -18,8 +20,6 @@ public class ExcursionModel {
         this.numeroDias = numeroDias;
         this.precioInscripcion = precioInscripcion;
     }
-
-
 
     public int getNumeroExcursion() {
         return numeroExcursion;
@@ -37,8 +37,8 @@ public class ExcursionModel {
         this.descripcion = descripcion;
     }
 
-    public Date getFecha() {
-        return fecha;
+    public String getFecha() {
+        return sdf.format(fecha);
     }
 
     public void setFecha(Date fecha) {
@@ -71,29 +71,9 @@ public class ExcursionModel {
         }
     }
 
-    public static String obtenerNombreExcursionPorId(Datos BBDD, int idExcursion) {
-        // Iterar sobre la lista de excursiones para encontrar la excursión con el ID dado
-        for (ExcursionModel excursion : BBDD.excursion) {
-            if (excursion.getNumeroExcursion()==idExcursion) {
-                return excursion.getDescripcion(); // Devolver el nombre de la excursión si se encuentra la coincidencia
-            }
-        }
-        return "Nombre de excursión desconocido"; // Devolver un mensaje de error si no se encuentra la excursión
-    }
-    public static double obtenerPrecioExcursion(Datos BBDD, int numeroExcursion) {
-        // Suponiendo que tienes una lista de excursiones en tu base de datos llamada "excursiones"
-        for (ExcursionModel excursion : BBDD.excursion) {
-            if (excursion.getNumeroExcursion() == numeroExcursion) {
-                return excursion.getPrecioInscripcion();
-            }
-        }
-        // Si no se encuentra la excursión, podrías devolver un valor predeterminado o manejar el caso según tus necesidades
-        return 0.0; // Por ejemplo, devolver 0 como precio predeterminado si no se encuentra la excursión
-    }
-
     // Metodo para mostrar escursiones por fecha
     public static String mostrarExcursiones(Datos BBDD, Date fechaInicio, Date fechaFin) {
-        String listado = "";
+        String listado = "\nListado de excursiones disponibles entre fechas:";
         int contador = 0;
         // Primero comprueba que haya excursiones dentro del ArrayList
         for (ExcursionModel excursion : BBDD.excursion) {
@@ -102,7 +82,7 @@ public class ExcursionModel {
             if (!excursion.fecha.before(fechaInicio) && !excursion.fecha.after(fechaFin)) {
                 contador++;
                 listado += "\n    - " +contador+". Código: " + excursion.numeroExcursion + " | Descripción: " + excursion.descripcion + " | Fecha: "
-                        + excursion.fecha + " | Número de días: " + excursion.numeroDias
+                        + sdf.format(excursion.fecha) + " | Número de días: " + excursion.numeroDias
                         + " | Precio de inscripción: " + excursion.precioInscripcion;
             }
         }
@@ -146,5 +126,27 @@ public class ExcursionModel {
             }
         }
         return null;
+    }
+
+    
+    public static String obtenerNombreExcursionPorId(Datos BBDD, int idExcursion) {
+        // Iterar sobre la lista de excursiones para encontrar la excursión con el ID dado
+        for (ExcursionModel excursion : BBDD.excursion) {
+            if (excursion.getNumeroExcursion()==idExcursion) {
+                return excursion.getDescripcion(); // Devolver el nombre de la excursión si se encuentra la coincidencia
+            }
+        }
+        return "Nombre de excursión desconocido"; // Devolver un mensaje de error si no se encuentra la excursión
+    }
+    
+    public static double obtenerPrecioExcursion(Datos BBDD, int numeroExcursion) {
+        // Suponiendo que tienes una lista de excursiones en tu base de datos llamada "excursiones"
+        for (ExcursionModel excursion : BBDD.excursion) {
+            if (excursion.getNumeroExcursion() == numeroExcursion) {
+                return excursion.getPrecioInscripcion();
+            }
+        }
+        // Si no se encuentra la excursión, podrías devolver un valor predeterminado o manejar el caso según tus necesidades
+        return 0.0; // Por ejemplo, devolver 0 como precio predeterminado si no se encuentra la excursión
     }
 }

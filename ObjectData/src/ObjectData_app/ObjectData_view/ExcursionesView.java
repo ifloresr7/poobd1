@@ -18,7 +18,7 @@ public class ExcursionesView {
         System.out.println("NOTA: Puede cancelar la creación de la excursión al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
         System.out.print(p2 + "   - Ingrese el nombre de la excursión: " + p);
         String descripcion = teclado.nextLine();
-        System.out.print(p2 + "   - Ingrese la fecha de la excursión en formato yyyy-MM-dd: " + p);
+        System.out.print(p2 + "   - Ingrese la fecha de la excursión en formato yyyy-MM-dd HH:mm: " + p);
         String fecha = teclado.nextLine();
         System.out.print(p2 + "   - Ingrese el número de días de la excursión: " + p);
         String numDias = teclado.nextLine();
@@ -31,9 +31,9 @@ public class ExcursionesView {
     public String[] menuMostarExcursionFechaView() {
         System.out.println(limpiezaConsola + h2 + "-- MOSTRAR EXCURSIONES ENTRE FECHAS --" + p);
         System.out.println("NOTA: Puede cancelar la busqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
-        System.out.print(p2 + "    - Ingrese la fecha Inicio en formato yyyy-MM-dd: " + p);
+        System.out.print(p2 + "    - Ingrese la fecha Inicio en formato (yyyy-MM-dd HH:mm): " + p);
         String inputDate = teclado.nextLine();
-        System.out.print(p2 + "    - Ingrese la fecha Fin en formato yyyy-MM-dd: " + p);
+        System.out.print(p2 + "    - Ingrese la fecha Fin en formato (yyyy-MM-dd HH:mm): " + p);
         String inputDate2 = teclado.nextLine();
         return new String[] { inputDate, inputDate2 };
     }

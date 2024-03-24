@@ -9,7 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class CargarDatosModel {
-    public void cargarDatos(Datos BBDD){
+    public void cargarDatos(Datos BBDD) {
         FileReader archivo;
         BufferedReader lector;
         try {
@@ -55,7 +55,7 @@ public class CargarDatosModel {
                         double precioInscripcion = 0.0;
 
                         try {
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
                             fecha = sdf.parse(partes[2].trim());
                             numeroDias = Integer.parseInt(partes[3].trim());
                             precioInscripcion = Double.parseDouble(partes[4].trim());
@@ -63,16 +63,17 @@ public class CargarDatosModel {
                             System.out.println("Error al parsear la línea: " + cadena);
                             e.printStackTrace();
                         }
-                        ExcursionModel excursion = new ExcursionModel(Integer.parseInt(codigo), descripcion, fecha, numeroDias, precioInscripcion);
+                        ExcursionModel excursion = new ExcursionModel(Integer.parseInt(codigo), descripcion, fecha,
+                                numeroDias, precioInscripcion);
                         BBDD.excursion.add(excursion);
                         System.out.println("Excursión cargada: " + excursion.getDescripcion());
                     } else {
                         System.out.println("Error en el formato de la línea: " + cadena);
                     }
                 }
-                lector.close(); 
+                lector.close();
             }
-            archivo.close(); 
+            archivo.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
