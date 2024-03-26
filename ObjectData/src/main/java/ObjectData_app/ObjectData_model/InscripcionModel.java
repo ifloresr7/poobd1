@@ -241,9 +241,10 @@ public class InscripcionModel{
     }
 
     //Metodo para comprobar si un usuario tiene inscripciones
-    public static boolean comprobarIncripcionPorNumeroSocio(Datos BBDD, int numSocio){
+    public static boolean comprobarSocioInscrito(Datos BBDD, int numSocio){
         for (InscripcionModel inscripcion : BBDD.inscripcion) {
             if(inscripcion.getNumeroSocio() == numSocio){
+                //Devuelve true si el socio esta inscrito en una excursión
                 return true;
             }
         }

@@ -46,4 +46,15 @@ public class SocioInfantilModel extends SocioModel {
         }
         return null;
     }
+
+        // Método para eliminar socio infantil de la base de datos
+        public static boolean eliminarSocioModel(Datos BBDD, int numSocio) {
+            for (SocioInfantilModel socio : BBDD.socioInfantil) {
+                if (socio.getNumeroSocio() == numSocio) {
+                    BBDD.socioInfantil.remove(socio);
+                    return true; // Socio eliminado
+                }
+            }
+            return false; // Socio no encontrado
+        }
 }

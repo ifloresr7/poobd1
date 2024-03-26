@@ -86,4 +86,15 @@ public class SocioEstandarModel extends SocioModel {
         // Devolver un valor predeterminado si no se encuentra el socio
         return 0.0;
     }
+
+    // Método para eliminar socio infantil de la base de datos
+    public static boolean eliminarSocioModel(Datos BBDD, int numSocio) {
+        for (SocioEstandarModel socio : BBDD.socioEstandar) {
+            if (socio.getNumeroSocio() == numSocio) {
+                BBDD.socioEstandar.remove(socio);
+                return true; // Socio eliminado
+            }
+        }
+        return false; // Socio no encontrado
+    }
 }
