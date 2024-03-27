@@ -187,7 +187,7 @@ public class SocioController {
             }
             // Creamos la excepción para verificar que el ID socio introducido existe.
             if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroParental)) {
-                View.respuestaControllerView("No se a encontrado un socio con ese codigo.");
+                View.respuestaControllerView("No se ha encontrado un socio con ese código.");
                 continue;
             } else {
                 codigoOk = true;
@@ -293,7 +293,7 @@ public class SocioController {
         String tipoSocio = "";
         Double facturacion = 0.0;
         final Double cuotaMensual = 30.00;
-        String respuesta = "\nFacturacion del socio: ";
+        String respuesta = "\nFacturación del socio: ";
         // Excepciones
         do {
             // Se muestran la vista y se piden datos.
@@ -302,10 +302,10 @@ public class SocioController {
             try {
                 numSocio = Integer.parseInt(retorno);
             } catch (NumberFormatException error) {
-                View.respuestaControllerView("Debes insertar un valor númerico valido.");
+                View.respuestaControllerView("Debes insertar un valor númerico válido.");
                 continue;
             }
-            // Se comprueba que el usuario no quiere salir del metodo y se comprueban otros datos
+            // Se comprueba que el usuario no quiere salir del método y se comprueban otros datos
             if (numSocio == 0) {
                 AppController.gestionSocios(BBDD);
                 break;
@@ -313,7 +313,7 @@ public class SocioController {
                 tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD, numSocio);
                 valoresComprobados = true;
             } else {
-                View.respuestaControllerView("No se a podido encontrar el socio.");
+                View.respuestaControllerView("No se ha podido encontrar el socio.");
                 continue;
             }
         } while (!valoresComprobados);

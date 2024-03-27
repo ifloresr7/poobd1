@@ -25,7 +25,7 @@ public class SocioView {
 
     public String[] formCrearSocioEstandarView() {
         System.out.println(limpiezaConsola + h2 + "- Formulario añadir socio estándar ---" + p);
-        System.out.println("NOTA: Puede cancelar la busqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println("NOTA: Puede cancelar la búsqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
         System.out.print(p2 + "- Nombre: " + p);
         String nombre = teclado.nextLine();
         System.out.print(p2 + "- DNI: " + p);
@@ -35,7 +35,7 @@ public class SocioView {
 
     public String[] formModificarTipoSeguroView() {
         System.out.println(limpiezaConsola + h2 + "- Formulario para Modificar tipo de seguro de un socio estándar" + p);
-        System.out.println("NOTA: Puede cancelar la busqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println("NOTA: Puede cancelar la búsqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
         System.out.print(p2 + "- Numero de Socio: " + p);
         String numeroSocio = teclado.nextLine();
         return new String[] { numeroSocio };
@@ -43,7 +43,7 @@ public class SocioView {
 
     public String[] formCrearSocioFederadoView() {
         System.out.println(limpiezaConsola + h2 + "- Formulario para añadir socio federado" + p);
-        System.out.println("NOTA: Puede cancelar la busqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println("NOTA: Puede cancelar la búsqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
         System.out.print(p2 + "- Nombre: " + p);
         String nombre = teclado.nextLine();
         System.out.print(p2 + "- NIF: " + p);
@@ -69,7 +69,7 @@ public class SocioView {
 
     public String[] numeroSocioParentalView() {
         System.out.println(limpiezaConsola + h2 + "- Indica el numero de Socio Parental" + p);
-        System.out.print(p2 + "- Numero de socio del padre: " + p);
+        System.out.print(p2 + "- Número de socio del padre o madre: " + p);
         String numeroParental = teclado.nextLine();
         return new String[] { numeroParental };
     }
