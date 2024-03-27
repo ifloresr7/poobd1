@@ -69,7 +69,7 @@ public class SocioView {
 
     public String[] numeroSocioParentalView() {
         System.out.println(limpiezaConsola + h2 + "- Indica el numero de Socio Parental" + p);
-        System.out.print(p2 + "- Numero de socio del padre: " + p);
+        System.out.print(p2 + "- Número de socio del padre o madre: " + p);
         String numeroParental = teclado.nextLine();
         return new String[] { numeroParental };
     }

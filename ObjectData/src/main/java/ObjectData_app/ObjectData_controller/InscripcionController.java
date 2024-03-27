@@ -141,7 +141,7 @@ public class InscripcionController {
 
         int num;
         try {
-            num = Integer.parseInt(retorno);
+            num = Integer.parseInt(retorno)-1;
         } catch (NumberFormatException e) {
             // Manejar el caso en que el usuario no ingrese un número válido
             View.respuestaControllerView("El número de inscripción ingresado no es válido.");

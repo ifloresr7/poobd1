@@ -1,4 +1,4 @@
-332143142, Ruta por Mina de la Jayona, 2024-05-21, 1, 9.90
+332143142, Ruta por Mina de la Jayona, 2024-02-21, 1, 9.90
 141341231, Ruta por el Montseny, 2024-04-20, 1, 9.90
 213223123, Visita al Valle de Aran, 2024-05-15, 2, 19.50
 123112332, Senderismo en Picos de Europa, 2024-06-10, 3, 29.75
