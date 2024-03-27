@@ -69,7 +69,7 @@ public class ExcursionController {
             // Método para generar un número de socio aleatorio
             int numeroExcursion = generarID(); // Número de socio
             // Mandamos el numero de socio a la pantalla:
-            View.respuestaControllerView("- Numero de socio generado: " + numeroExcursion);
+            View.respuestaControllerView("- Numero de excursión generada: " + numeroExcursion);
             // Se genera el conjunto de BBDD en la variable excursion
             ExcursionModel excursion = new ExcursionModel(numeroExcursion, descripcion, date, num, coste);
             // Se llama al metodo crearExcursion del modelo ExcursionModel, se pasa tanto la
