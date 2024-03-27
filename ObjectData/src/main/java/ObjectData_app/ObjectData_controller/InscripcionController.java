@@ -162,7 +162,7 @@ public class InscripcionController {
             String fechaInicio = retorno[0];
             String fechaFin = retorno[1];
             String[] inscripciones = InscripcionModel.listarInscripcionesFecha(BBDD, fechaInicio, fechaFin);
-            if (inscripciones != null && inscripciones.length > 0) {
+            if (inscripciones.length > 0) {
                 View.respuestaControllerView("\n Listado de inscripciones por rango de fechas: " + inscripciones[0]);
             } else {
                 View.respuestaControllerView(
