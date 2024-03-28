@@ -129,14 +129,14 @@ public class InscripcionController {
             String numSocio = retorno[0];
             int numeroSocio = Integer.parseInt(numSocio);
         View.respuestaControllerView("\nListado de todas las inscripciones para el socio seleccionado: "
-                + InscripcionModel.listarInscripciones(BBDD,numeroSocio)[0]);
+                + InscripcionModel.obtenerInscripcionesByNumSocio(BBDD,numeroSocio)[0]);
     }
     }
 
     public static void eliminarInscripcion(Datos BBDD) {
 
         View.respuestaControllerView(
-                "\nListado de todas las inscripciones " + InscripcionModel.listarInscripciones(BBDD)[0]);
+                "\nListado de todas las inscripciones " + InscripcionModel.obtenerListadoInscipciones(BBDD)[0]);
         String retorno = View.formEliminarInscripcionView();
 
         int num;
