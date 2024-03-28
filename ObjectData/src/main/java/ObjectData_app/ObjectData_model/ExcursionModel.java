@@ -134,8 +134,8 @@ public class ExcursionModel {
         return new String[] { listado, String.valueOf(contador) };
     }
 
-    // Metodo para obtener la excursion mediante seleccion
-    public static ExcursionModel obtenerExcursion(Datos BBDD, int seleccion) {
+    // Metodo para obtener la excursion mediante seleccion de lista
+    public static ExcursionModel obtenerExcursionDesdeLista(Datos BBDD, int seleccion) {
         int contador = 0;
         for (ExcursionModel excursion : BBDD.excursion) {
             contador++;
@@ -145,4 +145,14 @@ public class ExcursionModel {
         }
         return null;
     }
+
+        // Metodo para obtener la excursion mediante seleccion de lista
+        public static ExcursionModel obtenerExcursionByCodigo(Datos BBDD, int codigo) {
+            for (ExcursionModel excursion : BBDD.excursion) {
+                if (excursion.getNumeroExcursion() == codigo) {
+                    return excursion;
+                }
+            }
+            return null;
+        }
 }

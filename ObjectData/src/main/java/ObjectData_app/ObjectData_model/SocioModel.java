@@ -93,7 +93,7 @@ public abstract class SocioModel {
         for (SocioEstandarModel socio : BBDD.socioEstandar) {
             contador++;
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
-                    + socio.getNombre() + " | Tipo de socio: Estandar";
+                    + socio.getNombre() + " | Tipo de socio: Estandar | Seguro: "+socio.getSeguro().getTipo();
         }
         // Comprobar en la lista de socios federados
         for (SocioFederadoModel socio : BBDD.socioFederado) {
@@ -190,18 +190,18 @@ public abstract class SocioModel {
                 return "Federado";
             }
         }
-
         // Buscar en el array de socios infantiles
         for (SocioInfantilModel socio : BBDD.socioInfantil) {
             if (socio.getNumeroSocio() == numeroSocio) {
                 return "Infantil";
             }
         }
-
-        // Si no se encuentra en los arrays de socios federados e infantiles, se asume que es socio estándar
-        return "Estandar";
+        // Buscar en el array de socios infantiles
+        for (SocioEstandarModel socio : BBDD.socioEstandar) {
+            if (socio.getNumeroSocio() == numeroSocio) {
+                return "Estandar";
+            }
+        }
+        return null;
     }
-
-    
-
 }

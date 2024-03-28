@@ -223,14 +223,14 @@ public class InscripcionModel{
     //Metodo para obtener inscripciones de un socio mediante numeroSocio
     public static String[] obtenerInscripcionesByNumSocio(Datos BBDD, int numSocio){
         double total = 0.0;
-        String listado = "";
+        String listado = "\n    - Lista de inscripciones del socio: ";
         int contador = 0;
         for (InscripcionModel inscripcion : BBDD.inscripcion) {
             contador++;
             if(inscripcion.getNumeroSocio() == numSocio){
-                Double precioExcursion = ExcursionModel.obtenerExcursion(BBDD, inscripcion.getNumeroExcursion()).getPrecioInscripcion();
-                String descripcionExcursion = ExcursionModel.obtenerExcursion(BBDD, inscripcion.getNumeroExcursion()).getDescripcion();
-                listado = "\n   - "+contador+". ID Inscripción: "+inscripcion.getNumeroInscripcion()+" | Precio excursion: "+precioExcursion+" | Descripcion excursion: "+descripcionExcursion;
+                Double precioExcursion = ExcursionModel.obtenerExcursionByCodigo(BBDD, inscripcion.getNumeroExcursion()).getPrecioInscripcion();
+                String descripcionExcursion = ExcursionModel.obtenerExcursionByCodigo(BBDD, inscripcion.getNumeroExcursion()).getDescripcion();
+                listado += "\n      - "+contador+". ID Inscripción: "+inscripcion.getNumeroInscripcion()+" | Precio excursion: "+precioExcursion+" | Descripcion excursion: "+descripcionExcursion;
                 total += precioExcursion;
             }
         }

@@ -23,7 +23,7 @@ public class test_junit {
         assertEquals("¡Se ha guardado correctamente!", resultado, "La excursion se ha guardado en Datos");
         assertTrue(datosPrueba.excursion.contains(nuevaExcursion), "La nueva excursion debe estar en la lista de excursiones de Datos");
     }
-
+    
     @Test
     void testObtenerListadoExcursiones() {
         String[] resultado = ExcursionModel.obtenerListadoExcursiones(datosPrueba);

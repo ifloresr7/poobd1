@@ -317,7 +317,7 @@ public class SocioController {
                 continue;
             }
         } while (!valoresComprobados);
-        if (tipoSocio == "estandar") {
+        if (tipoSocio == "Estandar") {
             //Coste de la cuota
             respuesta += "\n    - Coste de la cuota: " + cuotaMensual + "Euros";
             // Obtenemos el precio del seguro contratado.
@@ -331,7 +331,7 @@ public class SocioController {
             facturacion = cuotaMensual + precioSeguro + Double.parseDouble(retorno[1]);
             //Se manda el resultado a la vista
             respuesta += "\n El socio factura "+facturacion+"Euros mensuales.";
-        } else if (tipoSocio == "federado") {
+        } else if (tipoSocio == "Federato") {
             //Aplicamos un despues de la cuota mensual 5%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 5 / 100);
             // Obtener listado de escursiones y precio:
@@ -343,7 +343,7 @@ public class SocioController {
             facturacion = precioCuotaDescuento + descuentoExcursiones;
             //Se manda el resultado a la vista
             respuesta += "\n El socio factura "+facturacion+"Euros mensuales. (Descuentos incluidos en el precio final)";
-        } else if (tipoSocio == "infantil") {
+        } else if (tipoSocio == "Infantil") {
             //Aplicamos un descuento de la cuota mensual 50%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 50 / 100);
             // Obtener listado de escursiones y precio:
@@ -361,9 +361,7 @@ public class SocioController {
     public static SeguroModel seguroSocio() {
         // Tratamiento del seguro
         TipoSeguro tipoSeguro = null;
-        Double precioSeguro = null;
         boolean comprobarTipoSeguro = false;
-        final Double basico = 25.50, completo = 45.00;
         // Excepciones de tipo de seguro
         do {
             // Se piden los datos del seguro mediante la vista seleccionarSeguroView
@@ -371,11 +369,9 @@ public class SocioController {
             // Se hace el tratamiento de los datos retornados desde la vista.
             if (retornoSeguro[0].equals("1")) {
                 tipoSeguro = TipoSeguro.BASICO;
-                precioSeguro = basico;
                 comprobarTipoSeguro = true;
             } else if (retornoSeguro[0].equals("2")) {
                 tipoSeguro = TipoSeguro.COMPLETO;
-                precioSeguro = completo;
                 comprobarTipoSeguro = true;
             } else {
                 View.respuestaControllerView("No se ha podido comprobar el tipo de seguro.");
@@ -383,7 +379,7 @@ public class SocioController {
             }
         } while (!comprobarTipoSeguro);
         // Genero el objeto de tipo seguro
-        SeguroModel seguro = new SeguroModel(tipoSeguro, precioSeguro);
+        SeguroModel seguro = new SeguroModel(tipoSeguro);
         // Retorno el seguro
         return seguro;
     }
