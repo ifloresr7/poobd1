@@ -17,7 +17,7 @@ public class InscripcionModel{
         this.fechaInscripcion = fechaInscripcion;
     }
     public static String[] listarInscripcionesFecha(Datos BBDD, String FechaI, String FechaF) {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy"); // Formato de fecha
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Formato de fecha
 
         // Parsear las fechas de inicio y fin
         Date fechaInicio, fechaFin;
@@ -26,7 +26,6 @@ public class InscripcionModel{
             fechaFin = sdf.parse(FechaF);
         } catch (ParseException e) {
             // Mensaje de error si hay un problema con el formato de fecha
-            System.out.println("Error al parsear las fechas: " + e.getMessage());
             return new String[]{"Error en el formato de fecha.", "0"};
         }
 
