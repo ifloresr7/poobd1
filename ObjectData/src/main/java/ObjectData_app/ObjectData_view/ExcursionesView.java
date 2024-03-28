@@ -15,7 +15,7 @@ public class ExcursionesView {
     // Metodos de clase
     public String[] menuCrearExcursionView() {
         System.out.println(limpiezaConsola + h2 + "-- FORMULARIO PARA CREAR EXCURSIONES --" + p);
-        System.out.println("NOTA: Puede cancelar la creación de la excursión al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println("NOTA: Puede detener la creación de excursiones si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "   - Ingrese el nombre de la excursión: " + p);
         String descripcion = teclado.nextLine();
         System.out.print(p2 + "   - Ingrese la fecha de la excursión en formato yyyy-MM-dd: " + p);
@@ -30,7 +30,7 @@ public class ExcursionesView {
     // Este metodo muestra excursiones por fecha
     public String[] menuMostarExcursionFechaView() {
         System.out.println(limpiezaConsola + h2 + "-- MOSTRAR EXCURSIONES ENTRE FECHAS --" + p);
-        System.out.println("NOTA: Puede cancelar la busqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println("NOTA: Puede detener la búsqueda de excursiones si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "    - Ingrese la fecha Inicio en formato yyyy-MM-dd: " + p);
         String inputDate = teclado.nextLine();
         System.out.print(p2 + "    - Ingrese la fecha Fin en formato yyyy-MM-dd: " + p);
@@ -43,7 +43,7 @@ public class ExcursionesView {
     // almacenados entre otros mensajes."
     public void respuestaControllerView(String respuesta) {
         System.out.println(respuesta);
-        System.out.println("\nPulsa un tecla para continuar...");
+        System.out.println("\nPulse un tecla para continuar...");
         teclado.nextLine();
     }
 }
