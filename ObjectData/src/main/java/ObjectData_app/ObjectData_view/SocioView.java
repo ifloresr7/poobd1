@@ -25,7 +25,7 @@ public class SocioView {
 
     public String[] formCrearSocioEstandarView() {
         System.out.println(limpiezaConsola + h2 + "- Formulario añadir socio estándar ---" + p);
-        System.out.println("NOTA: Puede cancelar la búsqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println("NOTA: Puede detener la creación de socios si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "- Nombre: " + p);
         String nombre = teclado.nextLine();
         System.out.print(p2 + "- DNI: " + p);
@@ -35,7 +35,7 @@ public class SocioView {
 
     public String[] formModificarTipoSeguroView() {
         System.out.println(limpiezaConsola + h2 + "- Formulario para Modificar tipo de seguro de un socio estándar" + p);
-        System.out.println("NOTA: Puede cancelar la búsqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println("NOTA: Puede detener la modificación de seguros si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "- Numero de Socio: " + p);
         String numeroSocio = teclado.nextLine();
         return new String[] { numeroSocio };
@@ -43,7 +43,7 @@ public class SocioView {
 
     public String[] formCrearSocioFederadoView() {
         System.out.println(limpiezaConsola + h2 + "- Formulario para añadir socio federado" + p);
-        System.out.println("NOTA: Puede cancelar la búsqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println("NOTA: Puede detener la creación de socios si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "- Nombre: " + p);
         String nombre = teclado.nextLine();
         System.out.print(p2 + "- NIF: " + p);
@@ -61,21 +61,21 @@ public class SocioView {
 
     public String[] formCrearSocioInfantilView() {
         System.out.println(limpiezaConsola + h2 + "- Formulario para Añadir Socio Infantil" + p);
-        System.out.println("NOTA: Puede cancelar la busqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println("NOTA: Puede detener la creación de socios si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "- Nombre del niño: " + p);
         String nombre = teclado.nextLine();
         return new String[] { nombre };
     }
 
     public String[] numeroSocioParentalView() {
-        System.out.println(limpiezaConsola + h2 + "- Indica el numero de Socio Parental" + p);
+        System.out.println(limpiezaConsola + h2 + "- Indique el numero de Socio Parental" + p);
         System.out.print(p2 + "- Número de socio del padre o madre: " + p);
         String numeroParental = teclado.nextLine();
         return new String[] { numeroParental };
     }
 
     public String listadoSociosView(){
-        System.out.println(limpiezaConsola + h2 + "- Indica el tipo de socio que quieres mostrar: " + p);
+        System.out.println(limpiezaConsola + h2 + "- Indique el tipo de socio que quiere mostrar: " + p);
         System.out.println("    1. Todos los socios.");
         System.out.println("    2. Socios Estándar.");
         System.out.println("    3. Socios Federados.");
@@ -87,7 +87,7 @@ public class SocioView {
 
     public String[] formEliminarSocioView() {
         System.out.println(limpiezaConsola + "  - Formulario para Eliminar socio");
-        System.out.println("NOTA: Puede cancelar la busqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println("NOTA: Puede detener la eliminación de socios si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "- Numero de socio: " + p);
         String numeroSocio = teclado.nextLine();
         return new String[] { numeroSocio };
@@ -95,7 +95,7 @@ public class SocioView {
 
     public String formMostrarFacturaMensualSocioView() {
         System.out.println(limpiezaConsola + h2 + "--- Mostrar facturación mensual ---" + p);
-        System.out.println("NOTA: Puede cancelar la busqueda de excursiones al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println("NOTA: Puede detener esta acción si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "- Numero de socio: " + p);
         return teclado.nextLine();
     }
@@ -104,7 +104,7 @@ public class SocioView {
         System.out.println(h2 + "-- Tipos de seguros --" + p);
         System.out.println("    1. Basico");
         System.out.println("    2. Completo");
-        System.out.print(p2 + "- Elige el tipo de seguro: " + p);
+        System.out.print(p2 + "- Elija el tipo de seguro: " + p);
         String tipo = teclado.nextLine();
         return new String[] { tipo };
     }
@@ -114,7 +114,7 @@ public class SocioView {
     // almacenados entre otros mensajes."
     public void respuestaControllerView(String respuesta) {
         System.out.println(respuesta);
-        System.out.println("\nPulsa un tecla para continuar...");
+        System.out.println("\nPulse una tecla para continuar...");
         teclado.nextLine();
     }
 }
