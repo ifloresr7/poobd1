@@ -72,17 +72,32 @@ public class InscripcionModel{
                 String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD, inscripcion.getNumeroSocio());
                 String nombreSocio = SocioModel.obtenerNombreSocio(BBDD, inscripcion.getNumeroSocio());
                 double precio = ExcursionModel.obtenerPrecioExcursion(BBDD, inscripcion.getNumeroExcursion());
-
                 if (tipoSocio.equals("Federado")) {
+                    String cadena = null;
+                    cadena = "Se ha aplicado un 10% de descuento en la excursión. Precio sin descuento: " + precio;
                     precio -= (precio * 0.1);
+                    listado += "\n    - " + contador + ". Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
+                            + nombreExcursion + " | Fecha de inscripción: " + inscripcion.getFechaInscripcion() + " | Precio de la inscripción: " + precio + "\n" + cadena;
                 }
                 if (tipoSocio.equals("Estandar")) {
+                    String cadena = null;
                     double precioSeguro = SocioEstandarModel.obtenerPrecioSeguro(BBDD, nombreSocio);
-                    precio += precioSeguro;
+                    cadena = " | Precio del seguro contratado: " + precioSeguro + "\n";
+                    Double precioTotal = null;
+                    precioTotal+= precio + precioSeguro;
+                    cadena+= "Precio total de la inscripción: " + precioTotal;
+                    listado += "\n    - " + contador + ". Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
+                            + nombreExcursion + " | Fecha de inscripción: " + inscripcion.getFechaInscripcion() + " | Precio de la excursión: " + precio + "\n" + cadena;
+                }
+                if (tipoSocio.equals("Infantil"))
+                {
+                    String cadena = null;
+                    cadena = "El socio no tiene descuentos a aplicar.\n";
+                    listado += "\n    - " + contador + ". Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
+                            + nombreExcursion + " | Fecha de inscripción: " + inscripcion.getFechaInscripcion() + " | Precio de la excursión: " + precio + "\n" + cadena;
                 }
                 contador++;
-                listado += "\n    - " + contador + ". Nombre del socio: " + nombreSocio + " | Identificador de inscripción: " + inscripcion.getNumeroInscripcion() + " | Excursión: "
-                        + nombreExcursion + " | Fecha de inscripción: " + inscripcion.getFechaInscripcion() + " | Precio de la inscripción: " + precio;
+
             }
 
             if (contador == 0)
