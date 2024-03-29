@@ -74,6 +74,13 @@ public class SocioController {
         String[] retorno = View.formCrearSocioEstandarView();
         String nombre = retorno[0]; // El primer parametro del array sera el nombre
         String NIF = retorno[1]; // El segundo parametro del array es el DNI
+       
+        if (nombre.isEmpty() || NIF.isEmpty()) {
+            View.respuestaControllerView("Error: Debe completar todos los campos para crear un socio.");
+            AppController.gestionSocios(BBDD); // Llamada recursiva para volver a solicitar los datos
+            return;
+        }
+
         // Método para generar un número de socio aleatorio
         int numeroSocio = generarID(); // Número de socio
         // Mandamos el numero de socio a la pantalla:
@@ -120,10 +127,17 @@ public class SocioController {
     }
 
     public static void crearSocioFederado(Datos BBDD) {
+        
         // Se llama a la vista para pedir el nombre y el DNI del usuario
         String[] retorno = View.formCrearSocioFederadoView();
         String nombre = retorno[0]; // El primer parametro del array sera el nombre
         String NIF = retorno[1]; // El segundo parametro del array es el DNI
+        
+        if (nombre.isEmpty() || NIF.isEmpty()) {
+            View.respuestaControllerView("Error: Debe completar todos los campos para crear un socio.");
+            AppController.gestionSocios(BBDD); // Llamada recursiva para volver a solicitar los datos
+            return;
+        }
         // Método para generar un número de socio aleatorio
         int numeroSocio = generarID(); // Número de socio
         // Mandamos el numero de socio a la pantalla:
@@ -168,6 +182,11 @@ public class SocioController {
         // Se llama a la vista para pedir el nombre
         String[] retorno = View.formCrearSocioInfantilView();
         String nombre = retorno[0];
+        if (nombre.isEmpty()) {
+            View.respuestaControllerView("Error: Debe completar todos los campos para crear un socio.");
+            AppController.gestionSocios(BBDD); // Llamada recursiva para volver a solicitar los datos
+            return;
+        }
         // Método para generar un número de socio aleatorio
         int numeroSocio = generarID(); // Número de socio
         // Mandamos el numero de socio a la pantalla:
