@@ -14,8 +14,8 @@ public class InscripcionesView {
 
     // Metodos de clase
     public String formCrearInscripcionView() {
-        System.out.println(limpiezaConsola + h1 + "-- CREA UNA INSCRIPCIÓN --" + p);
-        System.out.println("NOTA: Puede cancelar la creación de la inscripción al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println(limpiezaConsola + h1 + "-- CREAR UNA INSCRIPCIÓN --" + p);
+        System.out.println("NOTA: Puede detener la creación de inscripciones si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "- Introduzca el número de socio: " + p);
         String numSocio = teclado.nextLine();
         return numSocio;
@@ -29,8 +29,8 @@ public class InscripcionesView {
 
 
     public String formEliminarInscripcionView() {
-        System.out.println(limpiezaConsola + h1 + "-- ELIMINA UNA INSCRIPCIÓN --" + p);
-        System.out.println("NOTA: Puede cancelar la eliminación de una inscripción al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
+        System.out.println(limpiezaConsola + h1 + "-- ELIMINAR UNA INSCRIPCIÓN --" + p);
+        System.out.println("NOTA: Puede detener la eliminación de inscripciones si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "- Introduzca el número de inscripción a eliminar: " + p);
         String numInscripcion = teclado.nextLine();
         return numInscripcion;
@@ -53,9 +53,9 @@ public class InscripcionesView {
     }
 
     public String[] formFiltrarPorFechas() {
-        System.out.println(p2 + "- Introduzca la fecha de inicio para el filtro (dd/mm/aaaa): " + p);
+        System.out.println(p2 + "- Introduzca la fecha de inicio para el filtro (yyyy-MM-dd): " + p);
         String fechaInicio = teclado.nextLine();
-        System.out.println(p2 + "- Introduzca la fecha de fin para el filtro (dd/mm/aaaa): " + p);
+        System.out.println(p2 + "- Introduzca la fecha de fin para el filtro (yyyy-MM-dd): " + p);
         String fechaFin = teclado.nextLine();
         return new String[]{fechaInicio, fechaFin};
     }
@@ -65,7 +65,7 @@ public class InscripcionesView {
     // almacenados entre otros mensajes."
     public void respuestaControllerView(String respuesta) {
         System.out.println(respuesta);
-        System.out.println("\nPulsa un tecla para continuar...");
+        System.out.println("\nPulse un tecla para continuar...");
         teclado.nextLine();
     }
 }
