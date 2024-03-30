@@ -28,55 +28,66 @@ public class InscripcionController {
 
     // Metodo para crear una Inscripcion
     public static void crearInscripcion(Datos BBDD) {
+        int numeroSocio = 0;
+        int numeroExcursion = 0;
         String retorno = View.formCrearInscripcionView();
-        
-        // Comprueba si se canceló la operación
-        if (retorno == null) {
+        // Comprueba si se cancela la operación
+        if (retorno == null || retorno.isEmpty()) {
             View.respuestaControllerView("Operación cancelada.");
-            AppController.gestionInscripciones(BBDD);
             return;
         }
-    
-        try {
-            int numeroSocio = Integer.parseInt(retorno);
-            if (numeroSocio == 0) {
-                SocioController.crearNuevoSocio(BBDD);
-                return;
-            }
-    
-            if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroSocio)) {
-                View.respuestaControllerView("Socio no encontrado.");
-                return;
-            }
-    
-            String[] listadoExcursiones = ExcursionModel.obtenerListadoExcursiones(BBDD);
-            String retornoExcursion = View.formListadoExcursionesView(listadoExcursiones[0]);
-            int numero = Integer.parseInt(retornoExcursion);
-            
-            // Comprueba si se canceló la operación
-            if (numero == 0) {
-                AppController.gestionInscripciones(BBDD);
-                return;
-            }
-            ExcursionModel excursion = ExcursionModel.obtenerExcursion(BBDD, numero);
-            int num = excursion.getNumeroExcursion();
-            if (!ExcursionModel.comprobarExcursionPorNumExcursion(BBDD, num)) {
-                View.respuestaControllerView("Excursión no encontrada.");
-                return;
-            }
-            int numeroInscripcion = generarID();
-            View.respuestaControllerView("- Número de inscripción generado: " + numeroInscripcion);
-    
-            InscripcionModel inscripcion = new InscripcionModel(numeroInscripcion, numeroSocio, num, new Date());
-            String respuesta = InscripcionModel.crearInscripcion(BBDD, inscripcion);
-            View.respuestaControllerView(respuesta);
-            AppController.gestionInscripciones(BBDD);
-        } catch (NumberFormatException e) {
-            View.respuestaControllerView("Debes introducir un valor numérico.");
+        
+        // Si se solicita crear un nuevo socio
+        if (retorno.equals("0")) {
+            SocioController.crearNuevoSocio(BBDD);
+            return;
         }
+        
+        // Si el retorno no es "N", se supone que contiene el número de socio
+        try {
+            numeroSocio = Integer.parseInt(retorno);
+        } catch (NumberFormatException e) {
+            View.respuestaControllerView("Debes introducir un valor númerico.");
+            return;
+        }
+        
+        // Comprueba si el socio existe
+        if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroSocio)) {
+            View.respuestaControllerView("Socio no encontrado.");
+            return;
+        }
+        
+        // Obtiene y muestra el listado de excursiones
+        String[] listadoExcursiones = ExcursionModel.obtenerListadoExcursiones(BBDD);
+        String retornoExcursion = View.formListadoExcursionesView(listadoExcursiones[0]);
+        
+        try {
+            int opcion = Integer.parseInt(retornoExcursion);
+            numeroExcursion = ExcursionModel.obtenerExcursion(BBDD, opcion).getNumeroExcursion();
+        } catch (NumberFormatException e) {
+            View.respuestaControllerView("Debes introducir un valor númerico.");
+            return;
+        }
+        
+        // Comprueba si la excursión existe
+        if (!ExcursionModel.comprobarExcursionPorNumExcursion(BBDD, numeroExcursion)) {
+            View.respuestaControllerView("Excursión no encontrada.");
+            return;
+        }
+        
+        // Genera un número de inscripción aleatorio
+        int numeroInscripcion = generarID();
+        View.respuestaControllerView("- Número de inscripción generado: " + numeroInscripcion);
+        
+        // Crea la inscripción
+        InscripcionModel inscripcion = new InscripcionModel(numeroInscripcion, numeroSocio, numeroExcursion, new Date());
+        String respuesta = InscripcionModel.crearInscripcion(BBDD, inscripcion);
+        
+        // Muestra la respuesta del modelo
+        View.respuestaControllerView(respuesta);
     }
     
-
+    
     public static void mostrarInscripcion(Datos BBDD) {
         boolean valoresComprobados = false;
         int opcion = 0;
