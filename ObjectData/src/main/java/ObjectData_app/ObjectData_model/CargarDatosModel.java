@@ -15,7 +15,7 @@ public class CargarDatosModel {
         FileReader archivo;
         BufferedReader lector;
         try {
-            File fichero = new File("src\\main\\java\\ObjectData_app\\ObjectData_model\\federaciones.txt");
+            File fichero = new File("ObjectData\\src\\main\\java\\ObjectData_app\\ObjectData_model\\federaciones.txt");
             String ruta = fichero.getAbsolutePath();
             archivo = new FileReader(ruta);
             if (archivo.ready()) {
@@ -40,7 +40,7 @@ public class CargarDatosModel {
             e.printStackTrace();
         }
         try {
-            File fichero = new File("src\\main\\java\\ObjectData_app\\ObjectData_model\\excursiones.txt");
+            File fichero = new File("ObjectData\\src\\main\\java\\ObjectData_app\\ObjectData_model\\excursiones.txt");
             String ruta = fichero.getAbsolutePath();
             archivo = new FileReader(ruta);
 
@@ -79,7 +79,7 @@ public class CargarDatosModel {
             e.printStackTrace();
         }
         try {
-            File fichero = new File("src\\main\\java\\ObjectData_app\\ObjectData_model\\socioEstandar.txt");
+            File fichero = new File("ObjectData\\src\\main\\java\\ObjectData_app\\ObjectData_model\\socioEstandar.txt");
             String ruta = fichero.getAbsolutePath();
             archivo = new FileReader(ruta);
             if (archivo.ready()) {
