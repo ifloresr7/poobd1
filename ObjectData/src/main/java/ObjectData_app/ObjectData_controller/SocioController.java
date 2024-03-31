@@ -74,6 +74,11 @@ public class SocioController {
         String[] retorno = View.formCrearSocioEstandarView();
         String nombre = retorno[0]; // El primer parametro del array sera el nombre
         String NIF = retorno[1]; // El segundo parametro del array es el DNI
+        if (nombre.isEmpty() || NIF.isEmpty()) {
+            View.respuestaControllerView("Operación cancelada: El nombre o el NIF no pueden estar vacíos. \n");
+            // No se agrega al socio, así que simplemente retornamos.
+            return;
+        }// en otro caso, si las cadenas tienen valor no nulo, entonces generamos el socio.
         // Método para generar un número de socio aleatorio
         int numeroSocio = generarID(); // Número de socio
         // Mandamos el numero de socio a la pantalla:
