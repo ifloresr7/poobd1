@@ -190,28 +190,33 @@ public class SocioController {
         // Método para generar un número de socio aleatorio
         int numeroSocio = generarID(); // Número de socio
         // Mandamos el numero de socio a la pantalla:
-        View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
+        
         // Se genera el control de excepcion para opcion seleccionada no valida.
-        boolean codigoOk = false;
+        
         int numeroParental = 0;
-        do {
+        
             // Pedimos el codigo del padre
             String[] retornoNun = View.numeroSocioParentalView();
             // Creamos la excepción para verificar el tipo de dato introducido.
+            if (retornoNun[0].isEmpty())
+            {
+                View.respuestaControllerView("Operación cancelada.");    
+                return;
+            }
             try {
                 numeroParental = Integer.parseInt(retornoNun[0]);
             } catch (Exception e) {
                 View.respuestaControllerView("Opcion no valida, debes introducir un valor numerico.");
-                continue;
+               
             }
+            
             // Creamos la excepción para verificar que el ID socio introducido existe.
             if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroParental)) {
                 View.respuestaControllerView("No se ha encontrado un socio con ese código.");
-                continue;
-            } else {
-                codigoOk = true;
-            }
-        } while (!codigoOk);
+                return;
+            } 
+            
+            View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
         // Creamos el objeto con los datos recolectados.
         SocioInfantilModel socio = new SocioInfantilModel(numeroSocio, nombre, numeroParental);
         // Enviamos la información al modelo para que añada el socio a la BBDD
@@ -261,7 +266,7 @@ public class SocioController {
         } catch (NumberFormatException e) {
             View.respuestaControllerView("Error: Ingresa un número válido para el número de socio.");
         } catch (Exception e) {
-            View.respuestaControllerView("Ha ocurrido un error al intentar eliminar el socio.");
+            View.respuestaControllerView("El socio.");
             e.printStackTrace();
         }
     }
@@ -311,7 +316,7 @@ public class SocioController {
         boolean valoresComprobados = false;
         String tipoSocio = "";
         Double facturacion = 0.0;
-        final Double cuotaMensual = 30.00;
+        final Double cuotaMensual = 10.00;
         String respuesta = "\nFacturación del socio: ";
         // Excepciones
         do {
@@ -350,7 +355,7 @@ public class SocioController {
             facturacion = cuotaMensual + precioSeguro + Double.parseDouble(retorno[1]);
             //Se manda el resultado a la vista
             respuesta += "\n El socio factura "+facturacion+"Euros mensuales.";
-        } else if (tipoSocio == "Federato") {
+        } else if (tipoSocio == "Federado") {
             //Aplicamos un despues de la cuota mensual 5%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 5 / 100);
             // Obtener listado de escursiones y precio:
