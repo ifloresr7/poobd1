@@ -64,7 +64,7 @@ public class InscripcionController {
         
         try {
             int opcion = Integer.parseInt(retornoExcursion);
-            numeroExcursion = ExcursionModel.obtenerExcursion(BBDD, opcion).getNumeroExcursion();
+            numeroExcursion = ExcursionModel.obtenerExcursionDesdeLista(BBDD, opcion).getNumeroExcursion();
         } catch (NumberFormatException e) {
             View.respuestaControllerView("Debes introducir un valor númerico.");
             return;

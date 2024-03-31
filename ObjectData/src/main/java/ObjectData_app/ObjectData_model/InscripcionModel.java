@@ -250,8 +250,8 @@ public class InscripcionModel{
             contador++;
             if(inscripcion.getNumeroSocio() == numSocio)
             {
-                Double precioExcursion = ExcursionModel.obtenerExcursion(BBDD, inscripcion.getNumeroExcursion()).getPrecioInscripcion();
-                String descripcionExcursion = ExcursionModel.obtenerExcursion(BBDD, inscripcion.getNumeroExcursion()).getDescripcion();
+                Double precioExcursion = ExcursionModel.obtenerExcursionByCodigo(BBDD, inscripcion.getNumeroExcursion()).getPrecioInscripcion();
+                String descripcionExcursion = ExcursionModel.obtenerExcursionByCodigo(BBDD, inscripcion.getNumeroExcursion()).getDescripcion();
                 listado = "\n   - "+contador+". ID Inscripción: "+inscripcion.getNumeroInscripcion()+" | Precio excursion: "+precioExcursion+" | Descripcion excursion: "+descripcionExcursion;
                 total += precioExcursion;
             }
