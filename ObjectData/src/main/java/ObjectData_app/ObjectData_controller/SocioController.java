@@ -99,16 +99,17 @@ public class SocioController {
     public static void modificarSeguroSocioEstandar(Datos BBDD) {
         // Excepcion para la conversion del numero de tipo String a Int
         int numSocio = 0;
-        boolean toNumero = false;
-        do {
+        
+        
             String[] retorno = View.formModificarTipoSeguroView();
             try {
                 numSocio = Integer.parseInt(retorno[0]);
-                toNumero = true;
+         
             } catch (NumberFormatException error) {
-                View.respuestaControllerView("El numero de socio debe ser un numero: " + error);
+                View.respuestaControllerView("El numero de socio debe ser un numero.\n");
+                return;
             }
-        } while (!toNumero);
+        
         // Objetemos el objeto socio estandar (si existe)
         SocioEstandarModel socio = SocioEstandarModel.getSocioEstandar(BBDD, numSocio);
         if (socio != null) {
