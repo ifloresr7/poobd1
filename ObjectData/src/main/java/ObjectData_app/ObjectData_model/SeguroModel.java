@@ -1,4 +1,5 @@
 package ObjectData_app.ObjectData_model;
+
 public class SeguroModel {
     // Enumeración para los tipos de seguro
     public enum TipoSeguro {
@@ -10,7 +11,7 @@ public class SeguroModel {
     private double precio;
 
     // Constructor
-    public SeguroModel(TipoSeguro tipo, double precio) {
+    public SeguroModel(TipoSeguro tipo) {
         this.tipo = tipo;
         switch (tipo) {
             case BASICO:

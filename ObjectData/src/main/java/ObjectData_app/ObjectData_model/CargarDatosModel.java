@@ -8,6 +8,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import ObjectData_app.ObjectData_model.SeguroModel.TipoSeguro;
+
 public class CargarDatosModel {
     public void cargarDatos(Datos BBDD){
         FileReader archivo;
@@ -76,5 +78,45 @@ public class CargarDatosModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        try {
+            File fichero = new File("ObjectData\\src\\main\\java\\ObjectData_app\\ObjectData_model\\socioEstandar.txt");
+            String ruta = fichero.getAbsolutePath();
+            archivo = new FileReader(ruta);
+            if (archivo.ready()) {
+                lector = new BufferedReader(archivo);
+                String cadena;
+                while ((cadena = lector.readLine()) != null) {
+                    String[] partes = cadena.split(","); // Separar la cadena por comas
+                    if (partes.length == 4) {
+                        String codigo = partes[0].trim();
+                        String nombre = partes[1].trim();
+                        String DNI = partes[2].trim();
+                        String seguro = partes[3].trim();
+                        // Convertir el nombre del tipo de seguro en un valor del enumerador TipoSeguro
+                        SeguroModel.TipoSeguro tipoSeguro;
+                        if (seguro.equals("BASICO")) {
+                            tipoSeguro = SeguroModel.TipoSeguro.BASICO;
+                        } else if (seguro.equals("COMPLETO")) {
+                            tipoSeguro = SeguroModel.TipoSeguro.COMPLETO;
+                        } else {
+                            // Manejar el caso donde el tipo de seguro no es válido
+                            System.out.println("Tipo de seguro no válido en la línea: " + cadena);
+                            continue; // Saltar al siguiente ciclo
+                        }
+                        // Crear el objeto SocioEstandarModel con el tipo de seguro correspondiente
+                        SocioEstandarModel socio = new SocioEstandarModel(Integer.parseInt(codigo), nombre, DNI, new SeguroModel(tipoSeguro));
+                        BBDD.socioEstandar.add(socio);
+                        System.out.println("Socio cargado: " + socio.getNombre());
+                    } else {
+                        System.out.println("Error en el formato de la línea: " + cadena);
+                    }
+                }
+                lector.close(); 
+            }
+            archivo.close(); 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
     }
 }

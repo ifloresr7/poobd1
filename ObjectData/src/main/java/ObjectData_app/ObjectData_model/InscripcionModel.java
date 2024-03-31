@@ -28,7 +28,6 @@ public class InscripcionModel{
             fechaFin = sdf.parse(FechaF);
         } catch (ParseException e) {
             // Mensaje de error si hay un problema con el formato de fecha
-            System.out.println("Error al parsear las fechas: " + e.getMessage());
             return new String[]{"Error en el formato de fecha.", "0"};
         }
     
@@ -244,7 +243,7 @@ public class InscripcionModel{
     public static String[] obtenerInscripcionesByNumSocio(Datos BBDD, int numSocio)
     {
         double total = 0.0;
-        String listado = "";
+        String listado = "\n    - Lista de inscripciones del socio: ";
         int contador = 0;
         for (InscripcionModel inscripcion : BBDD.inscripcion) 
         {

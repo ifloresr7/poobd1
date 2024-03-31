@@ -69,9 +69,9 @@ public class InscripcionesView {
     }
 
     public String[] formFiltrarPorFechas() {
-        System.out.println(p2 + "- Introduzca la fecha de inicio para el filtro (dd/mm/aaaa): " + p);
+        System.out.println(p2 + "- Introduzca la fecha de inicio para el filtro (yyyy-MM-dd): " + p);
         String fechaInicio = teclado.nextLine();
-        System.out.println(p2 + "- Introduzca la fecha de fin para el filtro (dd/mm/aaaa): " + p);
+        System.out.println(p2 + "- Introduzca la fecha de fin para el filtro (yyyy-MM-dd): " + p);
         String fechaFin = teclado.nextLine();
         return new String[]{fechaInicio, fechaFin};
     }
@@ -81,7 +81,7 @@ public class InscripcionesView {
     // almacenados entre otros mensajes."
     public void respuestaControllerView(String respuesta) {
         System.out.println(respuesta);
-        System.out.println("\nPulsa un tecla para continuar...");
+        System.out.println("\nPulse un tecla para continuar...");
         teclado.nextLine();
     }
 }

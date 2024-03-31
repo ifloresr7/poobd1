@@ -60,7 +60,7 @@ public class SocioEstandarModel extends SocioModel {
             socio.setSeguro(seguro);
             return "Seguro actualizado correctamente.";
         }catch (Exception error) {
-            return "No se a podido guardar los cambios con exito." + error;
+            return "No se ha podido guardar los cambios con éxito." + error;
         }
     }
     // Metodo para eliminar por numero de socio.

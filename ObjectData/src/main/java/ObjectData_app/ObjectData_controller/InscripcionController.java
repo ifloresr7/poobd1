@@ -3,7 +3,7 @@ package ObjectData_app.ObjectData_controller;
 //Se añade la vista principal
 import ObjectData_app.ObjectData_model.InscripcionModel;
 import ObjectData_app.ObjectData_model.SocioModel;
-import ObjectData_app.ObjectData_view.InscripcionesView;
+import ObjectData_app.ObjectData_view.*;
 import ObjectData_app.ObjectData_model.Datos;
 import ObjectData_app.ObjectData_model.ExcursionModel;
 
@@ -28,6 +28,7 @@ public class InscripcionController {
 
     // Metodo para crear una Inscripcion
     public static void crearInscripcion(Datos BBDD) {
+
         int numeroSocio = 0;
         int numeroExcursion = 0;
         String retorno = View.formCrearInscripcionView();
@@ -88,6 +89,8 @@ public class InscripcionController {
     }
     
     
+
+
     public static void mostrarInscripcion(Datos BBDD) {
         boolean valoresComprobados = false;
         int opcion = 0;
@@ -125,12 +128,12 @@ public class InscripcionController {
             String numSocio = retorno[0];
             int numeroSocio = Integer.parseInt(numSocio);
         View.respuestaControllerView("\nListado de todas las inscripciones para el socio seleccionado: "
-                + InscripcionModel.listarInscripciones(BBDD,numeroSocio)[0]);
+                + InscripcionModel.obtenerInscripcionesByNumSocio(BBDD,numeroSocio)[0]);
     }
     }
 
     public static void eliminarInscripcion(Datos BBDD) {
-        
+
         String[] listadoInscripciones = InscripcionModel.obtenerListadoInscripciones(BBDD);
         String listado = String.join("\n", listadoInscripciones);
         View.respuestaControllerView("\nListado de todas las inscripciones \n" + listado);
