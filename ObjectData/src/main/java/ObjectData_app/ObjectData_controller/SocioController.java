@@ -347,18 +347,18 @@ public class SocioController {
         } while (!valoresComprobados);
         if (tipoSocio == "Estandar") {
             // Coste de la cuota
-            respuesta += "\n    - Coste de la cuota: " + cuotaMensual + "Euros";
+            respuesta += "\n    - Coste de la cuota: " + cuotaMensual + " euros.";
             // Obtenemos el precio del seguro contratado.
             Double precioSeguro = SocioEstandarModel.getSocioEstandar(BBDD, numSocio).getSeguro().getPrecio();
             // Obtener listado de escursiones y precio:
             String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numSocio);
             respuesta += retorno[0];
             // Precio del seguro.
-            respuesta += "\n    - Coste del seguro: " + precioSeguro + "Euros";
+            respuesta += "\n    - Coste del seguro: " + precioSeguro + " euros.";
             // Se genera el precio final de facturación
             facturacion = cuotaMensual + precioSeguro + Double.parseDouble(retorno[1]);
             // Se manda el resultado a la vista
-            respuesta += "\n El socio factura " + facturacion + "Euros mensuales.";
+            respuesta += "\n El socio factura " + facturacion + " euros mensuales.";
         } else if (tipoSocio == "Federado") {
             // Aplicamos un despues de la cuota mensual 5%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 5 / 100);
@@ -371,17 +371,18 @@ public class SocioController {
             facturacion = precioCuotaDescuento + descuentoExcursiones;
             // Se manda el resultado a la vista
             respuesta += "\n El socio factura " + facturacion
-                    + "€ mensuales. (Descuentos incluidos en el precio final)";
+                    + " euros mensuales. (10% de dto. incluido en el precio final.)";
         } else if (tipoSocio == "Infantil") {
             // Aplicamos un descuento de la cuota mensual 50%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 50 / 100);
+            respuesta += "\n    - Coste de la cuota: " + precioCuotaDescuento + " euros.";
             // Obtener listado de escursiones y precio:
             String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numSocio);
             respuesta += retorno[0];
             // Se genera el precio final de facturación
-            facturacion = precioCuotaDescuento;
+            facturacion = precioCuotaDescuento + Double.parseDouble(retorno[1]);
             // Se manda el resultado a la vista
-            respuesta += "\n El socio factura " + facturacion + "€ mensuales.";
+            respuesta += "\n El socio factura " + facturacion + " euros mensuales.";
         }
         View.respuestaControllerView(respuesta);
         // Volvemos al menu principal de la gestión de los socios.
