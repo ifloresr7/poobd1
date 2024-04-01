@@ -9,13 +9,13 @@ public class AppController {
     static AppMenuView View = new AppMenuView();
     static boolean cerrarApp = false;
 
-    public static void cargarDatosController(Datos BBDD){
+    public static void cargarDatosController(Datos BBDD) {
         // Se cargan los datos de forma automatica, se podria añadir un case en el
         // switch del menu principal para cargar los datos manualmente pero lo hacemos
         // de este modo para poder ejecutar los test
         CargarDatosModel cargarDatos = new CargarDatosModel();
         cargarDatos.cargarDatos(BBDD);
-        View.respuestaControllerView("\n\n\n\n\n\n\n\n\n\n\nBase de datos cargada.");
+
     }
 
     // Inicio del menu de la APP.

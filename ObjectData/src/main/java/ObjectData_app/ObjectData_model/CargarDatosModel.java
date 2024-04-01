@@ -11,7 +11,7 @@ import java.util.Date;
 import ObjectData_app.ObjectData_model.SeguroModel.TipoSeguro;
 
 public class CargarDatosModel {
-    public void cargarDatos(Datos BBDD){
+    public void cargarDatos(Datos BBDD) {
         FileReader archivo;
         BufferedReader lector;
         try {
@@ -28,7 +28,7 @@ public class CargarDatosModel {
                         String nombre = lectura[1].trim();
                         FederacionModel federacion = new FederacionModel(codigo, nombre);
                         BBDD.federacion.add(federacion);
-                        System.out.println("Federación cargada: " + federacion.getNombre());
+
                     }
                 }
                 // Cerrar BufferedREader
@@ -65,16 +65,17 @@ public class CargarDatosModel {
                             System.out.println("Error al parsear la línea: " + cadena);
                             e.printStackTrace();
                         }
-                        ExcursionModel excursion = new ExcursionModel(Integer.parseInt(codigo), descripcion, fecha, numeroDias, precioInscripcion);
+                        ExcursionModel excursion = new ExcursionModel(Integer.parseInt(codigo), descripcion, fecha,
+                                numeroDias, precioInscripcion);
                         BBDD.excursion.add(excursion);
-                        System.out.println("Excursión cargada: " + excursion.getDescripcion());
+
                     } else {
                         System.out.println("Error en el formato de la línea: " + cadena);
                     }
                 }
-                lector.close(); 
+                lector.close();
             }
-            archivo.close(); 
+            archivo.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -104,19 +105,20 @@ public class CargarDatosModel {
                             continue; // Saltar al siguiente ciclo
                         }
                         // Crear el objeto SocioEstandarModel con el tipo de seguro correspondiente
-                        SocioEstandarModel socio = new SocioEstandarModel(Integer.parseInt(codigo), nombre, DNI, new SeguroModel(tipoSeguro));
+                        SocioEstandarModel socio = new SocioEstandarModel(Integer.parseInt(codigo), nombre, DNI,
+                                new SeguroModel(tipoSeguro));
                         BBDD.socioEstandar.add(socio);
-                        System.out.println("Socio cargado: " + socio.getNombre());
+
                     } else {
                         System.out.println("Error en el formato de la línea: " + cadena);
                     }
                 }
-                lector.close(); 
+                lector.close();
             }
-            archivo.close(); 
+            archivo.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
     }
 }
