@@ -2,9 +2,8 @@ package ObjectData_app.ObjectData_view;
 
 import java.util.Scanner;
 
-import javax.swing.text.View;
-
-import ObjectData_app.ObjectData_controller.AppController;
+//import javax.swing.text.View; (Sin uso)
+// import ObjectData_app.ObjectData_controller.AppController; (Sin uso)
 
 public class InscripcionesView {
     // Teclado, colores de texto y limpieza de consola.

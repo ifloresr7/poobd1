@@ -8,7 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import ObjectData_app.ObjectData_model.SeguroModel.TipoSeguro;
+//import ObjectData_app.ObjectData_model.SeguroModel.TipoSeguro; (Sin uso)
 
 public class CargarDatosModel {
     public void cargarDatos(Datos BBDD) {
