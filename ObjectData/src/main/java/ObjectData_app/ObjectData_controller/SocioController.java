@@ -41,13 +41,13 @@ public class SocioController {
             try {
                 opcion = Integer.parseInt(retorno);
             } catch (NumberFormatException error) {
-                View.respuestaControllerView("ERROR! Debes insertar un valor numerico valido.");
+                View.respuestaControllerView("¡ERROR! Debe insertar un valor numerico valido.");
                 continue;
             }
             if (opcion >= 1 && opcion <= 4) {
                 opcionValida = true;
             } else {
-                View.respuestaControllerView("ERROR! Debes seleccionar una opción valida.");
+                View.respuestaControllerView("¡ERROR! Debe seleccionar una opción valida.");
             }
         } while (!opcionValida);
         // Se carga el formulario de registro de un nuevo socio.
@@ -119,7 +119,7 @@ public class SocioController {
             // Devuelvo la respuespuesta del modelo hacia la vista.
             View.respuestaControllerView(respuesta);
         } else {
-            View.respuestaControllerView("No se a podido encontrar el socio.");
+            View.respuestaControllerView("No se ha podido encontrar el socio.");
         }
         // Volvemos al menu principal de la gestión de los socios.
         AppController.gestionSocios(BBDD);
@@ -152,11 +152,11 @@ public class SocioController {
             try {
                 seleccion = Integer.parseInt(opcion[0]);
             } catch (Exception e) {
-                View.respuestaControllerView("Opcion no valida, debes introducir un valor numerico.");
+                View.respuestaControllerView("Opcion no valida, debe introducir un valor numerico.");
                 continue;
             }
             if (seleccion <= 0 || seleccion >= opcionesDiponibles) {
-                View.respuestaControllerView("Opcion no valida, selecciona una opcion disponible.");
+                View.respuestaControllerView("Opcion no valida, seleccione una opcion disponible.");
                 continue;
             } else {
                 opcionOk = true;
@@ -203,7 +203,7 @@ public class SocioController {
         try {
             numeroParental = Integer.parseInt(retornoNun[0]);
         } catch (Exception e) {
-            View.respuestaControllerView("Opcion no valida, debes introducir un valor numerico.");
+            View.respuestaControllerView("Opcion no valida, debe introducir un valor numerico.");
 
         }
 
@@ -263,7 +263,7 @@ public class SocioController {
                         + ". El socio no existe en la base de datos.");
             }
         } catch (NumberFormatException e) {
-            View.respuestaControllerView("Error: Ingresa un número válido para el número de socio.");
+            View.respuestaControllerView("Error: Ingrese un número válido para el número de socio.");
         } catch (Exception e) {
             View.respuestaControllerView("Error al eliminar el socio.");
             e.printStackTrace();
@@ -280,13 +280,13 @@ public class SocioController {
             try {
                 opcion = Integer.parseInt(retorno);
             } catch (NumberFormatException error) {
-                View.respuestaControllerView("ERROR! Debes insertar un valor numerico valido.");
+                View.respuestaControllerView("¡ERROR! Debe insertar un valor numerico valido.");
                 continue;
             }
             if (opcion >= 1 && opcion <= 5) {
                 opcionValida = true;
             } else {
-                View.respuestaControllerView("ERROR! Debes seleccionar una opción valida.");
+                View.respuestaControllerView("¡ERROR! Debe seleccionar una opción valida.");
             }
         } while (!opcionValida);
         // Se carga el formulario de registro de un nuevo socio.
@@ -329,7 +329,7 @@ public class SocioController {
             try {
                 numSocio = Integer.parseInt(retorno);
             } catch (NumberFormatException error) {
-                View.respuestaControllerView("Debes insertar un valor númerico válido.");
+                View.respuestaControllerView("Debe insertar un valor númerico válido.");
                 continue;
             }
             // Se comprueba que el usuario no quiere salir del método y se comprueban otros
@@ -347,18 +347,18 @@ public class SocioController {
         } while (!valoresComprobados);
         if (tipoSocio == "Estandar") {
             // Coste de la cuota
-            respuesta += "\n    - Coste de la cuota: " + cuotaMensual + "Euros";
+            respuesta += "\n    - Coste de la cuota: " + cuotaMensual + " euros.";
             // Obtenemos el precio del seguro contratado.
             Double precioSeguro = SocioEstandarModel.getSocioEstandar(BBDD, numSocio).getSeguro().getPrecio();
             // Obtener listado de escursiones y precio:
             String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numSocio);
             respuesta += retorno[0];
             // Precio del seguro.
-            respuesta += "\n    - Coste del seguro: " + precioSeguro + "Euros";
+            respuesta += "\n    - Coste del seguro: " + precioSeguro + " euros.";
             // Se genera el precio final de facturación
             facturacion = cuotaMensual + precioSeguro + Double.parseDouble(retorno[1]);
             // Se manda el resultado a la vista
-            respuesta += "\n El socio factura " + facturacion + "Euros mensuales.";
+            respuesta += "\n El socio factura " + facturacion + " euros mensuales.";
         } else if (tipoSocio == "Federado") {
             // Aplicamos un despues de la cuota mensual 5%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 5 / 100);
@@ -371,17 +371,18 @@ public class SocioController {
             facturacion = precioCuotaDescuento + descuentoExcursiones;
             // Se manda el resultado a la vista
             respuesta += "\n El socio factura " + facturacion
-                    + "Euros mensuales. (Descuentos incluidos en el precio final)";
+                    + " euros mensuales. (10% de dto. incluido en el precio final.)";
         } else if (tipoSocio == "Infantil") {
             // Aplicamos un descuento de la cuota mensual 50%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 50 / 100);
+            respuesta += "\n    - Coste de la cuota: " + precioCuotaDescuento + " euros.";
             // Obtener listado de escursiones y precio:
             String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numSocio);
             respuesta += retorno[0];
             // Se genera el precio final de facturación
-            facturacion = precioCuotaDescuento;
+            facturacion = precioCuotaDescuento + Double.parseDouble(retorno[1]);
             // Se manda el resultado a la vista
-            respuesta += "\n El socio factura " + facturacion + "Euros mensuales.";
+            respuesta += "\n El socio factura " + facturacion + " euros mensuales.";
         }
         View.respuestaControllerView(respuesta);
         // Volvemos al menu principal de la gestión de los socios.
