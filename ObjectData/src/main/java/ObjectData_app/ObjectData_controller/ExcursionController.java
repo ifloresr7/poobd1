@@ -34,7 +34,7 @@ public class ExcursionController {
             // Se lanza la vista del menu de crear Excursion
             String[] retorno = View.menuCrearExcursionView();
             // Se comprueba si el usuario quiere salir
-            if (retorno[0] == "" || retorno[1] == "" || retorno[2] == "" || retorno[3] == "") {
+            if (retorno[0].equals("")  || retorno[1] .equals("") || retorno[2].equals("")  || retorno[3].equals("") ) {
                 View.respuestaControllerView("Operación cancelada.");
                 AppController.gestionExcursiones(BBDD);
                 continue;
