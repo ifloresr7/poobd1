@@ -89,7 +89,7 @@ public class ExcursionController {
         do {
             String[] retorno = View.menuMostarExcursionFechaView();
             // Se comprueba si el usuario queire salir
-            if (retorno[0] == "" || retorno[1] == "") {
+            if (retorno[0].equals("") || retorno[1].equals("")) {
                 View.respuestaControllerView("Operación cancelada.");
                 AppController.gestionExcursiones(BBDD);
                 break;
@@ -97,6 +97,7 @@ public class ExcursionController {
             // Se comprueba que existen datos
             if (retorno[0].isEmpty() || retorno[1].isEmpty()) {
                 throw new IllegalArgumentException("Error: Debe proporcionar ambas fechas.");
+                
             }
             // Se intenta transformar las fechas y se printan.
             try {
