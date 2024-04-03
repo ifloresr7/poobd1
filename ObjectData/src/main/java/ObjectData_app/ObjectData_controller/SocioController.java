@@ -22,7 +22,7 @@ public class SocioController {
     public static int generarID() {
         Random rand = new Random();
         int id = 0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 8; i++) {
             id = id * 10 + rand.nextInt(9) + 1;
         }
         if (id < 0) {
@@ -82,7 +82,7 @@ public class SocioController {
         } // en otro caso, si las cadenas tienen valor no nulo, entonces generamos el
           // socio.
           // Método para generar un número de socio aleatorio
-        int numeroSocio = generarID(); // Número de socio
+        int numeroSocio = Integer.parseInt("5" + generarID()); // Número de socio
         // Mandamos el numero de socio a la pantalla:
         View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
         // Pido el seguro
@@ -139,7 +139,7 @@ public class SocioController {
             return;
         }
         // Método para generar un número de socio aleatorio
-        int numeroSocio = generarID(); // Número de socio
+        int numeroSocio = Integer.parseInt("6" + generarID()); // Número de socio
         // Mandamos el numero de socio a la pantalla:
         View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
         // Pido el listado de federaciones y el numero de federaciones disponibles;
@@ -189,7 +189,7 @@ public class SocioController {
             return;
         }
         // Método para generar un número de socio aleatorio
-        int numeroSocio = generarID(); // Número de socio
+        int numeroSocio = Integer.parseInt("7" + generarID()); // Número de socio
         // Mandamos el numero de socio a la pantalla:
 
         // Se genera el control de excepcion para opcion seleccionada no valida.
@@ -396,7 +396,7 @@ public class SocioController {
             respuesta += "\n    - Coste de la cuota: " + precioCuotaDescuento + " euros.";
             // Obtener listado de escursiones y precio:
             String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numSocio);
-            respuesta += retorno[0];
+            respuesta += retorno[0]; 
             // Se genera el precio final de facturación
             facturacion = precioCuotaDescuento + Double.parseDouble(retorno[1]);
             // Se manda el resultado a la vista

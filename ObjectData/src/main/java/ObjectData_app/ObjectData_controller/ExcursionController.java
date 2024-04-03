@@ -14,11 +14,11 @@ public class ExcursionController {
     static ExcursionesView View = new ExcursionesView();
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    // Metodo para crear una ID ramdon de 10 digitos
+    // Metodo para crear una ID ramdon de 8 digitos
     public static int generarID() {
         Random rand = new Random();
         int id = 0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 8; i++) {
             id = id * 10 + rand.nextInt(9) + 1;
         }
         if (id < 0) {
@@ -66,9 +66,9 @@ public class ExcursionController {
                 View.respuestaControllerView("Error: El precio debe ser un número válido.");
                 continue;
             }
-            // Método para generar un número de socio aleatorio
-            int numeroExcursion = generarID(); // Número de socio
-            // Mandamos el numero de socio a la pantalla:
+            // Método para generar un numeroExcursion aleatorio
+            int numeroExcursion = Integer.parseInt("1" + generarID()); // numeroExcursion
+            // Mandamos el numeroExcursion a la pantalla:
             View.respuestaControllerView("- Número de excursion generada: " + numeroExcursion);
             // Se genera el conjunto de BBDD en la variable excursion
             ExcursionModel excursion = new ExcursionModel(numeroExcursion, descripcion, date, num, coste);
