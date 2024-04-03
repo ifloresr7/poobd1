@@ -60,27 +60,27 @@ public class ExcursionModel {
     }
 
     // Método para crear una excursion
-    public String crearExcursionModel(Datos BBDD, ExcursionModel excursion) {
+    public String crearExcursionModel(ExcursionModel excursion) {
         try {
-            BBDD.excursion.add(excursion);
+            .excursion.add(excursion);
             return "¡Se ha guardado correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
         }
     }
 
-    public static String obtenerNombreExcursionPorId(Datos BBDD, int idExcursion) {
+    public static String obtenerNombreExcursionPorId(int idExcursion) {
         // Iterar sobre la lista de excursiones para encontrar la excursión con el ID dado
-        for (ExcursionModel excursion : BBDD.excursion) {
+        for (ExcursionModel excursion : .excursion) {
             if (excursion.getNumeroExcursion()==idExcursion) {
                 return excursion.getDescripcion(); // Devolver el nombre de la excursión si se encuentra la coincidencia
             }
         }
         return "Nombre de excursión desconocido"; // Devolver un mensaje de error si no se encuentra la excursión
     }
-    public static double obtenerPrecioExcursion(Datos BBDD, int numeroExcursion) {
+    public static double obtenerPrecioExcursion(int numeroExcursion) {
         // Suponiendo que tienes una lista de excursiones en tu base de datos llamada "excursiones"
-        for (ExcursionModel excursion : BBDD.excursion) {
+        for (ExcursionModel excursion : .excursion) {
             if (excursion.getNumeroExcursion() == numeroExcursion) {
                 return excursion.getPrecioInscripcion();
             }
@@ -90,11 +90,11 @@ public class ExcursionModel {
     }
 
     // Metodo para mostrar escursiones por fecha
-    public static String mostrarExcursiones(Datos BBDD, Date fechaInicio, Date fechaFin) {
+    public static String mostrarExcursiones(Date fechaInicio, Date fechaFin) {
         String listado = "";
         int contador = 0;
         // Primero comprueba que haya excursiones dentro del ArrayList
-        for (ExcursionModel excursion : BBDD.excursion) {
+        for (ExcursionModel excursion : .excursion) {
             // Comprueba si la fecha de la excursión está dentro del rango introducido e
             // imprime la info de la misma
             if (!excursion.fecha.before(fechaInicio) && !excursion.fecha.after(fechaFin)) {
@@ -111,8 +111,8 @@ public class ExcursionModel {
     }
 
     // Metodo para comprobar si existe una excursion
-    public static boolean comprobarExcursionPorNumExcursion(Datos BBDD, int numeroExcursion) {
-        for (ExcursionModel excursion : BBDD.excursion) {
+    public static boolean comprobarExcursionPorNumExcursion(int numeroExcursion) {
+        for (ExcursionModel excursion : .excursion) {
             if(excursion.getNumeroExcursion() == numeroExcursion){
                 return true;
             }
@@ -121,10 +121,10 @@ public class ExcursionModel {
     }
 
     // Metodo para mostrar una lista de excursiones
-    public static String[] obtenerListadoExcursiones(Datos BBDD) {
+    public static String[] obtenerListadoExcursiones() {
         String listado = "";
         int contador = 0;
-        for (ExcursionModel excursion : BBDD.excursion) {
+        for (ExcursionModel excursion : .excursion) {
             contador++;
             listado += "\n    - " + contador + ". Descripción: " + excursion.getDescripcion() + " | Precio: " + excursion.getPrecioInscripcion();
         }
@@ -135,9 +135,9 @@ public class ExcursionModel {
     }
 
     // Metodo para obtener la excursion mediante seleccion de lista
-    public static ExcursionModel obtenerExcursionDesdeLista(Datos BBDD, int seleccion) {
+    public static ExcursionModel obtenerExcursionDesdeLista(int seleccion) {
         int contador = 0;
-        for (ExcursionModel excursion : BBDD.excursion) {
+        for (ExcursionModel excursion : .excursion) {
             contador++;
             if (contador == seleccion) {
                 return excursion;
@@ -147,8 +147,8 @@ public class ExcursionModel {
     }
 
         // Metodo para obtener la excursion mediante seleccion de lista
-        public static ExcursionModel obtenerExcursionByCodigo(Datos BBDD, int codigo) {
-            for (ExcursionModel excursion : BBDD.excursion) {
+        public static ExcursionModel obtenerExcursionByCodigo(int codigo) {
+            for (ExcursionModel excursion : .excursion) {
                 if (excursion.getNumeroExcursion() == codigo) {
                     return excursion;
                 }

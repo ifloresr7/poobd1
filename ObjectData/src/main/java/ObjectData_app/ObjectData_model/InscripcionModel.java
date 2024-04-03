@@ -20,7 +20,7 @@ public class InscripcionModel {
         this.fechaInscripcion = fechaInscripcion;
     }
 
-    public static String[] listarInscripcionesFecha(Datos BBDD, String FechaI, String FechaF) {
+    public static String[] listarInscripcionesFecha(String FechaI, String FechaF) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Nuevo formato de fecha
 
         // Parsear las fechas de inicio y fin
@@ -36,14 +36,14 @@ public class InscripcionModel {
         StringBuilder listado = new StringBuilder();
         int contador = 0;
 
-        for (InscripcionModel inscripcion : BBDD.inscripcion) {
+        for (InscripcionModel inscripcion : .inscripcion) {
             Date fechaInscripcion = inscripcion.fechaInscripcion;
             if (fechaInscripcion.after(fechaInicio) && fechaInscripcion.before(fechaFin)) {
-                String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(BBDD,
+                String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(
                         inscripcion.getNumeroExcursion());
-                String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD, inscripcion.getNumeroSocio());
-                String nombreSocio = SocioModel.obtenerNombreSocio(BBDD, inscripcion.getNumeroSocio());
-                double precio = ExcursionModel.obtenerPrecioExcursion(BBDD, inscripcion.getNumeroExcursion());
+                String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(inscripcion.getNumeroSocio());
+                String nombreSocio = SocioModel.obtenerNombreSocio(inscripcion.getNumeroSocio());
+                double precio = ExcursionModel.obtenerPrecioExcursion(inscripcion.getNumeroExcursion());
                 double precioTotal = precio;
                 String cadenaDescuento = "";
 
@@ -53,7 +53,7 @@ public class InscripcionModel {
                     cadenaDescuento = "Se ha aplicado un 10% de descuento en la excursión. Precio real de la inscripción: "
                             + precioTotal + "\n";
                 } else if (tipoSocio.equals("Estandar")) {
-                    double precioSeguro = SocioEstandarModel.obtenerPrecioSeguro(BBDD, nombreSocio);
+                    double precioSeguro = SocioEstandarModel.obtenerPrecioSeguro(nombreSocio);
                     precioTotal = precio + precioSeguro;
                     cadenaDescuento = "Precio del seguro contratado: " + precioSeguro + "\n"
                             + "Precio total de la inscripción: " + precioTotal;
@@ -78,17 +78,17 @@ public class InscripcionModel {
         return new String[] { listado.toString(), String.valueOf(contador) };
     }
 
-    public static String[] listarInscripciones(Datos BBDD, int num) {
+    public static String[] listarInscripciones(int num) {
 
         StringBuilder listado = new StringBuilder();
         int contador = 0;
-        for (InscripcionModel inscripcion : BBDD.inscripcion) {
+        for (InscripcionModel inscripcion : .inscripcion) {
             if (inscripcion.getNumeroSocio() == num) {
-                String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(BBDD,
+                String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(
                         inscripcion.getNumeroExcursion());
-                String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD, inscripcion.getNumeroSocio());
-                String nombreSocio = SocioModel.obtenerNombreSocio(BBDD, inscripcion.getNumeroSocio());
-                double precio = ExcursionModel.obtenerPrecioExcursion(BBDD, inscripcion.getNumeroExcursion());
+                String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(inscripcion.getNumeroSocio());
+                String nombreSocio = SocioModel.obtenerNombreSocio(inscripcion.getNumeroSocio());
+                double precio = ExcursionModel.obtenerPrecioExcursion(inscripcion.getNumeroExcursion());
                 String cadenaDescuento = "";
                 double precioTotal = precio;
                 if (tipoSocio.equals("Federado")) {
@@ -97,7 +97,7 @@ public class InscripcionModel {
                     cadenaDescuento = "Se ha aplicado un 10% de descuento en la excursión. Precio real de la inscripción: "
                             + precioTotal + "\n";
                 } else if (tipoSocio.equals("Estandar")) {
-                    double precioSeguro = SocioEstandarModel.obtenerPrecioSeguro(BBDD, nombreSocio);
+                    double precioSeguro = SocioEstandarModel.obtenerPrecioSeguro(nombreSocio);
                     precioTotal = precio + precioSeguro;
                     cadenaDescuento = "Precio del seguro contratado: " + precioSeguro + "\n"
                             + "Precio total de la inscripción: " + precioTotal;
@@ -119,19 +119,19 @@ public class InscripcionModel {
         return new String[] { listado.toString(), String.valueOf(contador) };
     }
 
-    public static boolean eliminarInscripcionNumero(Datos bbdd, int num) {
+    public static boolean eliminarInscripcionNumero(int num) {
 
-        for (int i = 0; i < bbdd.inscripcion.size(); i++) {
-            InscripcionModel inscripcion = bbdd.inscripcion.get(i);
+        for (int i = 0; i < .inscripcion.size(); i++) {
+            InscripcionModel inscripcion = .inscripcion.get(i);
             if (inscripcion.getNumeroInscripcion() == num) {
                 // Obtener el número de excursión de la inscripción
                 int numExcursion = inscripcion.getNumeroExcursion();
                 // Buscar la fecha de la excursión correspondiente en el array de excursiones
-                for (ExcursionModel excursion : bbdd.excursion) {
+                for (ExcursionModel excursion : .excursion) {
                     if (excursion.getNumeroExcursion() == numExcursion) {
                         // Comparar la fecha de inscripción con la fecha de la excursión
                         if (inscripcion.getFechaInscripcion().before(excursion.getFecha())) {
-                            bbdd.inscripcion.remove(i); // Eliminar la inscripción de la lista
+                            .inscripcion.remove(i); // Eliminar la inscripción de la lista
                             return true;
                         } else {
                             // Si la fecha de inscripción es después de la fecha de la excursión, no se
@@ -192,19 +192,19 @@ public class InscripcionModel {
                 " | Fecha Inscripción: " + fechaInscripcion;
     }
 
-    public static String crearInscripcion(Datos BBDD, InscripcionModel inscripcion) {
+    public static String crearInscripcion(InscripcionModel inscripcion) {
         try {
-            BBDD.inscripcion.add(inscripcion);
+            .inscripcion.add(inscripcion);
             return "Se guardo correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
         }
     }
 
-    public static String[] obtenerListadoInscripciones(Datos BBDD) {
+    public static String[] obtenerListadoInscripciones() {
         List<String> inscripciones = new ArrayList<>();
         int contador = 0;
-        for (InscripcionModel inscripcion : BBDD.inscripcion) {
+        for (InscripcionModel inscripcion : .inscripcion) {
             contador++;
             inscripciones.add(contador + ". " + inscripcion.toString());
         }
@@ -214,9 +214,9 @@ public class InscripcionModel {
         return inscripciones.toArray(new String[0]);
     }
 
-    public static FederacionModel obtenerFederacion(Datos BBDD, int seleccion) {
+    public static FederacionModel obtenerFederacion(int seleccion) {
         int contador = 0;
-        for (FederacionModel federacion : BBDD.federacion) {
+        for (FederacionModel federacion : .federacion) {
             contador++;
             if (contador == seleccion) {
                 return federacion;
@@ -226,17 +226,17 @@ public class InscripcionModel {
     }
 
     // Metodo para obtener inscripciones de un socio mediante numeroSocio
-    public static String[] obtenerInscripcionesByNumSocio(Datos BBDD, int numSocio) {
+    public static String[] obtenerInscripcionesByNumSocio(int numSocio) {
         double total = 0.0;
         String listado = "\n    - Lista de inscripciones del socio: ";
         int contador = 0;
-        for (InscripcionModel inscripcion : BBDD.inscripcion) {
+        for (InscripcionModel inscripcion : .inscripcion) {
             contador++;
             if (inscripcion.getNumeroSocio() == numSocio) {
-                Double precioExcursion = ExcursionModel.obtenerExcursionByCodigo(BBDD, inscripcion.getNumeroExcursion())
+                Double precioExcursion = ExcursionModel.obtenerExcursionByCodigo(inscripcion.getNumeroExcursion())
                         .getPrecioInscripcion();
                 String descripcionExcursion = ExcursionModel
-                        .obtenerExcursionByCodigo(BBDD, inscripcion.getNumeroExcursion()).getDescripcion();
+                        .obtenerExcursionByCodigo(inscripcion.getNumeroExcursion()).getDescripcion();
                 listado += "\n      - " + contador + ". ID Inscripción: " + inscripcion.getNumeroInscripcion()
                         + " | Precio excursion: " + precioExcursion + " | Descripcion excursion: "
                         + descripcionExcursion;
@@ -250,8 +250,8 @@ public class InscripcionModel {
     }
 
     // Metodo para comprobar si un usuario tiene inscripciones
-    public static boolean comprobarSocioInscrito(Datos BBDD, int numSocio) {
-        for (InscripcionModel inscripcion : BBDD.inscripcion) {
+    public static boolean comprobarSocioInscrito(int numSocio) {
+        for (InscripcionModel inscripcion : .inscripcion) {
             if (inscripcion.getNumeroSocio() == numSocio) {
                 // Devuelve true si el socio esta inscrito en una excursión
                 return true;

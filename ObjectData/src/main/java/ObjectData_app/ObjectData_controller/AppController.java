@@ -2,38 +2,25 @@ package ObjectData_app.ObjectData_controller;
 
 //Se importan las librerias
 import ObjectData_app.ObjectData_view.AppMenuView;
-import ObjectData_app.ObjectData_model.Datos;
-import ObjectData_app.ObjectData_model.CargarDatosModel;
 
 public class AppController {
     static AppMenuView View = new AppMenuView();
     static boolean cerrarApp = false;
-
-    public static void cargarDatosController(Datos BBDD) {
-        // Se cargan los datos de forma automatica, se podria añadir un case en el
-        // switch del menu principal para cargar los datos manualmente pero lo hacemos
-        // de este modo para poder ejecutar los test
-        CargarDatosModel cargarDatos = new CargarDatosModel();
-        cargarDatos.cargarDatos(BBDD);
-
-    }
-
     // Inicio del menu de la APP.
-    public static void inicio(Datos BBDD) {
-
+    public static void inicio() {
         // arracamos el menu principal de la aplicación.
         do {
             View.menuInicioView();
             int opcion = View.getOpcionView(4);
             switch (opcion) {
                 case 1:
-                    gestionExcursiones(BBDD);
+                    gestionExcursiones();
                     break;
                 case 2:
-                    gestionSocios(BBDD);
+                    gestionSocios();
                     break;
                 case 3:
-                    gestionInscripciones(BBDD);
+                    gestionInscripciones();
                     break;
                 case 4:
                     cerrarApp = true;
@@ -43,64 +30,64 @@ public class AppController {
     }
 
     // Metodos de control para Excursiones.
-    public static void gestionExcursiones(Datos BBDD) {
+    public static void gestionExcursiones() {
         View.menuGestionExcursionesView();
         int opcion = View.getOpcionView(3);
         switch (opcion) {
             case 1:
-                ExcursionController.crearExcursion(BBDD);
+                ExcursionController.crearExcursion();
                 break;
             case 2:
-                ExcursionController.mostrarExcursionFecha(BBDD);
+                ExcursionController.mostrarExcursionFecha();
                 break;
             case 3:
-                inicio(BBDD);
+                inicio();
                 break;
         }
     }
 
     // Metodos de control para Socios.
-    public static void gestionSocios(Datos BBDD) {
+    public static void gestionSocios() {
         View.menuGestionSociosView();
         int opcion = View.getOpcionView(6);
         switch (opcion) {
             case 1:
-                SocioController.crearNuevoSocio(BBDD);
+                SocioController.crearNuevoSocio();
                 break;
             case 2:
-                SocioController.modificarSeguroSocioEstandar(BBDD);
+                SocioController.modificarSeguroSocioEstandar();
                 break;
             case 3:
-                SocioController.eliminarSocio(BBDD);
+                SocioController.eliminarSocio();
                 break;
             case 4:
-                SocioController.mostrarSocio(BBDD);
+                SocioController.mostrarSocio();
                 break;
             case 5:
-                SocioController.facturaMensualSocio(BBDD);
+                SocioController.facturaMensualSocio();
                 break;
             case 6:
-                inicio(BBDD);
+                inicio();
                 break;
         }
     }
 
     // Metodos de control para Inscripciones.
-    public static void gestionInscripciones(Datos BBDD) {
+    public static void gestionInscripciones() {
         View.menuGestionInscripcionesView();
         int opcion = View.getOpcionView(4);
         switch (opcion) {
             case 1:
-                InscripcionController.crearInscripcion(BBDD);
+                InscripcionController.crearInscripcion();
                 break;
             case 2:
-                InscripcionController.eliminarInscripcion(BBDD);
+                InscripcionController.eliminarInscripcion();
                 break;
             case 3:
-                InscripcionController.mostrarInscripcion(BBDD);
+                InscripcionController.mostrarInscripcion();
                 break;
             case 4:
-                inicio(BBDD);
+                inicio();
                 break;
         }
     }

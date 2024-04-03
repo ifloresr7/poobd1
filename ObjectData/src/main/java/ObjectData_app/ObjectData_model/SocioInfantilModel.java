@@ -30,16 +30,16 @@ public class SocioInfantilModel extends SocioModel {
 
     // Metodos propios
     // Crear socio infantil
-    public String crearSocioInfantil(Datos BBDD, SocioInfantilModel socio) {
+    public String crearSocioInfantil(SocioInfantilModel socio) {
         try {
-            BBDD.socioInfantil.add(socio);
+            .socioInfantil.add(socio);
             return "Se guardo correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
         }
     }
-    public SocioInfantilModel getSocioInfantil(Datos BBDD, int numSocio) {
-        for(SocioInfantilModel socio : BBDD.socioInfantil){
+    public SocioInfantilModel getSocioInfantil(int numSocio) {
+        for(SocioInfantilModel socio : .socioInfantil){
             if(numSocio == socio.getNumeroSocio()){
                 return socio;
             }
@@ -48,10 +48,10 @@ public class SocioInfantilModel extends SocioModel {
     }
 
         // Método para eliminar socio infantil de la base de datos
-        public static boolean eliminarSocioModel(Datos BBDD, int numSocio) {
-            for (SocioInfantilModel socio : BBDD.socioInfantil) {
+        public static boolean eliminarSocioModel(int numSocio) {
+            for (SocioInfantilModel socio : .socioInfantil) {
                 if (socio.getNumeroSocio() == numSocio) {
-                    BBDD.socioInfantil.remove(socio);
+                    .socioInfantil.remove(socio);
                     return true; // Socio eliminado
                 }
             }

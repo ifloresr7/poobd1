@@ -8,20 +8,17 @@
     <version>1.0-SNAPSHOT</version>
 
 	<dependencies>
-		<!-- JUnit Jupiter API for writing tests -->
 		<dependency>
 			<groupId>org.junit.jupiter</groupId>
 			<artifactId>junit-jupiter-api</artifactId>
 			<version>5.7.0</version>
 			<scope>test</scope>
 		</dependency>
-		<!-- JUnit Jupiter Engine for running tests -->
 		<dependency>
-			<groupId>org.junit.jupiter</groupId>
-			<artifactId>junit-jupiter-engine</artifactId>
-			<version>5.7.0</version>
-			<scope>test</scope>
-		</dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+			<version>8.3.0</version>
+		</dependency>	
 	</dependencies>
 
 </project>

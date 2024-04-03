@@ -4,7 +4,7 @@ package ObjectData_app.ObjectData_controller;
 import ObjectData_app.ObjectData_model.InscripcionModel;
 import ObjectData_app.ObjectData_model.SocioModel;
 import ObjectData_app.ObjectData_view.*;
-import ObjectData_app.ObjectData_model.Datos;
+
 import ObjectData_app.ObjectData_model.ExcursionModel;
 
 import java.util.Date;
@@ -27,7 +27,7 @@ public class InscripcionController {
     }
 
     // Metodo para crear una Inscripcion
-    public static void crearInscripcion(Datos BBDD) {
+    public static void crearInscripcion() {
 
         int numeroSocio = 0;
         int numeroExcursion = 0;
@@ -40,8 +40,8 @@ public class InscripcionController {
 
         // Si se solicita crear un nuevo socio
         if (retorno.equals("0")) {
-            SocioController.crearNuevoSocio(BBDD);
-            AppController.gestionInscripciones(BBDD);
+            SocioController.crearNuevoSocio();
+            AppController.gestionInscripciones();
             return;
         }
 
@@ -54,25 +54,25 @@ public class InscripcionController {
         }
 
         // Comprueba si el socio existe
-        if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroSocio)) {
+        if (!SocioModel.comprobarSocioPorNumSocio(numeroSocio)) {
             View.respuestaControllerView("Socio no encontrado.");
             return;
         }
 
         // Obtiene y muestra el listado de excursiones
-        String[] listadoExcursiones = ExcursionModel.obtenerListadoExcursiones(BBDD);
+        String[] listadoExcursiones = ExcursionModel.obtenerListadoExcursiones();
         String retornoExcursion = View.formListadoExcursionesView(listadoExcursiones[0]);
 
         try {
             int opcion = Integer.parseInt(retornoExcursion);
-            numeroExcursion = ExcursionModel.obtenerExcursionDesdeLista(BBDD, opcion).getNumeroExcursion();
+            numeroExcursion = ExcursionModel.obtenerExcursionDesdeLista(opcion).getNumeroExcursion();
         } catch (NumberFormatException e) {
             View.respuestaControllerView("Debes introducir un valor númerico.");
             return;
         }
 
         // Comprueba si la excursión existe
-        if (!ExcursionModel.comprobarExcursionPorNumExcursion(BBDD, numeroExcursion)) {
+        if (!ExcursionModel.comprobarExcursionPorNumExcursion(numeroExcursion)) {
             View.respuestaControllerView("Excursión no encontrada.");
             return;
         }
@@ -84,13 +84,13 @@ public class InscripcionController {
         // Crea la inscripción
         InscripcionModel inscripcion = new InscripcionModel(numeroInscripcion, numeroSocio, numeroExcursion,
                 new Date());
-        String respuesta = InscripcionModel.crearInscripcion(BBDD, inscripcion);
+        String respuesta = InscripcionModel.crearInscripcion(inscripcion);
 
         // Muestra la respuesta del modelo
         View.respuestaControllerView(respuesta);
     }
 
-    public static void mostrarInscripcion(Datos BBDD) {
+    public static void mostrarInscripcion() {
         boolean valoresComprobados = false;
         int opcion = 0;
         do {
@@ -102,7 +102,7 @@ public class InscripcionController {
                 continue;
             }
             if (opcion == 0) {
-                AppController.gestionInscripciones(BBDD);
+                AppController.gestionInscripciones();
                 break;
             } else if (opcion == 1 || opcion == 2) {
                 valoresComprobados = true;
@@ -113,30 +113,30 @@ public class InscripcionController {
         } while (!valoresComprobados);
         switch (opcion) {
             case 1:
-                mostrarInscripcionPorSocio(BBDD);
+                mostrarInscripcionPorSocio();
                 break;
             case 2:
-                mostrarInscripcionPorFecha(BBDD);
+                mostrarInscripcionPorFecha();
                 break;
         }
     }
 
-    public static void mostrarInscripcionPorSocio(Datos BBDD) {
+    public static void mostrarInscripcionPorSocio() {
         String[] retorno = View.formFiltrarPorSocio();
         if (retorno != null && retorno.length > 0) {
             String numSocio = retorno[0];
             int numeroSocio = Integer.parseInt(numSocio);
             View.respuestaControllerView("\nListado de todas las inscripciones para el socio seleccionado: "
-                    + InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numeroSocio)[0]);
+                    + InscripcionModel.obtenerInscripcionesByNumSocio(numeroSocio)[0]);
         } else {
             // Si el usuario no ingresó ningún valor, imprimir un mensaje apropiado
             View.respuestaControllerView("\nNo se ha ingresado ningún número de socio para filtrar.");
         }
     }
 
-    public static void eliminarInscripcion(Datos BBDD) {
+    public static void eliminarInscripcion() {
 
-        String[] listadoInscripciones = InscripcionModel.obtenerListadoInscripciones(BBDD);
+        String[] listadoInscripciones = InscripcionModel.obtenerListadoInscripciones();
         String listado = String.join("\n", listadoInscripciones);
         View.respuestaControllerView("\nListado de todas las inscripciones \n" + listado);
         String retorno = View.formEliminarInscripcionView(listadoInscripciones);
@@ -148,21 +148,20 @@ public class InscripcionController {
             View.respuestaControllerView("El número de inscripción ingresado no es válido.");
             return;
         }
-        boolean inscripcionEliminada = InscripcionModel.eliminarInscripcionNumero(BBDD, num);
+        boolean inscripcionEliminada = InscripcionModel.eliminarInscripcionNumero(num);
         if (inscripcionEliminada) {
             View.respuestaControllerView("La inscripción ha sido eliminada exitosamente.");
         } else {
-            View.respuestaControllerView(
-                    "No se pudo eliminar la inscripción. Verifique el número de inscripción y asegúrese de que la fecha de inscripción sea anterior a la fecha de la excursión.");
+            View.respuestaControllerView("No se pudo eliminar la inscripción. Verifique el número de inscripción y asegúrese de que la fecha de inscripción sea anterior a la fecha de la excursión.");
         }
     }
 
-    public static void mostrarInscripcionPorFecha(Datos BBDD) {
+    public static void mostrarInscripcionPorFecha() {
         String[] retorno = View.formFiltrarPorFechas();
         if (retorno != null && retorno.length == 2) {
             String fechaInicio = retorno[0];
             String fechaFin = retorno[1];
-            String[] inscripciones = InscripcionModel.listarInscripcionesFecha(BBDD, fechaInicio, fechaFin);
+            String[] inscripciones = InscripcionModel.listarInscripcionesFecha(fechaInicio, fechaFin);
             if (inscripciones.length > 0) {
                 View.respuestaControllerView("\n Listado de inscripciones por rango de fechas: " + inscripciones[0]);
             } else {

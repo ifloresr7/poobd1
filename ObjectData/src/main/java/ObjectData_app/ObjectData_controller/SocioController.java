@@ -7,7 +7,7 @@ import ObjectData_app.ObjectData_model.SocioModel;
 
 import java.util.Random;
 
-import ObjectData_app.ObjectData_model.Datos;
+
 import ObjectData_app.ObjectData_model.FederacionModel;
 import ObjectData_app.ObjectData_model.InscripcionModel;
 import ObjectData_app.ObjectData_model.SeguroModel;
@@ -32,7 +32,7 @@ public class SocioController {
     }
 
     // Metodo para elegir el tipo de socio a crear
-    public static void crearNuevoSocio(Datos BBDD) {
+    public static void crearNuevoSocio() {
         // Excepcion para la conversion del numero de tipo String a Int
         int opcion = 0;
         boolean opcionValida = false;
@@ -53,23 +53,23 @@ public class SocioController {
         // Se carga el formulario de registro de un nuevo socio.
         switch (opcion) {
             case 1:
-                crearSocioEstandar(BBDD);
+                crearSocioEstandar();
                 break;
             case 2:
-                crearSocioFederado(BBDD);
+                crearSocioFederado();
                 break;
             case 3:
-                crearSocioInfantil(BBDD);
+                crearSocioInfantil();
                 break;
             case 4:
-                AppController.gestionSocios(BBDD);
+                AppController.gestionSocios();
             default:
-                AppController.gestionSocios(BBDD);
+                AppController.gestionSocios();
         }
     }
 
     // Metodo para añadir un socio estandar
-    public static void crearSocioEstandar(Datos BBDD) {
+    public static void crearSocioEstandar() {
         // Se llama a la vista para pedir el nombre y el DNI del usuario
         String[] retorno = View.formCrearSocioEstandarView();
         String nombre = retorno[0]; // El primer parametro del array sera el nombre
@@ -77,7 +77,7 @@ public class SocioController {
         if (nombre.isEmpty() || NIF.isEmpty()) {
             View.respuestaControllerView("Operación cancelada: El nombre o el NIF no pueden estar vacíos. \n");
             // No se agrega al socio, así que simplemente retornamos.
-            AppController.gestionSocios(BBDD);
+            AppController.gestionSocios();
             return;
         } // en otro caso, si las cadenas tienen valor no nulo, entonces generamos el
           // socio.
@@ -89,16 +89,16 @@ public class SocioController {
         SeguroModel seguroModel = seguroSocio();
         // Creamos un objeto de tipo llamado socioModel con los datos correctos
         SocioEstandarModel socioModel = new SocioEstandarModel(numeroSocio, nombre, NIF, seguroModel);
-        // Enviamos la información al modelo para que añada el socio a la BBDD
-        String respuesta = socioModel.crearSocioEstandar(BBDD, socioModel);
+        // Enviamos la información al modelo para que añada el socio a la 
+        String respuesta = socioModel.crearSocioEstandar(socioModel);
         // Una vez que el modelo responde confirmando la acción, enviamos la respuesta
         // recibida por parte modelo al controlador hacia la vista.
         View.respuestaControllerView(respuesta);
         // Volvemos al menu principal de la gestión de los socios.
-        AppController.gestionSocios(BBDD);
+        AppController.gestionSocios();
     }
 
-    public static void modificarSeguroSocioEstandar(Datos BBDD) {
+    public static void modificarSeguroSocioEstandar() {
         // Excepcion para la conversion del numero de tipo String a Int
         int numSocio = 0;
 
@@ -112,21 +112,21 @@ public class SocioController {
         }
 
         // Objetemos el objeto socio estandar (si existe)
-        SocioEstandarModel socio = SocioEstandarModel.getSocioEstandar(BBDD, numSocio);
+        SocioEstandarModel socio = SocioEstandarModel.getSocioEstandar(numSocio);
         if (socio != null) {
             View.respuestaControllerView("Socio encontrado para modificar el seguro.");
             SeguroModel seguroModel = seguroSocio();
-            String respuesta = socio.actualizarSeguroSocioEstandar(BBDD, seguroModel, socio);
+            String respuesta = socio.actualizarSeguroSocioEstandar(seguroModel, socio);
             // Devuelvo la respuespuesta del modelo hacia la vista.
             View.respuestaControllerView(respuesta);
         } else {
             View.respuestaControllerView("No se ha podido encontrar el socio.");
         }
         // Volvemos al menu principal de la gestión de los socios.
-        AppController.gestionSocios(BBDD);
+        AppController.gestionSocios();
     }
 
-    public static void crearSocioFederado(Datos BBDD) {
+    public static void crearSocioFederado() {
 
         // Se llama a la vista para pedir el nombre y el DNI del usuario
         String[] retorno = View.formCrearSocioFederadoView();
@@ -135,7 +135,7 @@ public class SocioController {
         if (nombre.isEmpty() || NIF.isEmpty()) {
             View.respuestaControllerView("Operación cancelada: El nombre o el NIF no pueden estar vacíos. \n");
             // No se agrega al socio, así que simplemente retornamos.
-            AppController.gestionSocios(BBDD);
+            AppController.gestionSocios();
             return;
         }
         // Método para generar un número de socio aleatorio
@@ -143,7 +143,7 @@ public class SocioController {
         // Mandamos el numero de socio a la pantalla:
         View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
         // Pido el listado de federaciones y el numero de federaciones disponibles;
-        String[] listaFederaciones = FederacionModel.obtenerListadoFederacion(BBDD);
+        String[] listaFederaciones = FederacionModel.obtenerListadoFederacion();
         // String[] listado = listaFederaciones[]{};
         int opcionesDiponibles = Integer.parseInt(listaFederaciones[1]);
         // Se genera el control de excepcion para opcion seleccionada no valida.
@@ -166,26 +166,26 @@ public class SocioController {
             }
         } while (!opcionOk);
         // Con este metodo del modelo obtengo el objeto seleccionado por el usuario
-        FederacionModel federacion = FederacionModel.obtenerFederacion(BBDD, seleccion);
+        FederacionModel federacion = FederacionModel.obtenerFederacion(seleccion);
         // Creamos el objeto con los datos recolectados.
         SocioFederadoModel socio = new SocioFederadoModel(numeroSocio, nombre, NIF, federacion);
-        // Enviamos la información al modelo para que añada el socio a la BBDD
-        String respuesta = socio.crearSocioFederado(BBDD, socio);
+        // Enviamos la información al modelo para que añada el socio a la 
+        String respuesta = socio.crearSocioFederado(socio);
         // Una vez que el modelo responde confirmando la acción, enviamos la respuesta
         // recibida por parte modelo al controlador hacia la vista.
         View.respuestaControllerView(respuesta);
         // Volvemos al menu principal de la gestión de los socios.
-        AppController.gestionSocios(BBDD);
+        AppController.gestionSocios();
     }
 
-    public static void crearSocioInfantil(Datos BBDD) {
+    public static void crearSocioInfantil() {
         // Se llama a la vista para pedir el nombre
         String[] retorno = View.formCrearSocioInfantilView();
         String nombre = retorno[0];
         if (nombre.isEmpty()) {
             View.respuestaControllerView("Operación cancelada: El nombre no puede estar vacío. \n");
             // No se agrega al socio, así que simplemente retornamos.
-            AppController.gestionSocios(BBDD);
+            AppController.gestionSocios();
             return;
         }
         // Método para generar un número de socio aleatorio
@@ -211,7 +211,7 @@ public class SocioController {
         }
 
         // Creamos la excepción para verificar que el ID socio introducido existe.
-        if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroParental)) {
+        if (!SocioModel.comprobarSocioPorNumSocio(numeroParental)) {
             View.respuestaControllerView("No se ha encontrado un socio con ese código.");
             return;
         }
@@ -219,16 +219,16 @@ public class SocioController {
         View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
         // Creamos el objeto con los datos recolectados.
         SocioInfantilModel socio = new SocioInfantilModel(numeroSocio, nombre, numeroParental);
-        // Enviamos la información al modelo para que añada el socio a la BBDD
-        String respuesta = socio.crearSocioInfantil(BBDD, socio);
+        // Enviamos la información al modelo para que añada el socio a la 
+        String respuesta = socio.crearSocioInfantil(socio);
         // Una vez que el modelo responde confirmando la acción, enviamos la respuesta
         // recibida por parte modelo al controlador hacia la vista.
         View.respuestaControllerView(respuesta);
         // Volvemos al menu principal de la gestión de los socios.
-        AppController.gestionSocios(BBDD);
+        AppController.gestionSocios();
     }
 
-    public static void eliminarSocio(Datos BBDD) {
+    public static void eliminarSocio() {
         try {
             String[] retorno = View.formEliminarSocioView();
             String numeroSocio = retorno[0];
@@ -236,33 +236,33 @@ public class SocioController {
                 // Verificar si la cadena numeroSocio está vacía o nula
             if (numeroSocio == null || numeroSocio.isEmpty()) {
                 View.respuestaControllerView("Operación cancelada: El numero de socio no puede estar vacío. \n");
-                AppController.gestionSocios(BBDD);
+                AppController.gestionSocios();
                 return;
             }
 
             int numeroSocioInt = Integer.parseInt(numeroSocio);
 
             // Verificar si el socio está inscrito en alguna excursión
-            boolean inscritoEnExcursion = InscripcionModel.comprobarSocioInscrito(BBDD, numeroSocioInt);
+            boolean inscritoEnExcursion = InscripcionModel.comprobarSocioInscrito(numeroSocioInt);
             if (inscritoEnExcursion) {
                 // Mostrar mensaje de que el socio está inscrito en una excursión y no puede ser
                 // eliminado
                 View.respuestaControllerView("El socio con número de socio " + numeroSocio
                         + " está inscrito en una excursión y no puede ser eliminado.");
-                AppController.gestionSocios(BBDD);        
+                AppController.gestionSocios();        
                 return;
             }
 
             // Verificar el tipo de socio y llamar al método eliminar correspondiente
-            String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD, numeroSocioInt);
+            String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(numeroSocioInt);
             boolean eliminado = false;
 
             if (tipoSocio.equals("Estandar")) {
-                eliminado = SocioEstandarModel.eliminarSocioModel(BBDD, numeroSocioInt);
+                eliminado = SocioEstandarModel.eliminarSocioModel(numeroSocioInt);
             } else if (tipoSocio.equals("Federado")) {
-                eliminado = SocioFederadoModel.eliminarSocioModel(BBDD, numeroSocioInt);
+                eliminado = SocioFederadoModel.eliminarSocioModel(numeroSocioInt);
             } else if (tipoSocio.equals("Infantil")) {
-                eliminado = SocioInfantilModel.eliminarSocioModel(BBDD, numeroSocioInt);
+                eliminado = SocioInfantilModel.eliminarSocioModel(numeroSocioInt);
             }
 
             if (eliminado) {
@@ -280,7 +280,7 @@ public class SocioController {
         }
     }
 
-    public static void mostrarSocio(Datos BBDD) {
+    public static void mostrarSocio() {
         // Excepcion para la conversion del numero de tipo String a Int y opcion
         // seleccionada valida
         int opcion = 0;
@@ -302,29 +302,29 @@ public class SocioController {
         // Se carga el formulario de registro de un nuevo socio.
         switch (opcion) {
             case 1:
-                View.respuestaControllerView("\nListado de todos los socios: " + SocioModel.listarSociosModel(BBDD)[0]);
+                View.respuestaControllerView("\nListado de todos los socios: " + SocioModel.listarSociosModel()[0]);
                 break;
             case 2:
                 View.respuestaControllerView(
-                        "\nListado de socios estandar: " + SocioModel.listarSociosEstandarModel(BBDD)[0]);
+                        "\nListado de socios estandar: " + SocioModel.listarSociosEstandarModel()[0]);
                 break;
             case 3:
                 View.respuestaControllerView(
-                        "\nListado de socios federados: " + SocioModel.listarSociosFederadosModel(BBDD)[0]);
+                        "\nListado de socios federados: " + SocioModel.listarSociosFederadosModel()[0]);
                 break;
             case 4:
                 View.respuestaControllerView(
-                        "\nListado de socios infantiles: " + SocioModel.listarSociosInfantilesModel(BBDD)[0]);
+                        "\nListado de socios infantiles: " + SocioModel.listarSociosInfantilesModel()[0]);
                 break;
             case 5:
-                AppController.gestionSocios(BBDD);
+                AppController.gestionSocios();
                 break;
             default:
-                AppController.gestionSocios(BBDD);
+                AppController.gestionSocios();
         }
     }
 
-    public static void facturaMensualSocio(Datos BBDD) {
+    public static void facturaMensualSocio() {
         int numSocio = 0;
         boolean valoresComprobados = false;
         String tipoSocio = "";
@@ -345,10 +345,10 @@ public class SocioController {
             // Se comprueba que el usuario no quiere salir del método y se comprueban otros
             // datos
             if (numSocio == 0) {
-                AppController.gestionSocios(BBDD);
+                AppController.gestionSocios();
                 break;
-            } else if (SocioModel.comprobarSocioPorNumSocio(BBDD, numSocio)) {
-                tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(BBDD, numSocio);
+            } else if (SocioModel.comprobarSocioPorNumSocio(numSocio)) {
+                tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(numSocio);
                 valoresComprobados = true;
             } else {
                 View.respuestaControllerView("No se ha podido encontrar el socio.");
@@ -359,9 +359,9 @@ public class SocioController {
             // Coste de la cuota
             respuesta += "\n    - Coste de la cuota: " + cuotaMensual + " euros.";
             // Obtenemos el precio del seguro contratado.
-            Double precioSeguro = SocioEstandarModel.getSocioEstandar(BBDD, numSocio).getSeguro().getPrecio();
+            Double precioSeguro = SocioEstandarModel.getSocioEstandar(numSocio).getSeguro().getPrecio();
             // Obtener listado de escursiones y precio:
-            String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numSocio);
+            String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(numSocio);
             respuesta += retorno[0];
             // Precio del seguro.
             respuesta += "\n    - Coste del seguro: " + precioSeguro + " euros.";
@@ -373,7 +373,7 @@ public class SocioController {
             // Aplicamos un despues de la cuota mensual 5%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 5 / 100);
             // Obtener listado de escursiones y precio:
-            String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numSocio);
+            String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(numSocio);
             respuesta += retorno[0];
             // Se calcula el descuento de las escursiones de este socio. 10%
             Double descuentoExcursiones = Double.parseDouble(retorno[1]) - (Double.parseDouble(retorno[1]) * 10 / 100);
@@ -387,7 +387,7 @@ public class SocioController {
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 50 / 100);
             respuesta += "\n    - Coste de la cuota: " + precioCuotaDescuento + " euros.";
             // Obtener listado de escursiones y precio:
-            String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numSocio);
+            String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(numSocio);
             respuesta += retorno[0]; 
             // Se genera el precio final de facturación
             facturacion = precioCuotaDescuento + Double.parseDouble(retorno[1]);
@@ -396,7 +396,7 @@ public class SocioController {
         }
         View.respuestaControllerView(respuesta);
         // Volvemos al menu principal de la gestión de los socios.
-        AppController.gestionSocios(BBDD);
+        AppController.gestionSocios();
     }
 
     public static SeguroModel seguroSocio() {

@@ -37,17 +37,17 @@ public class SocioEstandarModel extends SocioModel {
     }
     
     // Método para agregar un socio estandar a la lista en Datos.
-    public String crearSocioEstandar(Datos BBDD, SocioEstandarModel socioEstandar) {
+    public String crearSocioEstandar(SocioEstandarModel socioEstandar) {
         try {
-            BBDD.socioEstandar.add(socioEstandar);
+            .socioEstandar.add(socioEstandar);
             return "Se guardo correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
         }
     }
     // Metodo para buscar por numero de socio y devolver el objeto.
-    public static SocioEstandarModel getSocioEstandar(Datos BBDD, int numeroSocio) {
-        for (SocioEstandarModel socioEstandar : BBDD.socioEstandar) {
+    public static SocioEstandarModel getSocioEstandar(int numeroSocio) {
+        for (SocioEstandarModel socioEstandar : .socioEstandar) {
             if(socioEstandar.getNumeroSocio() == numeroSocio){
                 return socioEstandar;
             }
@@ -55,7 +55,7 @@ public class SocioEstandarModel extends SocioModel {
         return null;
     }
     // Metodo para actualizar el seguro del socio:
-    public String actualizarSeguroSocioEstandar(Datos BBDD, SeguroModel seguro, SocioEstandarModel socio) {
+    public String actualizarSeguroSocioEstandar(SeguroModel seguro, SocioEstandarModel socio) {
         try{
             socio.setSeguro(seguro);
             return "Seguro actualizado correctamente.";
@@ -64,18 +64,18 @@ public class SocioEstandarModel extends SocioModel {
         }
     }
     // Metodo para eliminar por numero de socio.
-    public static boolean eliminarSocioEstandar(Datos BBDD, int numeroSocio) {
-        for (SocioEstandarModel socioEstandar : BBDD.socioEstandar) {
+    public static boolean eliminarSocioEstandar(int numeroSocio) {
+        for (SocioEstandarModel socioEstandar : .socioEstandar) {
             if(socioEstandar.getNumeroSocio() == numeroSocio){
-                BBDD.socioEstandar.remove(socioEstandar);
+                .socioEstandar.remove(socioEstandar);
                 return true;
             }
         }
         return false;
     }
-    public static double obtenerPrecioSeguro(Datos BBDD, String nombreSocio) {
+    public static double obtenerPrecioSeguro(String nombreSocio) {
         // Buscar el socio por nombre en los arrays correspondientes
-        for (SocioEstandarModel socio : BBDD.socioEstandar) {
+        for (SocioEstandarModel socio : .socioEstandar) {
             if (socio.getNombre().equals(nombreSocio)) {
                 // Una vez encontrado el socio, obtenemos el tipo de seguro que tiene
                 SeguroModel seguro = socio.getSeguro();
@@ -88,10 +88,10 @@ public class SocioEstandarModel extends SocioModel {
     }
 
     // Método para eliminar socio infantil de la base de datos
-    public static boolean eliminarSocioModel(Datos BBDD, int numSocio) {
-        for (SocioEstandarModel socio : BBDD.socioEstandar) {
+    public static boolean eliminarSocioModel(int numSocio) {
+        for (SocioEstandarModel socio : .socioEstandar) {
             if (socio.getNumeroSocio() == numSocio) {
-                BBDD.socioEstandar.remove(socio);
+                .socioEstandar.remove(socio);
                 return true; // Socio eliminado
             }
         }

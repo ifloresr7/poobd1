@@ -35,10 +35,10 @@ public class FederacionModel {
     }
 
     //Metodos porpios
-    public static String[] obtenerListadoFederacion(Datos BBDD){
+    public static String[] obtenerListadoFederacion(){
         String listado = "";
         int contador = 0;
-        for (FederacionModel federacion : BBDD.federacion) {
+        for (FederacionModel federacion : .federacion) {
             contador++;
             listado += "\n    - " + contador + ". " + federacion.toString();
         }
@@ -48,9 +48,9 @@ public class FederacionModel {
         return new String[] {listado, String.valueOf(contador)};
     }
 
-    public static FederacionModel obtenerFederacion(Datos BBDD, int seleccion){
+    public static FederacionModel obtenerFederacion(int seleccion){
         int contador = 0;
-        for (FederacionModel federacion : BBDD.federacion) {
+        for (FederacionModel federacion : .federacion) {
             contador++;
             if(contador == seleccion){
                 return federacion;

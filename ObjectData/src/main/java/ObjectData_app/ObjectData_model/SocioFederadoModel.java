@@ -39,16 +39,16 @@ public class SocioFederadoModel extends SocioModel {
 
     //Metodos propios
     //Crear socio Federado
-    public String crearSocioFederado(Datos BBDD, SocioFederadoModel socio) {
+    public String crearSocioFederado(SocioFederadoModel socio) {
         try {
-            BBDD.socioFederado.add(socio);
+            .socioFederado.add(socio);
             return "Se guardo correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
         }
     }
-    public SocioFederadoModel getSocioFederado(Datos BBDD, int numSocio) {
-        for(SocioFederadoModel socio : BBDD.socioFederado){
+    public SocioFederadoModel getSocioFederado(int numSocio) {
+        for(SocioFederadoModel socio : .socioFederado){
             if(numSocio == socio.getNumeroSocio()){
                 return socio;
             }
@@ -56,10 +56,10 @@ public class SocioFederadoModel extends SocioModel {
         return null;
     }
      // Método para eliminar socio infantil de la base de datos
-     public static boolean eliminarSocioModel(Datos BBDD, int numSocio) {
-        for (SocioFederadoModel socio : BBDD.socioFederado) {
+     public static boolean eliminarSocioModel(int numSocio) {
+        for (SocioFederadoModel socio : .socioFederado) {
             if (socio.getNumeroSocio() == numSocio) {
-                BBDD.socioFederado.remove(socio);
+                .socioFederado.remove(socio);
                 return true; // Socio eliminado
             }
         }

@@ -1,6 +1,6 @@
 package ObjectData_app.ObjectData_controller;
 
-import ObjectData_app.ObjectData_model.Datos;
+
 import ObjectData_app.ObjectData_model.ExcursionModel;
 import ObjectData_app.ObjectData_view.ExcursionesView;
 
@@ -26,9 +26,9 @@ public class ExcursionController {
         }
         return id;
     }
-    // Esta función sirve para crear una nueva excursión (Debemos importar BBDD, que
+    // Esta función sirve para crear una nueva excursión (Debemos importar , que
     // se inicializó al arranque de APP en main)
-    public static void crearExcursion(Datos BBDD) {
+    public static void crearExcursion() {
         boolean finalizar = false;
         do {
             // Se lanza la vista del menu de crear Excursion
@@ -36,7 +36,7 @@ public class ExcursionController {
             // Se comprueba si el usuario quiere salir
             if (retorno[0].equals("")  || retorno[1] .equals("") || retorno[2].equals("")  || retorno[3].equals("") ) {
                 View.respuestaControllerView("Operación cancelada.");
-                AppController.gestionExcursiones(BBDD);
+                AppController.gestionExcursiones();
                 continue;
             }
             String descripcion = retorno[0];
@@ -70,20 +70,20 @@ public class ExcursionController {
             int numeroExcursion = Integer.parseInt("1" + generarID()); // numeroExcursion
             // Mandamos el numeroExcursion a la pantalla:
             View.respuestaControllerView("- Número de excursion generada: " + numeroExcursion);
-            // Se genera el conjunto de BBDD en la variable excursion
+            // Se genera el conjunto de  en la variable excursion
             ExcursionModel excursion = new ExcursionModel(numeroExcursion, descripcion, date, num, coste);
             // Se llama al metodo crearExcursion del modelo ExcursionModel, se pasa tanto la
-            // instancia BBDD como el objeto creado
-            String respuesta = excursion.crearExcursionModel(BBDD, excursion);
+            // instancia  como el objeto creado
+            String respuesta = excursion.crearExcursionModel(excursion);
             // Devuelvo la respuesta del modelo y la imprimo en la vista
             View.respuestaControllerView(respuesta);
             finalizar = true;
         } while (!finalizar);
         // Al finalizar vuelvo al menu de excursiones
-        AppController.gestionExcursiones(BBDD);
+        AppController.gestionExcursiones();
     }
 
-    public static void mostrarExcursionFecha(Datos BBDD) {
+    public static void mostrarExcursionFecha() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         boolean finalizar = false;
         do {
@@ -91,7 +91,7 @@ public class ExcursionController {
             // Se comprueba si el usuario queire salir
             if (retorno[0].equals("") || retorno[1].equals("")) {
                 View.respuestaControllerView("Operación cancelada.");
-                AppController.gestionExcursiones(BBDD);
+                AppController.gestionExcursiones();
                 break;
             }
             // Se comprueba que existen datos
@@ -103,7 +103,7 @@ public class ExcursionController {
             try {
                 Date fechaInicio = sdf.parse(retorno[0]);
                 Date fechaFin = sdf.parse(retorno[1]);
-                String respuesta = ExcursionModel.mostrarExcursiones(BBDD, fechaInicio, fechaFin);
+                String respuesta = ExcursionModel.mostrarExcursiones(fechaInicio, fechaFin);
                 View.respuestaControllerView(respuesta);
                 finalizar = true;
             } catch (Exception e) {
@@ -111,6 +111,6 @@ public class ExcursionController {
             }
         } while (!finalizar);
         // Al finalizar vuelvo al menu de excursiones
-        AppController.gestionExcursiones(BBDD);
+        AppController.gestionExcursiones();
     }
 }
