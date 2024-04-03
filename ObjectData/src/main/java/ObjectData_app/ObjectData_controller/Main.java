@@ -12,7 +12,7 @@ public class Main {
         // Datos de conexión
         String hostname = "62.72.37.1";
         String port = "3306";
-        String database = "nombre_de_tu_base_de_datos";
+        String database = "u450392368_ObjectData";
         String username = "u450392368_ObjectData";
         String password = "WmAb[>gM1]";
 
