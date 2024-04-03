@@ -41,6 +41,7 @@ public class InscripcionController {
         // Si se solicita crear un nuevo socio
         if (retorno.equals("0")) {
             SocioController.crearNuevoSocio(BBDD);
+            AppController.gestionInscripciones(BBDD);
             return;
         }
 

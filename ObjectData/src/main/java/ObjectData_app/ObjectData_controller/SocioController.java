@@ -77,6 +77,7 @@ public class SocioController {
         if (nombre.isEmpty() || NIF.isEmpty()) {
             View.respuestaControllerView("Operación cancelada: El nombre o el NIF no pueden estar vacíos. \n");
             // No se agrega al socio, así que simplemente retornamos.
+            AppController.gestionSocios(BBDD);
             return;
         } // en otro caso, si las cadenas tienen valor no nulo, entonces generamos el
           // socio.
@@ -134,6 +135,7 @@ public class SocioController {
         if (nombre.isEmpty() || NIF.isEmpty()) {
             View.respuestaControllerView("Operación cancelada: El nombre o el NIF no pueden estar vacíos. \n");
             // No se agrega al socio, así que simplemente retornamos.
+            AppController.gestionSocios(BBDD);
             return;
         }
         // Método para generar un número de socio aleatorio
@@ -183,6 +185,7 @@ public class SocioController {
         if (nombre.isEmpty()) {
             View.respuestaControllerView("Operación cancelada: El nombre no puede estar vacío. \n");
             // No se agrega al socio, así que simplemente retornamos.
+            AppController.gestionSocios(BBDD);
             return;
         }
         // Método para generar un número de socio aleatorio
@@ -230,16 +233,23 @@ public class SocioController {
             String[] retorno = View.formEliminarSocioView();
             String numeroSocio = retorno[0];
 
+                // Verificar si la cadena numeroSocio está vacía o nula
+            if (numeroSocio == null || numeroSocio.isEmpty()) {
+                View.respuestaControllerView("Operación cancelada: El numero de socio no puede estar vacío. \n");
+                AppController.gestionSocios(BBDD);
+                return;
+            }
+
             int numeroSocioInt = Integer.parseInt(numeroSocio);
 
             // Verificar si el socio está inscrito en alguna excursión
             boolean inscritoEnExcursion = InscripcionModel.comprobarSocioInscrito(BBDD, numeroSocioInt);
-
             if (inscritoEnExcursion) {
                 // Mostrar mensaje de que el socio está inscrito en una excursión y no puede ser
                 // eliminado
                 View.respuestaControllerView("El socio con número de socio " + numeroSocio
                         + " está inscrito en una excursión y no puede ser eliminado.");
+                AppController.gestionSocios(BBDD);        
                 return;
             }
 

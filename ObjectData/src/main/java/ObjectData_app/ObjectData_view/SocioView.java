@@ -14,7 +14,7 @@ public class SocioView {
 
     // Metodos de la clase
     public String crearNuevoSocioView() {
-        System.out.println(h2 + "--- CREAR SOCIO POR TIPO ---" + p);
+        System.out.println(limpiezaConsola + h2 + "--- CREAR SOCIO POR TIPO ---" + p);
         System.out.println("    1. Añadir Socio Estándar.");
         System.out.println("    2. Añadir Socio Federado.");
         System.out.println("    3. Añadir Socio Infantil.");
@@ -22,6 +22,7 @@ public class SocioView {
         System.out.println(p2 + "Seleccione una opcion: " + p);
         return teclado.nextLine();
     }
+    
 
     public String[] formCrearSocioEstandarView() {
         System.out.println(limpiezaConsola + h2 + "- Formulario añadir socio estándar ---" + p);
