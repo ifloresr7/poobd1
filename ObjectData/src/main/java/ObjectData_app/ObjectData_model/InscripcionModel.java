@@ -237,7 +237,7 @@ public class InscripcionModel {
                         .getPrecioInscripcion();
                 String descripcionExcursion = ExcursionModel
                         .obtenerExcursionByCodigo(BBDD, inscripcion.getNumeroExcursion()).getDescripcion();
-                listado = "\n   - " + contador + ". ID Inscripción: " + inscripcion.getNumeroInscripcion()
+                listado += "\n      - " + contador + ". ID Inscripción: " + inscripcion.getNumeroInscripcion()
                         + " | Precio excursion: " + precioExcursion + " | Descripcion excursion: "
                         + descripcionExcursion;
                 total += precioExcursion;

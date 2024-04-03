@@ -388,7 +388,7 @@ public class SocioController {
             respuesta += "\n    - Coste de la cuota: " + precioCuotaDescuento + " euros.";
             // Obtener listado de escursiones y precio:
             String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(BBDD, numSocio);
-            respuesta += retorno[0];
+            respuesta += retorno[0]; 
             // Se genera el precio final de facturación
             facturacion = precioCuotaDescuento + Double.parseDouble(retorno[1]);
             // Se manda el resultado a la vista
