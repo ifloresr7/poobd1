@@ -189,7 +189,7 @@ public class SocioController {
             return;
         }
         // Método para generar un número de socio aleatorio
-        int numeroSocio = Integer.parseInt("7" + generarID()); // Número de socio
+        int numeroSocio = Integer.parseInt("" + generarID()); // Número de socio
         // Mandamos el numero de socio a la pantalla:
 
         // Se genera el control de excepcion para opcion seleccionada no valida.
