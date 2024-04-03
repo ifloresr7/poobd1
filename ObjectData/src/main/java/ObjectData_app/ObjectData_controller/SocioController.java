@@ -335,6 +335,14 @@ public class SocioController {
         do {
             // Se muestran la vista y se piden datos.
             String retorno = View.formMostrarFacturaMensualSocioView();
+
+            // Verifica si el retorno es nulo o vacío (usuario presionó solo Enter)
+            if (retorno == null || retorno.trim().isEmpty()) {
+                View.respuestaControllerView("Operación cancelada.");
+                AppController.gestionSocios(BBDD);
+                return;
+            }
+            
             // Se hace el parse de tipo de dato de String a Int.
             try {
                 numSocio = Integer.parseInt(retorno);
