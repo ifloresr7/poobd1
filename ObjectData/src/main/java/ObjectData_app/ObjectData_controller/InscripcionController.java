@@ -17,7 +17,7 @@ public class InscripcionController {
     public static int generarID() {
         Random rand = new Random();
         int id = 0;
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 8; i++) {
             id = id * 10 + rand.nextInt(9) + 1;
         }
         if (id < 0) {
@@ -78,7 +78,7 @@ public class InscripcionController {
         }
 
         // Genera un número de inscripción aleatorio
-        int numeroInscripcion = generarID();
+        int numeroInscripcion = Integer.parseInt("9" + generarID());
         View.respuestaControllerView("- Número de inscripción generado: " + numeroInscripcion);
 
         // Crea la inscripción
