@@ -345,7 +345,7 @@ public class SocioController {
                 continue;
             }
         } while (!valoresComprobados);
-        if (tipoSocio == "Estandar") {
+        if (tipoSocio.equals("Estandar")) {
             // Coste de la cuota
             respuesta += "\n    - Coste de la cuota: " + cuotaMensual + " euros.";
             // Obtenemos el precio del seguro contratado.
@@ -359,7 +359,7 @@ public class SocioController {
             facturacion = cuotaMensual + precioSeguro + Double.parseDouble(retorno[1]);
             // Se manda el resultado a la vista
             respuesta += "\n El socio factura " + facturacion + " euros mensuales.";
-        } else if (tipoSocio == "Federado") {
+        } else if (tipoSocio.equals("Federado")) {
             // Aplicamos un despues de la cuota mensual 5%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 5 / 100);
             // Obtener listado de escursiones y precio:
@@ -372,7 +372,7 @@ public class SocioController {
             // Se manda el resultado a la vista
             respuesta += "\n El socio factura " + facturacion
                     + " euros mensuales. (10% de dto. incluido en el precio final.)";
-        } else if (tipoSocio == "Infantil") {
+        } else if (tipoSocio.equals("Infantil")) {
             // Aplicamos un descuento de la cuota mensual 50%
             Double precioCuotaDescuento = cuotaMensual - (cuotaMensual * 50 / 100);
             respuesta += "\n    - Coste de la cuota: " + precioCuotaDescuento + " euros.";
