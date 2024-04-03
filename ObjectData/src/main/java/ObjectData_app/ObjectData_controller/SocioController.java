@@ -338,11 +338,11 @@ public class SocioController {
 
             // Verifica si el retorno es nulo o vacío (usuario presionó solo Enter)
             if (retorno == null || retorno.trim().isEmpty()) {
-                View.respuestaControllerView("Operación cancelada.");
+                View.respuestaControllerView("Se debe indicar el numero de socio.");
                 AppController.gestionSocios(BBDD);
                 return;
             }
-            
+
             // Se hace el parse de tipo de dato de String a Int.
             try {
                 numSocio = Integer.parseInt(retorno);
