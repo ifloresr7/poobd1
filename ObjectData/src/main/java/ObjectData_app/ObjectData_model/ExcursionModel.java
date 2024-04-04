@@ -149,12 +149,6 @@ public class ExcursionModel {
 
     // Metodo para obtener la excursion mediante seleccion de lista
     public static ExcursionModel obtenerExcursionDesdeLista(int seleccion) {
-        //Se obtienen todas las excursiones con el DAO y se almacenan en un array temporal.
-        try {
-            excursiones = excursionDAO.obtenerTodasExcursiones();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
         //Atributos
         int contador = 0;
         //Logica

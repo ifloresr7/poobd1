@@ -72,7 +72,7 @@ public class InscripcionController {
         }
 
         // Comprueba si la excursión existe
-        if (ExcursionModel.obtenerExcursionPorNumeroExcursion(numeroExcursion) != null) {
+        if (ExcursionModel.obtenerExcursionPorNumeroExcursion(numeroExcursion) == null) {
             View.respuestaControllerView("Excursión no encontrada.");
             return;
         }
