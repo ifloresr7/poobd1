@@ -66,7 +66,7 @@ public class InscripcionModel {
                     cadenaDescuento = "Se ha aplicado un 10% de descuento en la excursión. Precio real de la inscripción: "
                             + precioTotal + "\n";
                 } else if (tipoSocio.equals("Estandar")) {
-                    double precioSeguro = SocioEstandarModel.obtenerPrecioSeguroPorNumeroSocio(nombreSocio);
+                    double precioSeguro = SocioEstandarModel.obtenerPrecioSeguroPorNumeroSocio(inscripcion.getNumeroSocio());
                     precioTotal = precio + precioSeguro;
                     cadenaDescuento = "Precio del seguro contratado: " + precioSeguro + "\n"
                             + "Precio total de la inscripción: " + precioTotal;

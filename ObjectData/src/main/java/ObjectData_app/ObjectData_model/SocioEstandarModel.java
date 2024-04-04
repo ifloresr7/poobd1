@@ -85,21 +85,12 @@ public class SocioEstandarModel extends SocioModel {
     }
 
     //Metodo para obtener el precio del seguro.
-    public static double obtenerPrecioSeguroPorNumeroSocio(String nombreSocio) {
+    public static double obtenerPrecioSeguroPorNumeroSocio(int numeroSocio) {
         //Se obtienen los datos desde el DAO.
         try{
-            sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();            
+            return socioEstandarDAO.obtenerSocioEstandarPorNumeroSocio(numeroSocio).seguro.getPrecio();            
         }catch (SQLException e){
             System.out.println(e);
-        }
-        // Buscar el socio por nombre en los arrays correspondientes
-        for (SocioEstandarModel socio : sociosEstandar) {
-            if (socio.getNombre().equals(nombreSocio)) {
-                // Una vez encontrado el socio, obtenemos el tipo de seguro que tiene
-                SeguroModel seguro = socio.getSeguro();
-                double precioSeguro = seguro.getPrecio();
-                return precioSeguro;
-            }
         }
         // Devolver un valor predeterminado si no se encuentra el socio
         return 0.0;
