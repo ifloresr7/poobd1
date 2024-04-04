@@ -10,12 +10,19 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioFederadoDA
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioInfantilDAO;
 
 public abstract class SocioModel {
+    // Se crea una instancia estática de DAOFactoryImpl, que probablemente implementa la interfaz DAOFactory.
     static DAOFactory factory = new DAOFactoryImpl();
+    // Se obtiene una instancia estática de SocioInfantilDAO a través del objeto factory.
     static SocioInfantilDAO socioInfantilDAO = factory.instanciaSocioInfantilDAO();
+    // Se crea una lista estática para almacenar objetos SocioInfantilModel.
     static ArrayList<SocioInfantilModel> sociosInfantiles = new ArrayList<>();
+    // Se obtiene una instancia estática de SocioFederadoDAO a través del objeto factory.
     static SocioFederadoDAO socioFederadoDAO = factory.instanciaSocioFederadoDAO();
+    // Se crea una lista estática para almacenar objetos SocioFederadoModel.
     static ArrayList<SocioFederadoModel> sociosFederados = new ArrayList<>();
+    // Se obtiene una instancia estática de SocioEstandarDAO a través del objeto factory.
     static SocioEstandarDAO socioEstandarDAO = factory.instanciaSocioEstandarDAO();
+    // Se crea una lista estática para almacenar objetos SocioEstandarModel.
     static ArrayList<SocioEstandarModel> sociosEstandar = new ArrayList<>();
 
     private int numeroSocio;

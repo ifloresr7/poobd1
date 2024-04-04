@@ -7,11 +7,13 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioFederadoDAO;
 
 public class SocioFederadoModel extends SocioModel {
-
+    // Se crea una instancia estática de DAOFactoryImpl, que probablemente implementa la interfaz DAOFactory.
     static DAOFactory factory = new DAOFactoryImpl();
+    // Se obtiene una instancia estática de SocioFederadoDAO utilizando el objeto factory.
     static SocioFederadoDAO socioFederadoDAO = factory.instanciaSocioFederadoDAO();
+    // Se crea una lista estática para almacenar objetos SocioFederadoModel.
     static ArrayList<SocioFederadoModel> sociosFederados = new ArrayList<>();
- 
+
     String NIF;
     FederacionModel federacion;
 

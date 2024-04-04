@@ -7,8 +7,11 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioInfantilDAO;
 
 public class SocioInfantilModel extends SocioModel {
+    // Se crea una instancia estática de DAOFactoryImpl, que probablemente implementa la interfaz DAOFactory.
     static DAOFactory factory = new DAOFactoryImpl();
+    // Se obtiene una instancia estática de SocioInfantilDAO utilizando el objeto factory.
     static SocioInfantilDAO socioInfantilDAO = factory.instanciaSocioInfantilDAO();
+    // Se crea una lista estática para almacenar objetos SocioInfantilModel.
     static ArrayList<SocioInfantilModel> sociosInfantiles = new ArrayList<>();
 
     private int numeroSocioPadreMadre;

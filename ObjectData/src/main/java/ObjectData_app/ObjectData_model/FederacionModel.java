@@ -8,8 +8,11 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.FederacionDAO;
 
 public class FederacionModel {
+    // Se crea una instancia estática de DAOFactoryImpl, que probablemente implementa la interfaz DAOFactory.
     static DAOFactory factory = new DAOFactoryImpl();
+    // Se obtiene una instancia estática de FederacionDAO utilizando el objeto factory.
     static FederacionDAO federacionDAO = factory.instanciaFederacionDAO();
+    // Se crea una lista estática para almacenar objetos FederacionModel.
     static ArrayList<FederacionModel> federaciones = new ArrayList<>();
     
     String codigo;

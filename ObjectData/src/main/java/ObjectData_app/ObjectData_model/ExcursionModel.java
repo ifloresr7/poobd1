@@ -9,9 +9,13 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.ExcursionDAO;
 
 public class ExcursionModel {
+    // Se crea una instancia estática de DAOFactoryImpl, que probablemente implementa la interfaz DAOFactory.
     static DAOFactory factory = new DAOFactoryImpl();
+    // Se obtiene una instancia estática de ExcursionDAO utilizando el objeto factory.
     static ExcursionDAO excursionDAO = factory.instanciaExcursionDAO();
+    // Se crea una lista estática para almacenar objetos ExcursionModel.
     static ArrayList<ExcursionModel> excursiones = new ArrayList<>();
+
     // Propiedades de clase
     int numeroExcursion;
     String descripcion;

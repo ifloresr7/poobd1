@@ -8,11 +8,14 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioEstandarDAO;
 
 public class SocioEstandarModel extends SocioModel {
-
+    // Se crea una instancia estática de DAOFactoryImpl, que probablemente implementa la interfaz DAOFactory.
     static DAOFactory factory = new DAOFactoryImpl();
+    // Se obtiene una instancia estática de SocioEstandarDAO utilizando el objeto factory.
     static SocioEstandarDAO socioEstandarDAO = factory.instanciaSocioEstandarDAO();
+    // Se crea una lista estática para almacenar objetos SocioEstandarModel.
     static ArrayList<SocioEstandarModel> sociosEstandar = new ArrayList<>();
- 
+    
+    //Atributos
     String NIF;
     SeguroModel seguro;
 

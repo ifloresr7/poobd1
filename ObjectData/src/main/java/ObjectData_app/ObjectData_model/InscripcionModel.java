@@ -11,11 +11,15 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.ExcursionDAO;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.InscripcionDAO;
 
 public class InscripcionModel {
-
+    // Se crea una instancia estática de DAOFactoryImpl, que probablemente implementa la interfaz DAOFactory.
     static DAOFactory factory = new DAOFactoryImpl();
+    // Se obtiene una instancia estática de InscripcionDAO utilizando el objeto factory.
     static InscripcionDAO inscripcionDAO = factory.instanciaInscripcionDAO();
+    // Se crea una lista estática para almacenar objetos InscripcionModel.
     static ArrayList<InscripcionModel> inscripciones = new ArrayList<>();
+    // Se obtiene una instancia estática de ExcursionDAO utilizando el objeto factory.
     static ExcursionDAO excursionDAO = factory.instanciaExcursionDAO();
+    // Se crea una lista estática para almacenar objetos ExcursionModel.
     static ArrayList<ExcursionModel> excursiones = new ArrayList<>();
 
     private int numeroInscripcion;
