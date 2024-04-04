@@ -54,9 +54,8 @@ public class InscripcionModel {
             Date fechaInscripcion = inscripcion.fechaInscripcion;
             if (fechaInscripcion.after(fechaInicio) && fechaInscripcion.before(fechaFin)) {
                 String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(
-                        inscripcion.getNumeroExcursion());
+                inscripcion.getNumeroExcursion());
                 String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(inscripcion.getNumeroSocio());
-                String nombreSocio = SocioModel.obtenerNombreSocio(inscripcion.getNumeroSocio());
                 double precio = ExcursionModel.obtenerPrecioExcursion(inscripcion.getNumeroExcursion());
                 double precioTotal = precio;
                 String cadenaDescuento = "";
@@ -67,7 +66,7 @@ public class InscripcionModel {
                     cadenaDescuento = "Se ha aplicado un 10% de descuento en la excursión. Precio real de la inscripción: "
                             + precioTotal + "\n";
                 } else if (tipoSocio.equals("Estandar")) {
-                    double precioSeguro = SocioEstandarModel.obtenerPrecioSeguro(nombreSocio);
+                    double precioSeguro = SocioEstandarModel.obtenerPrecioSeguroPorNumeroSocio(nombreSocio);
                     precioTotal = precio + precioSeguro;
                     cadenaDescuento = "Precio del seguro contratado: " + precioSeguro + "\n"
                             + "Precio total de la inscripción: " + precioTotal;
@@ -101,7 +100,6 @@ public class InscripcionModel {
                 String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(
                         inscripcion.getNumeroExcursion());
                 String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(inscripcion.getNumeroSocio());
-                String nombreSocio = SocioModel.obtenerNombreSocio(inscripcion.getNumeroSocio());
                 double precio = ExcursionModel.obtenerPrecioExcursion(inscripcion.getNumeroExcursion());
                 String cadenaDescuento = "";
                 double precioTotal = precio;

@@ -40,9 +40,9 @@ public class FederacionDAOImpl implements FederacionDAO {
         try (
             Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
             PreparedStatement pst = con.prepareStatement("SELECT * FROM federacion WHERE codigo=?"); // Se prepara la consulta SQL para seleccionar la federación con el código proporcionado
-            ResultSet respuestaBD = pst.executeQuery() // Se ejecuta la consulta y se almacena el resultado en un ResultSet
         ) {
             pst.setString(1, codigo); // Se establece el valor del parámetro 'codigo' en la consulta preparada
+            ResultSet respuestaBD = pst.executeQuery(); // Se ejecuta la consulta y se almacena el resultado en un ResultSet
             if (respuestaBD.next()) { // Si hay un resultado en el ResultSet...
                 federacion = new FederacionModel( // Se crea un objeto FederacionModel con los datos del resultado
                     respuestaBD.getString("codigo"), // Se obtiene el valor del campo 'codigo' del resultado

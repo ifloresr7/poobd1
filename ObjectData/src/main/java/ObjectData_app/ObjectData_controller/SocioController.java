@@ -257,7 +257,7 @@ public class SocioController {
             String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(numeroSocioInt);
             boolean eliminado = false;
 
-            if (tipoSocio.equals("Estandar")) {
+            if (tipoSocio == "Estandar") {
                 eliminado = SocioEstandarModel.eliminarSocioModel(numeroSocioInt);
             } else if (tipoSocio.equals("Federado")) {
                 eliminado = SocioFederadoModel.eliminarSocioModel(numeroSocioInt);

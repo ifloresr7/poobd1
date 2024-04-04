@@ -53,29 +53,28 @@ public class SocioFederadoModel extends SocioModel {
     //Crear socio Federado
     public String crearSocioFederado(SocioFederadoModel socio) {
         try {
-            sociosFederados.add(socio);
-            return "Se guardo correctamente!";
+            socioFederadoDAO.crearSocioFederado(socio);
+            return "Socio federado guardado correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
         }
     }
-    public SocioFederadoModel getSocioFederado(int numSocio) {
-        for(SocioFederadoModel socio : sociosFederados){
-            if(numSocio == socio.getNumeroSocio()){
-                return socio;
-            }
+    public SocioFederadoModel getSocioFederado(int numeroSocio) {
+        try{
+            return socioFederadoDAO.obtenerPorNumeroSocio(numeroSocio);
+        }catch (Exception e){
+            //Devolver el error a la vista
         }
         return null;
     }
      // Método para eliminar socio infantil de la base de datos
-     public static boolean eliminarSocioModel(int numSocio) {
-        for (SocioFederadoModel socio : sociosFederados) {
-            if (socio.getNumeroSocio() == numSocio) {
-                sociosFederados.remove(socio);
-                return true; // Socio eliminado
-            }
+     public static boolean eliminarSocioModel(int numeroSocio) {
+        try{
+            socioFederadoDAO.eliminarSocioFederado(numeroSocio);
+            return true; 
+        }catch (Exception e){
+            //poner algo
         }
-        return false; // Socio no encontrado
-    }
-
+        return false;
+     }
 }

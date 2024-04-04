@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface SocioFederadoDAO {
-    ArrayList<SocioFederadoModel> obtenerTodos() throws SQLException;
+    ArrayList<SocioFederadoModel> obtenerTodosSocioFederado() throws SQLException;
     SocioFederadoModel obtenerPorNumeroSocio(int numeroSocio) throws SQLException;
     void crearSocioFederado(SocioFederadoModel socio) throws SQLException;
     void eliminarSocioFederado(int numeroSocio) throws SQLException;

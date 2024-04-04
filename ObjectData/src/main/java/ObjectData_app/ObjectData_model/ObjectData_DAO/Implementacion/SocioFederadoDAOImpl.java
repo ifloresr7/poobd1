@@ -15,7 +15,7 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioFederadoDA
 public class SocioFederadoDAOImpl implements SocioFederadoDAO {
     //Con este metodo lo que hacemos es una sentencia SQL para obtener todos los socios estandar almacenados en la base de datos.
     @Override
-    public ArrayList<SocioFederadoModel> obtenerTodos() throws SQLException {
+    public ArrayList<SocioFederadoModel> obtenerTodosSocioFederado() throws SQLException {
         ArrayList<SocioFederadoModel> socios = new ArrayList<>(); // Se crea una lista para almacenar los socios federados encontrados
         try (
             Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
@@ -26,7 +26,6 @@ public class SocioFederadoDAOImpl implements SocioFederadoDAO {
                 String codigoFederacion = respuestaBD.getString("codigoFederacion"); // Se obtiene el código de federación del resultado
                 FederacionDAO federacionDAO = new FederacionDAOImpl(); // Se crea una instancia de FederacionDAOImpl
                 FederacionModel federacion = federacionDAO.obtenerPorCodigo(codigoFederacion); // Se obtiene la federación correspondiente al código obtenido
-                federacion.setCodigo(respuestaBD.getString("codigoFederacion")); // Esto no es necesario, ya que ya tienes el código de federación del resultado
                 SocioFederadoModel socio = new SocioFederadoModel( // Se crea un objeto SocioFederadoModel con los datos del resultado
                     respuestaBD.getInt("numeroSocio"), // Se obtiene el valor del campo 'numeroSocio' del resultado
                     respuestaBD.getString("nombre"), // Se obtiene el valor del campo 'nombre' del resultado
@@ -36,7 +35,7 @@ public class SocioFederadoDAOImpl implements SocioFederadoDAO {
                 socios.add(socio); // Se agrega el objeto SocioFederadoModel a la lista de socios federados
             }
         } catch (Exception e) { // Si ocurre alguna excepción durante el proceso...
-            throw new SQLException("Error al obtener todos los socios estándar", e); // Se lanza una excepción indicando el error
+            throw new SQLException("Error al obtener todos los socios federados.", e); // Se lanza una excepción indicando el error
         }
         return socios; // Se devuelve la lista de socios federados encontrados
     }

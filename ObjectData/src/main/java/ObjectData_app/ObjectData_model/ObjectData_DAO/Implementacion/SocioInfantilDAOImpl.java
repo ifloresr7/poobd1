@@ -13,7 +13,7 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioInfantilDA
 public class SocioInfantilDAOImpl implements SocioInfantilDAO {
     //Con este metodo lo que hacemos es una sentencia SQL para obtener todos los socios estandar almacenados en la base de datos.
     @Override
-    public ArrayList<SocioInfantilModel> obtenerTodos() throws SQLException {
+    public ArrayList<SocioInfantilModel> obtenerTodosSocioInfantil() throws SQLException {
         ArrayList<SocioInfantilModel> socios = new ArrayList<>(); // Se crea una lista para almacenar los socios infantiles encontrados
         try (
             Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos

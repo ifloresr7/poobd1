@@ -17,13 +17,13 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
     @Override
     public ArrayList<SocioEstandarModel> obtenerTodosSocioEstandar() throws SQLException {
         ArrayList<SocioEstandarModel> socios = new ArrayList<>();
+        SeguroModel seguro;
         try(
             Connection con = ConexionBD.obtenerConexion();
             PreparedStatement pst = con.prepareStatement("SELECT * FROM socioEstandar");
             ResultSet respuestaBD = pst.executeQuery()) {
             while (respuestaBD.next()) {
-                SeguroModel seguro = new SeguroModel(null);
-                seguro.setTipo(TipoSeguro.valueOf(respuestaBD.getString("seguro")));
+                seguro = new SeguroModel(TipoSeguro.valueOf(respuestaBD.getString("seguro")));
                 SocioEstandarModel socio = new SocioEstandarModel(
                     respuestaBD.getInt("numeroSocio"),
                     respuestaBD.getString("nombre"),

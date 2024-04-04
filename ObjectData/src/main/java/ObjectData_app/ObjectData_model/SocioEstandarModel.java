@@ -1,5 +1,6 @@
 package ObjectData_app.ObjectData_model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
@@ -50,14 +51,21 @@ public class SocioEstandarModel extends SocioModel {
     // Método para agregar un socio estandar a la lista en Datos.
     public String crearSocioEstandar(SocioEstandarModel socioEstandar) {
         try {
-            sociosEstandar.add(socioEstandar);
-            return "Se guardo correctamente!";
+            socioEstandarDAO.crearSocioEstandar(socioEstandar);
+            return "Socio estandar guardado correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
         }
     }
     // Metodo para buscar por numero de socio y devolver el objeto.
     public static SocioEstandarModel getSocioEstandar(int numeroSocio) {
+        //Se obtienen los datos desde el DAO.
+        try{
+            sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();            
+        }catch (SQLException e){
+            System.out.println(e);
+        }
+        //Se recorren los datos obtenidos.
         for (SocioEstandarModel socioEstandar : sociosEstandar) {
             if(socioEstandar.getNumeroSocio() == numeroSocio){
                 return socioEstandar;
@@ -69,22 +77,21 @@ public class SocioEstandarModel extends SocioModel {
     public String actualizarSeguroSocioEstandar(SeguroModel seguro, SocioEstandarModel socio) {
         try{
             socio.setSeguro(seguro);
+            socioEstandarDAO.actualizarSocioEstandar(socio);
             return "Seguro actualizado correctamente.";
         }catch (Exception error) {
             return "No se ha podido guardar los cambios con éxito." + error;
         }
     }
-    // Metodo para eliminar por numero de socio.
-    public static boolean eliminarSocioEstandar(int numeroSocio) {
-        for (SocioEstandarModel socioEstandar : sociosEstandar) {
-            if(socioEstandar.getNumeroSocio() == numeroSocio){
-                sociosEstandar.remove(socioEstandar);
-                return true;
-            }
+
+    //Metodo para obtener el precio del seguro.
+    public static double obtenerPrecioSeguroPorNumeroSocio(String nombreSocio) {
+        //Se obtienen los datos desde el DAO.
+        try{
+            sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();            
+        }catch (SQLException e){
+            System.out.println(e);
         }
-        return false;
-    }
-    public static double obtenerPrecioSeguro(String nombreSocio) {
         // Buscar el socio por nombre en los arrays correspondientes
         for (SocioEstandarModel socio : sociosEstandar) {
             if (socio.getNombre().equals(nombreSocio)) {
@@ -99,13 +106,13 @@ public class SocioEstandarModel extends SocioModel {
     }
 
     // Método para eliminar socio infantil de la base de datos
-    public static boolean eliminarSocioModel(int numSocio) {
-        for (SocioEstandarModel socio : sociosEstandar) {
-            if (socio.getNumeroSocio() == numSocio) {
-                sociosEstandar.remove(socio);
-                return true; // Socio eliminado
-            }
+    public static boolean eliminarSocioModel(int numeroSocio) {
+        try{
+            socioEstandarDAO.eliminarSocioEstandar(numeroSocio);
+            return true; 
+        }catch (Exception e){
+            //poner algo
         }
-        return false; // Socio no encontrado
+        return false;  
     }
 }

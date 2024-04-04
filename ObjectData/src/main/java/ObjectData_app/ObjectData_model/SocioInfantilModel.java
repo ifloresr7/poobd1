@@ -41,29 +41,29 @@ public class SocioInfantilModel extends SocioModel {
     // Crear socio infantil
     public String crearSocioInfantil(SocioInfantilModel socio) {
         try {
-            sociosInfantiles.add(socio);
-            return "Se guardo correctamente!";
+            socioInfantilDAO.crearSocioInfantil(socio);
+            return "Socio infantil guardado correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
         }
     }
-    public SocioInfantilModel getSocioInfantil(int numSocio) {
-        for(SocioInfantilModel socio : sociosInfantiles){
-            if(numSocio == socio.getNumeroSocio()){
-                return socio;
-            }
+    public SocioInfantilModel getSocioInfantil(int numeroSocio) {
+        try{
+            return socioInfantilDAO.obtenerPorNumeroSocio(numeroSocio);
+        }catch (Exception e){
+            //Devolver el error a la vista
         }
         return null;
     }
 
-        // Método para eliminar socio infantil de la base de datos
-        public static boolean eliminarSocioModel(int numSocio) {
-            for (SocioInfantilModel socio : sociosInfantiles) {
-                if (socio.getNumeroSocio() == numSocio) {
-                    sociosInfantiles.remove(socio);
-                    return true; // Socio eliminado
-                }
-            }
-            return false; // Socio no encontrado
+    // Método para eliminar socio infantil de la base de datos
+    public static boolean eliminarSocioModel(int numeroSocio) {
+        try{
+            socioInfantilDAO.eliminarSocioInfantil(numeroSocio);
+            return true; 
+        }catch (Exception e){
+            //poner algo
         }
+        return false;
+    }
 }
