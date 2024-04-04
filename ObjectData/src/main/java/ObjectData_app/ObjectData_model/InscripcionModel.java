@@ -57,6 +57,7 @@ public class InscripcionModel {
                 inscripcion.getNumeroExcursion());
                 String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(inscripcion.getNumeroSocio());
                 double precio = ExcursionModel.obtenerPrecioExcursion(inscripcion.getNumeroExcursion());
+            
                 double precioTotal = precio;
                 String cadenaDescuento = "";
 
