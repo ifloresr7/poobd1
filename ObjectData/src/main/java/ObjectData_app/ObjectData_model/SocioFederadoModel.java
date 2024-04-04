@@ -1,5 +1,17 @@
 package ObjectData_app.ObjectData_model;
+
+import java.util.ArrayList;
+
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioFederadoDAO;
+
 public class SocioFederadoModel extends SocioModel {
+
+    static DAOFactory factory = new DAOFactoryImpl();
+    static SocioFederadoDAO socioFederadoDAO = factory.instanciaSocioFederadoDAO();
+    static ArrayList<SocioFederadoModel> sociosFederados = new ArrayList<>();
+ 
     String NIF;
     FederacionModel federacion;
 
@@ -41,14 +53,14 @@ public class SocioFederadoModel extends SocioModel {
     //Crear socio Federado
     public String crearSocioFederado(SocioFederadoModel socio) {
         try {
-            .socioFederado.add(socio);
+            sociosFederados.add(socio);
             return "Se guardo correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
         }
     }
     public SocioFederadoModel getSocioFederado(int numSocio) {
-        for(SocioFederadoModel socio : .socioFederado){
+        for(SocioFederadoModel socio : sociosFederados){
             if(numSocio == socio.getNumeroSocio()){
                 return socio;
             }
@@ -57,9 +69,9 @@ public class SocioFederadoModel extends SocioModel {
     }
      // Método para eliminar socio infantil de la base de datos
      public static boolean eliminarSocioModel(int numSocio) {
-        for (SocioFederadoModel socio : .socioFederado) {
+        for (SocioFederadoModel socio : sociosFederados) {
             if (socio.getNumeroSocio() == numSocio) {
-                .socioFederado.remove(socio);
+                sociosFederados.remove(socio);
                 return true; // Socio eliminado
             }
         }

@@ -4,9 +4,23 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.ExcursionDAO;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.FederacionDAO;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.InscripcionDAO;
 
 public class InscripcionModel {
+
+    static DAOFactory factory = new DAOFactoryImpl();
+    static InscripcionDAO inscripcionDAO = factory.instanciaInscripcionDAO();
+    static ArrayList<InscripcionModel> inscripciones = new ArrayList<>();
+    static ExcursionDAO excursionDAO = factory.instanciaExcursionDAO();
+    static ArrayList<ExcursionModel> excursiones = new ArrayList<>();
+    static FederacionDAO federacion = factory.instanciaFederacionDAO();
+    static ArrayList<FederacionModel> federaciones = new ArrayList<>();
+
     private int numeroInscripcion;
     private int numeroSocio;
     private int numeroExcursion;
@@ -36,7 +50,7 @@ public class InscripcionModel {
         StringBuilder listado = new StringBuilder();
         int contador = 0;
 
-        for (InscripcionModel inscripcion : .inscripcion) {
+        for (InscripcionModel inscripcion : inscripciones) {
             Date fechaInscripcion = inscripcion.fechaInscripcion;
             if (fechaInscripcion.after(fechaInicio) && fechaInscripcion.before(fechaFin)) {
                 String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(
@@ -82,7 +96,7 @@ public class InscripcionModel {
 
         StringBuilder listado = new StringBuilder();
         int contador = 0;
-        for (InscripcionModel inscripcion : .inscripcion) {
+        for (InscripcionModel inscripcion : inscripciones) {
             if (inscripcion.getNumeroSocio() == num) {
                 String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorId(
                         inscripcion.getNumeroExcursion());
@@ -121,17 +135,17 @@ public class InscripcionModel {
 
     public static boolean eliminarInscripcionNumero(int num) {
 
-        for (int i = 0; i < .inscripcion.size(); i++) {
-            InscripcionModel inscripcion = .inscripcion.get(i);
+        for (int i = 0; i < inscripciones.size(); i++) {
+            InscripcionModel inscripcion = inscripciones.get(i);
             if (inscripcion.getNumeroInscripcion() == num) {
                 // Obtener el número de excursión de la inscripción
                 int numExcursion = inscripcion.getNumeroExcursion();
                 // Buscar la fecha de la excursión correspondiente en el array de excursiones
-                for (ExcursionModel excursion : .excursion) {
+                for (ExcursionModel excursion : excursiones) {
                     if (excursion.getNumeroExcursion() == numExcursion) {
                         // Comparar la fecha de inscripción con la fecha de la excursión
                         if (inscripcion.getFechaInscripcion().before(excursion.getFecha())) {
-                            .inscripcion.remove(i); // Eliminar la inscripción de la lista
+                            inscripciones.remove(i); // Eliminar la inscripción de la lista
                             return true;
                         } else {
                             // Si la fecha de inscripción es después de la fecha de la excursión, no se
@@ -194,7 +208,7 @@ public class InscripcionModel {
 
     public static String crearInscripcion(InscripcionModel inscripcion) {
         try {
-            .inscripcion.add(inscripcion);
+            inscripciones.add(inscripcion);
             return "Se guardo correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
@@ -202,21 +216,21 @@ public class InscripcionModel {
     }
 
     public static String[] obtenerListadoInscripciones() {
-        List<String> inscripciones = new ArrayList<>();
         int contador = 0;
-        for (InscripcionModel inscripcion : .inscripcion) {
+        String listado = "Listado de Inscripciones:";
+        for (InscripcionModel inscripcion : inscripciones) {
             contador++;
-            inscripciones.add(contador + ". " + inscripcion.toString());
+            listado += contador + ". " + inscripcion.toString();
         }
         if (contador == 0) {
-            inscripciones.add("- Sin datos.");
+            listado += ("- Sin datos.");
         }
-        return inscripciones.toArray(new String[0]);
+        return new String[] {listado};
     }
 
     public static FederacionModel obtenerFederacion(int seleccion) {
         int contador = 0;
-        for (FederacionModel federacion : .federacion) {
+        for (FederacionModel federacion : federaciones) {
             contador++;
             if (contador == seleccion) {
                 return federacion;
@@ -230,7 +244,7 @@ public class InscripcionModel {
         double total = 0.0;
         String listado = "\n    - Lista de inscripciones del socio: ";
         int contador = 0;
-        for (InscripcionModel inscripcion : .inscripcion) {
+        for (InscripcionModel inscripcion : inscripciones) {
             contador++;
             if (inscripcion.getNumeroSocio() == numSocio) {
                 Double precioExcursion = ExcursionModel.obtenerExcursionByCodigo(inscripcion.getNumeroExcursion())
@@ -251,7 +265,7 @@ public class InscripcionModel {
 
     // Metodo para comprobar si un usuario tiene inscripciones
     public static boolean comprobarSocioInscrito(int numSocio) {
-        for (InscripcionModel inscripcion : .inscripcion) {
+        for (InscripcionModel inscripcion : inscripciones) {
             if (inscripcion.getNumeroSocio() == numSocio) {
                 // Devuelve true si el socio esta inscrito en una excursión
                 return true;

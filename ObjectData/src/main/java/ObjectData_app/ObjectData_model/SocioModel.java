@@ -1,10 +1,24 @@
 package ObjectData_app.ObjectData_model;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 
-import ObjectData_app.ObjectData_DAO.SocioEstandarDAO;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.SocioFederadoDAOImpl;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioEstandarDAO;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioFederadoDAO;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioInfantilDAO;
 
 public abstract class SocioModel {
+    static DAOFactory factory = new DAOFactoryImpl();
+    static SocioInfantilDAO socioInfantilDAO = factory.instanciaSocioInfantilDAO();
+    static ArrayList<SocioInfantilModel> sociosInfantiles = new ArrayList<>();
+    static SocioFederadoDAO socioFederadoDAO = factory.instanciaSocioFederadoDAO();
+    static ArrayList<SocioFederadoModel> sociosFederados = new ArrayList<>();
+    static SocioEstandarDAO socioEstandarDAO = factory.instanciaSocioEstandarDAO();
+    static ArrayList<SocioEstandarModel> sociosEstandar = new ArrayList<>();
+
     private int numeroSocio;
     private String nombre;
 
@@ -44,19 +58,19 @@ public abstract class SocioModel {
     // Método para comprobar si un socio existe mediante el numeroSocio
     public static boolean comprobarSocioPorNumSocio(int codigoSocio) {
         // Comprobar en la lista de socios estándar
-        for (SocioEstandarModel socio : .socioEstandar) {
+        for (SocioEstandarModel socio : sociosEstandar) {
             if (socio.getNumeroSocio() == codigoSocio) {
                 return true;
             }
         }
         // Comprobar en la lista de socios federados
-        for (SocioFederadoModel socio : .socioFederado) {
+        for (SocioFederadoModel socio : sociosFederados) {
             if (socio.getNumeroSocio() == codigoSocio) {
                 return true;
             }
         }
         // Comprobar en la lista de socios infantiles
-        for (SocioInfantilModel socio : .socioInfantil) {
+        for (SocioInfantilModel socio : sociosInfantiles) {
             if (socio.getNumeroSocio() == codigoSocio) {
                 return true;
             }
@@ -70,19 +84,19 @@ public abstract class SocioModel {
 
     public static boolean buscarSocioNombre(String nombre) {
         // Comprobar en la lista de socios estándar
-        for (SocioEstandarModel socio : .socioEstandar) {
+        for (SocioEstandarModel socio : sociosEstandar) {
             if (socio.getNombre().equals(nombre)) {
                 return true;
             }
         }
         // Comprobar en la lista de socios federados
-        for (SocioFederadoModel socio : .socioFederado) {
+        for (SocioFederadoModel socio : sociosFederados) {
             if (socio.getNombre().equals(nombre)) {
                 return true;
             }
         }
         // Comprobar en la lista de socios infantiles
-        for (SocioInfantilModel socio : .socioInfantil) {
+        for (SocioInfantilModel socio : sociosInfantiles) {
             if (socio.getNombre().equals(nombre)) {
                 return true;
             }
@@ -92,7 +106,6 @@ public abstract class SocioModel {
     }
 
     public static String[] listarSociosModel() {
-        private SocioEstandarDAO socioEstandarDAO;
         // Comprobar en la lista de socios estándar
         String listado = "";
         int contador = 0;
@@ -108,13 +121,13 @@ public abstract class SocioModel {
             // Manejar el error
         }
         // Comprobar en la lista de socios federados
-        for (SocioFederadoModel socio : .socioFederado) {
+        for (SocioFederadoModel socio : sociosFederados) {
             contador++;
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
                     + socio.getNombre() + " | Tipo de socio: Federado";
         }
         // Añadir usuarios a la lista
-        for (SocioInfantilModel socio : .socioInfantil) {
+        for (SocioInfantilModel socio : sociosInfantiles) {
             contador++;
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
                     + socio.getNombre() + " | Tipo de socio: Infantil";
@@ -143,14 +156,14 @@ public abstract class SocioModel {
     public static String obtenerNombreSocio(int numeroSocio)
     {
         String nombre=null;
-        for (SocioInfantilModel socio : .socioInfantil)
+        for (SocioInfantilModel socio : sociosInfantiles)
         {
             if (socio.getNumeroSocio()==numeroSocio)
             {
                 nombre = socio.getNombre();
             }
         }
-        for (SocioFederadoModel socio : .socioFederado)
+        for (SocioFederadoModel socio : sociosFederados)
         {
             if (socio.getNumeroSocio()==numeroSocio)
             {
@@ -170,7 +183,7 @@ public abstract class SocioModel {
     public static String[] listarSociosFederadosModel() {
         String listado = "";
         int contador = 0;
-        for (SocioFederadoModel socio : .socioFederado) {
+        for (SocioFederadoModel socio : sociosFederados) {
             contador++;
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
                     + socio.getNombre() + " | NIF: " + socio.getNIF() + " | Federación: "
@@ -185,7 +198,7 @@ public abstract class SocioModel {
     public static String[] listarSociosInfantilesModel() {
         String listado = "";
         int contador = 0;
-        for (SocioInfantilModel socio : .socioInfantil) {
+        for (SocioInfantilModel socio : sociosInfantiles) {
             contador++;
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
                     + socio.getNombre() + " | Numero socio parental: " + socio.getNumeroSocioPadreMadre();
@@ -198,13 +211,13 @@ public abstract class SocioModel {
 
     public static String obtenerTipoSocioPorNumSocio(int numeroSocio) {
         // Buscar en el array de socios federados
-        for (SocioFederadoModel socio : .socioFederado) {
+        for (SocioFederadoModel socio : sociosFederados) {
             if (socio.getNumeroSocio() == numeroSocio) {
                 return "Federado";
             }
         }
         // Buscar en el array de socios infantiles
-        for (SocioInfantilModel socio : .socioInfantil) {
+        for (SocioInfantilModel socio : sociosInfantiles) {
             if (socio.getNumeroSocio() == numeroSocio) {
                 return "Infantil";
             }

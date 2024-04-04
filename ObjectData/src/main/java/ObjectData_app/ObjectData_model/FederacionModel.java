@@ -1,9 +1,19 @@
 package ObjectData_app.ObjectData_model;
 
+import java.sql.SQLException;
+import java.util.ArrayList;
+
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.FederacionDAO;
+
 public class FederacionModel {
+    static DAOFactory factory = new DAOFactoryImpl();
+    static FederacionDAO federacionDAO = factory.instanciaFederacionDAO();
+    static ArrayList<FederacionModel> federaciones = new ArrayList<>();
+    //Variables
     String codigo;
     String nombre;
-
     // Constructor
     public FederacionModel(String codigo, String nombre) {
         this.codigo = codigo;
@@ -36,9 +46,14 @@ public class FederacionModel {
 
     //Metodos porpios
     public static String[] obtenerListadoFederacion(){
+        try {
+            federaciones = federacionDAO.obtenerTodasFederaciones();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
         String listado = "";
         int contador = 0;
-        for (FederacionModel federacion : .federacion) {
+        for (FederacionModel federacion : federaciones) {
             contador++;
             listado += "\n    - " + contador + ". " + federacion.toString();
         }
@@ -50,7 +65,12 @@ public class FederacionModel {
 
     public static FederacionModel obtenerFederacion(int seleccion){
         int contador = 0;
-        for (FederacionModel federacion : .federacion) {
+        try {
+            federaciones = federacionDAO.obtenerTodasFederaciones();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        for (FederacionModel federacion : federaciones) {
             contador++;
             if(contador == seleccion){
                 return federacion;

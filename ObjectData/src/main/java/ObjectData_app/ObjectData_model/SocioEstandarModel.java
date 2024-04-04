@@ -1,6 +1,17 @@
 package ObjectData_app.ObjectData_model;
 
+import java.util.ArrayList;
+
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
+import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioEstandarDAO;
+
 public class SocioEstandarModel extends SocioModel {
+
+    static DAOFactory factory = new DAOFactoryImpl();
+    static SocioEstandarDAO socioEstandarDAO = factory.instanciaSocioEstandarDAO();
+    static ArrayList<SocioEstandarModel> sociosEstandar = new ArrayList<>();
+ 
     String NIF;
     SeguroModel seguro;
 
@@ -39,7 +50,7 @@ public class SocioEstandarModel extends SocioModel {
     // Método para agregar un socio estandar a la lista en Datos.
     public String crearSocioEstandar(SocioEstandarModel socioEstandar) {
         try {
-            .socioEstandar.add(socioEstandar);
+            sociosEstandar.add(socioEstandar);
             return "Se guardo correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
@@ -47,7 +58,7 @@ public class SocioEstandarModel extends SocioModel {
     }
     // Metodo para buscar por numero de socio y devolver el objeto.
     public static SocioEstandarModel getSocioEstandar(int numeroSocio) {
-        for (SocioEstandarModel socioEstandar : .socioEstandar) {
+        for (SocioEstandarModel socioEstandar : sociosEstandar) {
             if(socioEstandar.getNumeroSocio() == numeroSocio){
                 return socioEstandar;
             }
@@ -65,9 +76,9 @@ public class SocioEstandarModel extends SocioModel {
     }
     // Metodo para eliminar por numero de socio.
     public static boolean eliminarSocioEstandar(int numeroSocio) {
-        for (SocioEstandarModel socioEstandar : .socioEstandar) {
+        for (SocioEstandarModel socioEstandar : sociosEstandar) {
             if(socioEstandar.getNumeroSocio() == numeroSocio){
-                .socioEstandar.remove(socioEstandar);
+                sociosEstandar.remove(socioEstandar);
                 return true;
             }
         }
@@ -75,7 +86,7 @@ public class SocioEstandarModel extends SocioModel {
     }
     public static double obtenerPrecioSeguro(String nombreSocio) {
         // Buscar el socio por nombre en los arrays correspondientes
-        for (SocioEstandarModel socio : .socioEstandar) {
+        for (SocioEstandarModel socio : sociosEstandar) {
             if (socio.getNombre().equals(nombreSocio)) {
                 // Una vez encontrado el socio, obtenemos el tipo de seguro que tiene
                 SeguroModel seguro = socio.getSeguro();
@@ -89,9 +100,9 @@ public class SocioEstandarModel extends SocioModel {
 
     // Método para eliminar socio infantil de la base de datos
     public static boolean eliminarSocioModel(int numSocio) {
-        for (SocioEstandarModel socio : .socioEstandar) {
+        for (SocioEstandarModel socio : sociosEstandar) {
             if (socio.getNumeroSocio() == numSocio) {
-                .socioEstandar.remove(socio);
+                sociosEstandar.remove(socio);
                 return true; // Socio eliminado
             }
         }

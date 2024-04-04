@@ -2,32 +2,9 @@
 //por primera vez, en este archivo tenemos la clase Main que contiene
 //la llamada al metodo menuInicio del controlador.
 package ObjectData_app.ObjectData_controller;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
-        // Datos de conexión
-        String url = "jdbc:mysql://62.72.37.1:3306/u450392368_ObjectData";
-        String username = "u450392368_ObjectData";
-        String password = "WmAb[>gM1]";
-        try {
-            // Establecer conexión
-            Connection connection = DriverManager.getConnection(url, username, password);
-            // Verificar si la conexión fue exitosa
-            if (connection != null) {
-                System.out.println("Conexión exitosa a la base de datos.");
-                // Puedes realizar operaciones con la base de datos aquí
-                // Por ejemplo, ejecutar consultas, insertar datos, etc.
-            } else {
-                System.out.println("Fallo al conectar a la base de datos.");
-            }
-            // Cerrar la conexión
-            connection.close();
-        } catch (SQLException e) {
-            System.out.println("Error de SQL: " + e.getMessage());
-        }
         AppController.inicio();
     }
 }

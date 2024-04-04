@@ -1,12 +1,12 @@
-package ObjectData_app.ObjectData_DAO;
+package ObjectData_app.ObjectData_model.ObjectData_DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class ConexionSQL {
+public class ConexionBD {
     // Método para establecer la conexión
-    public static Connection getConnection() throws SQLException {
+    public static Connection obtenerConexion() throws SQLException {
         try{
             String hostname = "62.72.37.1";
             String port = "3306";
