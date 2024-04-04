@@ -61,15 +61,9 @@ public class SocioEstandarModel extends SocioModel {
     public static SocioEstandarModel getSocioEstandar(int numeroSocio) {
         //Se obtienen los datos desde el DAO.
         try{
-            sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();            
+            return socioEstandarDAO.obtenerSocioEstandarPorNumeroSocio(numeroSocio);            
         }catch (SQLException e){
             System.out.println(e);
-        }
-        //Se recorren los datos obtenidos.
-        for (SocioEstandarModel socioEstandar : sociosEstandar) {
-            if(socioEstandar.getNumeroSocio() == numeroSocio){
-                return socioEstandar;
-            }
         }
         return null;
     }

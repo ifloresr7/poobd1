@@ -59,7 +59,7 @@ public class SocioFederadoModel extends SocioModel {
             return "Fallo al guardar: " + error;
         }
     }
-    public SocioFederadoModel getSocioFederado(int numeroSocio) {
+    public static SocioFederadoModel getSocioFederado(int numeroSocio) {
         try{
             return socioFederadoDAO.obtenerPorNumeroSocio(numeroSocio);
         }catch (Exception e){

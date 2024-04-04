@@ -50,9 +50,8 @@ public class SocioFederadoDAOImpl implements SocioFederadoDAO {
             pst.setInt(1, numeroSocio);
             try (ResultSet respuestaBD = pst.executeQuery()) {
                 if (respuestaBD.next()) {
-                    String codigoFederacion = respuestaBD.getString("codigoFederacion");
                     FederacionDAO federacionDAO = new FederacionDAOImpl();
-                    FederacionModel federacion = federacionDAO.obtenerPorCodigo(codigoFederacion);
+                    FederacionModel federacion = federacionDAO.obtenerPorCodigo(respuestaBD.getString("codigoFederacion"));
                     federacion.setCodigo(respuestaBD.getString("codigoFederacion"));
                     socio = new SocioFederadoModel(
                         respuestaBD.getInt("numeroSocio"),

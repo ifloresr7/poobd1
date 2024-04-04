@@ -11,7 +11,7 @@ public class FederacionModel {
     static DAOFactory factory = new DAOFactoryImpl();
     static FederacionDAO federacionDAO = factory.instanciaFederacionDAO();
     static ArrayList<FederacionModel> federaciones = new ArrayList<>();
-    //Variables
+    
     String codigo;
     String nombre;
     // Constructor
@@ -63,13 +63,16 @@ public class FederacionModel {
         return new String[] {listado, String.valueOf(contador)};
     }
 
+    //Obtener federacion mediante seleccion de lista.
     public static FederacionModel obtenerFederacion(int seleccion){
-        int contador = 0;
+        //Se obtienen todas las federaciones con el DAO
         try {
             federaciones = federacionDAO.obtenerTodasFederaciones();
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        
+        int contador = 0;
         for (FederacionModel federacion : federaciones) {
             contador++;
             if(contador == seleccion){

@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 public interface InscripcionDAO {
+    ArrayList<InscripcionModel> obtenerTodasLasInscripciones() throws SQLException;
     ArrayList<InscripcionModel> obtenerTodasPorNumeroSocio(int numeroSocio) throws SQLException;
     void crearInscripcion(InscripcionModel excursion) throws SQLException;
     void eliminarExcursion(int numeroInscripcion) throws SQLException;

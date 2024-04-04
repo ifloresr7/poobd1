@@ -1,5 +1,6 @@
 package ObjectData_app.ObjectData_model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -70,28 +71,28 @@ public class ExcursionModel {
     // Método para crear una excursion
     public String crearExcursionModel(ExcursionModel excursion) {
         try {
-            excursiones.add(excursion);
+            excursionDAO.crearExcursion(excursion);
             return "¡Se ha guardado correctamente!";
         } catch (Exception error) {
             return "Fallo al guardar: " + error;
         }
     }
 
-    public static String obtenerNombreExcursionPorId(int idExcursion) {
-        // Iterar sobre la lista de excursiones para encontrar la excursión con el ID dado
-        for (ExcursionModel excursion : excursiones) {
-            if (excursion.getNumeroExcursion()==idExcursion) {
-                return excursion.getDescripcion(); // Devolver el nombre de la excursión si se encuentra la coincidencia
-            }
+    //Metodo para devolver el nombre de la excursion.
+    public static String obtenerNombreExcursionPorNumeroExcursion(int numeroExcursion) {
+        try{
+            return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getDescripcion();
+        }catch (Exception e){
+            return "Nombre de excursión desconocido"; // Devolver un mensaje de error si no se encuentra la excursión
         }
-        return "Nombre de excursión desconocido"; // Devolver un mensaje de error si no se encuentra la excursión
     }
+
+    //Metodo para obtener el precio de la excursion.
     public static double obtenerPrecioExcursion(int numeroExcursion) {
-        // Suponiendo que tienes una lista de excursiones en tu base de datos llamada "excursiones"
-        for (ExcursionModel excursion : excursiones) {
-            if (excursion.getNumeroExcursion() == numeroExcursion) {
-                return excursion.getPrecioInscripcion();
-            }
+        try{
+            return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getPrecioInscripcion();
+        }catch (Exception e){
+            //Implementar logica para devolver error a la vista.
         }
         // Si no se encuentra la excursión, podrías devolver un valor predeterminado o manejar el caso según tus necesidades
         return 0.0; // Por ejemplo, devolver 0 como precio predeterminado si no se encuentra la excursión
@@ -99,6 +100,13 @@ public class ExcursionModel {
 
     // Metodo para mostrar escursiones por fecha
     public static String mostrarExcursiones(Date fechaInicio, Date fechaFin) {
+        //Se obtienen todas las excursiones con el DAO y se almacenan en un array temporal.
+        try {
+            excursiones = excursionDAO.obtenerTodasExcursiones();
+        } catch (SQLException e) {
+            //Implementar logica para devolver error a la vista.
+        }
+        //Atributos.
         String listado = "";
         int contador = 0;
         // Primero comprueba que haya excursiones dentro del ArrayList
@@ -118,18 +126,15 @@ public class ExcursionModel {
         return listado;
     }
 
-    // Metodo para comprobar si existe una excursion
-    public static boolean comprobarExcursionPorNumExcursion(int numeroExcursion) {
-        for (ExcursionModel excursion : excursiones) {
-            if(excursion.getNumeroExcursion() == numeroExcursion){
-                return true;
-            }
-        }
-        return false;
-    }
-
     // Metodo para mostrar una lista de excursiones
     public static String[] obtenerListadoExcursiones() {
+        //Se obtienen todas las excursiones con el DAO y se almacenan en un array temporal.
+        try {
+            excursiones = excursionDAO.obtenerTodasExcursiones();
+        } catch (SQLException e) {
+            //Implementar logica para devolver error a la vista.
+        }
+        //Atributos
         String listado = "";
         int contador = 0;
         for (ExcursionModel excursion : excursiones) {
@@ -144,7 +149,15 @@ public class ExcursionModel {
 
     // Metodo para obtener la excursion mediante seleccion de lista
     public static ExcursionModel obtenerExcursionDesdeLista(int seleccion) {
+        //Se obtienen todas las excursiones con el DAO y se almacenan en un array temporal.
+        try {
+            excursiones = excursionDAO.obtenerTodasExcursiones();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        //Atributos
         int contador = 0;
+        //Logica
         for (ExcursionModel excursion : excursiones) {
             contador++;
             if (contador == seleccion) {
@@ -154,13 +167,13 @@ public class ExcursionModel {
         return null;
     }
 
-        // Metodo para obtener la excursion mediante seleccion de lista
-        public static ExcursionModel obtenerExcursionByCodigo(int codigo) {
-            for (ExcursionModel excursion : excursiones) {
-                if (excursion.getNumeroExcursion() == codigo) {
-                    return excursion;
-                }
-            }
-            return null;
+    // Metodo para obtener la excursion mediante seleccion de lista
+    public static ExcursionModel obtenerExcursionPorNumeroExcursion(int numeroExcursion) {
+        try{
+            return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion);
+        }catch (Exception e){
+            //Implementar logica para devolver error a la vista.
         }
+        return null;
+    }
 }

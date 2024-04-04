@@ -47,7 +47,7 @@ public class SocioInfantilModel extends SocioModel {
             return "Fallo al guardar: " + error;
         }
     }
-    public SocioInfantilModel getSocioInfantil(int numeroSocio) {
+    public static SocioInfantilModel getSocioInfantil(int numeroSocio) {
         try{
             return socioInfantilDAO.obtenerPorNumeroSocio(numeroSocio);
         }catch (Exception e){

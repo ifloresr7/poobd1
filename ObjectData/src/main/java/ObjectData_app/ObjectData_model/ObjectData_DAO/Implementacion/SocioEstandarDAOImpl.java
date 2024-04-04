@@ -48,8 +48,7 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             pst.setInt(1, numeroSocio);
             try (ResultSet respuestaBD = pst.executeQuery()) {
                 if (respuestaBD.next()) {
-                    SeguroModel seguro = new SeguroModel(null);
-                    seguro.setTipo(TipoSeguro.valueOf(respuestaBD.getString("seguro")));
+                    SeguroModel seguro = new SeguroModel(TipoSeguro.valueOf(respuestaBD.getString("seguro")));
                     socio = new SocioEstandarModel(
                         respuestaBD.getInt("numeroSocio"),
                         respuestaBD.getString("nombre"),
