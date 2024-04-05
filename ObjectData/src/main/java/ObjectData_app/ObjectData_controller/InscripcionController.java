@@ -128,11 +128,11 @@ public class InscripcionController {
         if (retorno != null && retorno.length > 0) {
             String numSocio = retorno[0];
             int numeroSocio = Integer.parseInt(numSocio);
-            RespView.respuestaControllerView("\nListado de todas las inscripciones para el socio seleccionado: "
+            RespView.respuestaControllerView("Listado de todas las inscripciones para el socio seleccionado: "
                     + InscripcionModel.obtenerInscripcionesByNumSocio(numeroSocio)[0]);
         } else {
             // Si el usuario no ingresó ningún valor, imprimir un mensaje apropiado
-            RespView.excepcionesControllerView("\nNo se ha ingresado ningún número de socio para filtrar.");
+            RespView.excepcionesControllerView("No se ha ingresado ningún número de socio para filtrar.");
         }
     }
 
@@ -140,7 +140,7 @@ public class InscripcionController {
 
         String[] listadoInscripciones = InscripcionModel.obtenerListadoInscripciones();
         String listado = String.join("\n", listadoInscripciones);
-        RespView.respuestaControllerView("\nListado de todas las inscripciones \n" + listado);
+        RespView.respuestaControllerView("Listado de todas las inscripciones \n" + listado);
         String retorno = InscView.formEliminarInscripcionView(listadoInscripciones);
         int num;
         try {
@@ -165,12 +165,12 @@ public class InscripcionController {
             String fechaFin = retorno[1];
             String[] inscripciones = InscripcionModel.listarInscripcionesFecha(fechaInicio, fechaFin);
             if (inscripciones.length > 0) {
-                RespView.respuestaControllerView("\n Listado de inscripciones por rango de fechas: " + inscripciones[0]);
+                RespView.respuestaControllerView("Listado de inscripciones por rango de fechas: " + inscripciones[0]);
             } else {
-                RespView.excepcionesControllerView("\n No se encontraron inscripciones para el rango de fechas especificado.");
+                RespView.excepcionesControllerView("No se encontraron inscripciones para el rango de fechas especificado.");
             }
         } else {
-            RespView.excepcionesControllerView("\n Error al obtener las fechas de filtrado.");
+            RespView.excepcionesControllerView("Problema al obtener las fechas de filtrado.");
         }
     }
 

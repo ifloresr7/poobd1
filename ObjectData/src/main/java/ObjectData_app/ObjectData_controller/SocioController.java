@@ -44,13 +44,13 @@ public class SocioController {
             try {
                 opcion = Integer.parseInt(retorno);
             } catch (NumberFormatException error) {
-                RespView.excepcionesControllerView("¡ERROR! Debe insertar un valor numerico valido.");
+                RespView.excepcionesControllerView("Debe insertar un valor numerico valido.");
                 continue;
             }
             if (opcion >= 1 && opcion <= 4) {
                 opcionValida = true;
             } else {
-                RespView.excepcionesControllerView("¡ERROR! Debe seleccionar una opción valida.");
+                RespView.excepcionesControllerView("Debe seleccionar una opción valida.");
             }
         } while (!opcionValida);
         // Se carga el formulario de registro de un nuevo socio.
@@ -275,9 +275,9 @@ public class SocioController {
                         + ". El socio no existe en la base de datos.");
             }
         } catch (NumberFormatException e) {
-            RespView.excepcionesControllerView("Error: Ingrese un número válido para el número de socio.");
+            RespView.excepcionesControllerView("Ingrese un número válido para el número de socio.");
         } catch (Exception e) {
-            RespView.excepcionesControllerView("Error al eliminar el socio.");
+            RespView.excepcionesControllerView("Problema al eliminar el socio.");
             e.printStackTrace();
         }
     }
@@ -289,22 +289,24 @@ public class SocioController {
         boolean opcionValida = false;
         do {
             String retorno = SociView.listadoSociosView();
-            try {
+            // Verifica si el retorno es un número entero
+            if (retorno.matches("\\d+")) {
                 opcion = Integer.parseInt(retorno);
-            } catch (NumberFormatException error) {
-                RespView.excepcionesControllerView("¡ERROR! Debe insertar un valor numerico valido.");
+            } else {
+                // Si no es un número entero, muestra un mensaje de error
+                RespView.excepcionesControllerView("Debe insertar un valor numerico valido.");
                 continue;
             }
             if (opcion >= 1 && opcion <= 5) {
                 opcionValida = true;
             } else {
-                RespView.excepcionesControllerView("¡ERROR! Debe seleccionar una opción valida.");
+                RespView.excepcionesControllerView("Debe seleccionar una opción valida.");
             }
         } while (!opcionValida);
         // Se carga el formulario de registro de un nuevo socio.
         switch (opcion) {
             case 1:
-                RespView.respuestaControllerView("\nListado de todos los socios: " + SocioModel.listarSociosModel()[0]);
+                RespView.respuestaControllerView("Listado de todos los socios: " + SocioModel.listarSociosModel()[0]);
                 break;
             case 2:
                 RespView.respuestaControllerView(

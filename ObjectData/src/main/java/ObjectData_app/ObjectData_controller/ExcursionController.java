@@ -47,7 +47,7 @@ public class ExcursionController {
             try {
                 date = sdf.parse(retorno[1]);
             } catch (ParseException e) {
-                RespView.excepcionesControllerView("Error: Las fechas introducidas no son validas.");
+                RespView.excepcionesControllerView("Las fechas introducidas no son validas.");
                 continue;
             }
             // Convertir la cadena del número de días a un entero
@@ -56,7 +56,7 @@ public class ExcursionController {
                 num = Integer.parseInt(retorno[2]);
             } catch (NumberFormatException e) {
                 // En caso de que el número de días no sea un entero válido
-                RespView.excepcionesControllerView("Error: El número de días debe ser un entero válido.");
+                RespView.excepcionesControllerView("El número de días debe ser un entero válido.");
                 continue;
             }
             // Convertir la cadena del precio a un número de punto flotante (double)
@@ -65,7 +65,7 @@ public class ExcursionController {
                 coste = Double.parseDouble(retorno[3]);
             } catch (NumberFormatException e) {
                 // En caso de que el precio no sea un número de punto flotante válido
-                RespView.excepcionesControllerView("Error: El precio debe ser un número válido.");
+                RespView.excepcionesControllerView("El precio debe ser un número válido.");
                 continue;
             }
             // Método para generar un numeroExcursion aleatorio
@@ -96,11 +96,6 @@ public class ExcursionController {
                 AppController.gestionExcursiones();
                 break;
             }
-            // Se comprueba que existen datos
-            if (retorno[0].isEmpty() || retorno[1].isEmpty()) {
-                throw new IllegalArgumentException("Error: Debe proporcionar ambas fechas.");
-                
-            }
             // Se intenta transformar las fechas y se printan.
             try {
                 Date fechaInicio = sdf.parse(retorno[0]);
@@ -109,7 +104,7 @@ public class ExcursionController {
                 RespView.respuestaControllerView(respuesta);
                 finalizar = true;
             } catch (Exception e) {
-                RespView.excepcionesControllerView("Error: Formato de fecha incorrecto. Debe ser yyyy-MM-dd");
+                RespView.excepcionesControllerView("Formato de fecha incorrecto. Debe ser yyyy-MM-dd");
             }
         } while (!finalizar);
         // Al finalizar vuelvo al menu de excursiones
