@@ -9,7 +9,6 @@ public class SocioView {
     static String h2 = "\033[32m";
     static String p = "\u001B[0m";
     static String p2 = "\033[36m";
-    static String error = "\033[31m";
     static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
 
     // Metodos de la clase
@@ -23,7 +22,6 @@ public class SocioView {
         return teclado.nextLine();
     }
     
-
     public String[] formCrearSocioEstandarView() {
         System.out.println(limpiezaConsola + h2 + "- Formulario añadir socio estándar ---" + p);
         System.out.println("NOTA: Puede detener la creación de socios si omite algún dato durante la recolección de información.");
@@ -108,14 +106,5 @@ public class SocioView {
         System.out.print(p2 + "- Elija el tipo de seguro: " + p);
         String tipo = teclado.nextLine();
         return new String[] { tipo };
-    }
-
-    // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al
-    // guardar, Guardado Correcto, los objetos o lo que sea..., es decir los datos
-    // almacenados entre otros mensajes."
-    public void respuestaControllerView(String respuesta) {
-        System.out.println(respuesta);
-        System.out.println("\nPulse una tecla para continuar...");
-        teclado.nextLine();
     }
 }

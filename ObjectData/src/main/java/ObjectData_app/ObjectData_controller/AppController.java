@@ -1,17 +1,17 @@
 package ObjectData_app.ObjectData_controller;
 
 //Se importan las librerias
-import ObjectData_app.ObjectData_view.AppMenuView;
+import ObjectData_app.ObjectData_view.MenuView;
 
 public class AppController {
-    static AppMenuView View = new AppMenuView();
+    static MenuView MenuView = new MenuView();
     static boolean cerrarApp = false;
     // Inicio del menu de la APP.
     public static void inicio() {
         // arracamos el menu principal de la aplicación.
         do {
-            View.menuInicioView();
-            int opcion = View.getOpcionView(4);
+            MenuView.menuInicioView();
+            int opcion = MenuView.getOpcionView(4);
             switch (opcion) {
                 case 1:
                     gestionExcursiones();
@@ -31,8 +31,8 @@ public class AppController {
 
     // Metodos de control para Excursiones.
     public static void gestionExcursiones() {
-        View.menuGestionExcursionesView();
-        int opcion = View.getOpcionView(3);
+        MenuView.menuGestionExcursionesView();
+        int opcion = MenuView.getOpcionView(3);
         switch (opcion) {
             case 1:
                 ExcursionController.crearExcursion();
@@ -48,8 +48,8 @@ public class AppController {
 
     // Metodos de control para Socios.
     public static void gestionSocios() {
-        View.menuGestionSociosView();
-        int opcion = View.getOpcionView(6);
+        MenuView.menuGestionSociosView();
+        int opcion = MenuView.getOpcionView(6);
         switch (opcion) {
             case 1:
                 SocioController.crearNuevoSocio();
@@ -74,8 +74,8 @@ public class AppController {
 
     // Metodos de control para Inscripciones.
     public static void gestionInscripciones() {
-        View.menuGestionInscripcionesView();
-        int opcion = View.getOpcionView(4);
+        MenuView.menuGestionInscripcionesView();
+        int opcion = MenuView.getOpcionView(4);
         switch (opcion) {
             case 1:
                 InscripcionController.crearInscripcion();
@@ -91,5 +91,4 @@ public class AppController {
                 break;
         }
     }
-
 }
