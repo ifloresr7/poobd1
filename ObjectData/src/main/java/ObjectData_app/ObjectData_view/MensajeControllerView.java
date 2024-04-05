@@ -14,8 +14,6 @@ public class MensajeControllerView {
         System.out.println(respuesta);
         System.out.println(p2 + "\nPulse una tecla para continuar..." + p);
         teclado.nextLine();
-        // Finalizamos el teclado.
-        teclado.close();
     }
 
     // Este metodo se usa para devolver errores generados en la aplicación
@@ -23,7 +21,5 @@ public class MensajeControllerView {
         System.out.println(error + respuesta + p);
         System.out.println("\nPulse una tecla para continuar...");
         teclado.nextLine();
-        // Finalizamos el teclado.
-        teclado.close();
     }
 }
