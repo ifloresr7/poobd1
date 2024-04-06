@@ -7,16 +7,19 @@ import ObjectData_app.ObjectData_model.SocioModel;
 
 import java.util.Random;
 
-
 import ObjectData_app.ObjectData_model.FederacionModel;
 import ObjectData_app.ObjectData_model.InscripcionModel;
 import ObjectData_app.ObjectData_model.SeguroModel;
 import ObjectData_app.ObjectData_model.SeguroModel.TipoSeguro;
-//Se añade la vista socio
+import ObjectData_app.ObjectData_view.MensajeControllerView;
+//Se añaden las vistas necesarias.
 import ObjectData_app.ObjectData_view.SocioView;
 
+
 public class SocioController {
-    static SocioView View = new SocioView();
+    // Se inicializan las vistas necasias.
+    static MensajeControllerView RespView = new MensajeControllerView();
+    static SocioView SociView = new SocioView();
 
     // Método para generar un número de socio aleatorio
     public static int generarID() {
@@ -37,17 +40,17 @@ public class SocioController {
         int opcion = 0;
         boolean opcionValida = false;
         do {
-            String retorno = View.crearNuevoSocioView();
+            String retorno = SociView.crearNuevoSocioView();
             try {
                 opcion = Integer.parseInt(retorno);
             } catch (NumberFormatException error) {
-                View.respuestaControllerView("¡ERROR! Debe insertar un valor numerico valido.");
+                RespView.excepcionesControllerView("Debe insertar un valor numerico valido.");
                 continue;
             }
             if (opcion >= 1 && opcion <= 4) {
                 opcionValida = true;
             } else {
-                View.respuestaControllerView("¡ERROR! Debe seleccionar una opción valida.");
+                RespView.excepcionesControllerView("Debe seleccionar una opción valida.");
             }
         } while (!opcionValida);
         // Se carga el formulario de registro de un nuevo socio.
@@ -71,11 +74,11 @@ public class SocioController {
     // Metodo para añadir un socio estandar
     public static void crearSocioEstandar() {
         // Se llama a la vista para pedir el nombre y el DNI del usuario
-        String[] retorno = View.formCrearSocioEstandarView();
+        String[] retorno = SociView.formCrearSocioEstandarView();
         String nombre = retorno[0]; // El primer parametro del array sera el nombre
         String NIF = retorno[1]; // El segundo parametro del array es el DNI
         if (nombre.isEmpty() || NIF.isEmpty()) {
-            View.respuestaControllerView("Operación cancelada: El nombre o el NIF no pueden estar vacíos. \n");
+            RespView.respuestaControllerView("Operación cancelada: El nombre o el NIF no pueden estar vacíos.");
             // No se agrega al socio, así que simplemente retornamos.
             AppController.gestionSocios();
             return;
@@ -84,16 +87,16 @@ public class SocioController {
           // Método para generar un número de socio aleatorio
         int numeroSocio = Integer.parseInt("5" + generarID()); // Número de socio
         // Mandamos el numero de socio a la pantalla:
-        View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
+        RespView.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
         // Pido el seguro
         SeguroModel seguroModel = seguroSocio();
         // Creamos un objeto de tipo llamado socioModel con los datos correctos
         SocioEstandarModel socioModel = new SocioEstandarModel(numeroSocio, nombre, NIF, seguroModel);
-        // Enviamos la información al modelo para que añada el socio a la 
+        // Enviamos la información al modelo para que añada el socio a la
         String respuesta = socioModel.crearSocioEstandar(socioModel);
         // Una vez que el modelo responde confirmando la acción, enviamos la respuesta
         // recibida por parte modelo al controlador hacia la vista.
-        View.respuestaControllerView(respuesta);
+        RespView.respuestaControllerView(respuesta);
         // Volvemos al menu principal de la gestión de los socios.
         AppController.gestionSocios();
     }
@@ -102,25 +105,24 @@ public class SocioController {
         // Excepcion para la conversion del numero de tipo String a Int
         int numSocio = 0;
 
-        String[] retorno = View.formModificarTipoSeguroView();
-        try {
+        String[] retorno = SociView.formModificarTipoSeguroView();
+        // Verifica si el retorno es un número entero
+        if (retorno[0].matches("\\d+")) {
             numSocio = Integer.parseInt(retorno[0]);
-
-        } catch (NumberFormatException error) {
-            View.respuestaControllerView("El numero de socio debe ser un numero.\n");
-            return;
+        } else {
+            // Si no es un número entero, muestra un mensaje de error
+            RespView.respuestaControllerView("El número de socio debe ser un numero.");
         }
-
         // Objetemos el objeto socio estandar (si existe)
         SocioEstandarModel socio = SocioEstandarModel.getSocioEstandar(numSocio);
         if (socio != null) {
-            View.respuestaControllerView("Socio encontrado para modificar el seguro.");
+            RespView.respuestaControllerView("Socio encontrado para modificar el seguro.");
             SeguroModel seguroModel = seguroSocio();
             String respuesta = socio.actualizarSeguroSocioEstandar(seguroModel, socio);
             // Devuelvo la respuespuesta del modelo hacia la vista.
-            View.respuestaControllerView(respuesta);
+            RespView.respuestaControllerView(respuesta);
         } else {
-            View.respuestaControllerView("No se ha podido encontrar el socio.");
+            RespView.excepcionesControllerView("No se ha podido encontrar el socio.");
         }
         // Volvemos al menu principal de la gestión de los socios.
         AppController.gestionSocios();
@@ -129,11 +131,11 @@ public class SocioController {
     public static void crearSocioFederado() {
 
         // Se llama a la vista para pedir el nombre y el DNI del usuario
-        String[] retorno = View.formCrearSocioFederadoView();
+        String[] retorno = SociView.formCrearSocioFederadoView();
         String nombre = retorno[0]; // El primer parametro del array sera el nombre
         String NIF = retorno[1]; // El segundo parametro del array es el DNI
         if (nombre.isEmpty() || NIF.isEmpty()) {
-            View.respuestaControllerView("Operación cancelada: El nombre o el NIF no pueden estar vacíos. \n");
+            RespView.respuestaControllerView("Operación cancelada.");
             // No se agrega al socio, así que simplemente retornamos.
             AppController.gestionSocios();
             return;
@@ -141,24 +143,25 @@ public class SocioController {
         // Método para generar un número de socio aleatorio
         int numeroSocio = Integer.parseInt("6" + generarID()); // Número de socio
         // Mandamos el numero de socio a la pantalla:
-        View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
+        RespView.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
         // Pido el listado de federaciones y el numero de federaciones disponibles;
         String[] listaFederaciones = FederacionModel.obtenerListadoFederacion();
-        // String[] listado = listaFederaciones[]{};
         int opcionesDiponibles = Integer.parseInt(listaFederaciones[1]);
         // Se genera el control de excepcion para opcion seleccionada no valida.
         int seleccion = 0;
         boolean opcionOk = false;
         do {
-            String[] opcion = View.selectorFederacionesView(listaFederaciones[0]);
-            try {
+            String[] opcion = SociView.selectorFederacionesView(listaFederaciones[0]);
+            // Verifica si la opción es un número entero
+            if (opcion[0].matches("\\d+")) {
                 seleccion = Integer.parseInt(opcion[0]);
-            } catch (Exception e) {
-                View.respuestaControllerView("Opcion no valida, debe introducir un valor numerico.");
+            } else {
+                // Si no es un número entero, muestra un mensaje de error
+                RespView.excepcionesControllerView("Opcion no valida, debe introducir un valor numerico.");
                 continue;
             }
             if (seleccion <= 0 || seleccion >= opcionesDiponibles) {
-                View.respuestaControllerView("Opcion no valida, seleccione una opcion disponible.");
+                RespView.excepcionesControllerView("Opcion no valida, seleccione una opcion disponible.");
                 continue;
             } else {
                 opcionOk = true;
@@ -169,21 +172,21 @@ public class SocioController {
         FederacionModel federacion = FederacionModel.obtenerFederacion(seleccion);
         // Creamos el objeto con los datos recolectados.
         SocioFederadoModel socio = new SocioFederadoModel(numeroSocio, nombre, NIF, federacion);
-        // Enviamos la información al modelo para que añada el socio a la 
+        // Enviamos la información al modelo para que añada el socio a la
         String respuesta = socio.crearSocioFederado(socio);
         // Una vez que el modelo responde confirmando la acción, enviamos la respuesta
         // recibida por parte modelo al controlador hacia la vista.
-        View.respuestaControllerView(respuesta);
+        RespView.respuestaControllerView(respuesta);
         // Volvemos al menu principal de la gestión de los socios.
         AppController.gestionSocios();
     }
 
     public static void crearSocioInfantil() {
         // Se llama a la vista para pedir el nombre
-        String[] retorno = View.formCrearSocioInfantilView();
+        String[] retorno = SociView.formCrearSocioInfantilView();
         String nombre = retorno[0];
         if (nombre.isEmpty()) {
-            View.respuestaControllerView("Operación cancelada: El nombre no puede estar vacío. \n");
+            RespView.respuestaControllerView("Operación cancelada. \n");
             // No se agrega al socio, así que simplemente retornamos.
             AppController.gestionSocios();
             return;
@@ -197,45 +200,45 @@ public class SocioController {
         int numeroParental = 0;
 
         // Pedimos el codigo del padre
-        String[] retornoNun = View.numeroSocioParentalView();
+        String[] retornoNun = SociView.numeroSocioParentalView();
         // Creamos la excepción para verificar el tipo de dato introducido.
         if (retornoNun[0].isEmpty()) {
-            View.respuestaControllerView("Operación cancelada.");
+            RespView.respuestaControllerView("Operación cancelada.");
             return;
         }
-        try {
+        // Verifica si la opción es un número entero
+        if (retornoNun[0].matches("\\d+")) {
             numeroParental = Integer.parseInt(retornoNun[0]);
-        } catch (Exception e) {
-            View.respuestaControllerView("Opcion no valida, debe introducir un valor numerico.");
-
+        } else {
+            // Si no es un número entero, muestra un mensaje de error
+            RespView.excepcionesControllerView("Opcion no valida, debe introducir un valor numerico.");
         }
-
         // Creamos la excepción para verificar que el ID socio introducido existe.
         if (!SocioModel.comprobarSocioPorNumSocio(numeroParental)) {
-            View.respuestaControllerView("No se ha encontrado un socio con ese código.");
+            RespView.excepcionesControllerView("No se ha encontrado un socio con ese código.");
             return;
         }
 
-        View.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
+        RespView.respuestaControllerView("- Numero de socio generado: " + numeroSocio);
         // Creamos el objeto con los datos recolectados.
         SocioInfantilModel socio = new SocioInfantilModel(numeroSocio, nombre, numeroParental);
-        // Enviamos la información al modelo para que añada el socio a la 
+        // Enviamos la información al modelo para que añada el socio a la
         String respuesta = socio.crearSocioInfantil(socio);
         // Una vez que el modelo responde confirmando la acción, enviamos la respuesta
         // recibida por parte modelo al controlador hacia la vista.
-        View.respuestaControllerView(respuesta);
+        RespView.respuestaControllerView(respuesta);
         // Volvemos al menu principal de la gestión de los socios.
         AppController.gestionSocios();
     }
 
     public static void eliminarSocio() {
         try {
-            String[] retorno = View.formEliminarSocioView();
+            String[] retorno = SociView.formEliminarSocioView();
             String numeroSocio = retorno[0];
 
-                // Verificar si la cadena numeroSocio está vacía o nula
+            // Verificar si la cadena numeroSocio está vacía o nula
             if (numeroSocio == null || numeroSocio.isEmpty()) {
-                View.respuestaControllerView("Operación cancelada: El numero de socio no puede estar vacío. \n");
+                RespView.respuestaControllerView("Operación cancelada.");
                 AppController.gestionSocios();
                 return;
             }
@@ -247,9 +250,9 @@ public class SocioController {
             if (inscritoEnExcursion) {
                 // Mostrar mensaje de que el socio está inscrito en una excursión y no puede ser
                 // eliminado
-                View.respuestaControllerView("El socio con número de socio " + numeroSocio
+                RespView.respuestaControllerView("El socio con número de socio " + numeroSocio
                         + " está inscrito en una excursión y no puede ser eliminado.");
-                AppController.gestionSocios();        
+                AppController.gestionSocios();
                 return;
             }
 
@@ -266,16 +269,15 @@ public class SocioController {
             }
 
             if (eliminado) {
-                View.respuestaControllerView(
-                        "El socio con número de socio " + numeroSocio + " ha sido eliminado correctamente.");
+                RespView.respuestaControllerView("El socio con número de socio " + numeroSocio + " ha sido eliminado correctamente.");
             } else {
-                View.respuestaControllerView("No se pudo eliminar el socio con número de socio " + numeroSocio
+                RespView.excepcionesControllerView("No se pudo eliminar el socio con número de socio " + numeroSocio
                         + ". El socio no existe en la base de datos.");
             }
         } catch (NumberFormatException e) {
-            View.respuestaControllerView("Error: Ingrese un número válido para el número de socio.");
+            RespView.excepcionesControllerView("Ingrese un número válido para el número de socio.");
         } catch (Exception e) {
-            View.respuestaControllerView("Error al eliminar el socio.");
+            RespView.excepcionesControllerView("Problema al eliminar el socio.");
             e.printStackTrace();
         }
     }
@@ -286,34 +288,36 @@ public class SocioController {
         int opcion = 0;
         boolean opcionValida = false;
         do {
-            String retorno = View.listadoSociosView();
-            try {
+            String retorno = SociView.listadoSociosView();
+            // Verifica si el retorno es un número entero
+            if (retorno.matches("\\d+")) {
                 opcion = Integer.parseInt(retorno);
-            } catch (NumberFormatException error) {
-                View.respuestaControllerView("¡ERROR! Debe insertar un valor numerico valido.");
+            } else {
+                // Si no es un número entero, muestra un mensaje de error
+                RespView.excepcionesControllerView("Debe insertar un valor numerico valido.");
                 continue;
             }
             if (opcion >= 1 && opcion <= 5) {
                 opcionValida = true;
             } else {
-                View.respuestaControllerView("¡ERROR! Debe seleccionar una opción valida.");
+                RespView.excepcionesControllerView("Debe seleccionar una opción valida.");
             }
         } while (!opcionValida);
         // Se carga el formulario de registro de un nuevo socio.
         switch (opcion) {
             case 1:
-                View.respuestaControllerView("\nListado de todos los socios: " + SocioModel.listarSociosModel()[0]);
+                RespView.respuestaControllerView("Listado de todos los socios: " + SocioModel.listarSociosModel()[0]);
                 break;
             case 2:
-                View.respuestaControllerView(
+                RespView.respuestaControllerView(
                         "\nListado de socios estandar: " + SocioModel.listarSociosEstandarModel()[0]);
                 break;
             case 3:
-                View.respuestaControllerView(
+                RespView.respuestaControllerView(
                         "\nListado de socios federados: " + SocioModel.listarSociosFederadosModel()[0]);
                 break;
             case 4:
-                View.respuestaControllerView(
+                RespView.respuestaControllerView(
                         "\nListado de socios infantiles: " + SocioModel.listarSociosInfantilesModel()[0]);
                 break;
             case 5:
@@ -331,19 +335,19 @@ public class SocioController {
         Double facturacion = 0.0;
         final Double cuotaMensual = 10.00;
         String respuesta = "\nFacturación del socio: ";
-        // Excepciones
+        //Comprobación de datos
         do {
             // Se muestran la vista y se piden datos.
-            String retorno = View.formMostrarFacturaMensualSocioView();
-            // Se hace el parse de tipo de dato de String a Int.
-            try {
+            String retorno = SociView.formMostrarFacturaMensualSocioView();
+            // Verifica si el retorno es un número entero
+            if (retorno.matches("\\d+")) {
                 numSocio = Integer.parseInt(retorno);
-            } catch (NumberFormatException error) {
-                View.respuestaControllerView("Debe insertar un valor númerico válido.");
+            } else {
+                // Si no es un número entero, muestra un mensaje de error
+                RespView.excepcionesControllerView("Debe insertar un valor númerico válido.");
                 continue;
             }
-            // Se comprueba que el usuario no quiere salir del método y se comprueban otros
-            // datos
+            // Se comprueba que el usuario no quiere salir del método y se comprueban datos
             if (numSocio == 0) {
                 AppController.gestionSocios();
                 break;
@@ -351,7 +355,7 @@ public class SocioController {
                 tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(numSocio);
                 valoresComprobados = true;
             } else {
-                View.respuestaControllerView("No se ha podido encontrar el socio.");
+                RespView.excepcionesControllerView("No se ha podido encontrar el socio.");
                 continue;
             }
         } while (!valoresComprobados);
@@ -388,13 +392,13 @@ public class SocioController {
             respuesta += "\n    - Coste de la cuota: " + precioCuotaDescuento + " euros.";
             // Obtener listado de escursiones y precio:
             String[] retorno = InscripcionModel.obtenerInscripcionesByNumSocio(numSocio);
-            respuesta += retorno[0]; 
+            respuesta += retorno[0];
             // Se genera el precio final de facturación
             facturacion = precioCuotaDescuento + Double.parseDouble(retorno[1]);
             // Se manda el resultado a la vista
             respuesta += "\n El socio factura " + facturacion + " euros mensuales.";
         }
-        View.respuestaControllerView(respuesta);
+        RespView.respuestaControllerView(respuesta);
         // Volvemos al menu principal de la gestión de los socios.
         AppController.gestionSocios();
     }
@@ -406,16 +410,19 @@ public class SocioController {
         // Excepciones de tipo de seguro
         do {
             // Se piden los datos del seguro mediante la vista seleccionarSeguroView
-            String[] retornoSeguro = View.seleccionarSeguroView();
+            String[] retornoSeguro = SociView.seleccionarSeguroView();
             // Se hace el tratamiento de los datos retornados desde la vista.
-            if (retornoSeguro[0].equals("1")) {
+            if (retornoSeguro[0].isEmpty()){
+                AppController.gestionSocios();
+                break;
+            }else if (retornoSeguro[0].equals("1")) {
                 tipoSeguro = TipoSeguro.BASICO;
                 comprobarTipoSeguro = true;
             } else if (retornoSeguro[0].equals("2")) {
                 tipoSeguro = TipoSeguro.COMPLETO;
                 comprobarTipoSeguro = true;
             } else {
-                View.respuestaControllerView("No se ha podido comprobar el tipo de seguro.");
+                RespView.excepcionesControllerView("No se ha podido comprobar el tipo de seguro.");
                 continue;
             }
         } while (!comprobarTipoSeguro);

@@ -3,6 +3,7 @@ package ObjectData_app.ObjectData_controller;
 
 import ObjectData_app.ObjectData_model.ExcursionModel;
 import ObjectData_app.ObjectData_view.ExcursionesView;
+import ObjectData_app.ObjectData_view.MensajeControllerView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -10,8 +11,9 @@ import java.util.Date;
 import java.util.Random;
 
 public class ExcursionController {
-    // Se inicializa una vista de ExcursionesView
-    static ExcursionesView View = new ExcursionesView();
+    // Se inicializan las vistas necasias.
+    static MensajeControllerView RespView = new MensajeControllerView();
+    static ExcursionesView ExcuView = new ExcursionesView();
     private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     // Metodo para crear una ID ramdon de 8 digitos
@@ -32,10 +34,10 @@ public class ExcursionController {
         boolean finalizar = false;
         do {
             // Se lanza la vista del menu de crear Excursion
-            String[] retorno = View.menuCrearExcursionView();
+            String[] retorno = ExcuView.menuCrearExcursionView();
             // Se comprueba si el usuario quiere salir
             if (retorno[0].equals("")  || retorno[1] .equals("") || retorno[2].equals("")  || retorno[3].equals("") ) {
-                View.respuestaControllerView("Operación cancelada.");
+                RespView.respuestaControllerView("Operación cancelada.");
                 AppController.gestionExcursiones();
                 continue;
             }
@@ -45,7 +47,7 @@ public class ExcursionController {
             try {
                 date = sdf.parse(retorno[1]);
             } catch (ParseException e) {
-                View.respuestaControllerView("Error: Las fechas introducidas no son validas.");
+                RespView.excepcionesControllerView("Las fechas introducidas no son validas.");
                 continue;
             }
             // Convertir la cadena del número de días a un entero
@@ -54,7 +56,7 @@ public class ExcursionController {
                 num = Integer.parseInt(retorno[2]);
             } catch (NumberFormatException e) {
                 // En caso de que el número de días no sea un entero válido
-                View.respuestaControllerView("Error: El número de días debe ser un entero válido.");
+                RespView.excepcionesControllerView("El número de días debe ser un entero válido.");
                 continue;
             }
             // Convertir la cadena del precio a un número de punto flotante (double)
@@ -63,20 +65,20 @@ public class ExcursionController {
                 coste = Double.parseDouble(retorno[3]);
             } catch (NumberFormatException e) {
                 // En caso de que el precio no sea un número de punto flotante válido
-                View.respuestaControllerView("Error: El precio debe ser un número válido.");
+                RespView.excepcionesControllerView("El precio debe ser un número válido.");
                 continue;
             }
             // Método para generar un numeroExcursion aleatorio
             int numeroExcursion = Integer.parseInt("1" + generarID()); // numeroExcursion
             // Mandamos el numeroExcursion a la pantalla:
-            View.respuestaControllerView("- Número de excursion generada: " + numeroExcursion);
+            RespView.respuestaControllerView("- Número de excursion generada: " + numeroExcursion);
             // Se genera el conjunto de  en la variable excursion
             ExcursionModel excursion = new ExcursionModel(numeroExcursion, descripcion, date, num, coste);
             // Se llama al metodo crearExcursion del modelo ExcursionModel, se pasa tanto la
             // instancia  como el objeto creado
             String respuesta = excursion.crearExcursionModel(excursion);
             // Devuelvo la respuesta del modelo y la imprimo en la vista
-            View.respuestaControllerView(respuesta);
+            RespView.respuestaControllerView(respuesta);
             finalizar = true;
         } while (!finalizar);
         // Al finalizar vuelvo al menu de excursiones
@@ -87,27 +89,22 @@ public class ExcursionController {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         boolean finalizar = false;
         do {
-            String[] retorno = View.menuMostarExcursionFechaView();
+            String[] retorno = ExcuView.menuMostarExcursionFechaView();
             // Se comprueba si el usuario queire salir
             if (retorno[0].equals("") || retorno[1].equals("")) {
-                View.respuestaControllerView("Operación cancelada.");
+                RespView.respuestaControllerView("Operación cancelada.");
                 AppController.gestionExcursiones();
                 break;
-            }
-            // Se comprueba que existen datos
-            if (retorno[0].isEmpty() || retorno[1].isEmpty()) {
-                throw new IllegalArgumentException("Error: Debe proporcionar ambas fechas.");
-                
             }
             // Se intenta transformar las fechas y se printan.
             try {
                 Date fechaInicio = sdf.parse(retorno[0]);
                 Date fechaFin = sdf.parse(retorno[1]);
                 String respuesta = ExcursionModel.mostrarExcursiones(fechaInicio, fechaFin);
-                View.respuestaControllerView(respuesta);
+                RespView.respuestaControllerView(respuesta);
                 finalizar = true;
             } catch (Exception e) {
-                View.respuestaControllerView("Error: Formato de fecha incorrecto. Debe ser yyyy-MM-dd");
+                RespView.excepcionesControllerView("Formato de fecha incorrecto. Debe ser yyyy-MM-dd");
             }
         } while (!finalizar);
         // Al finalizar vuelvo al menu de excursiones

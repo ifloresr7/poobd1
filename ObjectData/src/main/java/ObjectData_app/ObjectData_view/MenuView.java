@@ -2,7 +2,7 @@ package ObjectData_app.ObjectData_view;
 
 import java.util.Scanner;
 
-public class AppMenuView {
+public class MenuView {
     // Teclado, colores de texto y limpieza de consola.
     static Scanner teclado = new Scanner(System.in);
     static String h1 = "\033[33m";
@@ -59,14 +59,5 @@ public class AppMenuView {
             System.out.println(error + "Opción no válida. Debe ingresar un número." + p);
             return getOpcionView(value);
         }
-    }
-
-    // Este metodo se usa para devolver respuestas del controlador, tipo: "Fallo al
-    // guardar, Guardado Correcto, los objetos o lo que sea..., es decir los datos
-    // almacenados entre otros mensajes."
-    public void respuestaControllerView(String respuesta) {
-        System.out.println(respuesta);
-        System.out.println("\nPulsa un tecla para continuar...");
-        teclado.nextLine();
     }
 }
