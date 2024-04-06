@@ -4,10 +4,12 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
+import ObjectData_app.ObjectData_controller.ExcursionController;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.ExcursionDAO;
 import ObjectData_app.ObjectData_view.ExcursionesView;
+import ObjectData_app.ObjectData_view.MensajeControllerView;
 
 public class ExcursionModel {
     // Se crea una instancia estática de DAOFactoryImpl, que probablemente
@@ -81,8 +83,9 @@ public class ExcursionModel {
         try {
             excursionDAO.crearExcursion(excursion);
             return "¡Se ha guardado correctamente!";
-        } catch (Exception error) {
-            return "Fallo al guardar: " + error;
+        } catch (Exception e) {
+            MensajeControllerView view = new MensajeControllerView(); // Crear una instancia de la vista
+            return "Error al obtener la excursión: " + e.getMessage();
         }
     }
 
@@ -91,8 +94,8 @@ public class ExcursionModel {
         try {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getDescripcion();
         } catch (Exception e) {
-            ExcursionesView view = new ExcursionesView(); // Crear una instancia de la vista
-            view.respuestaControllerView("Nombre de excursión desconocido." + e.getMessage());
+            MensajeControllerView view = new MensajeControllerView(); // Crear una instancia de la vista
+            view.respuestaControllerView("Error al obtener la excursión: " + e.getMessage());
             return null; // Devolver un mensaje de error si no se encuentra la excursión
         }
     }
@@ -103,8 +106,8 @@ public class ExcursionModel {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getPrecioInscripcion();
         } catch (Exception e) {
             // Implementar logica para devolver error a la vista.
-            ExcursionesView view = new ExcursionesView(); // Crear una instancia de la vista
-            view.respuestaControllerView("Error al obtener el precio de la excursión: " + e.getMessage());
+            MensajeControllerView view = new MensajeControllerView(); // Crear una instancia de la vista
+            view.respuestaControllerView("Error al obtener la excursión: " + e.getMessage());
             return 0;
         }
 
@@ -118,7 +121,7 @@ public class ExcursionModel {
             excursiones = excursionDAO.obtenerTodasExcursiones();
         } catch (SQLException e) {
             // Implementar logica para devolver error a la vista.
-            ExcursionesView view = new ExcursionesView(); // Crear una instancia de la vista
+            MensajeControllerView view = new MensajeControllerView(); // Crear una instancia de la vista
             view.respuestaControllerView("Error al obtener la excursión: " + e.getMessage());
             return null;
         }
@@ -150,8 +153,8 @@ public class ExcursionModel {
         try {
             excursiones = excursionDAO.obtenerTodasExcursiones();
         } catch (SQLException e) {
-            ExcursionesView view = new ExcursionesView(); // Crear una instancia de la vista
-            view.respuestaControllerView("Error al obtener el listado de excursiones: " + e.getMessage());
+            MensajeControllerView view = new MensajeControllerView(); // Crear una instancia de la vista
+            view.respuestaControllerView("Error al obtener la excursión: " + e.getMessage());
             return null;
         }
         // Atributos
@@ -188,7 +191,7 @@ public class ExcursionModel {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion);
         } catch (Exception e) {
             // Implementar logica para devolver error a la vista.
-            ExcursionesView view = new ExcursionesView(); // Crear una instancia de la vista
+            MensajeControllerView view = new MensajeControllerView(); // Crear una instancia de la vista
             view.respuestaControllerView("Error al obtener la excursión: " + e.getMessage());
             return null;
         }
