@@ -6,6 +6,7 @@ import ObjectData_app.ObjectData_view.AppMenuView;
 public class AppController {
     static AppMenuView View = new AppMenuView();
     static boolean cerrarApp = false;
+
     // Inicio del menu de la APP.
     public static void inicio() {
         // arracamos el menu principal de la aplicación.

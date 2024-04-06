@@ -7,11 +7,14 @@ import java.util.Date;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.ExcursionDAO;
+import ObjectData_app.ObjectData_view.ExcursionesView;
 
 public class ExcursionModel {
-    // Se crea una instancia estática de DAOFactoryImpl, que probablemente implementa la interfaz DAOFactory.
+    // Se crea una instancia estática de DAOFactoryImpl, que probablemente
+    // implementa la interfaz DAOFactory.
     static DAOFactory factory = new DAOFactoryImpl();
-    // Se obtiene una instancia estática de ExcursionDAO utilizando el objeto factory.
+    // Se obtiene una instancia estática de ExcursionDAO utilizando el objeto
+    // factory.
     static ExcursionDAO excursionDAO = factory.instanciaExcursionDAO();
     // Se crea una lista estática para almacenar objetos ExcursionModel.
     static ArrayList<ExcursionModel> excursiones = new ArrayList<>();
@@ -24,7 +27,8 @@ public class ExcursionModel {
     double precioInscripcion;
 
     // Constructor
-    public ExcursionModel(int numeroExcursion, String descripcion, Date fecha, int numeroDias, double precioInscripcion) {
+    public ExcursionModel(int numeroExcursion, String descripcion, Date fecha, int numeroDias,
+            double precioInscripcion) {
         this.numeroExcursion = numeroExcursion;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -82,35 +86,43 @@ public class ExcursionModel {
         }
     }
 
-    //Metodo para devolver el nombre de la excursion.
+    // Metodo para devolver el nombre de la excursion.
     public static String obtenerNombreExcursionPorNumeroExcursion(int numeroExcursion) {
-        try{
+        try {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getDescripcion();
-        }catch (Exception e){
-            return "Nombre de excursión desconocido"; // Devolver un mensaje de error si no se encuentra la excursión
+        } catch (Exception e) {
+            ExcursionesView view = new ExcursionesView(); // Crear una instancia de la vista
+            view.respuestaControllerView("Nombre de excursión desconocido." + e.getMessage());
+            return null; // Devolver un mensaje de error si no se encuentra la excursión
         }
     }
 
-    //Metodo para obtener el precio de la excursion.
+    // Metodo para obtener el precio de la excursion.
     public static double obtenerPrecioExcursion(int numeroExcursion) {
-        try{
+        try {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getPrecioInscripcion();
-        }catch (Exception e){
-            //Implementar logica para devolver error a la vista.
+        } catch (Exception e) {
+            // Implementar logica para devolver error a la vista.
+            ExcursionesView view = new ExcursionesView(); // Crear una instancia de la vista
+            view.respuestaControllerView("Error al obtener el precio de la excursión: " + e.getMessage());
+            return 0;
         }
-        // Si no se encuentra la excursión, podrías devolver un valor predeterminado o manejar el caso según tus necesidades
-        return 0.0; // Por ejemplo, devolver 0 como precio predeterminado si no se encuentra la excursión
+
     }
 
     // Metodo para mostrar escursiones por fecha
     public static String mostrarExcursiones(Date fechaInicio, Date fechaFin) {
-        //Se obtienen todas las excursiones con el DAO y se almacenan en un array temporal.
+        // Se obtienen todas las excursiones con el DAO y se almacenan en un array
+        // temporal.
         try {
             excursiones = excursionDAO.obtenerTodasExcursiones();
         } catch (SQLException e) {
-            //Implementar logica para devolver error a la vista.
+            // Implementar logica para devolver error a la vista.
+            ExcursionesView view = new ExcursionesView(); // Crear una instancia de la vista
+            view.respuestaControllerView("Error al obtener la excursión: " + e.getMessage());
+            return null;
         }
-        //Atributos.
+        // Atributos.
         String listado = "";
         int contador = 0;
         // Primero comprueba que haya excursiones dentro del ArrayList
@@ -119,12 +131,13 @@ public class ExcursionModel {
             // imprime la info de la misma
             if (!excursion.fecha.before(fechaInicio) && !excursion.fecha.after(fechaFin)) {
                 contador++;
-                listado += "\n    - " +contador+". Código: " + excursion.numeroExcursion + " | Descripción: " + excursion.descripcion + " | Fecha: "
+                listado += "\n    - " + contador + ". Código: " + excursion.numeroExcursion + " | Descripción: "
+                        + excursion.descripcion + " | Fecha: "
                         + excursion.fecha + " | Número de días: " + excursion.numeroDias
                         + " | Precio de inscripción: " + excursion.precioInscripcion;
             }
         }
-        if(contador == 0){
+        if (contador == 0) {
             listado = "- Sin datos.";
         }
         return listado;
@@ -132,18 +145,22 @@ public class ExcursionModel {
 
     // Metodo para mostrar una lista de excursiones
     public static String[] obtenerListadoExcursiones() {
-        //Se obtienen todas las excursiones con el DAO y se almacenan en un array temporal.
+        // Se obtienen todas las excursiones con el DAO y se almacenan en un array
+        // temporal.
         try {
             excursiones = excursionDAO.obtenerTodasExcursiones();
         } catch (SQLException e) {
-            //Implementar logica para devolver error a la vista.
+            ExcursionesView view = new ExcursionesView(); // Crear una instancia de la vista
+            view.respuestaControllerView("Error al obtener el listado de excursiones: " + e.getMessage());
+            return null;
         }
-        //Atributos
+        // Atributos
         String listado = "";
         int contador = 0;
         for (ExcursionModel excursion : excursiones) {
             contador++;
-            listado += "\n    - " + contador + ". Descripción: " + excursion.getDescripcion() + " | Precio: " + excursion.getPrecioInscripcion();
+            listado += "\n    - " + contador + ". Descripción: " + excursion.getDescripcion() + " | Precio: "
+                    + excursion.getPrecioInscripcion();
         }
         if (contador == 0) {
             listado = "- Sin datos.";
@@ -153,9 +170,9 @@ public class ExcursionModel {
 
     // Metodo para obtener la excursion mediante seleccion de lista
     public static ExcursionModel obtenerExcursionDesdeLista(int seleccion) {
-        //Atributos
+        // Atributos
         int contador = 0;
-        //Logica
+        // Logica
         for (ExcursionModel excursion : excursiones) {
             contador++;
             if (contador == seleccion) {
@@ -167,11 +184,14 @@ public class ExcursionModel {
 
     // Metodo para obtener la excursion mediante seleccion de lista
     public static ExcursionModel obtenerExcursionPorNumeroExcursion(int numeroExcursion) {
-        try{
+        try {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion);
-        }catch (Exception e){
-            //Implementar logica para devolver error a la vista.
+        } catch (Exception e) {
+            // Implementar logica para devolver error a la vista.
+            ExcursionesView view = new ExcursionesView(); // Crear una instancia de la vista
+            view.respuestaControllerView("Error al obtener la excursión: " + e.getMessage());
+            return null;
         }
-        return null;
+
     }
 }
