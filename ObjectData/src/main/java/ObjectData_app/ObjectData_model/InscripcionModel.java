@@ -82,34 +82,22 @@ public class InscripcionModel {
                 " | Fecha Inscripción: " + fechaInscripcion;
     }
 
-    public static String[] listarInscripcionesFecha(String FechaI, String FechaF) throws SQLException, ParseException {
+    public static String[] listarInscripcionesFecha(Date fechaI, Date fechaF) throws SQLException{
         // Se llama al DAO para obtener las inscripciones desde MySQL
-        if (!FechaI.matches("\\d{4}-\\d{2}-\\d{2}") || !FechaF.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            throw new ParseException("Formato de fecha inválido. Se esperaba yyyy-MM-dd.", 0);
-        }
+        
         try {
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
         } catch (SQLException e) {
             // Implementar logica para devolver el error.
             throw new SQLException("No se ha podido obtener las inscripciones.");
         }
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Nuevo formato de fecha
-        // Parsear las fechas de inicio y fin
-        Date fechaInicio, fechaFin;
-        try {
-            fechaInicio = sdf.parse(FechaI);
-            fechaFin = sdf.parse(FechaF);
-        } catch (ParseException e) {
-            // Mensaje de error si hay un problema con el formato de fecha
-            throw new ParseException("Formato de fecha inválido. ", e.getErrorOffset());
-        }
-
+        
         StringBuilder listado = new StringBuilder();
         int contador = 0;
 
         for (InscripcionModel inscripcion : inscripciones) {
             Date fechaInscripcion = inscripcion.fechaInscripcion;
-            if (fechaInscripcion.after(fechaInicio) && fechaInscripcion.before(fechaFin)) {
+            if (fechaInscripcion.after(fechaI) && fechaInscripcion.before(fechaF)) {
                 String nombreExcursion = ExcursionModel.obtenerNombreExcursionPorNumeroExcursion(
                         inscripcion.getNumeroExcursion());
                 String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(inscripcion.getNumeroSocio());

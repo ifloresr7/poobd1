@@ -9,6 +9,7 @@ import ObjectData_app.ObjectData_model.ExcursionModel;
 
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Random;
 
@@ -184,13 +185,26 @@ public class InscripcionController {
         if (retorno != null && retorno.length == 2) {
             String fechaInicio = retorno[0];
             String fechaFin = retorno[1];
-            try {
-                inscripciones = InscripcionModel.listarInscripcionesFecha(fechaInicio, fechaFin);
-            } catch (SQLException e){
-
-            } catch (ParseException e){
-
+            if (!fechaInicio.matches("\\d{4}-\\d{2}-\\d{2}") || !fechaFin.matches("\\d{4}-\\d{2}-\\d{2}")) {
+                RespView.excepcionesControllerView("Formato de fecha inválido. Se esperaba yyyy-MM-dd.");
             }
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Nuevo formato de fecha
+        // Parsear las fechas de inicio y fin
+        Date fechaI = null, fechaF = null;
+        try {
+            fechaI = sdf.parse(fechaInicio);
+            fechaF = sdf.parse(fechaFin);
+        } catch (ParseException e) {
+            // Mensaje de error si hay un problema con el formato de fecha
+            RespView.excepcionesControllerView("No se han podido parsear las fechas.");    
+        }
+
+            try {
+                inscripciones = InscripcionModel.listarInscripcionesFecha(fechaI, fechaF);
+            } catch (SQLException e){
+                RespView.excepcionesControllerView("No se ha podido listar las Inscripciones.");
+
+            } 
             if (inscripciones.length > 0) {
                 RespView.respuestaControllerView("Listado de inscripciones por rango de fechas: " + inscripciones[0]);
             } else {
