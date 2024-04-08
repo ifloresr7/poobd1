@@ -77,13 +77,12 @@ public class ExcursionModel {
     }
 
     // Método para crear una excursion
-    public String crearExcursionModel(ExcursionModel excursion) {
+    public String crearExcursionModel(ExcursionModel excursion) throws SQLException {
         try {
             excursionDAO.crearExcursion(excursion);
             return "¡Se ha guardado correctamente!";
-        } catch (Exception e) {
-            MensajeControllerView view = new MensajeControllerView(); // Crear una instancia de la vista
-            return "Error al obtener la excursión: " + e.getMessage();
+        } catch (SQLException e) {
+           throw new SQLException(e.getMessage());
         }
     }
 

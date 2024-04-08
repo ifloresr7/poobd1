@@ -1,5 +1,6 @@
 package ObjectData_app.ObjectData_model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
@@ -42,31 +43,29 @@ public class SocioInfantilModel extends SocioModel {
 
     // Metodos propios
     // Crear socio infantil
-    public String crearSocioInfantil(SocioInfantilModel socio) {
+    public String crearSocioInfantil(SocioInfantilModel socio) throws SQLException{
         try {
             socioInfantilDAO.crearSocioInfantil(socio);
             return "Socio infantil guardado correctamente!";
-        } catch (Exception error) {
-            return "Fallo al guardar: " + error;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
         }
     }
-    public static SocioInfantilModel getSocioInfantil(int numeroSocio) {
+    //Metodo para obtener socio infantil mediante numero de socio.
+    public static SocioInfantilModel getSocioInfantilNumeroSocio(int numeroSocio) throws SQLException{
         try{
             return socioInfantilDAO.obtenerPorNumeroSocio(numeroSocio);
-        }catch (Exception e){
-            //Devolver el error a la vista
+        }catch (SQLException e){
+            throw new SQLException(e.getMessage());
         }
-        return null;
     }
-
     // Método para eliminar socio infantil de la base de datos
-    public static boolean eliminarSocioModel(int numeroSocio) {
+    public static boolean eliminarSocioModel(int numeroSocio) throws SQLException{
         try{
             socioInfantilDAO.eliminarSocioInfantil(numeroSocio);
             return true; 
-        }catch (Exception e){
-            //poner algo
+        }catch (SQLException e){
+            throw new SQLException(e.getMessage());
         }
-        return false;
     }
 }

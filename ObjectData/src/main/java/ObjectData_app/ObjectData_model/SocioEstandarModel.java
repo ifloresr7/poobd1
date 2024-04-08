@@ -52,59 +52,47 @@ public class SocioEstandarModel extends SocioModel {
                 ", seguro=" + seguro +
                 '}';
     }
-
     // Método para agregar un socio estandar a la lista en Datos.
-    public String crearSocioEstandar(SocioEstandarModel socioEstandar) {
+    public void crearSocioEstandar(SocioEstandarModel socioEstandar) throws SQLException{
         try {
             socioEstandarDAO.crearSocioEstandar(socioEstandar);
-            return "Socio estandar guardado correctamente!";
-        } catch (Exception error) {
-            return "Fallo al guardar: " + error;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
         }
     }
-
     // Metodo para buscar por numero de socio y devolver el objeto.
-    public static SocioEstandarModel getSocioEstandar(int numeroSocio) {
+    public static SocioEstandarModel getSocioEstandarNumeroSocio(int numeroSocio) throws SQLException{
         // Se obtienen los datos desde el DAO.
         try {
             return socioEstandarDAO.obtenerSocioEstandarPorNumeroSocio(numeroSocio);
         } catch (SQLException e) {
-            System.out.println(e);
+            throw new SQLException(e.getMessage());
         }
-        return null;
     }
-
     // Metodo para actualizar el seguro del socio:
-    public String actualizarSeguroSocioEstandar(SeguroModel seguro, SocioEstandarModel socio) {
+    public void actualizarSeguroSocioEstandar(SeguroModel seguro, SocioEstandarModel socio) throws SQLException{
         try {
             socio.setSeguro(seguro);
             socioEstandarDAO.actualizarSocioEstandar(socio);
-            return "Seguro actualizado correctamente.";
-        } catch (Exception error) {
-            return "No se ha podido guardar los cambios con éxito." + error;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
         }
     }
-
     // Metodo para obtener el precio del seguro.
-    public static double obtenerPrecioSeguroPorNumeroSocio(int numeroSocio) {
+    public static double obtenerPrecioSeguroPorNumeroSocio(int numeroSocio) throws SQLException {
         // Se obtienen los datos desde el DAO.
         try {
             return socioEstandarDAO.obtenerSocioEstandarPorNumeroSocio(numeroSocio).seguro.getPrecio();
         } catch (SQLException e) {
-            System.out.println(e);
+            throw new SQLException(e.getMessage());
         }
-        // Devolver un valor predeterminado si no se encuentra el socio
-        return 0.0;
     }
-
-    // Método para eliminar socio infantil de la base de datos
-    public static boolean eliminarSocioModel(int numeroSocio) {
+    // Método para eliminar socio estandar de la base de datos
+    public static void eliminarSocioModel(int numeroSocio) throws SQLException {
         try {
             socioEstandarDAO.eliminarSocioEstandar(numeroSocio);
-            return true;
-        } catch (Exception e) {
-            // poner algo
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
         }
-        return false;
     }
 }

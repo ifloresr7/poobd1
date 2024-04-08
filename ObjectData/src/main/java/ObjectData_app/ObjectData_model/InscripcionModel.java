@@ -1,5 +1,6 @@
 package ObjectData_app.ObjectData_model;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -79,7 +80,7 @@ public class InscripcionModel {
                 " | Fecha Inscripción: " + fechaInscripcion;
     }
 
-    public static String[] listarInscripcionesFecha(String FechaI, String FechaF) {
+    public static String[] listarInscripcionesFecha(String FechaI, String FechaF) throws SQLException {
         //Se llama al DAO para obtener las inscripciones desde MySQL
         try{
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
@@ -113,19 +114,19 @@ public class InscripcionModel {
                 String cadenaDescuento = "";
 
                 if (tipoSocio.equals("Federado")) {
-                    nombreSocio = SocioFederadoModel.getSocioFederado(inscripcion.getNumeroSocio()).getNombre();
+                    nombreSocio = SocioFederadoModel.getSocioFederadoNumeroSocio(inscripcion.getNumeroSocio()).getNombre();
                     double descuento = precio * 0.1;
                     precioTotal -= descuento;
                     cadenaDescuento = "Se ha aplicado un 10% de descuento en la excursión. Precio real de la inscripción: "
                             + precioTotal + "\n";
                 } else if (tipoSocio.equals("Estandar")) {
-                    nombreSocio = SocioEstandarModel.getSocioEstandar(inscripcion.getNumeroSocio()).getNombre();
+                    nombreSocio = SocioEstandarModel.getSocioEstandarNumeroSocio(inscripcion.getNumeroSocio()).getNombre();
                     double precioSeguro = SocioEstandarModel.obtenerPrecioSeguroPorNumeroSocio(inscripcion.getNumeroSocio());
                     precioTotal = precio + precioSeguro;
                     cadenaDescuento = "Precio del seguro contratado: " + precioSeguro + "\n"
                             + "Precio total de la inscripción: " + precioTotal;
                 } else if (tipoSocio.equals("Infantil")) {
-                    nombreSocio = SocioInfantilModel.getSocioInfantil(inscripcion.getNumeroSocio()).getNombre();
+                    nombreSocio = SocioInfantilModel.getSocioInfantilNumeroSocio(inscripcion.getNumeroSocio()).getNombre();
                     cadenaDescuento = "El socio no tiene descuentos a aplicar.\n";
                 }
 
@@ -146,7 +147,7 @@ public class InscripcionModel {
         return new String[] { listado.toString(), String.valueOf(contador) };
     }
 
-    public static String[] listarInscripciones(int num) {
+    public static String[] listarInscripciones(int num) throws SQLException {
         //Se llama al DAO para obtener las inscripciones desde MySQL
         try{
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
@@ -164,19 +165,19 @@ public class InscripcionModel {
                 String cadenaDescuento = "";
                 double precioTotal = precio;
                 if (tipoSocio.equals("Federado")) {
-                    nombreSocio = SocioFederadoModel.getSocioFederado(inscripcion.getNumeroSocio()).getNombre();
+                    nombreSocio = SocioFederadoModel.getSocioFederadoNumeroSocio(inscripcion.getNumeroSocio()).getNombre();
                     double descuento = precio * 0.1;
                     precioTotal -= descuento;
                     cadenaDescuento = "Se ha aplicado un 10% de descuento en la excursión. Precio real de la inscripción: "
                             + precioTotal + "\n";
                 } else if (tipoSocio.equals("Estandar")) {
-                    nombreSocio = SocioEstandarModel.getSocioEstandar(inscripcion.getNumeroSocio()).getNombre();
+                    nombreSocio = SocioEstandarModel.getSocioEstandarNumeroSocio(inscripcion.getNumeroSocio()).getNombre();
                     double precioSeguro = SocioEstandarModel.obtenerPrecioSeguroPorNumeroSocio(inscripcion.getNumeroSocio());
                     precioTotal = precio + precioSeguro;
                     cadenaDescuento = "Precio del seguro contratado: " + precioSeguro + "\n"
                             + "Precio total de la inscripción: " + precioTotal;
                 } else if (tipoSocio.equals("Infantil")) {
-                    nombreSocio = SocioInfantilModel.getSocioInfantil(inscripcion.getNumeroSocio()).getNombre();
+                    nombreSocio = SocioInfantilModel.getSocioInfantilNumeroSocio(inscripcion.getNumeroSocio()).getNombre();
                     cadenaDescuento = "El socio no tiene descuentos a aplicar.\n";
                 }
                 listado.append("\n").append(contador + 1).append(". Nombre del socio: ").append(nombreSocio)
@@ -194,12 +195,12 @@ public class InscripcionModel {
         return new String[] { listado.toString(), String.valueOf(contador) };
     }
 
-    public static boolean eliminarInscripcionNumero(int num) {
+    public static boolean eliminarInscripcionNumero(int num) throws SQLException {
         //Se llama al DAO para obtener las inscripciones y las excursiones desde MySQL
         try{
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
             excursiones = excursionDAO.obtenerTodasExcursiones();
-        }catch(Exception e){
+        }catch(SQLException e){
             //Implementar logica para devolver el error.
         }
         for (int i = 0; i < inscripciones.size(); i++) {
@@ -231,7 +232,7 @@ public class InscripcionModel {
     }
 
     //Metodo para crear inscripcion
-    public static String crearInscripcion(InscripcionModel inscripcion) {
+    public static String crearInscripcion(InscripcionModel inscripcion) throws SQLException {
         try {
             inscripcionDAO.crearInscripcion(inscripcion);
             return "La inscripción se guardo correctamente!";
@@ -240,7 +241,7 @@ public class InscripcionModel {
         }
     }
 
-    public static String[] obtenerListadoInscripciones() {
+    public static String[] obtenerListadoInscripciones() throws SQLException {
         //Se llama al DAO para obtener las inscripciones desde MySQL
         try{
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
@@ -261,7 +262,7 @@ public class InscripcionModel {
     }
 
     // Metodo para obtener inscripciones de un socio mediante numeroSocio
-    public static String[] obtenerInscripcionesByNumSocio(int numeroSocio) {
+    public static String[] obtenerInscripcionesByNumSocio(int numeroSocio) throws SQLException {
         //Se llama al DAO para obtener las inscripciones desde MySQL
         try{
             inscripciones = inscripcionDAO.obtenerTodasPorNumeroSocio(numeroSocio);
@@ -289,11 +290,11 @@ public class InscripcionModel {
     }
 
     // Metodo para comprobar si un usuario tiene inscripciones
-    public static boolean comprobarSocioInscrito(int numeroSocio) {
+    public static boolean comprobarSocioInscrito(int numeroSocio) throws SQLException {
         //Se llama al DAO para obtener las inscripciones desde MySQL
         try{
             inscripciones = inscripcionDAO.obtenerTodasPorNumeroSocio(numeroSocio);
-        }catch(Exception e){
+        }catch(SQLException e){
             //Implementar logica para devolver el error.
         }
         for (InscripcionModel inscripcion : inscripciones) {

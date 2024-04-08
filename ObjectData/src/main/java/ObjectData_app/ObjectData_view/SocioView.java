@@ -12,6 +12,7 @@ public class SocioView {
     static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
 
     // Metodos de la clase
+    //Menu de creacion de socios
     public String crearNuevoSocioView() {
         System.out.println(limpiezaConsola + h2 + "--- CREAR SOCIO POR TIPO ---" + p);
         System.out.println("    1. Añadir Socio Estándar.");
@@ -21,58 +22,7 @@ public class SocioView {
         System.out.println(p2 + "Seleccione una opcion: " + p);
         return teclado.nextLine();
     }
-    
-    public String[] formCrearSocioEstandarView() {
-        System.out.println(limpiezaConsola + h2 + "- Formulario añadir socio estándar ---" + p);
-        System.out.println("NOTA: Puede detener la creación de socios si omite algún dato durante la recolección de información.");
-        System.out.print(p2 + "- Nombre: " + p);
-        String nombre = teclado.nextLine();
-        System.out.print(p2 + "- DNI: " + p);
-        String DNI = teclado.nextLine();
-        return new String[] { nombre, DNI };
-    }
-
-    public String[] formModificarTipoSeguroView() {
-        System.out.println(limpiezaConsola + h2 + "- Formulario para Modificar tipo de seguro de un socio estándar" + p);
-        System.out.println("NOTA: Puede detener la modificación de seguros si omite algún dato durante la recolección de información.");
-        System.out.print(p2 + "- Numero de Socio: " + p);
-        String numeroSocio = teclado.nextLine();
-        return new String[] { numeroSocio };
-    }
-
-    public String[] formCrearSocioFederadoView() {
-        System.out.println(limpiezaConsola + h2 + "- Formulario para añadir socio federado" + p);
-        System.out.println("NOTA: Puede detener la creación de socios si omite algún dato durante la recolección de información.");
-        System.out.print(p2 + "- Nombre: " + p);
-        String nombre = teclado.nextLine();
-        System.out.print(p2 + "- NIF: " + p);
-        String NIF = teclado.nextLine();
-        return new String[] { nombre, NIF };
-    }
-
-    public String[] selectorFederacionesView(String listado) {
-        System.out.println(limpiezaConsola + h2 + "- Selección de Federación" + p);
-        System.out.println(listado);
-        System.out.print(p2 + "Ingrese el número ordinal de la federación que quieres seleccionar: " + p);
-        String federacionSeleccionada = teclado.nextLine();
-        return new String[] { federacionSeleccionada };
-    }
-
-    public String[] formCrearSocioInfantilView() {
-        System.out.println(limpiezaConsola + h2 + "- Formulario para Añadir Socio Infantil" + p);
-        System.out.println("NOTA: Puede detener la creación de socios si omite algún dato durante la recolección de información.");
-        System.out.print(p2 + "- Nombre del niño: " + p);
-        String nombre = teclado.nextLine();
-        return new String[] { nombre };
-    }
-
-    public String[] numeroSocioParentalView() {
-        System.out.println(limpiezaConsola + h2 + "- Indica el numero de Socio Parental" + p);
-        System.out.print(p2 + "- Número de socio del padre o madre: " + p);
-        String numeroParental = teclado.nextLine();
-        return new String[] { numeroParental };
-    }
-
+    //Menu de listado de socios por tipo
     public String listadoSociosView(){
         System.out.println(limpiezaConsola + h2 + "- Indique el tipo de socio que quiere mostrar: " + p);
         System.out.println("    1. Todos los socios.");
@@ -83,22 +33,27 @@ public class SocioView {
         System.out.println(p2 + "Seleccione una opcion: " + p);
         return teclado.nextLine();
     }
-
-    public String[] formEliminarSocioView() {
-        System.out.println(limpiezaConsola + "  - Formulario para Eliminar socio");
-        System.out.println("NOTA: Puede detener la eliminación de socios si omite algún dato durante la recolección de información.");
-        System.out.print(p2 + "- Numero de socio: " + p);
-        String numeroSocio = teclado.nextLine();
-        return new String[] { numeroSocio };
-    }
-
-    public String formMostrarFacturaMensualSocioView() {
-        System.out.println(limpiezaConsola + h2 + "--- Mostrar facturación mensual ---" + p);
-        System.out.println("NOTA: Puede detener esta acción si omite algún dato durante la recolección de información.");
-        System.out.print(p2 + "- Numero de socio: " + p);
+    //Metodo para pedir al usuario el nombre de socio.
+    public String obtenerNombreSocio() {
+        System.out.print(p2 + "- Introduce el nombre del socio: " + p);
         return teclado.nextLine();
     }
-
+    //Metodo para pedir al usuario el DNI del socio.
+    public String obtenerDNISocio() {
+        System.out.print(p2 + "- Introduce el DNI del socio: " + p);
+        return teclado.nextLine();
+    }
+    //Metodo para pedir al usuario el número de socio.
+    public String obtenerNumeroSocio() {
+        System.out.print(p2 + "- Introduce el número del socio: " + p);
+        return teclado.nextLine();
+    }
+    //Metodo para pedir al usuario el número de socio tutor legal.
+    public String numeroSocioParentalView() {
+        System.out.print(p2 + "- Introduce el número del socio tutor legal: " + p);
+        return teclado.nextLine();
+    }
+    //Metodo para pedir el seguro del socio.
     public String[] seleccionarSeguroView() {
         System.out.println(h2 + "-- Tipos de seguros --" + p);
         System.out.println("    1. Basico");
@@ -106,5 +61,13 @@ public class SocioView {
         System.out.print(p2 + "- Elija el tipo de seguro: " + p);
         String tipo = teclado.nextLine();
         return new String[] { tipo };
+    }
+    //Metodo para obtener la federacion del socio.
+    public String[] selectorFederacionesView(String listado) {
+        System.out.println(limpiezaConsola + h2 + "- Selección de Federación" + p);
+        System.out.println(listado);
+        System.out.print(p2 + "Ingrese el número ordinal de la federación que quieres seleccionar: " + p);
+        String federacionSeleccionada = teclado.nextLine();
+        return new String[] { federacionSeleccionada };
     }
 }

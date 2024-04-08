@@ -1,5 +1,6 @@
 package ObjectData_app.ObjectData_model;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
@@ -53,30 +54,28 @@ public class SocioFederadoModel extends SocioModel {
 
     //Metodos propios
     //Crear socio Federado
-    public String crearSocioFederado(SocioFederadoModel socio) {
+    public void crearSocioFederado(SocioFederadoModel socio) throws SQLException {
         try {
             socioFederadoDAO.crearSocioFederado(socio);
-            return "Socio federado guardado correctamente!";
-        } catch (Exception error) {
-            return "Fallo al guardar: " + error;
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage());
         }
     }
-    public static SocioFederadoModel getSocioFederado(int numeroSocio) {
+    // Obtener socio federado por número de socio.
+    public static SocioFederadoModel getSocioFederadoNumeroSocio(int numeroSocio) throws SQLException {
         try{
             return socioFederadoDAO.obtenerPorNumeroSocio(numeroSocio);
-        }catch (Exception e){
-            //Devolver el error a la vista
+        }catch (SQLException e){
+            throw new SQLException(e.getMessage());
         }
-        return null;
     }
      // Método para eliminar socio infantil de la base de datos
-     public static boolean eliminarSocioModel(int numeroSocio) {
+     public static boolean eliminarSocioModel(int numeroSocio) throws SQLException {
         try{
             socioFederadoDAO.eliminarSocioFederado(numeroSocio);
             return true; 
         }catch (Exception e){
-            //poner algo
+            throw new SQLException(e.getMessage());
         }
-        return false;
      }
 }

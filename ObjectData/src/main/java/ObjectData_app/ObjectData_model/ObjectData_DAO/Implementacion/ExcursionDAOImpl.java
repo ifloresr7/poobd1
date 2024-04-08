@@ -76,7 +76,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
             pst.setDouble(5, excursion.getPrecioInscripcion()); // Se establece el valor del quinto parámetro 'precioInscripcion' en la consulta preparada
             pst.executeUpdate(); // Se ejecuta la consulta para insertar la nueva excursión
         } catch (SQLException e) { // Si ocurre una excepción durante el proceso...
-            throw new SQLException("Error al crear la excursión", e); // Se lanza una excepción indicando el error
+            throw new SQLException("No se ha podido crear la excursión."); // Se lanza una excepción indicando el error
         }
     }
     

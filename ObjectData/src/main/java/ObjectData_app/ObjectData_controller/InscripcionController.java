@@ -7,6 +7,7 @@ import ObjectData_app.ObjectData_view.*;
 
 import ObjectData_app.ObjectData_model.ExcursionModel;
 
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Random;
 
@@ -136,7 +137,7 @@ public class InscripcionController {
         }
     }
 
-    public static void eliminarInscripcion() {
+    public static void eliminarInscripcion(){
 
         String[] listadoInscripciones = InscripcionModel.obtenerListadoInscripciones();
         String listado = String.join("\n", listadoInscripciones);
@@ -158,7 +159,7 @@ public class InscripcionController {
         }
     }
 
-    public static void mostrarInscripcionPorFecha() {
+    public static void mostrarInscripcionPorFecha() throws SQLException {
         String[] retorno = InscView.formFiltrarPorFechas();
         if (retorno != null && retorno.length == 2) {
             String fechaInicio = retorno[0];

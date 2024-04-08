@@ -5,6 +5,7 @@ import ObjectData_app.ObjectData_model.ExcursionModel;
 import ObjectData_app.ObjectData_view.ExcursionesView;
 import ObjectData_app.ObjectData_view.MensajeControllerView;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -61,10 +62,11 @@ public class ExcursionController {
             }
             // Convertir la cadena del precio a un número de punto flotante (double)
             double coste = 0;
-            try {
+            if (retorno[3].matches("\\d+(\\.\\d+)?")) {
+                // Verifica si la cadena es un número con o sin parte decimal
                 coste = Double.parseDouble(retorno[3]);
-            } catch (NumberFormatException e) {
-                // En caso de que el precio no sea un número de punto flotante válido
+            } else {
+                // Si no es un número válido, muestra un mensaje de error
                 RespView.excepcionesControllerView("El precio debe ser un número válido.");
                 continue;
             }

@@ -155,12 +155,12 @@ public abstract class SocioModel {
     }
 
     //Metodo para listar los socios federados.
-    public static String[] listarSociosFederadosModel() {
+    public static String[] listarSociosFederadosModel() throws SQLException{
         //Se obtienen los datos desde el DAO.
         try{
             sociosFederados = socioFederadoDAO.obtenerTodosSocioFederado();          
         }catch (SQLException e){
-            System.out.println(e);
+            throw new SQLException(e.getMessage());
         }
         //Atributos.
         String listado = "";
@@ -178,12 +178,12 @@ public abstract class SocioModel {
     }
 
     //Metodo para listar los socios infantiles.
-    public static String[] listarSociosInfantilesModel() {
+    public static String[] listarSociosInfantilesModel() throws SQLException{
         //Se obtienen los datos desde el DAO.
         try{
             sociosInfantiles = socioInfantilDAO.obtenerTodosSocioInfantil();            
         }catch (SQLException e){
-            System.out.println(e);
+            throw new SQLException(e.getMessage());
         }
         //Atributos.
         String listado = "";
@@ -200,14 +200,14 @@ public abstract class SocioModel {
     }
 
     //Metodo para obtener el tipo de socio por numero de socio.
-    public static String obtenerTipoSocioPorNumSocio(int numeroSocio) {
+    public static String obtenerTipoSocioPorNumSocio(int numeroSocio) throws SQLException{
         //Se obtienen los datos desde el DAO.
         try{
             sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();
             sociosFederados = socioFederadoDAO.obtenerTodosSocioFederado();
             sociosInfantiles = socioInfantilDAO.obtenerTodosSocioInfantil();            
         }catch (SQLException e){
-            System.out.println(e);
+            throw new SQLException(e.getMessage());
         }
         // Buscar en el array de socios federados
         for (SocioFederadoModel socio : sociosFederados) {
