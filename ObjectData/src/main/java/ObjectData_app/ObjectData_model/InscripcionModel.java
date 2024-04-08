@@ -84,6 +84,9 @@ public class InscripcionModel {
 
     public static String[] listarInscripcionesFecha(String FechaI, String FechaF) throws SQLException, ParseException {
         // Se llama al DAO para obtener las inscripciones desde MySQL
+        if (!FechaI.matches("\\d{4}-\\d{2}-\\d{2}") || !FechaF.matches("\\d{4}-\\d{2}-\\d{2}")) {
+            throw new ParseException("Formato de fecha inválido. Se esperaba yyyy-MM-dd.", 0);
+        }
         try {
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
         } catch (SQLException e) {
@@ -91,7 +94,6 @@ public class InscripcionModel {
             throw new SQLException("No se ha podido obtener las inscripciones.");
         }
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Nuevo formato de fecha
-
         // Parsear las fechas de inicio y fin
         Date fechaInicio, fechaFin;
         try {

@@ -8,6 +8,7 @@ import ObjectData_app.ObjectData_view.*;
 import ObjectData_app.ObjectData_model.ExcursionModel;
 
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.Random;
 
@@ -85,7 +86,8 @@ public class InscripcionController {
         RespView.respuestaControllerView("- Número de inscripción generado: " + numeroInscripcion);
 
         // Crea la inscripción
-        InscripcionModel inscripcion = new InscripcionModel(numeroInscripcion, numeroSocio, numeroExcursion,new Date());
+        InscripcionModel inscripcion = new InscripcionModel(numeroInscripcion, numeroSocio, numeroExcursion,
+                new Date());
         try {
             String respuesta = InscripcionModel.crearInscripcion(inscripcion);
             RespView.respuestaControllerView(respuesta);
@@ -130,10 +132,10 @@ public class InscripcionController {
         if (retorno != null && retorno.length > 0) {
             String numSocio = retorno[0];
             int numeroSocio = Integer.parseInt(numSocio);
-            try{
+            try {
                 RespView.respuestaControllerView("Listado de todas las inscripciones para el socio seleccionado: "
-                    + InscripcionModel.obtenerInscripcionesByNumSocio(numeroSocio)[0]);
-            }catch (SQLException e){
+                        + InscripcionModel.obtenerInscripcionesByNumSocio(numeroSocio)[0]);
+            } catch (SQLException e) {
 
             }
 
@@ -143,7 +145,7 @@ public class InscripcionController {
         }
     }
 
-    public static void eliminarInscripcion(){
+    public static void eliminarInscripcion() {
         String[] listadoInscripciones = null;
         boolean inscripcionEliminada = false;
 
@@ -163,19 +165,20 @@ public class InscripcionController {
             RespView.excepcionesControllerView("El número de inscripción ingresado no es válido.");
             return;
         }
-        try{
+        try {
             inscripcionEliminada = InscripcionModel.eliminarInscripcionNumero(num);
-        }catch (SQLException e){
+        } catch (SQLException e) {
 
         }
         if (inscripcionEliminada) {
             RespView.respuestaControllerView("La inscripción ha sido eliminada exitosamente.");
         } else {
-            RespView.excepcionesControllerView("No se pudo eliminar la inscripción. Verifique el número de inscripción y asegúrese de que la fecha de inscripción sea anterior a la fecha de la excursión.");
+            RespView.excepcionesControllerView(
+                    "No se pudo eliminar la inscripción. Verifique el número de inscripción y asegúrese de que la fecha de inscripción sea anterior a la fecha de la excursión.");
         }
     }
 
-    public static void mostrarInscripcionPorFecha(){
+    public static void mostrarInscripcionPorFecha() throws ParseException {
         String[] inscripciones = null;
         String[] retorno = InscView.formFiltrarPorFechas();
         if (retorno != null && retorno.length == 2) {
@@ -184,12 +187,13 @@ public class InscripcionController {
             try {
                 inscripciones = InscripcionModel.listarInscripcionesFecha(fechaInicio, fechaFin);
             } catch (SQLException e) {
-           
+
             }
             if (inscripciones.length > 0) {
                 RespView.respuestaControllerView("Listado de inscripciones por rango de fechas: " + inscripciones[0]);
             } else {
-                RespView.excepcionesControllerView("No se encontraron inscripciones para el rango de fechas especificado.");
+                RespView.excepcionesControllerView(
+                        "No se encontraron inscripciones para el rango de fechas especificado.");
             }
         } else {
             RespView.excepcionesControllerView("Problema al obtener las fechas de filtrado.");
