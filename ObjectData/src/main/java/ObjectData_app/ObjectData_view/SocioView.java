@@ -54,20 +54,18 @@ public class SocioView {
         return teclado.nextLine();
     }
     //Metodo para pedir el seguro del socio.
-    public String[] seleccionarSeguroView() {
+    public String seleccionarSeguroView() {
         System.out.println(h2 + "-- Tipos de seguros --" + p);
         System.out.println("    1. Basico");
         System.out.println("    2. Completo");
         System.out.print(p2 + "- Elija el tipo de seguro: " + p);
-        String tipo = teclado.nextLine();
-        return new String[] { tipo };
+        return teclado.nextLine();
     }
     //Metodo para obtener la federacion del socio.
-    public String[] selectorFederacionesView(String listado) {
+    public String selectorFederacionesView(String listado) {
         System.out.println(limpiezaConsola + h2 + "- Selección de Federación" + p);
         System.out.println(listado);
         System.out.print(p2 + "Ingrese el número ordinal de la federación que quieres seleccionar: " + p);
-        String federacionSeleccionada = teclado.nextLine();
-        return new String[] { federacionSeleccionada };
+        return teclado.nextLine();
     }
 }

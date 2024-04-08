@@ -204,16 +204,16 @@ public class SocioController {
             int seleccion = 0;
             boolean opcionOk = false;
             do {
-                String[] opcion = SociView.selectorFederacionesView(listaFederaciones[0]);
+                String opcion = SociView.selectorFederacionesView(listaFederaciones[0]);
                 //Si la opcion esta vacia salimos.
-                if(opcion[0].isEmpty()){
+                if(opcion.isEmpty()){
                     RespView.respuestaControllerView("Operación cancelada.");
                     // No se agrega al socio, así que simplemente salimos del bucle.
                     break;
                 }
                 // Verifica si la opción es un número entero
-                if (opcion[0].matches("\\d+")) {
-                    seleccion = Integer.parseInt(opcion[0]);
+                if (opcion.matches("\\d+")) {
+                    seleccion = Integer.parseInt(opcion);
                 } else {
                     // Si no es un número entero, muestra un mensaje de error
                     RespView.excepcionesControllerView("Opcion no valida, debe introducir un valor numerico.");
@@ -534,15 +534,15 @@ public class SocioController {
         // Excepciones de tipo de seguro
         do {
             // Se piden los datos del seguro mediante la vista seleccionarSeguroView
-            String[] retornoSeguro = SociView.seleccionarSeguroView();
+            String retornoSeguro = SociView.seleccionarSeguroView();
             // Se hace el tratamiento de los datos retornados desde la vista.
-            if (retornoSeguro[0].isEmpty()){
+            if (retornoSeguro.isEmpty()){
                 AppController.gestionSocios();
                 break;
-            }else if (retornoSeguro[0].equals("1")) {
+            }else if (retornoSeguro.equals("1")) {
                 tipoSeguro = TipoSeguro.BASICO;
                 comprobarTipoSeguro = true;
-            } else if (retornoSeguro[0].equals("2")) {
+            } else if (retornoSeguro.equals("2")) {
                 tipoSeguro = TipoSeguro.COMPLETO;
                 comprobarTipoSeguro = true;
             } else {
