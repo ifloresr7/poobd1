@@ -275,8 +275,8 @@ public class SocioController {
             // Creamos la excepción para verificar el tipo de dato introducido.
             if (retorno.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
-                // No se agrega al socio, así que simplemente salimos del bucle.
-                break;
+                //Volvemos al menu de gestion de socios.
+                AppController.gestionSocios();
             }
             // Verifica si la opción es un número entero
             if (retorno.matches("\\d+")) {
@@ -319,7 +319,8 @@ public class SocioController {
             // Verificar si la cadena numeroSocio está vacía
             if (numeroSocioReturn.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
-
+                //Volvemos al menu de gestion de socios.
+                AppController.gestionSocios();
             }
             // Comprueba que el valor introducido es un numero entero.
             if(numeroSocioReturn.matches("\\d+")){
@@ -439,6 +440,12 @@ public class SocioController {
         do {
             // Se muestran la vista y se piden datos.
             String retorno = SociView.obtenerNumeroSocio();
+            // Verificar si la cadena retorno está vacía
+            if (retorno.isEmpty()) {
+                RespView.respuestaControllerView("Operación cancelada.");
+                //Volvemos al menu de gestion de socios.
+                AppController.gestionSocios();
+            }
             // Verifica si el retorno es un número entero
             if (retorno.matches("\\d+")) {
                 numeroSocio = Integer.parseInt(retorno);
@@ -537,6 +544,7 @@ public class SocioController {
             String retornoSeguro = SociView.seleccionarSeguroView();
             // Se hace el tratamiento de los datos retornados desde la vista.
             if (retornoSeguro.isEmpty()){
+                RespView.respuestaControllerView("Operación cancelada.");
                 AppController.gestionSocios();
                 break;
             }else if (retornoSeguro.equals("1")) {
