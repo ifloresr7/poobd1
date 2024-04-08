@@ -78,9 +78,13 @@ public class ExcursionController {
             ExcursionModel excursion = new ExcursionModel(numeroExcursion, descripcion, date, num, coste);
             // Se llama al metodo crearExcursion del modelo ExcursionModel, se pasa tanto la
             // instancia  como el objeto creado
+            try{
             String respuesta = excursion.crearExcursionModel(excursion);
             // Devuelvo la respuesta del modelo y la imprimo en la vista
             RespView.respuestaControllerView(respuesta);
+            }catch (SQLException e){
+
+            }
             finalizar = true;
         } while (!finalizar);
         // Al finalizar vuelvo al menu de excursiones

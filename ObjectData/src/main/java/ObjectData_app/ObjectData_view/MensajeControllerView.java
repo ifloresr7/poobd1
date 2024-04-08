@@ -21,7 +21,6 @@ public class MensajeControllerView {
         System.out.println(out + "\nPulse ENTER para continuar..." + p);
         teclado.nextLine();
     }
-
     // Este metodo se usa para devolver errores generados en la aplicación
     public void excepcionesControllerView(String respuesta) {
         System.out.println(error + "¡ERROR! - " + respuesta + p);

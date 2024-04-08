@@ -432,9 +432,9 @@ public class SocioController {
         Double facturacion = 0.0;
         final Double cuotaMensual = 10.00;
         String[] retornoArray = null;
+        String respuesta = "\nFacturación del socio: ";
         //Imprimo en pantalla el titulo del metodo
         RespView.tituloDeLaFuncion("-- MUESTRA LA FACTURACIÓN DE UN SOCIO --");
-        String respuesta = "\nFacturación del socio: ";
         //Comprobación de datos
         do {
             // Se muestran la vista y se piden datos.

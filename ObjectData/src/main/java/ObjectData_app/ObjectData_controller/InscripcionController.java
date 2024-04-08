@@ -85,12 +85,13 @@ public class InscripcionController {
         RespView.respuestaControllerView("- Número de inscripción generado: " + numeroInscripcion);
 
         // Crea la inscripción
-        InscripcionModel inscripcion = new InscripcionModel(numeroInscripcion, numeroSocio, numeroExcursion,
-                new Date());
-        String respuesta = InscripcionModel.crearInscripcion(inscripcion);
-
+        InscripcionModel inscripcion = new InscripcionModel(numeroInscripcion, numeroSocio, numeroExcursion,new Date());
+        try {
+            String respuesta = InscripcionModel.crearInscripcion(inscripcion);
+            RespView.respuestaControllerView(respuesta);
+        } catch (SQLException e) {
+        }
         // Muestra la respuesta del modelo
-        RespView.respuestaControllerView(respuesta);
     }
 
     public static void mostrarInscripcion() {
@@ -129,8 +130,13 @@ public class InscripcionController {
         if (retorno != null && retorno.length > 0) {
             String numSocio = retorno[0];
             int numeroSocio = Integer.parseInt(numSocio);
-            RespView.respuestaControllerView("Listado de todas las inscripciones para el socio seleccionado: "
+            try{
+                RespView.respuestaControllerView("Listado de todas las inscripciones para el socio seleccionado: "
                     + InscripcionModel.obtenerInscripcionesByNumSocio(numeroSocio)[0]);
+            }catch (SQLException e){
+
+            }
+
         } else {
             // Si el usuario no ingresó ningún valor, imprimir un mensaje apropiado
             RespView.excepcionesControllerView("No se ha ingresado ningún número de socio para filtrar.");
@@ -138,8 +144,14 @@ public class InscripcionController {
     }
 
     public static void eliminarInscripcion(){
+        String[] listadoInscripciones = null;
+        boolean inscripcionEliminada = false;
 
-        String[] listadoInscripciones = InscripcionModel.obtenerListadoInscripciones();
+        try {
+            listadoInscripciones = InscripcionModel.obtenerListadoInscripciones();
+        } catch (SQLException e) {
+        }
+
         String listado = String.join("\n", listadoInscripciones);
         RespView.respuestaControllerView("Listado de todas las inscripciones \n" + listado);
         String retorno = InscView.formEliminarInscripcionView(listadoInscripciones);
@@ -151,7 +163,11 @@ public class InscripcionController {
             RespView.excepcionesControllerView("El número de inscripción ingresado no es válido.");
             return;
         }
-        boolean inscripcionEliminada = InscripcionModel.eliminarInscripcionNumero(num);
+        try{
+            inscripcionEliminada = InscripcionModel.eliminarInscripcionNumero(num);
+        }catch (SQLException e){
+
+        }
         if (inscripcionEliminada) {
             RespView.respuestaControllerView("La inscripción ha sido eliminada exitosamente.");
         } else {
@@ -159,12 +175,17 @@ public class InscripcionController {
         }
     }
 
-    public static void mostrarInscripcionPorFecha() throws SQLException {
+    public static void mostrarInscripcionPorFecha(){
+        String[] inscripciones = null;
         String[] retorno = InscView.formFiltrarPorFechas();
         if (retorno != null && retorno.length == 2) {
             String fechaInicio = retorno[0];
             String fechaFin = retorno[1];
-            String[] inscripciones = InscripcionModel.listarInscripcionesFecha(fechaInicio, fechaFin);
+            try {
+                inscripciones = InscripcionModel.listarInscripcionesFecha(fechaInicio, fechaFin);
+            } catch (SQLException e) {
+           
+            }
             if (inscripciones.length > 0) {
                 RespView.respuestaControllerView("Listado de inscripciones por rango de fechas: " + inscripciones[0]);
             } else {
