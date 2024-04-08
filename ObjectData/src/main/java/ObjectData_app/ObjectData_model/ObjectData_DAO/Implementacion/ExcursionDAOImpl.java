@@ -31,7 +31,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
                 );
                 excursiones.add(excursion); // Se agrega el objeto ExcursionModel a la lista de excursiones
             }
-        } catch (Exception e) { // Si ocurre alguna excepción durante el proceso...
+        } catch (SQLException e) { // Si ocurre alguna excepción durante el proceso...
             throw new UnsupportedOperationException("Unimplemented method 'obtenerTodas'"); // Se lanza una excepción indicando el error
         }
         return excursiones; // Se devuelve la lista de excursiones obtenidas
@@ -58,7 +58,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
                     );
                 }
             }
-        } catch (Exception e) { // Si ocurre alguna excepción durante el proceso...
+        } catch (SQLException e) { // Si ocurre alguna excepción durante el proceso...
             // Se maneja la excepción
         }
         return excursion; // Se devuelve la excursión encontrada
@@ -88,7 +88,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
             pst.setInt(1, numeroExcursion); // Se establece el valor del parámetro 'numeroExcursion' en la consulta preparada
             pst.executeUpdate(); // Se ejecuta la consulta para eliminar la excursión
         } catch (SQLException e) { // Si ocurre una excepción durante el proceso...
-            throw new SQLException("Error al eliminar la excursión", e); // Se lanza una excepción indicando el error
+            throw new SQLException("Error al eliminar la excursión. ", e); // Se lanza una excepción indicando el error
         }
     }    
 }

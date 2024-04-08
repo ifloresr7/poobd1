@@ -4,11 +4,9 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import ObjectData_app.ObjectData_controller.ExcursionController;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.ExcursionDAO;
-import ObjectData_app.ObjectData_view.ExcursionesView;
 import ObjectData_app.ObjectData_view.MensajeControllerView;
 
 public class ExcursionModel {

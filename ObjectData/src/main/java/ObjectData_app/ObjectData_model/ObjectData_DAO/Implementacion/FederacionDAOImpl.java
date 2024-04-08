@@ -27,7 +27,7 @@ public class FederacionDAOImpl implements FederacionDAO {
                 );
                 federaciones.add(federacion); // Se agrega el objeto FederacionModel a la lista de federaciones
             }
-        } catch (Exception e) { // Si ocurre alguna excepción durante el proceso...
+        } catch (SQLException e) { // Si ocurre alguna excepción durante el proceso...
             throw new UnsupportedOperationException("Unimplemented method 'obtenerTodas'"); // Se lanza una excepción indicando que el método no está implementado
         }
         return federaciones; // Se devuelve la lista de federaciones encontradas
@@ -49,7 +49,7 @@ public class FederacionDAOImpl implements FederacionDAO {
                     respuestaBD.getString("nombre") // Se obtiene el valor del campo 'nombre' del resultado
                 );
             }
-        } catch (Exception e) { // Si ocurre alguna excepción durante el proceso...
+        } catch (SQLException e) { // Si ocurre alguna excepción durante el proceso...
             throw new UnsupportedOperationException("Unimplemented method 'obtenerPorCodigo'"); // Se lanza una excepción indicando que el método no está implementado
         }
         return federacion; // Se devuelve el objeto FederacionModel encontrado (o null si no se encontró ninguna federación con el código proporcionado)

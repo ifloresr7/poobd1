@@ -62,7 +62,7 @@ public class SocioFederadoDAOImpl implements SocioFederadoDAO {
                 }
             }
         } catch (Exception e) {
-            throw new SQLException("Error al obtener el socio estándar por número de socio", e);
+            throw new SQLException("No se ha podido obtener el socio con número de socio: " + numeroSocio);
         }
         return socio;
     }
@@ -78,7 +78,7 @@ public class SocioFederadoDAOImpl implements SocioFederadoDAO {
             pst.setString(4, socio.getFederacion().getCodigo().toString());
             pst.executeUpdate();
         } catch (SQLException e) {
-            throw new UnsupportedOperationException("Unimplemented method 'crearSocioFederado'");
+            throw new SQLException("No se ha podido crear un socio federado.");
         }
     }
     //Metodo para eliminar al socio Federado.
@@ -90,7 +90,7 @@ public class SocioFederadoDAOImpl implements SocioFederadoDAO {
             pst.setInt(1, numeroSocio);
             pst.executeUpdate();
         } catch (SQLException e) {
-            throw new UnsupportedOperationException("Unimplemented method 'eliminarSocioFederado'");
+            throw new SQLException("No se ha podido eliminar el socio federado.");
         }
     }
 }
