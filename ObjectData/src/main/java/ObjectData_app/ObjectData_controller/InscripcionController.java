@@ -96,7 +96,7 @@ public class InscripcionController {
         // Muestra la respuesta del modelo
     }
 
-    public static void mostrarInscripcion() throws ParseException {
+    public static void mostrarInscripcion() {
         boolean valoresComprobados = false;
         int opcion = 0;
         do {
@@ -178,7 +178,7 @@ public class InscripcionController {
         }
     }
 
-    public static void mostrarInscripcionPorFecha() throws ParseException {
+    public static void mostrarInscripcionPorFecha(){
         String[] inscripciones = null;
         String[] retorno = InscView.formFiltrarPorFechas();
         if (retorno != null && retorno.length == 2) {
@@ -186,7 +186,9 @@ public class InscripcionController {
             String fechaFin = retorno[1];
             try {
                 inscripciones = InscripcionModel.listarInscripcionesFecha(fechaInicio, fechaFin);
-            } catch (SQLException e) {
+            } catch (SQLException e){
+
+            } catch (ParseException e){
 
             }
             if (inscripciones.length > 0) {
