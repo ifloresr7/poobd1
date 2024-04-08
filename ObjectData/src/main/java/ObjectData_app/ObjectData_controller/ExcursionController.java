@@ -1,6 +1,5 @@
 package ObjectData_app.ObjectData_controller;
 
-
 import ObjectData_app.ObjectData_model.ExcursionModel;
 import ObjectData_app.ObjectData_view.ExcursionesView;
 import ObjectData_app.ObjectData_view.MensajeControllerView;
@@ -29,15 +28,16 @@ public class ExcursionController {
         }
         return id;
     }
+
     // Esta función sirve para crear una nueva excursión (Debemos importar , que
     // se inicializó al arranque de APP en main)
-    public static void crearExcursion() {
+    public static void crearExcursion() throws SQLException {
         boolean finalizar = false;
         do {
             // Se lanza la vista del menu de crear Excursion
             String[] retorno = ExcuView.menuCrearExcursionView();
             // Se comprueba si el usuario quiere salir
-            if (retorno[0].equals("")  || retorno[1] .equals("") || retorno[2].equals("")  || retorno[3].equals("") ) {
+            if (retorno[0].equals("") || retorno[1].equals("") || retorno[2].equals("") || retorno[3].equals("")) {
                 RespView.respuestaControllerView("Operación cancelada.");
                 AppController.gestionExcursiones();
                 continue;
@@ -74,17 +74,15 @@ public class ExcursionController {
             int numeroExcursion = Integer.parseInt("1" + generarID()); // numeroExcursion
             // Mandamos el numeroExcursion a la pantalla:
             RespView.respuestaControllerView("- Número de excursion generada: " + numeroExcursion);
-            // Se genera el conjunto de  en la variable excursion
+            // Se genera el conjunto de en la variable excursion
             ExcursionModel excursion = new ExcursionModel(numeroExcursion, descripcion, date, num, coste);
             // Se llama al metodo crearExcursion del modelo ExcursionModel, se pasa tanto la
-            // instancia  como el objeto creado
-            try{
+            // instancia como el objeto creado
+
             String respuesta = excursion.crearExcursionModel(excursion);
             // Devuelvo la respuesta del modelo y la imprimo en la vista
             RespView.respuestaControllerView(respuesta);
-            }catch (SQLException e){
 
-            }
             finalizar = true;
         } while (!finalizar);
         // Al finalizar vuelvo al menu de excursiones

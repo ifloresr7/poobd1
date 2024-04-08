@@ -96,7 +96,7 @@ public class InscripcionController {
         // Muestra la respuesta del modelo
     }
 
-    public static void mostrarInscripcion() {
+    public static void mostrarInscripcion() throws ParseException {
         boolean valoresComprobados = false;
         int opcion = 0;
         do {
