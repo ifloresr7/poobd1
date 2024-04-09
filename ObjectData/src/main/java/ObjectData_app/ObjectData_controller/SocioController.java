@@ -18,7 +18,7 @@ import ObjectData_app.ObjectData_view.SocioView;
 
 
 public class SocioController {
-    // Se inicializan las vistas necasias.
+    // Se inicializan las vistas necesasias.
     static MensajeControllerView RespView = new MensajeControllerView();
     static SocioView SociView = new SocioView();
 

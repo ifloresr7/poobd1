@@ -51,9 +51,9 @@ public class InscripcionController {
         }
 
         // Si el retorno no es "N", se supone que contiene el número de socio
-        try {
+        if (retorno.matches("\\d+")) {
             numeroSocio = Integer.parseInt(retorno);
-        } catch (NumberFormatException e) {
+        } else {
             RespView.excepcionesControllerView("Debes introducir un valor númerico.");
             return;
         }
@@ -68,10 +68,10 @@ public class InscripcionController {
         String[] listadoExcursiones = ExcursionModel.obtenerListadoExcursiones();
         String retornoExcursion = InscView.formListadoExcursionesView(listadoExcursiones[0]);
 
-        try {
+        if (retornoExcursion.matches("\\d+")) {
             int opcion = Integer.parseInt(retornoExcursion);
             numeroExcursion = ExcursionModel.obtenerExcursionDesdeLista(opcion).getNumeroExcursion();
-        } catch (NumberFormatException e) {
+        } else {
             RespView.excepcionesControllerView("Debes introducir un valor númerico.");
             return;
         }
@@ -93,8 +93,8 @@ public class InscripcionController {
             String respuesta = InscripcionModel.crearInscripcion(inscripcion);
             RespView.respuestaControllerView(respuesta);
         } catch (SQLException e) {
+            RespView.excepcionesControllerView(e.getMessage());
         }
-        // Muestra la respuesta del modelo
     }
 
     public static void mostrarInscripcion() {
@@ -102,12 +102,13 @@ public class InscripcionController {
         int opcion = 0;
         do {
             String retorno = InscView.formMostrarInscripcionView();
-            try {
+            if (retorno.matches("\\d+")) {
                 opcion = Integer.parseInt(retorno);
-            } catch (Exception e) {
+            } else {
                 RespView.excepcionesControllerView("Debes introducir un valor númerico.");
                 continue;
             }
+
             if (opcion == 0) {
                 AppController.gestionInscripciones();
                 break;
@@ -137,7 +138,7 @@ public class InscripcionController {
                 RespView.respuestaControllerView("Listado de todas las inscripciones para el socio seleccionado: "
                         + InscripcionModel.obtenerInscripcionesByNumSocio(numeroSocio)[0]);
             } catch (SQLException e) {
-
+                RespView.excepcionesControllerView(e.getMessage());
             }
 
         } else {
@@ -153,6 +154,7 @@ public class InscripcionController {
         try {
             listadoInscripciones = InscripcionModel.obtenerListadoInscripciones();
         } catch (SQLException e) {
+            RespView.excepcionesControllerView(e.getMessage());
         }
 
         String listado = String.join("\n", listadoInscripciones);
