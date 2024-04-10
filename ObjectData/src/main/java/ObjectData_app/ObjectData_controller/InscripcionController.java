@@ -59,9 +59,13 @@ public class InscripcionController {
         }
 
         // Comprueba si el socio existe
-        if (!SocioModel.comprobarSocioPorNumSocio(numeroSocio)) {
-            RespView.excepcionesControllerView("Socio no encontrado.");
-            return;
+        try {
+            if (!SocioModel.comprobarSocioPorNumSocio(numeroSocio)) {
+                RespView.excepcionesControllerView("Socio no encontrado.");
+                return;
+            }
+        }catch (SQLException e){
+            RespView.excepcionesControllerView(e.getMessage());
         }
 
         // Obtiene y muestra el listado de excursiones
@@ -77,9 +81,13 @@ public class InscripcionController {
         }
 
         // Comprueba si la excursión existe
-        if (ExcursionModel.obtenerExcursionPorNumeroExcursion(numeroExcursion) == null) {
-            RespView.excepcionesControllerView("Excursión no encontrada.");
-            return;
+        try {
+            if (ExcursionModel.obtenerExcursionPorNumeroExcursion(numeroExcursion) == null) {
+                RespView.excepcionesControllerView("Excursión no encontrada.");
+                return;
+            }
+        }catch (SQLException e){
+            RespView.excepcionesControllerView(e.getMessage());
         }
 
         // Genera un número de inscripción aleatorio

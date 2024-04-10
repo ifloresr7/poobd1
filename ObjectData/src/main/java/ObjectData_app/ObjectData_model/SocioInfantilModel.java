@@ -48,15 +48,15 @@ public class SocioInfantilModel extends SocioModel {
             socioInfantilDAO.crearSocioInfantil(socio);
             return "Socio infantil guardado correctamente!";
         } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
     //Metodo para obtener socio infantil mediante numero de socio.
     public static SocioInfantilModel getSocioInfantilNumeroSocio(int numeroSocio) throws SQLException{
         try{
             return socioInfantilDAO.obtenerPorNumeroSocio(numeroSocio);
-        }catch (SQLException e){
-            throw new SQLException(e.getMessage());
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
     // Método para eliminar socio infantil de la base de datos
@@ -64,8 +64,8 @@ public class SocioInfantilModel extends SocioModel {
         try{
             socioInfantilDAO.eliminarSocioInfantil(numeroSocio);
             return true; 
-        }catch (SQLException e){
-            throw new SQLException(e.getMessage());
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 }

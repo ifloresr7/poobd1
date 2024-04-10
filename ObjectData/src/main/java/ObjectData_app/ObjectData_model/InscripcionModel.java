@@ -81,8 +81,7 @@ public class InscripcionModel {
     }
 
     public static String[] listarInscripcionesFecha(Date fechaI, Date fechaF) throws SQLException{
-        // Se llama al DAO para obtener las inscripciones desde MySQL
-        
+        // Se llama al DAO para obtener las inscripciones desde MySQL 
         try {
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
         } catch (SQLException e) {
@@ -124,7 +123,6 @@ public class InscripcionModel {
                             .getNombre();
                     cadenaDescuento = "El socio no tiene descuentos a aplicar.\n";
                 }
-
                 contador++;
                 listado.append("\n- ").append(contador).append(". Nombre del socio: ").append(nombreSocio)
                         .append(" | Identificador de inscripción: ").append(inscripcion.numeroInscripcion)
@@ -134,11 +132,9 @@ public class InscripcionModel {
                         .append("\n").append(cadenaDescuento);
             }
         }
-
         if (contador == 0) {
             listado.append("\n  - Sin datos.");
         }
-
         return new String[] { listado.toString(), String.valueOf(contador) };
     }
 
@@ -150,7 +146,6 @@ public class InscripcionModel {
         } catch (SQLException e) {
             // Implementar logica para devolver el error.
             throw new SQLException("No se han podido obtener los datos necesarios.");
-
         }
         for (int i = 0; i < inscripciones.size(); i++) {
             InscripcionModel inscripcion = inscripciones.get(i);

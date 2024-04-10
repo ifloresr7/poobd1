@@ -4,6 +4,7 @@ import ObjectData_app.ObjectData_model.ExcursionModel;
 import ObjectData_app.ObjectData_view.ExcursionesView;
 import ObjectData_app.ObjectData_view.MensajeControllerView;
 
+import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -31,6 +32,7 @@ public class ExcursionController {
     // Esta función sirve para crear una nueva excursión (Debemos importar , que
     // se inicializó al arranque de APP en main)
     public static void crearExcursion() {
+        String respuesta = null;
         boolean finalizar = false;
         do {
             // Se lanza la vista del menu de crear Excursion
@@ -77,8 +79,11 @@ public class ExcursionController {
             ExcursionModel excursion = new ExcursionModel(numeroExcursion, descripcion, date, num, coste);
             // Se llama al metodo crearExcursion del modelo ExcursionModel, se pasa tanto la
             // instancia como el objeto creado
-
-            String respuesta = excursion.crearExcursionModel(excursion);
+            try {
+                respuesta = excursion.crearExcursionModel(excursion);
+            }catch (SQLException e){
+                RespView.excepcionesControllerView(e.getMessage());
+            }
             // Devuelvo la respuesta del modelo y la imprimo en la vista
             RespView.respuestaControllerView(respuesta);
 

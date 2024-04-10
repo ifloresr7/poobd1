@@ -58,15 +58,15 @@ public class SocioFederadoModel extends SocioModel {
         try {
             socioFederadoDAO.crearSocioFederado(socio);
         } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
     // Obtener socio federado por número de socio.
     public static SocioFederadoModel getSocioFederadoNumeroSocio(int numeroSocio) throws SQLException {
         try{
             return socioFederadoDAO.obtenerPorNumeroSocio(numeroSocio);
-        }catch (SQLException e){
-            throw new SQLException(e.getMessage());
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
      // Método para eliminar socio infantil de la base de datos
@@ -74,8 +74,8 @@ public class SocioFederadoModel extends SocioModel {
         try{
             socioFederadoDAO.eliminarSocioFederado(numeroSocio);
             return true; 
-        }catch (Exception e){
-            throw new SQLException(e.getMessage());
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
      }
 }

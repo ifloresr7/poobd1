@@ -177,6 +177,8 @@ public class SocioController {
         String NIF; // El segundo parametro del array es el DNI
         int numeroSocio; // Para almacenar el numero de socio.
         boolean todoOk = false;
+        String[] listaFederaciones = null;
+        FederacionModel federacion = null;
         //Imprimitos el titulo de la función.
         RespView.tituloDeLaFuncion("-- FORMULARIO PARA CREAR UN SOCIO FEDERADO --");
         //Creamos el bucle para el metodo.
@@ -198,7 +200,11 @@ public class SocioController {
                 AppController.gestionSocios();
             }
             // Pido el listado de federaciones y el numero de federaciones disponibles;
-            String[] listaFederaciones = FederacionModel.obtenerListadoFederacion();
+            try{
+                listaFederaciones = FederacionModel.obtenerListadoFederacion();
+            }catch (SQLException e){
+                RespView.excepcionesControllerView(e.getMessage());
+            }
             int opcionesDiponibles = Integer.parseInt(listaFederaciones[1]);
             // Se genera el control de excepcion para opcion seleccionada no valida.
             int seleccion = 0;
@@ -231,7 +237,11 @@ public class SocioController {
             numeroSocio = Integer.parseInt("6" + generarID()); // Número de socio
             RespView.respuestaControllerView("# Numero de socio generado: " + numeroSocio);
             // Con este metodo del modelo obtengo el objeto seleccionado por el usuario
-            FederacionModel federacion = FederacionModel.obtenerFederacion(seleccion);
+            try{
+                federacion = FederacionModel.obtenerFederacion(seleccion);
+            }catch (SQLException e){
+                RespView.excepcionesControllerView(e.getMessage());
+            }
             // Creamos el objeto con los datos recolectados.
             SocioFederadoModel socio = new SocioFederadoModel(numeroSocio, nombre, NIF, federacion);
             // Enviamos la información al modelo para que añada el socio a la
@@ -458,17 +468,23 @@ public class SocioController {
             if (numeroSocio == 0) {
                 AppController.gestionSocios();
                 break;
-            } else if (SocioModel.comprobarSocioPorNumSocio(numeroSocio)) {
-                try {
-                    tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(numeroSocio);
-                    valoresComprobados = true;
-                } catch (SQLException e) {
-                    RespView.excepcionesControllerView(e.getMessage());
-                    continue;
-                }
             } else {
-                RespView.excepcionesControllerView("No se ha podido encontrar el socio.");
-                continue;
+                 try {
+                    if (SocioModel.comprobarSocioPorNumSocio(numeroSocio)) {
+                        try {
+                            tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(numeroSocio);
+                            valoresComprobados = true;
+                        } catch (SQLException e) {
+                            RespView.excepcionesControllerView(e.getMessage());
+                            continue;
+                        }
+                    } else {
+                        RespView.excepcionesControllerView("No se ha podido encontrar el socio.");
+                        continue;
+                    }
+                }catch (SQLException e){
+                    RespView.excepcionesControllerView(e.getMessage());
+                }
             }
         } while (!valoresComprobados);
         if (tipoSocio.equals("Estandar")) {
@@ -533,7 +549,7 @@ public class SocioController {
         // Volvemos al menu principal de la gestión de los socios.
         AppController.gestionSocios();
     }
-
+    //Metodo para seleccionar el seguro de un socio estandar.
     public static SeguroModel seguroSocio() {
         // Tratamiento del seguro
         TipoSeguro tipoSeguro = null;

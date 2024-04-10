@@ -48,11 +48,11 @@ public class FederacionModel {
     }
 
     //Metodos porpios
-    public static String[] obtenerListadoFederacion(){
+    public static String[] obtenerListadoFederacion() throws SQLException{
         try {
             federaciones = federacionDAO.obtenerTodasFederaciones();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         String listado = "";
         int contador = 0;
@@ -67,14 +67,13 @@ public class FederacionModel {
     }
 
     //Obtener federacion mediante seleccion de lista.
-    public static FederacionModel obtenerFederacion(int seleccion){
+    public static FederacionModel obtenerFederacion(int seleccion) throws SQLException{
         //Se obtienen todas las federaciones con el DAO
         try {
             federaciones = federacionDAO.obtenerTodasFederaciones();
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
-        
         int contador = 0;
         for (FederacionModel federacion : federaciones) {
             contador++;

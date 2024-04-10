@@ -57,7 +57,7 @@ public class SocioEstandarModel extends SocioModel {
         try {
             socioEstandarDAO.crearSocioEstandar(socioEstandar);
         } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
     // Metodo para buscar por numero de socio y devolver el objeto.
@@ -66,7 +66,7 @@ public class SocioEstandarModel extends SocioModel {
         try {
             return socioEstandarDAO.obtenerSocioEstandarPorNumeroSocio(numeroSocio);
         } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
     // Metodo para actualizar el seguro del socio:
@@ -75,7 +75,7 @@ public class SocioEstandarModel extends SocioModel {
             socio.setSeguro(seguro);
             socioEstandarDAO.actualizarSocioEstandar(socio);
         } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
     // Metodo para obtener el precio del seguro.
@@ -84,7 +84,7 @@ public class SocioEstandarModel extends SocioModel {
         try {
             return socioEstandarDAO.obtenerSocioEstandarPorNumeroSocio(numeroSocio).seguro.getPrecio();
         } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
     // Método para eliminar socio estandar de la base de datos
@@ -92,7 +92,7 @@ public class SocioEstandarModel extends SocioModel {
         try {
             socioEstandarDAO.eliminarSocioEstandar(numeroSocio);
         } catch (SQLException e) {
-            throw new SQLException(e.getMessage());
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 }

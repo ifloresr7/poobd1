@@ -62,14 +62,14 @@ public abstract class SocioModel {
     }
 
     // Método para comprobar si un socio existe mediante el numeroSocio
-    public static boolean comprobarSocioPorNumSocio(int codigoSocio) {
+    public static boolean comprobarSocioPorNumSocio(int codigoSocio) throws SQLException {
         //Se obtienen los datos desde el DAO.
         try{
             sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();
             sociosFederados = socioFederadoDAO.obtenerTodosSocioFederado();
             sociosInfantiles = socioInfantilDAO.obtenerTodosSocioInfantil();            
-        }catch (SQLException e){
-            System.out.println(e);
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         // Comprobar en la lista de socios estándar
         for (SocioEstandarModel socio : sociosEstandar) {
@@ -93,14 +93,14 @@ public abstract class SocioModel {
         return false;
     }
 
-    public static String[] listarSociosModel(){
+    public static String[] listarSociosModel() throws SQLException{
         //Se obtienen los datos desde el DAO.
         try{
             sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();
             sociosFederados = socioFederadoDAO.obtenerTodosSocioFederado();
             sociosInfantiles = socioInfantilDAO.obtenerTodosSocioInfantil();            
-        }catch (SQLException e){
-            System.out.println(e);
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         // Comprobar en la lista de socios estándar
         String listado = "";
@@ -131,18 +131,16 @@ public abstract class SocioModel {
     }
 
     //Metodo paras listar los socios estandar.
-    public static String[] listarSociosEstandarModel() {
+    public static String[] listarSociosEstandarModel() throws SQLException {
+        //Atributos.
+        String listado = "";
+        int contador = 0;        
         //Se obtienen los datos desde el DAO.
         try{
             sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();            
-        }catch (SQLException e){
-            System.out.println(e);
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
-
-        //Atributos.
-        String listado = "";
-        int contador = 0;
-
         for (SocioEstandarModel socio : sociosEstandar) {
             contador++;
             listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
@@ -159,8 +157,8 @@ public abstract class SocioModel {
         //Se obtienen los datos desde el DAO.
         try{
             sociosFederados = socioFederadoDAO.obtenerTodosSocioFederado();          
-        }catch (SQLException e){
-            throw new SQLException(e.getMessage());
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         //Atributos.
         String listado = "";
@@ -182,8 +180,8 @@ public abstract class SocioModel {
         //Se obtienen los datos desde el DAO.
         try{
             sociosInfantiles = socioInfantilDAO.obtenerTodosSocioInfantil();            
-        }catch (SQLException e){
-            throw new SQLException(e.getMessage());
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         //Atributos.
         String listado = "";
@@ -206,8 +204,8 @@ public abstract class SocioModel {
             sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();
             sociosFederados = socioFederadoDAO.obtenerTodosSocioFederado();
             sociosInfantiles = socioInfantilDAO.obtenerTodosSocioInfantil();            
-        }catch (SQLException e){
-            throw new SQLException(e.getMessage());
+        } catch (SQLException e) {
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         // Buscar en el array de socios federados
         for (SocioFederadoModel socio : sociosFederados) {
