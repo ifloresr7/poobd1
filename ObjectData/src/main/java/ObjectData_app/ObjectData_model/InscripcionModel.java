@@ -139,8 +139,6 @@ public class InscripcionModel {
     }
     
     public static boolean eliminarInscripcionNumero(int numeroInscripcion) throws SQLException {
-        //Atributos
-        Date newDate = new Date();
         // Se llama al DAO para obtener las inscripciones y las excursiones desde MySQL
         try {
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
@@ -155,9 +153,8 @@ public class InscripcionModel {
                 int numeroExcursion = inscripcion.getNumeroExcursion();
                 // Buscar la fecha de la excursión correspondiente en el array de excursiones
                 for (ExcursionModel excursion : excursiones) {
-                    // Comprueba que el numero de excursion coincida y adema compara con la fecha de la excursión
-                    System.out.println("- " + excursion.getFecha() + " . " + newDate);
-                    if ((excursion.getNumeroExcursion() == numeroExcursion) && (newDate.before(excursion.getFecha()))) {
+                    // Comprueba que el numero de excursion coincida y adema compara la fecha de la excursión con la fecha actual.
+                    if ((excursion.getNumeroExcursion() == numeroExcursion) && (new Date().before(excursion.getFecha()))) {
                         try {
                             inscripcionDAO.eliminarInscripcion(numeroInscripcion);
                             return true;
