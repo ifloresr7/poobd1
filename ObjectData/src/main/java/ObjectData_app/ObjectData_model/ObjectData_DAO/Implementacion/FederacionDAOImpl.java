@@ -28,7 +28,7 @@ public class FederacionDAOImpl implements FederacionDAO {
                 federaciones.add(federacion); // Se agrega el objeto FederacionModel a la lista de federaciones
             }
         } catch (SQLException e) { // Si ocurre alguna excepción durante el proceso...
-            throw new SQLException("Fallo al obtener todos las federaciones.");
+            throw new SQLException("Fallo en la consulta SQL al obtener todos las federaciones.");
         }
         return federaciones; // Se devuelve la lista de federaciones encontradas
     }
@@ -49,7 +49,7 @@ public class FederacionDAOImpl implements FederacionDAO {
                 );
             }
         } catch (SQLException e) { // Si ocurre alguna excepción durante el proceso...
-            throw new SQLException("Fallo al obtener la federación por el codigo.");
+            throw new SQLException("Fallo en la consulta SQL al obtener la federación por el codigo.");
         }
         return federacion; // Se devuelve el objeto FederacionModel encontrado (o null si no se encontró ninguna federación con el código proporcionado)
     }

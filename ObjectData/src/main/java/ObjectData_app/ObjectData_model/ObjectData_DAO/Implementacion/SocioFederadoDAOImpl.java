@@ -35,7 +35,7 @@ public class SocioFederadoDAOImpl implements SocioFederadoDAO {
                 socios.add(socio); // Se agrega el objeto SocioFederadoModel a la lista de socios federados
             }
         } catch (Exception e) { // Si ocurre alguna excepción durante el proceso...
-            throw new SQLException("Problema al obtener todos los socios federados."); // Se lanza una excepción indicando el error
+            throw new SQLException("Fallo en la consulta SQL al obtener todos los socios federados."); // Se lanza una excepción indicando el error
         }
         return socios; // Se devuelve la lista de socios federados encontrados
     }
@@ -62,7 +62,7 @@ public class SocioFederadoDAOImpl implements SocioFederadoDAO {
                 }
             }
         } catch (Exception e) {
-            throw new SQLException("Problema al obtener el socio con número de socio: " + numeroSocio);
+            throw new SQLException("Fallo en la consulta SQL al obtener el socio con número de socio: " + numeroSocio);
         }
         return socio;
     }
@@ -78,7 +78,7 @@ public class SocioFederadoDAOImpl implements SocioFederadoDAO {
             pst.setString(4, socio.getFederacion().getCodigo().toString());
             pst.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLException("Problema al crear un socio federado.");
+            throw new SQLException("Fallo en la consulta SQL al crear un socio federado.");
         }
     }
     //Metodo para eliminar al socio Federado.
@@ -90,7 +90,7 @@ public class SocioFederadoDAOImpl implements SocioFederadoDAO {
             pst.setInt(1, numeroSocio);
             pst.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLException("Problema al eliminar el socio federado.");
+            throw new SQLException("Fallo en la consulta SQL al eliminar el socio federado.");
         }
     }
 }

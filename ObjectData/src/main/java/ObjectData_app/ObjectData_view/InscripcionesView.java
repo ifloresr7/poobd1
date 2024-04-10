@@ -38,8 +38,7 @@ public class InscripcionesView {
         return teclado.nextLine();
     }
 
-    public String formEliminarInscripcionView(String[] listadoInscripciones) {
-
+    public String formEliminarInscripcionView(String listadoInscripciones) {
         System.out.println(
                 "NOTA: Puede cancelar la eliminación de una inscripción al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
         System.out.print(p2 + "- Introduzca el número de inscripción a eliminar: " + p);

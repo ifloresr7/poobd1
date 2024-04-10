@@ -33,7 +33,7 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
                 socios.add(socio);
             }
         } catch (SQLException e) {
-            throw new SQLException("Problema al obtener todos los socios estándar.");
+            throw new SQLException("Fallo en la consulta SQL al obtener todos los socios estándar.");
         }
         return socios;
     }
@@ -58,7 +58,7 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
                 }
             }
         } catch (SQLException e) {
-            throw new SQLException("Problema al obtener el socio estándar por número de socio: " + numeroSocio);
+            throw new SQLException("Fallo en la consulta SQL al obtener el socio estándar por número de socio: " + numeroSocio);
         }
         return socio;
     }
@@ -74,7 +74,7 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             pst.setString(4, socio.getSeguro().getTipo().toString());
             pst.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLException("Problema al crear el socio estándar.");
+            throw new SQLException("Fallo en la consulta SQL al crear el socio estándar.");
         }
     }
     //Metodo usado para actualizar el socio, en este caso se usa porque podemos cambiar el seguro del tipo de socio estandar.
@@ -89,7 +89,7 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             pst.setInt(4, socio.getNumeroSocio());
             pst.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLException("Problema al actualizar el socio estándar.");
+            throw new SQLException("Fallo en la consulta SQL al actualizar el socio estándar.");
         }
     }
     //Metodo para eliminar el socio estandar.
@@ -101,7 +101,7 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             pst.setInt(1, numeroSocio);
             pst.executeUpdate();
         } catch (SQLException e) {
-            throw new SQLException("Problema al eliminar el socio estándar.");
+            throw new SQLException("Fallo en la consulta SQL al eliminar el socio estándar.");
         }
     }
 }

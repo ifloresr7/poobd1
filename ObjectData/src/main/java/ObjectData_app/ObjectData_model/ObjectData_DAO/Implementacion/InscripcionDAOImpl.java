@@ -34,7 +34,7 @@ public class InscripcionDAOImpl implements InscripcionDAO {
                 inscripciones.add(inscripcion);
             }
         } catch (SQLException e) {
-            throw new SQLException("No se han podido obtener todas las inscripciones.");
+            throw new SQLException("Fallo en la consulta SQL al obtener todas las inscripciones.");
         }
         // Se devuelve la lista de inscripciones obtenida
         return inscripciones;
@@ -65,7 +65,7 @@ public class InscripcionDAOImpl implements InscripcionDAO {
             }
         } catch (Exception e) {
             // Se lanza una SQLException en caso de error, indicando el problema
-            throw new SQLException("Fallo al obtener todas las inscripciones para el socio con número: " + numeroSocio);
+            throw new SQLException("Fallo en la consulta SQL al obtener todas las inscripciones para el socio con número: " + numeroSocio);
         }
         // Se devuelve la lista de inscripciones obtenida
         return inscripciones;
@@ -86,11 +86,11 @@ public class InscripcionDAOImpl implements InscripcionDAO {
             pst.executeUpdate();
         } catch (SQLException e) {
             // Lanzar una SQLException en caso de error
-            throw new SQLException("Fallo al crear la inscripción.");
+            throw new SQLException("Fallo en la consulta SQL al crear la inscripción.");
         }
     }
     @Override
-    public void eliminarExcursion(int numeroInscripcion) throws SQLException {
+    public void eliminarInscripcion(int numeroInscripcion) throws SQLException {
         try (
             Connection con = ConexionBD.obtenerConexion();
             PreparedStatement pst = con.prepareStatement("DELETE FROM inscripcion WHERE numeroInscripcion=?")
@@ -101,7 +101,7 @@ public class InscripcionDAOImpl implements InscripcionDAO {
             pst.executeUpdate();
         } catch (SQLException e) {
             // Lanzar una SQLException en caso de error
-            throw new SQLException("Fallo al eliminar la inscripción con número: " + numeroInscripcion);
+            throw new SQLException("Fallo en la consulta SQL al eliminar la inscripción con número: " + numeroInscripcion);
         }
     }
 }

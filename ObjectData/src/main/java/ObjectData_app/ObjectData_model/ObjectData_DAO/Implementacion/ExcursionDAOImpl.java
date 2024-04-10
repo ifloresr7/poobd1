@@ -32,7 +32,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
                 excursiones.add(excursion); // Se agrega el objeto ExcursionModel a la lista de excursiones
             }
         } catch (SQLException e) { // Si ocurre alguna excepción durante el proceso...
-            throw new SQLException("No se han podido obtener las excursiones."); // Se lanza una excepción indicando el error
+            throw new SQLException("Fallo en la consulta SQL al obtener las excursiones."); // Se lanza una excepción indicando el error
         }
         return excursiones; // Se devuelve la lista de excursiones obtenidas
     }
@@ -58,7 +58,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
                 }
             }
         } catch (SQLException e) { // Si ocurre alguna excepción durante el proceso...
-            throw new SQLException("No se ha podido obtener las excursión mediante en número de excursión: " + numeroExcursion); 
+            throw new SQLException("Fallo en la consulta SQL al obtener las excursión mediante en número de excursión: " + numeroExcursion); 
         }
         return excursion; // Se devuelve la excursión encontrada
     }
@@ -74,7 +74,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
             pst.setDouble(5, excursion.getPrecioInscripcion()); // Se establece el valor del quinto parámetro 'precioInscripcion' en la consulta preparada
             pst.executeUpdate(); // Se ejecuta la consulta para insertar la nueva excursión
         } catch (SQLException e) { // Si ocurre una excepción durante el proceso...
-            throw new SQLException("No se ha podido crear la excursión."); // Se lanza una excepción indicando el error
+            throw new SQLException("Fallo en la consulta SQL al crear la excursión."); // Se lanza una excepción indicando el error
         }
     }
     @Override
@@ -85,7 +85,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
             pst.setInt(1, numeroExcursion); // Se establece el valor del parámetro 'numeroExcursion' en la consulta preparada
             pst.executeUpdate(); // Se ejecuta la consulta para eliminar la excursión
         } catch (SQLException e) { // Si ocurre una excepción durante el proceso...
-            throw new SQLException("Error al eliminar la excursión."); // Se lanza una excepción indicando el error
+            throw new SQLException("Fallo en la consulta SQL al eliminar la excursión."); // Se lanza una excepción indicando el error
         }
     }    
 }

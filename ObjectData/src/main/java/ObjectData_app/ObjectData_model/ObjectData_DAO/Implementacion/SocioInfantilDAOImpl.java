@@ -29,7 +29,7 @@ public class SocioInfantilDAOImpl implements SocioInfantilDAO {
                 socios.add(socio); // Se agrega el objeto SocioInfantilModel a la lista de socios infantiles
             }
         } catch (Exception e) { // Si ocurre alguna excepción durante el proceso...
-            throw new SQLException("Problema al obtener los socios infantiles."); // Se lanza una excepción indicando el error
+            throw new SQLException("Fallo en la consulta SQL al obtener los socios infantiles."); // Se lanza una excepción indicando el error
         }
         return socios; // Se devuelve la lista de socios infantiles encontrados
     }
@@ -55,7 +55,7 @@ public class SocioInfantilDAOImpl implements SocioInfantilDAO {
                 socio = null; // Si no hay resultados, se asigna null a la variable socio
             }
         } catch (Exception e) { // Si ocurre alguna excepción durante el proceso...
-            throw new SQLException("Problema al obtener el socio por nímero de socio: " + numeroSocio); // Se lanza una excepción indicando el error
+            throw new SQLException("Fallo en la consulta SQL al obtener el socio por nímero de socio: " + numeroSocio); // Se lanza una excepción indicando el error
         }
         return socio; // Se devuelve el objeto SocioInfantilModel encontrado (o null si no se encontró ningún socio infantil con el número de socio proporcionado)
     }
@@ -70,7 +70,7 @@ public class SocioInfantilDAOImpl implements SocioInfantilDAO {
             pst.setInt(3, socio.getNumeroSocioPadreMadre()); // Se establece el valor del parámetro 'NumeroSocioPadreMadre' en la consulta preparada
             pst.executeUpdate(); // Se ejecuta la consulta para insertar el nuevo socio infantil
         } catch (SQLException e) { // Si ocurre una excepción durante el proceso...
-            throw new SQLException("Problema al crear el socio infantil."); // Se lanza una excepción indicando el error
+            throw new SQLException("Fallo en la consulta SQL al crear el socio infantil."); // Se lanza una excepción indicando el error
         }
     }
 
@@ -83,7 +83,7 @@ public class SocioInfantilDAOImpl implements SocioInfantilDAO {
             pst.setInt(1, numeroSocio); // Se establece el valor del parámetro 'numeroSocio' en la consulta preparada
             pst.executeUpdate(); // Se ejecuta la consulta para eliminar el socio infantil
         } catch (SQLException e) { // Si ocurre una excepción durante el proceso...
-            throw new SQLException("Problema al eliminar el socio infantil."); // Se lanza una excepción indicando el error
+            throw new SQLException("Fallo en la consulta SQL al eliminar el socio infantil."); // Se lanza una excepción indicando el error
         }
     }
 }

@@ -156,7 +156,7 @@ public class InscripcionController {
     }
 
     public static void eliminarInscripcion() {
-        String[] listadoInscripciones = null;
+        String listadoInscripciones = "";
         boolean inscripcionEliminada = false;
 
         try {
@@ -164,9 +164,7 @@ public class InscripcionController {
         } catch (SQLException e) {
             RespView.excepcionesControllerView(e.getMessage());
         }
-
-        String listado = String.join("\n", listadoInscripciones);
-        RespView.respuestaControllerView("Listado de todas las inscripciones \n" + listado);
+        RespView.respuestaControllerView(listadoInscripciones);
         String retorno = InscView.formEliminarInscripcionView(listadoInscripciones);
         int num;
         try {
@@ -179,7 +177,7 @@ public class InscripcionController {
         try {
             inscripcionEliminada = InscripcionModel.eliminarInscripcionNumero(num);
         } catch (SQLException e) {
-
+            RespView.excepcionesControllerView(e.getMessage());
         }
         if (inscripcionEliminada) {
             RespView.respuestaControllerView("La inscripción ha sido eliminada exitosamente.");

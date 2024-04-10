@@ -137,44 +137,40 @@ public class InscripcionModel {
         }
         return new String[] { listado.toString(), String.valueOf(contador) };
     }
-
-    public static boolean eliminarInscripcionNumero(int num) throws SQLException {
+    
+    public static boolean eliminarInscripcionNumero(int numeroInscripcion) throws SQLException {
+        //Atributos
+        Date newDate = new Date();
         // Se llama al DAO para obtener las inscripciones y las excursiones desde MySQL
         try {
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
             excursiones = excursionDAO.obtenerTodasExcursiones();
         } catch (SQLException e) {
-            // Implementar logica para devolver el error.
-            throw new SQLException("No se han podido obtener los datos necesarios.");
+            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         for (int i = 0; i < inscripciones.size(); i++) {
             InscripcionModel inscripcion = inscripciones.get(i);
-            if (inscripcion.getNumeroInscripcion() == num) {
+            if (inscripcion.getNumeroInscripcion() == numeroInscripcion) {
                 // Obtener el número de excursión de la inscripción
-                int numExcursion = inscripcion.getNumeroExcursion();
+                int numeroExcursion = inscripcion.getNumeroExcursion();
                 // Buscar la fecha de la excursión correspondiente en el array de excursiones
                 for (ExcursionModel excursion : excursiones) {
-                    if (excursion.getNumeroExcursion() == numExcursion) {
-                        // Comparar la fecha de inscripción con la fecha de la excursión
-                        if (inscripcion.getFechaInscripcion().before(excursion.getFecha())) {
-                            inscripciones.remove(i); // Eliminar la inscripción de la lista
+                    // Comprueba que el numero de excursion coincida y adema compara con la fecha de la excursión
+                    System.out.println("- " + excursion.getFecha() + " . " + newDate);
+                    if ((excursion.getNumeroExcursion() == numeroExcursion) && (newDate.before(excursion.getFecha()))) {
+                        try {
+                            inscripcionDAO.eliminarInscripcion(numeroInscripcion);
                             return true;
-                        } else {
-                            // Si la fecha de inscripción es después de la fecha de la excursión, no se
-                            // puede eliminar
-                            return false;
+                        } catch (SQLException e) {
+                            throw new SQLException(e.getMessage());
                         }
                     }
                 }
-                // Si no se encontró la excursión correspondiente, no se puede determinar si la
-                // inscripción se puede eliminar
-                return false;
             }
         }
         // Si no se encontró la inscripción con el número proporcionado
         return false;
     }
-
     // Metodo para crear inscripcion
     public static String crearInscripcion(InscripcionModel inscripcion) throws SQLException {
         try {
@@ -185,7 +181,7 @@ public class InscripcionModel {
         }
     }
 
-    public static String[] obtenerListadoInscripciones() throws SQLException {
+    public static String obtenerListadoInscripciones() throws SQLException {
         // Se llama al DAO para obtener las inscripciones desde MySQL
         try {
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
@@ -195,15 +191,15 @@ public class InscripcionModel {
         }
         // Atributos
         int contador = 0;
-        String listado = "Listado de Inscripciones:";
+        String listado = "Listado de Inscripciones:\n";
         for (InscripcionModel inscripcion : inscripciones) {
             contador++;
-            listado += contador + ". " + inscripcion.toString();
+            listado += "\n   -" + contador + ". " + inscripcion.toString();
         }
         if (contador == 0) {
             listado += ("- Sin datos.");
         }
-        return new String[] { listado };
+        return listado;
     }
 
     // Metodo para obtener inscripciones de un socio mediante numeroSocio
