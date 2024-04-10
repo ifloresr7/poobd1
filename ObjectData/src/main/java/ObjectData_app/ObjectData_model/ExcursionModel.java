@@ -89,7 +89,7 @@ public class ExcursionModel {
         try {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getDescripcion();
         } catch (Exception e) {
-            return e.getMessage(); // Devolver un mensaje de error si no se encuentra la excursión
+            throw new SQLException(e.getMessage()); // Devolver un mensaje de error si no se encuentra la excursión
         }
     }
 
