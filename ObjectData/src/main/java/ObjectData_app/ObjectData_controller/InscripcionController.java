@@ -167,18 +167,20 @@ public class InscripcionController {
         RespView.respuestaControllerView(listadoInscripciones);
         String retorno = InscView.formEliminarInscripcionView(listadoInscripciones);
         int num;
-        try {
+        // Manejar el caso en que el usuario no ingrese un número válido
+        if(retorno.matches("\\d+")) {
             num = Integer.parseInt(retorno);
-        } catch (NumberFormatException e) {
-            // Manejar el caso en que el usuario no ingrese un número válido
+        } else {
             RespView.excepcionesControllerView("El número de inscripción ingresado no es válido.");
             return;
         }
+
         try {
             inscripcionEliminada = InscripcionModel.eliminarInscripcionNumero(num);
         } catch (SQLException e) {
             RespView.excepcionesControllerView(e.getMessage());
         }
+        
         if (inscripcionEliminada) {
             RespView.respuestaControllerView("La inscripción ha sido eliminada exitosamente.");
         } else {
@@ -193,18 +195,17 @@ public class InscripcionController {
         if (retorno != null && retorno.length == 2) {
             String fechaInicio = retorno[0];
             String fechaFin = retorno[1];
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date fechaI = null, fechaF = null;
             if (!fechaInicio.matches("\\d{4}-\\d{2}-\\d{2}") || !fechaFin.matches("\\d{4}-\\d{2}-\\d{2}")) {
                 RespView.excepcionesControllerView("Formato de fecha inválido. Se esperaba yyyy-MM-dd.");
+            } else {
+                try { // Parsear las fechas de inicio y fin
+                fechaI = sdf.parse(fechaInicio);
+                fechaF = sdf.parse(fechaFin);
+                } catch (ParseException e) {
+                    RespView.excepcionesControllerView("No se han podido parsear las fechas.");
             }
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); // Nuevo formato de fecha
-        // Parsear las fechas de inicio y fin
-        Date fechaI = null, fechaF = null;
-        try {
-            fechaI = sdf.parse(fechaInicio);
-            fechaF = sdf.parse(fechaFin);
-        } catch (ParseException e) {
-            // Mensaje de error si hay un problema con el formato de fecha
-            RespView.excepcionesControllerView("No se han podido parsear las fechas.");    
         }
 
             try {
@@ -223,5 +224,4 @@ public class InscripcionController {
             RespView.excepcionesControllerView("Problema al obtener las fechas de filtrado.");
         }
     }
-
 }

@@ -113,7 +113,7 @@ public class ExcursionModel {
             return e.getMessage();
         }
         // Atributos.
-        String listado = "";
+        StringBuilder listado = new StringBuilder();
         int contador = 0;
         // Primero comprueba que haya excursiones dentro del ArrayList
         for (ExcursionModel excursion : excursiones) {
@@ -121,16 +121,17 @@ public class ExcursionModel {
             // imprime la info de la misma
             if (!excursion.fecha.before(fechaInicio) && !excursion.fecha.after(fechaFin)) {
                 contador++;
-                listado += "\n    - " + contador + ". Código: " + excursion.numeroExcursion + " | Descripción: "
-                        + excursion.descripcion + " | Fecha: "
-                        + excursion.fecha + " | Número de días: " + excursion.numeroDias
-                        + " | Precio de inscripción: " + excursion.precioInscripcion;
+                listado.append("\n- ").append(contador).append(". Código: ").append(excursion.numeroExcursion)
+                .append(" | Descripción: ").append(excursion.descripcion)
+                .append(" | Fecha: ").append(excursion.fecha)
+                .append(" | Número de días: ").append(excursion.numeroDias)
+                .append(" | Precio de la inscripción: ").append(excursion.precioInscripcion);
             }
         }
         if (contador == 0) {
-            listado = "- Sin datos.";
+            listado.append("\n  - Sin datos.");
         }
-        return listado;
+        return listado.toString();
     }
 
     // Metodo para mostrar una lista de excursiones
@@ -144,17 +145,17 @@ public class ExcursionModel {
             return new String[] { "Fallo al obtener las excursiones: " + e.getMessage() };
         }
         // Atributos
-        String listado = "";
+        StringBuilder listado = new StringBuilder();
         int contador = 0;
         for (ExcursionModel excursion : excursiones) {
             contador++;
-            listado += "\n    - " + contador + ". Descripción: " + excursion.getDescripcion() + " | Precio: "
-                    + excursion.getPrecioInscripcion();
+            listado.append("\n- ").append(contador).append(". Descripción: ").append(excursion.getDescripcion())
+            .append(" | Precio: ").append(excursion.getPrecioInscripcion());
         }
         if (contador == 0) {
-            listado = "- Sin datos.";
+            listado.append("\n  - Sin datos.");
         }
-        return new String[] { listado, String.valueOf(contador) };
+        return new String[] { listado.toString(), String.valueOf(contador) };
     }
 
     // Metodo para obtener la excursion mediante seleccion de lista

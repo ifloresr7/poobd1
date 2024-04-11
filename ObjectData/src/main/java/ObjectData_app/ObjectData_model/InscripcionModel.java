@@ -129,7 +129,7 @@ public class InscripcionModel {
                         .append(" | Excursión: ").append(nombreExcursion)
                         .append(" | Fecha de inscripción: ").append(inscripcion.fechaInscripcion)
                         .append(" | Precio de la inscripción: ").append(precio)
-                        .append("\n").append(cadenaDescuento);
+                        .append("\n").append(cadenaDescuento);                        
             }
         }
         if (contador == 0) {
