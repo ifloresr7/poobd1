@@ -188,7 +188,7 @@ public class InscripcionModel {
         }
         // Atributos
         int contador = 0;
-        String listado = "Listado de Inscripciones:\n";
+        String listado = "Listado de Inscripciones:\n"; //No se añade StringBuilder por la simplicidad del output
         for (InscripcionModel inscripcion : inscripciones) {
             contador++;
             listado += "\n   -" + contador + ". " + inscripcion.toString();
@@ -209,7 +209,7 @@ public class InscripcionModel {
             throw new SQLException("No se han podido obtener las inscripciones del socio seleccionado.");
         }
         double total = 0.0;
-        String listado = "\n    - Lista de inscripciones del socio: ";
+        StringBuilder listado = new StringBuilder("\n    - Lista de inscripciones del socio: ");
         int contador = 0;
         for (InscripcionModel inscripcion : inscripciones) {
             contador++;
@@ -217,15 +217,15 @@ public class InscripcionModel {
                     .getPrecioInscripcion();
             String descripcionExcursion = ExcursionModel
                     .obtenerExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion()).getDescripcion();
-            listado += "\n      - " + contador + ". ID Inscripción: " + inscripcion.getNumeroInscripcion()
-                    + " | Precio excursion: " + precioExcursion + " | Descripcion excursion: "
-                    + descripcionExcursion;
+                    listado.append("\n- ").append(contador).append(". ID Inscripción: ").append(inscripcion.getNumeroInscripcion())
+                    .append(" | Precio excursion: ").append(precioExcursion)
+                    .append(" | Descripcion excursion: ").append(descripcionExcursion);
             total += precioExcursion;
         }
         if (contador == 0) {
-            listado = " - Sin inscripciones.";
+            listado.append("\n - Sin inscripciones.");
         }
-        return new String[] { listado, String.valueOf(total) };
+        return new String[] { listado.toString(), String.valueOf(total) };
     }
 
     // Metodo para comprobar si un usuario tiene inscripciones
