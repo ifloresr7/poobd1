@@ -41,17 +41,13 @@ public class InscripcionController {
         if (retorno == null || retorno.isEmpty()) {
             RespView.respuestaControllerView("Operación cancelada.");
             return;
-        }
-
-        // Si se solicita crear un nuevo socio
-        if (retorno.equals("0")) {
+        // Pregunta si el socio existe; NO: pasa a crear uno nuevo
+        // SI: Comprueba si cumple con requisitos y parsea
+        } else if (retorno.equals("0")) {
             SocioController.crearNuevoSocio();
             AppController.gestionInscripciones();
             return;
-        }
-
-        // Si el retorno no es "N", se supone que contiene el número de socio
-        if (retorno.matches("\\d+")) {
+        } else if (retorno.matches("\\d+")) {
             numeroSocio = Integer.parseInt(retorno);
         } else {
             RespView.excepcionesControllerView("Debes introducir un valor númerico.");

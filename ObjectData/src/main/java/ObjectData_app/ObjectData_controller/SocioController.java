@@ -42,17 +42,19 @@ public class SocioController {
         boolean opcionValida = false;
         do {
             String retorno = SociView.crearNuevoSocioView();
-            try {
-                opcion = Integer.parseInt(retorno);
-            } catch (NumberFormatException error) {
+            if (retorno.matches("\\d+")) {
+                opcion = Integer.parseInt(retorno);            
+            }else{
                 RespView.excepcionesControllerView("Debe insertar un valor numerico valido.");
                 continue;
             }
+
             if (opcion >= 1 && opcion <= 4) {
                 opcionValida = true;
             } else {
                 RespView.excepcionesControllerView("Debe seleccionar una opción valida.");
             }
+
         } while (!opcionValida);
         // Se carga el formulario de registro de un nuevo socio.
         switch (opcion) {
@@ -79,7 +81,7 @@ public class SocioController {
         String NIF; // El segundo parametro del array es el DNI
         int numeroSocio; // Para almacenar el numero de socio.
         boolean todoOk = false;
-        //Imprimitos el titulo de la función.
+        //Imprimimos el titulo de la función.
         RespView.tituloDeLaFuncion("-- FORMULARIO PARA CREAR UN SOCIO ESTANDAR --");
         //Creamos el bucle para el metodo.
         do{
@@ -88,7 +90,6 @@ public class SocioController {
             //Si nombre esta vacio salimos.
             if(nombre.isEmpty()){
                 RespView.respuestaControllerView("Operación cancelada.");
-                //Volvemos al menu de gestion de socios.
                 AppController.gestionSocios();
             }
             //Pedimos el NIF
@@ -96,7 +97,6 @@ public class SocioController {
             //Si nombre esta vacio salimos.
             if(NIF.isEmpty()){
                 RespView.respuestaControllerView("Operación cancelada.");
-                //Volvemos al menu de gestion de socios.
                 AppController.gestionSocios();
             }
             //Obtenemos el numero de socio.
@@ -135,11 +135,8 @@ public class SocioController {
             //Si retorno esta vacio salimos.
             if(retorno.isEmpty()){
                 RespView.respuestaControllerView("Operación cancelada.");
-                //Volvemos al menu de gestion de socios.
                 AppController.gestionSocios();
-            }
-            // Verifica si el retorno es un número entero
-            if (retorno.matches("\\d+")) {
+            }else if (retorno.matches("\\d+")) { // Verifica si el retorno es un número entero
                 numeroSocio = Integer.parseInt(retorno);
                 todoOk = true;
             } else {
@@ -188,7 +185,6 @@ public class SocioController {
             //Si nombre esta vacio salimos.
             if(nombre.isEmpty()){
                 RespView.respuestaControllerView("Operación cancelada.");
-                //Volvemos al menu de gestion de socios.
                 AppController.gestionSocios();
             }
             //Pedimos el NIF
@@ -196,7 +192,6 @@ public class SocioController {
             //Si NIF esta vacio salimos.
             if(NIF.isEmpty()){
                 RespView.respuestaControllerView("Operación cancelada.");
-                //Volvemos al menu de gestion de socios.
                 AppController.gestionSocios();
             }
             // Pido el listado de federaciones y el numero de federaciones disponibles;
@@ -216,9 +211,7 @@ public class SocioController {
                     RespView.respuestaControllerView("Operación cancelada.");
                     // No se agrega al socio, así que simplemente salimos del bucle.
                     break;
-                }
-                // Verifica si la opción es un número entero
-                if (opcion.matches("\\d+")) {
+                }else if (opcion.matches("\\d+")) { // Verifica si la opción es un número entero
                     seleccion = Integer.parseInt(opcion);
                 } else {
                     // Si no es un número entero, muestra un mensaje de error
@@ -264,7 +257,7 @@ public class SocioController {
         String nombre; // El primer parametro del array sera el nombre
         int numeroSocio; // Para almacenar el numero de socio.
         boolean todoOk = false;
-        //Imprimitos el titulo de la función.
+        //Imprimimos el titulo de la función.
         RespView.tituloDeLaFuncion("-- FORMULARIO PARA CREAR UN SOCIO INFANTIL --");
         //Bucle para la logica de comprobacion de datos.
         do{
@@ -273,11 +266,10 @@ public class SocioController {
             //Si nombre esta vacio salimos.
             if(nombre.isEmpty()){
                 RespView.respuestaControllerView("Operación cancelada.");
-                //Volvemos al menu de gestion de socios.
                 AppController.gestionSocios();
             }
+
         }while(!todoOk);
-        //
         todoOk = false;
         do{
             // Pedimos el codigo del tutor legal
@@ -285,11 +277,8 @@ public class SocioController {
             // Creamos la excepción para verificar el tipo de dato introducido.
             if (retorno.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
-                //Volvemos al menu de gestion de socios.
                 AppController.gestionSocios();
-            }
-            // Verifica si la opción es un número entero
-            if (retorno.matches("\\d+")) {
+            } else if (retorno.matches("\\d+")) { // Verifica si la opción es un número entero
                 numeroSocioTutorLegal = Integer.parseInt(retorno);
                 todoOk = true;
             } else {
@@ -331,9 +320,7 @@ public class SocioController {
                 RespView.respuestaControllerView("Operación cancelada.");
                 //Volvemos al menu de gestion de socios.
                 AppController.gestionSocios();
-            }
-            // Comprueba que el valor introducido es un numero entero.
-            if(numeroSocioReturn.matches("\\d+")){
+            }else if(numeroSocioReturn.matches("\\d+")){ // Comprueba que el valor introducido es un numero entero.
                 numeroSocio = Integer.parseInt(numeroSocioReturn);
             }else{
                 RespView.excepcionesControllerView("El número de usuario debe ser un entero.");
@@ -453,11 +440,8 @@ public class SocioController {
             // Verificar si la cadena retorno está vacía
             if (retorno.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
-                //Volvemos al menu de gestion de socios.
                 AppController.gestionSocios();
-            }
-            // Verifica si el retorno es un número entero
-            if (retorno.matches("\\d+")) {
+            } else if (retorno.matches("\\d+")) { // Verifica si el retorno es un número entero
                 numeroSocio = Integer.parseInt(retorno);
             } else {
                 // Si no es un número entero, muestra un mensaje de error
