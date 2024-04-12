@@ -103,37 +103,35 @@ public abstract class SocioModel {
             throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         // Comprobar en la lista de socios estándar
-        String listado = "";
+        StringBuilder listado = new StringBuilder();
         int contador = 0;
         // Comprobar en la lista de socios federados
         for (SocioEstandarModel socio : sociosEstandar) {
-            contador++;
-            listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
-                    + socio.getNombre() + " | Tipo de socio: Estandar";
+            contador++;       
+            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio()).append(" | Nombre: ").append(socio.getNombre()).append(" | Tipo de socio: Estandar");
         }
         // Comprobar en la lista de socios federados
         for (SocioFederadoModel socio : sociosFederados) {
             contador++;
-            listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
-                    + socio.getNombre() + " | Tipo de socio: Federado";
+            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio()).append(" | Nombre: ").append(socio.getNombre()).append(" | Tipo de socio: Federado");
         }
         // Añadir usuarios a la lista
         for (SocioInfantilModel socio : sociosInfantiles) {
             contador++;
-            listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
-                    + socio.getNombre() + " | Tipo de socio: Infantil";
+            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio()).append(" | Nombre: ").append(socio.getNombre()).append(" | Tipo de socio: Infantil");
+        }
 
-        }
         if (contador == 0) {
-            listado = "\n  - Sin datos.";
+            listado.append("\n  - Sin datos.");
         }
-        return new String[] { listado, String.valueOf(contador) };
+
+        return new String[] { listado.toString(), String.valueOf(contador) };
     }
 
     //Metodo paras listar los socios estandar.
     public static String[] listarSociosEstandarModel() throws SQLException {
         //Atributos.
-        String listado = "";
+        StringBuilder listado = new StringBuilder();
         int contador = 0;        
         //Se obtienen los datos desde el DAO.
         try{
@@ -143,13 +141,12 @@ public abstract class SocioModel {
         }
         for (SocioEstandarModel socio : sociosEstandar) {
             contador++;
-            listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
-                    + socio.getNombre() + " | NIF: " + socio.getNIF() + " | Seguro: " + socio.seguro.getTipo();
+            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio()).append(" | Nombre: ").append(socio.getNombre()).append(" | NIF: ").append(socio.getNIF()).append(" | Seguro: ").append(socio.seguro.getTipo());
         }
         if (contador == 0) {
-            listado = "\n  - Sin datos.";
+            listado.append("\n  - Sin datos.");
         }
-        return new String[] { listado, String.valueOf(contador) };
+        return new String[] { listado.toString(), String.valueOf(contador) };
     }
 
     //Metodo para listar los socios federados.
@@ -161,18 +158,16 @@ public abstract class SocioModel {
             throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         //Atributos.
-        String listado = "";
+        StringBuilder listado = new StringBuilder();
         int contador = 0;
         for (SocioFederadoModel socio : sociosFederados) {
             contador++;
-            listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
-                    + socio.getNombre() + " | NIF: " + socio.getNIF() + " | Federación: "
-                    + socio.federacion.getNombre();
+            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio()).append(" | Nombre: ").append(socio.getNombre()).append(" | NIF: ").append(socio.getNIF()).append(" | Seguro: ").append(socio.federacion.getNombre());
         }
         if (contador == 0) {
-            listado = "\n  - Sin datos.";
+            listado.append("\n  - Sin datos.");
         }
-        return new String[] { listado, String.valueOf(contador) };
+        return new String[] { listado.toString(), String.valueOf(contador) };
     }
 
     //Metodo para listar los socios infantiles.
@@ -184,17 +179,16 @@ public abstract class SocioModel {
             throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         //Atributos.
-        String listado = "";
+        StringBuilder listado = new StringBuilder();
         int contador = 0;
         for (SocioInfantilModel socio : sociosInfantiles) {
             contador++;
-            listado += "\n    - " + contador + ". Numero Socio: " + socio.getNumeroSocio() + " | Nombre: "
-                    + socio.getNombre() + " | Numero socio parental: " + socio.getNumeroSocioPadreMadre();
+            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio()).append(" | Nombre: ").append(socio.getNombre()).append(" | Numero socio parental: ").append(socio.getNumeroSocioPadreMadre());
         }
         if (contador == 0) {
-            listado = "\n  - Sin datos.";
+            listado.append("\n  - Sin datos.");
         }
-        return new String[] { listado, String.valueOf(contador) };
+        return new String[] { listado.toString(), String.valueOf(contador) };
     }
 
     //Metodo para obtener el tipo de socio por numero de socio.
@@ -219,7 +213,7 @@ public abstract class SocioModel {
                 return "Infantil";
             }
         }
-        // Buscar en el array de socios infantiles
+        // Buscar en el array de socios estandar
         for (SocioEstandarModel socio : sociosEstandar) {
             if (socio.getNumeroSocio() == numeroSocio) {
                 return "Estandar";
