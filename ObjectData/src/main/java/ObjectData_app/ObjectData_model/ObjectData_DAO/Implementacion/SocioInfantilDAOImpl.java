@@ -33,7 +33,7 @@ public class SocioInfantilDAOImpl implements SocioInfantilDAO {
         }
         return socios; // Se devuelve la lista de socios infantiles encontrados
     }
-
+    
     //Metodo para obtener el socio infantil
     @Override
     public SocioInfantilModel obtenerPorNumeroSocio(int numeroSocio) throws SQLException {
