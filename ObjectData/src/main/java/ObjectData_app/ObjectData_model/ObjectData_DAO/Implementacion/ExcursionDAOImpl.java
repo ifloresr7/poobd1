@@ -11,11 +11,11 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO.ConexionBD;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.ExcursionDAO;
 
 public class ExcursionDAOImpl implements ExcursionDAO {
-    Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
-    PreparedStatement pst = null; //De decrara la variable que almacenara la consula.
     //Metodo para obtener la lista de excursiones
     @Override
     public ArrayList<ExcursionModel> obtenerTodasExcursiones() throws SQLException {
+        Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
+        PreparedStatement pst = null; //De decrara la variable que almacenara la consula.
         con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
         ArrayList<ExcursionModel> excursiones = new ArrayList<>(); // Se crea una lista para almacenar las excursiones obtenidas
         try{
@@ -52,6 +52,8 @@ public class ExcursionDAOImpl implements ExcursionDAO {
     // Método para obtener una excursión por el número de excursión
     @Override
     public ExcursionModel obtenerPorNumeroExcursion(int numeroExcursion) throws SQLException {
+        Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
+        PreparedStatement pst = null; //De decrara la variable que almacenara la consula.
         con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
         ExcursionModel excursion = null; // Se inicializa la variable que almacenará la excursión encontrada
         try{
@@ -88,6 +90,8 @@ public class ExcursionDAOImpl implements ExcursionDAO {
     }
     @Override
     public void crearExcursion(ExcursionModel excursion) throws SQLException {
+        Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
+        PreparedStatement pst = null; //De decrara la variable que almacenara la consula.
         con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
         try{
             pst = con.prepareStatement("INSERT INTO excursion (numeroExcursion, descripcion, fecha, numeroDias, precioInscripcion) VALUES (?, ?, ?, ?, ?)"); // Se prepara una consulta SQL para insertar una nueva excursión
@@ -115,6 +119,8 @@ public class ExcursionDAOImpl implements ExcursionDAO {
     }
     @Override
     public void eliminarExcursion(int numeroExcursion) throws SQLException {
+        Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
+        PreparedStatement pst = null; //De decrara la variable que almacenara la consula.
         con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
         try{
             pst = con.prepareStatement("DELETE FROM excursion WHERE numeroExcursion=?"); // Se prepara una consulta SQL para eliminar la excursión con el número de excursión proporcionado
