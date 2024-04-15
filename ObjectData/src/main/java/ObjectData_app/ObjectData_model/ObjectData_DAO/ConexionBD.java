@@ -2,11 +2,10 @@ package ObjectData_app.ObjectData_model.ObjectData_DAO;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.SQLException;
 
 public class ConexionBD {
     // Método para establecer la conexión
-    public static Connection obtenerConexion() throws SQLException {
+    public static Connection obtenerConexion(){
         try{
             String hostname = "62.72.37.1";
             String port = "3306";
@@ -16,7 +15,8 @@ public class ConexionBD {
             String url = "jdbc:mysql://" + hostname + ":" + port + "/" + database;
             return DriverManager.getConnection(url, username, password);
         } catch (Exception e){
-            throw e;
+            System.out.println("null");
         }
+        return null;
     }
 }
