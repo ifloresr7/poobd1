@@ -15,10 +15,10 @@ public class InscripcionDAOImpl implements InscripcionDAO {
     public ArrayList<InscripcionModel> obtenerTodasLasInscripciones() throws SQLException {
         ArrayList<InscripcionModel> inscripciones = new ArrayList<>(); // Se crea una lista para almacenar las inscripciones
         // Se inicia un bloque try-with-resources para manejar la conexión y los recursos JDBC
-        try(
-            Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM inscripcion") // Se prepara la consulta SQL para seleccionar inscripciones por número de socio
-        ) {
+        Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
+        PreparedStatement pst = con.prepareStatement("SELECT * FROM inscripcion") // Se prepara la consulta SQL para seleccionar inscripciones por número de socio
+        con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
+        try {
             // Se ejecuta la consulta SQL y se obtiene un conjunto de resultados
             ResultSet respuestaBD = pst.executeQuery();
             // Se itera sobre el conjunto de resultados
@@ -33,9 +33,24 @@ public class InscripcionDAOImpl implements InscripcionDAO {
                 // Se agrega cada objeto InscripcionModel a la lista de inscripciones
                 inscripciones.add(inscripcion);
             }
-        } catch (SQLException e) {
+        }
+        catch (SQLException e) 
+        {
+            if (con != null) 
+            {
+            con.rollback();  // Si algo sale mal, revertimos la transacción
+            }
             throw new SQLException("Fallo en la consulta SQL al obtener todas las inscripciones.");
         }
+     finally {
+        if (pst != null) {
+            pst.close(); //Se cierra el statement.
+        }
+        if (con != null) {
+            con.setAutoCommit(true);  // Revertimos a la configuración por defecto
+            con.close(); //Se cierra la conexión de la base de datos.                
+        }
+    }
         // Se devuelve la lista de inscripciones obtenida
         return inscripciones;
     }
@@ -43,10 +58,11 @@ public class InscripcionDAOImpl implements InscripcionDAO {
     public ArrayList<InscripcionModel> obtenerTodasPorNumeroSocio(int numeroSocio) throws SQLException {
         ArrayList<InscripcionModel> inscripciones = new ArrayList<>(); // Se crea una lista para almacenar las inscripciones
         // Se inicia un bloque try-with-resources para manejar la conexión y los recursos JDBC
-        try(
-            Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
-            PreparedStatement pst = con.prepareStatement("SELECT * FROM inscripcion WHERE numeroSocio=?") // Se prepara la consulta SQL para seleccionar inscripciones por número de socio
-        ) {
+        Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
+        PreparedStatement pst = con.prepareStatement("SELECT * FROM inscripcion WHERE numeroSocio=?") // Se prepara la consulta SQL para seleccionar inscripciones por número de socio
+        con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
+        
+        try{
             pst.setInt(1, numeroSocio); // Se establece el número de socio en la consulta preparada
             // Se ejecuta la consulta SQL y se obtiene un conjunto de resultados
             try (ResultSet respuestaBD = pst.executeQuery()) {
@@ -65,18 +81,33 @@ public class InscripcionDAOImpl implements InscripcionDAO {
             }
         } catch (Exception e) {
             // Se lanza una SQLException en caso de error, indicando el problema
+            if (con != null) 
+            {
+            con.rollback();  // Si algo sale mal, revertimos la transacción
+            }
+            
             throw new SQLException("Fallo en la consulta SQL al obtener todas las inscripciones para el socio con número: " + numeroSocio);
         }
         // Se devuelve la lista de inscripciones obtenida
+        finally {
+            if (pst != null) {
+                pst.close(); //Se cierra el statement.
+            }
+            if (con != null) {
+                con.setAutoCommit(true);  // Revertimos a la configuración por defecto
+                con.close(); //Se cierra la conexión de la base de datos.                
+            }
+        }
         return inscripciones;
     }
     @Override
     public void crearInscripcion(InscripcionModel inscripcion) throws SQLException {
         // Establecer la conexión a la base de datos
-        try (Connection con = ConexionBD.obtenerConexion();
+        Connection con = ConexionBD.obtenerConexion();
              // Preparar la sentencia SQL para la inserción de la inscripción
-             PreparedStatement pst = con.prepareStatement("INSERT INTO inscripcion (numeroInscripcion, numeroSocio, numeroExcursion, fechaInscripcion) VALUES (?, ?, ?, ?)")
-        ) {
+        PreparedStatement pst = con.prepareStatement("INSERT INTO inscripcion (numeroInscripcion, numeroSocio, numeroExcursion, fechaInscripcion) VALUES (?, ?, ?, ?)")
+        con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
+        try  {
             // Establecer los valores de los parámetros de la sentencia SQL
             pst.setInt(1, inscripcion.getNumeroInscripcion());
             pst.setInt(2, inscripcion.getNumeroSocio());
@@ -86,22 +117,52 @@ public class InscripcionDAOImpl implements InscripcionDAO {
             pst.executeUpdate();
         } catch (SQLException e) {
             // Lanzar una SQLException en caso de error
+            if (con != null) 
+            {
+            con.rollback();  // Si algo sale mal, revertimos la transacción
+            }
             throw new SQLException("Fallo en la consulta SQL al crear la inscripción.");
+        }
+        finally {
+            if (pst != null) {
+                pst.close(); //Se cierra el statement.
+            }
+            if (con != null) {
+                con.setAutoCommit(true);  // Revertimos a la configuración por defecto
+                con.close(); //Se cierra la conexión de la base de datos.                
+            }
         }
     }
     @Override
     public void eliminarInscripcion(int numeroInscripcion) throws SQLException {
-        try (
-            Connection con = ConexionBD.obtenerConexion();
-            PreparedStatement pst = con.prepareStatement("DELETE FROM inscripcion WHERE numeroInscripcion=?")
-        ) {
+        Connection con = ConexionBD.obtenerConexion();
+        PreparedStatement pst = con.prepareStatement("DELETE FROM inscripcion WHERE numeroInscripcion=?")
+        con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
+        
+        try  
+        {
             // Establecer el número de inscripción como parámetro en la sentencia SQL
             pst.setInt(1, numeroInscripcion);
             // Ejecutar la sentencia SQL para eliminar la inscripción
             pst.executeUpdate();
         } catch (SQLException e) {
             // Lanzar una SQLException en caso de error
+            // Lanzar una SQLException en caso de error
+            if (con != null) 
+            {
+            con.rollback();  // Si algo sale mal, revertimos la transacción
+            }
             throw new SQLException("Fallo en la consulta SQL al eliminar la inscripción con número: " + numeroInscripcion);
         }
+        finally {
+            if (pst != null) {
+                pst.close(); //Se cierra el statement.
+            }
+            if (con != null) {
+                con.setAutoCommit(true);  // Revertimos a la configuración por defecto
+                con.close(); //Se cierra la conexión de la base de datos.                
+            }
+        }
+
     }
 }
