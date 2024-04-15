@@ -16,7 +16,7 @@ public class InscripcionDAOImpl implements InscripcionDAO {
         ArrayList<InscripcionModel> inscripciones = new ArrayList<>(); // Se crea una lista para almacenar las inscripciones
         // Se inicia un bloque try-with-resources para manejar la conexión y los recursos JDBC
         Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
-        PreparedStatement pst = con.prepareStatement("SELECT * FROM inscripcion") // Se prepara la consulta SQL para seleccionar inscripciones por número de socio
+        PreparedStatement pst = con.prepareStatement("SELECT * FROM inscripcion"); // Se prepara la consulta SQL para seleccionar inscripciones por número de socio
         con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
         try {
             // Se ejecuta la consulta SQL y se obtiene un conjunto de resultados
@@ -59,7 +59,7 @@ public class InscripcionDAOImpl implements InscripcionDAO {
         ArrayList<InscripcionModel> inscripciones = new ArrayList<>(); // Se crea una lista para almacenar las inscripciones
         // Se inicia un bloque try-with-resources para manejar la conexión y los recursos JDBC
         Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
-        PreparedStatement pst = con.prepareStatement("SELECT * FROM inscripcion WHERE numeroSocio=?") // Se prepara la consulta SQL para seleccionar inscripciones por número de socio
+        PreparedStatement pst = con.prepareStatement("SELECT * FROM inscripcion WHERE numeroSocio=?"); // Se prepara la consulta SQL para seleccionar inscripciones por número de socio
         con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
         
         try{
@@ -105,7 +105,7 @@ public class InscripcionDAOImpl implements InscripcionDAO {
         // Establecer la conexión a la base de datos
         Connection con = ConexionBD.obtenerConexion();
              // Preparar la sentencia SQL para la inserción de la inscripción
-        PreparedStatement pst = con.prepareStatement("INSERT INTO inscripcion (numeroInscripcion, numeroSocio, numeroExcursion, fechaInscripcion) VALUES (?, ?, ?, ?)")
+        PreparedStatement pst = con.prepareStatement("INSERT INTO inscripcion (numeroInscripcion, numeroSocio, numeroExcursion, fechaInscripcion) VALUES (?, ?, ?, ?)");
         con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
         try  {
             // Establecer los valores de los parámetros de la sentencia SQL
@@ -136,7 +136,7 @@ public class InscripcionDAOImpl implements InscripcionDAO {
     @Override
     public void eliminarInscripcion(int numeroInscripcion) throws SQLException {
         Connection con = ConexionBD.obtenerConexion();
-        PreparedStatement pst = con.prepareStatement("DELETE FROM inscripcion WHERE numeroInscripcion=?")
+        PreparedStatement pst = con.prepareStatement("DELETE FROM inscripcion WHERE numeroInscripcion=?");
         con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
         
         try  
