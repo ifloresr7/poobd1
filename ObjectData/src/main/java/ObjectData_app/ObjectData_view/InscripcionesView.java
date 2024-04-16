@@ -17,17 +17,15 @@ public class InscripcionesView {
         System.out.println(limpiezaConsola + h1 + "-- CREAR UNA INSCRIPCIÓN --" + p);
         System.out.println("NOTA: Puede detener la creación de inscripciones si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "- ¿El socio existe? (S/N): " + p);
-        String respuesta = teclado.nextLine().toUpperCase();
-        if (respuesta.equals("S")) {
-            System.out.print(p2 + "- Introduzca el número de socio: " + p);
-            String numSocio = teclado.nextLine();
-            return numSocio.isEmpty() ? "" : numSocio; // Devuelve una cadena vacía si la entrada está vacía
-        } else if (respuesta.equals("N")) {
-            return "0"; // Devuelve "0" para indicar que se debe crear un nuevo socio
-        } else {
-            // Si la respuesta no es ni "S", ni "N", ni está vacía
-            return ""; // Devuelve una cadena vacía en caso de una entrada no válida
-        }
+        return teclado.nextLine().toUpperCase();
+    }
+
+    public String formSeguirCrearInscripcionView()
+    {
+        System.out.print(p2 + "- Introduzca el número de socio: " + p);
+        String numSocio = teclado.nextLine();
+        return numSocio.isEmpty() ? "" : numSocio; // Devuelve una cadena vacía si la entrada está vacía
+         
     }
 
     public String formListadoExcursionesView(String listado) {
