@@ -143,20 +143,20 @@ public class InscripcionController {
         String[] retorno = InscView.formFiltrarPorSocio();
         if (retorno != null && retorno.length > 0) {
             String numSocio = retorno[0];
-            int numeroSocio = Integer.parseInt(numSocio);
-            try {
-                RespView.respuestaControllerView("Listado de todas las inscripciones para el socio seleccionado: "
-                        + InscripcionModel.obtenerInscripcionesByNumSocio(numeroSocio)[0]);
-            } catch (SQLException e) {
-                RespView.excepcionesControllerView(e.getMessage());
+            if (!numSocio.isEmpty() && numSocio.matches("\\d+")) { // Verifica si la cadena no está vacía y contiene solo dígitos
+                int numeroSocio = Integer.parseInt(numSocio);
+                try {
+                    RespView.respuestaControllerView("Listado de todas las inscripciones para el socio seleccionado: "
+                            + InscripcionModel.obtenerInscripcionesByNumSocio(numeroSocio)[0]);
+                } catch (SQLException e) {
+                    RespView.excepcionesControllerView("Error. No se ha podido obtener las inscripciones." + e.getMessage());
+                }
+            } else {
+                RespView.excepcionesControllerView("El número de socio ingresado no es válido.");
             }
-
-        } else {
-            // Si el usuario no ingresó ningún valor, imprimir un mensaje apropiado
-            RespView.excepcionesControllerView("No se ha ingresado ningún número de socio para filtrar.");
         }
     }
-
+    
     public static void eliminarInscripcion() {
         String listadoInscripciones = "";
         boolean inscripcionEliminada = false;

@@ -53,15 +53,11 @@ public class InscripcionesView {
         return opcion;
     }
 
-    public String[] formFiltrarPorSocio() {
+    public String[] formFiltrarPorSocio()
+    {
         System.out.println(p2 + "- Introduzca el número de socio para filtrar (presione Enter para omitir): " + p);
         String numSocio = teclado.nextLine().trim();
-        if (numSocio.isEmpty()) {
-            // Si el usuario no ingresa nada, retornar un array vacío
-            return new String[] {};
-        } else {
-            return new String[] { numSocio };
-        }
+        return new String[] { numSocio };
     }
 
     public String[] formFiltrarPorFechas() {
