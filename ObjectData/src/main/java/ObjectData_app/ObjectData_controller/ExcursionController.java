@@ -51,8 +51,7 @@ public class ExcursionController {
             if(retorno.isEmpty()){
                 RespView.respuestaControllerView("Operación cancelada.");
                 AppController.gestionExcursiones();       
-            }
-            if (!retorno.matches("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$")){
+            } else if (!retorno.matches("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$")){
                 RespView.excepcionesControllerView("Las fechas y horas introducidas no son válidas. Formato esperado: yyyy-MM-dd HH:mm");
                 continue;
             }
@@ -70,9 +69,8 @@ public class ExcursionController {
             String retorno = ExcuView.pedirNumeroDiasExcursion();
             if(retorno.isEmpty()){
                 RespView.respuestaControllerView("Operación cancelada.");
-                AppController.gestionExcursiones();       
-            }
-            if (retorno.matches("\\d+")) { // Verifica si el retorno es un número entero
+                AppController.gestionExcursiones();
+            } else if (retorno.matches("\\d+")) { // Verifica si el retorno es un número entero
                 numeroDias = Integer.parseInt(retorno);
                 comprobadoOk = true;
                 continue;
@@ -88,8 +86,7 @@ public class ExcursionController {
             if(retorno.isEmpty()){
                 RespView.respuestaControllerView("Operación cancelada.");
                 AppController.gestionExcursiones();       
-            }
-            if (retorno.matches("\\d+(\\.\\d+)?")) { // Verifica si el retorno es un número entero o double
+            } else if (retorno.matches("\\d+(\\.\\d+)?")) { // Verifica si el retorno es un número entero o double
                 precio = Double.parseDouble(retorno);
                 comprobadoOk = true;
                 continue;
@@ -98,7 +95,7 @@ public class ExcursionController {
                 RespView.excepcionesControllerView("El precio debe ser un número válido.");
                 continue;
             }
-        }while(!comprobadoOk);
+        } while(!comprobadoOk);
         comprobadoOk = false;
         // Método para generar un numeroExcursion aleatorio
         int numeroExcursion = Integer.parseInt("1" + generarID()); // numeroExcursion

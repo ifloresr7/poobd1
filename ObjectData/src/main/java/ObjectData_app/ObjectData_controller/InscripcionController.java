@@ -201,8 +201,8 @@ public class InscripcionController {
                 fechaF = sdf.parse(fechaFin);
                 } catch (ParseException e) {
                     RespView.excepcionesControllerView("No se han podido parsear las fechas.");
+                }
             }
-        }
 
             try {
                 inscripciones = InscripcionModel.listarInscripcionesFecha(fechaI, fechaF);
