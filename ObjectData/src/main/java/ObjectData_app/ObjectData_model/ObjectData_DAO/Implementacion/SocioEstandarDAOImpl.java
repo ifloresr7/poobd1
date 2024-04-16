@@ -13,47 +13,48 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO.ConexionBD;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioEstandarDAO;
 
 public class SocioEstandarDAOImpl implements SocioEstandarDAO {
-    //Con este metodo lo que hacemos es una sentencia SQL para obtener todos los socios estandar almacenados en la base de datos.
+    // Con este metodo lo que hacemos es una sentencia SQL para obtener todos los
+    // socios estandar almacenados en la base de datos.
     @Override
     public ArrayList<SocioEstandarModel> obtenerTodosSocioEstandar() throws SQLException {
         Connection con = ConexionBD.obtenerConexion();
         PreparedStatement pst = null;
         ArrayList<SocioEstandarModel> socios = new ArrayList<>();
         SeguroModel seguro;
-        try{
+        try {
             con.setAutoCommit(false);
             pst = con.prepareStatement("SELECT * FROM socioEstandar");
             ResultSet respuestaBD = pst.executeQuery();
             while (respuestaBD.next()) {
                 seguro = new SeguroModel(TipoSeguro.valueOf(respuestaBD.getString("seguro")));
                 SocioEstandarModel socio = new SocioEstandarModel(
-                    respuestaBD.getInt("numeroSocio"),
-                    respuestaBD.getString("nombre"),
-                    respuestaBD.getString("NIF"),
-                    seguro
-                );
+                        respuestaBD.getInt("numeroSocio"),
+                        respuestaBD.getString("nombre"),
+                        respuestaBD.getString("NIF"),
+                        seguro);
                 socios.add(socio);
             }
             con.commit();
 
         } catch (SQLException e) {
-        if (con != null) {
-            con.rollback();
+            if (con != null) {
+                con.rollback();
+            }
+            throw new SQLException("Fallo en la consulta SQL al obtener todos los socios estándar.");
+        } finally {
+            if (pst != null) {
+                pst.close();
+            }
+            if (con != null) {
+                con.setAutoCommit(true);
+                con.close();
+            }
         }
-        throw new SQLException("Fallo en la consulta SQL al obtener todos los socios estándar.");
-    } finally {
-        if (pst != null) {
-            pst.close();
-        }
-        if (con != null) {
-            con.setAutoCommit(true);
-            con.close();
-        }
+        return socios;
     }
-    return socios;
-    }
-    
-    //Con este metodo se obtiene el socio estandar que coincida con el numero de socio.
+
+    // Con este metodo se obtiene el socio estandar que coincida con el numero de
+    // socio.
     @Override
     public SocioEstandarModel obtenerSocioEstandarPorNumeroSocio(int numeroSocio) throws SQLException {
         Connection con = ConexionBD.obtenerConexion();
@@ -63,16 +64,15 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
         try {
             pst = con.prepareStatement("SELECT * FROM socioEstandar WHERE numeroSocio=?");
             pst.setInt(1, numeroSocio);
-    
+
             try (ResultSet respuestaBD = pst.executeQuery()) {
                 if (respuestaBD.next()) {
                     SeguroModel seguro = new SeguroModel(TipoSeguro.valueOf(respuestaBD.getString("seguro")));
                     socio = new SocioEstandarModel(
-                        respuestaBD.getInt("numeroSocio"),
-                        respuestaBD.getString("nombre"),
-                        respuestaBD.getString("NIF"),
-                        seguro
-                    );
+                            respuestaBD.getInt("numeroSocio"),
+                            respuestaBD.getString("nombre"),
+                            respuestaBD.getString("NIF"),
+                            seguro);
                 }
             }
             con.commit();
@@ -81,7 +81,8 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             if (con != null) {
                 con.rollback();
             }
-            throw new SQLException("Fallo en la consulta SQL al obtener el socio estándar por número de socio: " + numeroSocio);
+            throw new SQLException(
+                    "Fallo en la consulta SQL al obtener el socio estándar por número de socio: " + numeroSocio);
         } finally {
             if (pst != null) {
                 pst.close();
@@ -92,22 +93,22 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             }
         }
         return socio;
-    } 
-    
+    }
+
     @Override
     public void crearSocioEstandar(SocioEstandarModel socio) throws SQLException {
         Connection con = ConexionBD.obtenerConexion();
         PreparedStatement pst = null;
         con.setAutoCommit(false);
         try {
-            pst = con.prepareStatement("INSERT INTO socioEstandar (numeroSocio, nombre, NIF, seguro) VALUES (?, ?, ?, ?)");
+            pst = con.prepareStatement(
+                    "INSERT INTO socioEstandar (numeroSocio, nombre, NIF, seguro) VALUES (?, ?, ?, ?)");
             pst.setInt(1, socio.getNumeroSocio());
             pst.setString(2, socio.getNombre());
             pst.setString(3, socio.getNIF());
             pst.setString(4, socio.getSeguro().getTipo().toString());
             pst.executeUpdate();
             con.commit();
-
         } catch (SQLException e) {
             if (con != null) {
                 con.rollback();
@@ -123,13 +124,15 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             }
         }
     }
-    //Metodo usado para actualizar el socio, en este caso se usa porque podemos cambiar el seguro del tipo de socio estandar.
+
+    // Metodo usado para actualizar el socio, en este caso se usa porque podemos
+    // cambiar el seguro del tipo de socio estandar.
     @Override
     public void actualizarSocioEstandar(SocioEstandarModel socio) throws SQLException {
         Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
-        PreparedStatement pst = null; //De decrara la variable que almacenara la consula.
-        con.setAutoCommit(false); //Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
-        try{
+        PreparedStatement pst = null; // De decrara la variable que almacenara la consula.
+        con.setAutoCommit(false); // Desactiva el AutoCommit de la BBDD, basicamente para hacer el rollback
+        try {
             pst = con.prepareStatement("UPDATE socioEstandar SET nombre=?, NIF=?, seguro=? WHERE numeroSocio=?");
             pst.setString(1, socio.getNombre());
             pst.setString(2, socio.getNIF());
@@ -152,13 +155,14 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             }
         }
     }
-    //Metodo para eliminar el socio estandar.
+
+    // Metodo para eliminar el socio estandar.
     @Override
     public void eliminarSocioEstandar(int numeroSocio) throws SQLException {
         Connection con = ConexionBD.obtenerConexion(); // Se obtiene una conexión a la base de datos
         PreparedStatement pst = null; // Se declara la variable que almacenará la consulta
         con.setAutoCommit(false); // Desactiva el AutoCommit de la BBDD, básicamente para hacer el rollback
-    try {
+        try {
             pst = con.prepareStatement("DELETE FROM socioEstandar WHERE numeroSocio=?");
             pst.setInt(1, numeroSocio);
             pst.executeUpdate();

@@ -322,6 +322,7 @@ public class SocioController {
                 AppController.gestionSocios();
             }else if(numeroSocioReturn.matches("\\d+")){ // Comprueba que el valor introducido es un numero entero.
                 numeroSocio = Integer.parseInt(numeroSocioReturn);
+                todoOk = true;
             }else{
                 RespView.excepcionesControllerView("El número de usuario debe ser un entero.");
                 continue;
