@@ -18,7 +18,7 @@ public class ExcursionesView {
         System.out.println("NOTA: Puede detener la creación de excursiones si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "   - Ingrese el nombre de la excursión: " + p);
         String descripcion = teclado.nextLine();
-        System.out.print(p2 + "   - Ingrese la fecha de la excursión en formato yyyy-MM-dd: " + p);
+        System.out.print(p2 + "   - Ingrese la fecha y la hora de la excursión en formato yyyy-MM-dd HH:mm: " + p);
         String fecha = teclado.nextLine();
         System.out.print(p2 + "   - Ingrese el número de días de la excursión: " + p);
         String numDias = teclado.nextLine();

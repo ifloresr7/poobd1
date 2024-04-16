@@ -26,7 +26,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
                 ExcursionModel excursion = new ExcursionModel(
                     respuestaBD.getInt("numeroExcursion"), // Se obtiene el número de la excursión del resultado
                     respuestaBD.getString("descripcion"), // Se obtiene la descripción de la excursión del resultado
-                    respuestaBD.getDate("fecha"), // Se obtiene la fecha de la excursión del resultado
+                    respuestaBD.getDate("fecha"), // Se obtiene la fecha y hora de la excursión del resultado
                     respuestaBD.getInt("numeroDias"), // Se obtiene el número de días de la excursión del resultado
                     respuestaBD.getDouble("precioInscripcion") // Se obtiene el precio de inscripción de la excursión del resultado
                 );
@@ -97,7 +97,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
             pst = con.prepareStatement("INSERT INTO excursion (numeroExcursion, descripcion, fecha, numeroDias, precioInscripcion) VALUES (?, ?, ?, ?, ?)"); // Se prepara una consulta SQL para insertar una nueva excursión
             pst.setInt(1, excursion.getNumeroExcursion()); // Se establece el valor del primer parámetro 'numeroExcursion' en la consulta preparada
             pst.setString(2, excursion.getDescripcion()); // Se establece el valor del segundo parámetro 'descripcion' en la consulta preparada
-            pst.setDate(3, new java.sql.Date(excursion.getFecha().getTime())); // Se establece el valor del tercer parámetro 'fecha' en la consulta preparada, convirtiendo la fecha de Java a java.sql.Date
+            pst.setTimestamp(3, new java.sql.Timestamp(excursion.getFecha().getTime())); // Cambio aquí para manejar tiempo. Se establece el valor del tercer parámetro 'fecha' en la consulta preparada, convirtiendo la fecha de Java a java.sql.Date
             pst.setInt(4, excursion.getNumeroDias()); // Se establece el valor del cuarto parámetro 'numeroDias' en la consulta preparada
             pst.setDouble(5, excursion.getPrecioInscripcion()); // Se establece el valor del quinto parámetro 'precioInscripcion' en la consulta preparada
             pst.executeUpdate(); // Se ejecuta la consulta para insertar la nueva excursión

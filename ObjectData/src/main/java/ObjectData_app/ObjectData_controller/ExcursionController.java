@@ -11,12 +11,12 @@ import java.util.Date;
 import java.util.Random;
 
 public class ExcursionController {
-    // Se inicializan las vistas necasias.
+    // Se inicializan las vistas necesarias.
     static MensajeControllerView RespView = new MensajeControllerView();
     static ExcursionesView ExcuView = new ExcursionesView();
-    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 
-    // Metodo para crear una ID ramdon de 8 digitos
+    // Metodo para crear una ID random de 8 digitos
     public static int generarID() {
         Random rand = new Random();
         int id = 0;
@@ -47,17 +47,21 @@ public class ExcursionController {
             // Se genera la variable para almacenar la fecha y se crea la excepción
             Date date = null;
             try {
-                date = sdf.parse(retorno[1]);
+                if (retorno[1].matches("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$")) {
+                    date = sdf.parse(retorno[1]);
+                } else {
+                    RespView.excepcionesControllerView("Las fechas y horas introducidas no son válidas. Formato esperado: yyyy-MM-dd HH:mm");
+                    continue;
+                }
             } catch (ParseException e) {
-                RespView.excepcionesControllerView("Las fechas introducidas no son validas.");
+                RespView.excepcionesControllerView("Error al parsear la fecha: " + e.getMessage());
                 continue;
             }
             // Convertir la cadena del número de días a un entero
             int num = 0;
-            try {
+            if (retorno[2].matches("\\d+")) {
                 num = Integer.parseInt(retorno[2]);
-            } catch (NumberFormatException e) {
-                // En caso de que el número de días no sea un entero válido
+            } else {
                 RespView.excepcionesControllerView("El número de días debe ser un entero válido.");
                 continue;
             }
@@ -94,6 +98,7 @@ public class ExcursionController {
     }
 
     public static void mostrarExcursionFecha() {
+        //No se añaden horas aqui porque es mas facil filtrar solo por fechas
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         boolean finalizar = false;
         do {
@@ -112,7 +117,7 @@ public class ExcursionController {
                 RespView.respuestaControllerView(respuesta);
                 finalizar = true;
             } catch (Exception e) {
-                RespView.excepcionesControllerView("Formato de fecha incorrecto. Debe ser yyyy-MM-dd");
+                RespView.excepcionesControllerView("Formato de fecha y hora incorrectos. Debe ser yyyy-MM-dd");
             }
         } while (!finalizar);
         // Al finalizar vuelvo al menu de excursiones

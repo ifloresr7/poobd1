@@ -3,6 +3,7 @@ package ObjectData_app.ObjectData_model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.text.SimpleDateFormat;
 
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
 import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
@@ -104,8 +105,8 @@ public class ExcursionModel {
 
     // Metodo para mostrar escursiones por fecha
     public static String mostrarExcursiones(Date fechaInicio, Date fechaFin) {
-        // Se obtienen todas las excursiones con el DAO y se almacenan en un array
-        // temporal.
+        // Se obtienen todas las excursiones con el DAO y se almacenan en un array temporal.
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             excursiones = excursionDAO.obtenerTodasExcursiones();
         } catch (SQLException e) {
@@ -123,7 +124,7 @@ public class ExcursionModel {
                 contador++;
                 listado.append("\n- ").append(contador).append(". Código: ").append(excursion.numeroExcursion)
                 .append(" | Descripción: ").append(excursion.descripcion)
-                .append(" | Fecha: ").append(excursion.fecha)
+                .append(" | Fecha y hora: ").append(dateFormat.format(excursion.fecha)) // Uso de dateFormat para formatear la fecha y hora
                 .append(" | Número de días: ").append(excursion.numeroDias)
                 .append(" | Precio de la inscripción: ").append(excursion.precioInscripcion);
             }
