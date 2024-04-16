@@ -13,18 +13,21 @@ public class ExcursionesView {
     static String limpiezaConsola = "\n\n\n\n\n\n\n\n\n\n\n";
 
     // Metodos de clase
-    public String[] menuCrearExcursionView() {
-        System.out.println(limpiezaConsola + h2 + "-- FORMULARIO PARA CREAR EXCURSIONES --" + p);
-        System.out.println("NOTA: Puede detener la creación de excursiones si omite algún dato durante la recolección de información.");
+    public String pedirDescripcionExcursion(){
         System.out.print(p2 + "   - Ingrese el nombre de la excursión: " + p);
-        String descripcion = teclado.nextLine();
-        System.out.print(p2 + "   - Ingrese la fecha y la hora de la excursión en formato yyyy-MM-dd HH:mm: " + p);
-        String fecha = teclado.nextLine();
+        return teclado.nextLine();
+    }
+    public String pedirFechaExcursion(){
+        System.out.print(p2 + "   - Ingrese la fecha de la excursión en formato yyyy-MM-dd HH:mm: " + p);
+        return teclado.nextLine();       
+    }
+    public String pedirNumeroDiasExcursion(){
         System.out.print(p2 + "   - Ingrese el número de días de la excursión: " + p);
-        String numDias = teclado.nextLine();
+        return teclado.nextLine();
+    }
+    public String pedirPrecioExcursion(){
         System.out.print(p2 + "   - Ingrese el precio de inscripción de la excursión: " + p);
-        String precio = teclado.nextLine();
-        return new String[] { descripcion, fecha, numDias, precio };
+        return teclado.nextLine();
     }
 
     // Este metodo muestra excursiones por fecha

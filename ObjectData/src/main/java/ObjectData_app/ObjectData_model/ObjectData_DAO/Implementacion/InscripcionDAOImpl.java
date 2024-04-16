@@ -30,7 +30,7 @@ public class InscripcionDAOImpl implements InscripcionDAO {
                     respuestaBD.getInt("numeroInscripcion"),
                     respuestaBD.getInt("numeroSocio"),
                     respuestaBD.getInt("numeroExcursion"),
-                    respuestaBD.getDate("fechaInscripcion")
+                    respuestaBD.getTimestamp("fechaInscripcion")
                 );
                 // Se agrega cada objeto InscripcionModel a la lista de inscripciones
                 inscripciones.add(inscripcion);
@@ -75,7 +75,7 @@ public class InscripcionDAOImpl implements InscripcionDAO {
                         respuestaBD.getInt("numeroInscripcion"),
                         respuestaBD.getInt("numeroSocio"),
                         respuestaBD.getInt("numeroExcursion"),
-                        respuestaBD.getDate("fechaInscripcion")
+                        respuestaBD.getTimestamp("fechaInscripcion")
                     );
                     // Se agrega cada objeto InscripcionModel a la lista de inscripciones
                     inscripciones.add(inscripcion);

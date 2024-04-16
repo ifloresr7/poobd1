@@ -21,12 +21,13 @@ public class ExcursionDAOImpl implements ExcursionDAO {
         try{
             pst = con.prepareStatement("SELECT * FROM excursion"); // Se prepara una consulta SQL para seleccionar todas las excursiones
             ResultSet respuestaBD = pst.executeQuery(); // Se ejecuta la consulta y se obtiene el resultado en un ResultSet
+            System.out.println(respuestaBD);
             while (respuestaBD.next()) { // Mientras haya resultados en el ResultSet...
                 // Se crea un objeto ExcursionModel con los datos de la excursión obtenidos del resultado
                 ExcursionModel excursion = new ExcursionModel(
                     respuestaBD.getInt("numeroExcursion"), // Se obtiene el número de la excursión del resultado
                     respuestaBD.getString("descripcion"), // Se obtiene la descripción de la excursión del resultado
-                    respuestaBD.getDate("fecha"), // Se obtiene la fecha y hora de la excursión del resultado
+                    respuestaBD.getTimestamp("fecha"), // Se obtiene la fecha y hora de la excursión del resultado
                     respuestaBD.getInt("numeroDias"), // Se obtiene el número de días de la excursión del resultado
                     respuestaBD.getDouble("precioInscripcion") // Se obtiene el precio de inscripción de la excursión del resultado
                 );
@@ -65,7 +66,7 @@ public class ExcursionDAOImpl implements ExcursionDAO {
                     excursion = new ExcursionModel(
                         respuestaBD.getInt("numeroExcursion"), // Se obtiene el número de la excursión del resultado
                         respuestaBD.getString("descripcion"), // Se obtiene la descripción de la excursión del resultado
-                        respuestaBD.getDate("fecha"), // Se obtiene la fecha de la excursión del resultado
+                        respuestaBD.getTimestamp("fecha"), // Se obtiene la fecha de la excursión del resultado
                         respuestaBD.getInt("numeroDias"), // Se obtiene el número de días de la excursión del resultado
                         respuestaBD.getDouble("precioInscripcion") // Se obtiene el precio de inscripción de la excursión del resultado
                     );
