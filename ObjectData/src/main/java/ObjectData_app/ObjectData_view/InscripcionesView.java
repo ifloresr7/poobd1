@@ -15,8 +15,7 @@ public class InscripcionesView {
     // Metodos de clase
     public String formCrearInscripcionView() {
         System.out.println(limpiezaConsola + h1 + "-- CREAR UNA INSCRIPCIÓN --" + p);
-        System.out.println(
-                "NOTA: Puede detener la creación de inscripciones si omite algún dato durante la recolección de información.");
+        System.out.println("NOTA: Puede detener la creación de inscripciones si omite algún dato durante la recolección de información.");
         System.out.print(p2 + "- ¿El socio existe? (S/N): " + p);
         String respuesta = teclado.nextLine().toUpperCase();
         if (respuesta.equals("S")) {
