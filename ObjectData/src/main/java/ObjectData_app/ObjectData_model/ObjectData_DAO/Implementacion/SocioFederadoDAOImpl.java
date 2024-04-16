@@ -131,6 +131,7 @@ public class SocioFederadoDAOImpl implements SocioFederadoDAO {
             pst = con.prepareStatement("DELETE FROM socioFederado WHERE numeroSocio=?");
             pst.setInt(1, numeroSocio);
             pst.executeUpdate();
+            con.commit(); // Si todo va bien, confirmamos la transacción
         } catch (SQLException e) {
             if (con != null) {
                 con.rollback();
