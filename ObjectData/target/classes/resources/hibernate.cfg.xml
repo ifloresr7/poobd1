@@ -1,0 +1,9 @@
+<hibernate-configuration>
+    <session-factory>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hibernate.connection.url">jdbc:mysql://62.72.37.1:3306/u450392368_ObjectData</property>
+        <property name="hibernate.connection.username">u450392368_ObjectData</property>
+        <property name="hibernate.connection.password">WmAb[>gM1]</property>
+        <!-- Configuraciones adicionales -->
+    </session-factory>
+</hibernate-configuration>
