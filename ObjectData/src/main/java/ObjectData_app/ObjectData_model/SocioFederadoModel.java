@@ -3,9 +3,9 @@ package ObjectData_app.ObjectData_model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
-import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
-import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioFederadoDAO;
+import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Implementacion.DAOFactoryImpl;
+import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.DAOFactory;
+import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.SocioFederadoDAO;
 
 public class SocioFederadoModel extends SocioModel {
     // Se crea una instancia estática de DAOFactoryImpl, que probablemente implementa la interfaz DAOFactory.

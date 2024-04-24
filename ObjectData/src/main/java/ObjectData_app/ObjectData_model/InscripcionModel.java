@@ -4,10 +4,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
 
-import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
-import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
-import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.ExcursionDAO;
-import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.InscripcionDAO;
+import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Implementacion.DAOFactoryImpl;
+import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.DAOFactory;
+import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.ExcursionDAO;
+import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.InscripcionDAO;
 
 public class InscripcionModel {
     // Se crea una instancia estática de DAOFactoryImpl, que probablemente

@@ -3,11 +3,11 @@ package ObjectData_app.ObjectData_model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import ObjectData_app.ObjectData_model.ObjectData_DAO.Implementacion.DAOFactoryImpl;
-import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.DAOFactory;
-import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioEstandarDAO;
-import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioFederadoDAO;
-import ObjectData_app.ObjectData_model.ObjectData_DAO.Interfaces.SocioInfantilDAO;
+import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Implementacion.DAOFactoryImpl;
+import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.DAOFactory;
+import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.SocioEstandarDAO;
+import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.SocioFederadoDAO;
+import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.SocioInfantilDAO;
 
 public abstract class SocioModel {
     // Se crea una instancia estática de DAOFactoryImpl, que probablemente implementa la interfaz DAOFactory.
