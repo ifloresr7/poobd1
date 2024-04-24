@@ -8,6 +8,7 @@ import jakarta.persistence.*;
 public class socioEstandarHib {
     // Mapero de columnas de la tabla
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private int id;
     @Column(name = "numeroSocio")

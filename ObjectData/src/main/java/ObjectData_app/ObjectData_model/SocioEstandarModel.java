@@ -67,10 +67,16 @@ public class SocioEstandarModel extends SocioModel {
 
     // Método para eliminar socio estandar de la base de datos
     public static void eliminarSocioModel(int numeroSocio) throws SQLException {
+        SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(socioEstandarHib.class).buildSessionFactory();
+        Session session = sessionFactory.openSession();
         try {
-            socioEstandarDAO.eliminarSocioEstandar(numeroSocio);
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
+            session.beginTransaction();
+            session.createQuery("delete socioEstandar where numeroSocio = :numeroSocio",socioEstandarHib.class).setParameter("numeroSocio", numeroSocio);
+            System.out.println("borrandooooo");
+            session.getTransaction().commit();
+            session.close();
+        } finally {
+            sessionFactory.close();
         }
     }
 

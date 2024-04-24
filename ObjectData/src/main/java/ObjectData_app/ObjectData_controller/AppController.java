@@ -1,5 +1,4 @@
 package ObjectData_app.ObjectData_controller;
-
 //Se importan las librerias
 import ObjectData_app.ObjectData_view.MenuView;
 
