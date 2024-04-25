@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 //Establecemos la tabla
 @Entity
 @Table(name = "socioEstandar")
-public class socioEstandarHib {
+public class SocioEstandarHib {
     // Mapero de columnas de la tabla
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +21,11 @@ public class socioEstandarHib {
     private String seguro;
 
     // Constructor por defecto
-    public socioEstandarHib() {
+    public SocioEstandarHib() {
     }
 
     // Contructor de mapeo
-    public socioEstandarHib(int numeroSocio, String nombre, String NIF, String seguro) {
+    public SocioEstandarHib(int numeroSocio, String nombre, String NIF, String seguro) {
         this.numeroSocio = numeroSocio;
         this.nombre = nombre;
         this.NIF = NIF;

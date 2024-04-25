@@ -1,34 +1,6 @@
 package ObjectData_app.ObjectData_model;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
-
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Implementacion.DAOFactoryImpl;
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.DAOFactory;
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.SocioEstandarDAO;
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.SocioFederadoDAO;
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.SocioInfantilDAO;
-
 public abstract class SocioModel {
-    // Se crea una instancia estática de DAOFactoryImpl, que probablemente
-    // implementa la interfaz DAOFactory.
-    static DAOFactory factory = new DAOFactoryImpl();
-    // Se obtiene una instancia estática de SocioInfantilDAO a través del objeto
-    // factory.
-    static SocioInfantilDAO socioInfantilDAO = factory.instanciaSocioInfantilDAO();
-    // Se crea una lista estática para almacenar objetos SocioInfantilModel.
-    static ArrayList<SocioInfantilModel> sociosInfantiles = new ArrayList<>();
-    // Se obtiene una instancia estática de SocioFederadoDAO a través del objeto
-    // factory.
-    static SocioFederadoDAO socioFederadoDAO = factory.instanciaSocioFederadoDAO();
-    // Se crea una lista estática para almacenar objetos SocioFederadoModel.
-    static ArrayList<SocioFederadoModel> sociosFederados = new ArrayList<>();
-    // Se obtiene una instancia estática de SocioEstandarDAO a través del objeto
-    // factory.
-    static SocioEstandarDAO socioEstandarDAO = factory.instanciaSocioEstandarDAO();
-    // Se crea una lista estática para almacenar objetos SocioEstandarModel.
-    static ArrayList<SocioEstandarModel> sociosEstandar = new ArrayList<>();
-
     private int numeroSocio;
     private String nombre;
 
@@ -65,173 +37,60 @@ public abstract class SocioModel {
                 '}';
     }
 
-    // Método para comprobar si un socio existe mediante el numeroSocio
-    public static boolean comprobarSocioPorNumSocio(int codigoSocio) throws SQLException {
-        // Se obtienen los datos desde el DAO.
-        try {
-            sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();
-            sociosFederados = socioFederadoDAO.obtenerTodosSocioFederado();
-            sociosInfantiles = socioInfantilDAO.obtenerTodosSocioInfantil();
-        } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
-        }
+    ////////////// Método para comprobar si un socio existe mediante el numeroSocio
+    public static boolean comprobarSocioPorNumeroSocio(int numeroSocio) {
         // Comprobar en la lista de socios estándar
-        for (SocioEstandarModel socio : sociosEstandar) {
-            if (socio.getNumeroSocio() == codigoSocio) {
-                return true;
-            }
+        if (SocioEstandarModel.getSocioPorNumeroSocio(numeroSocio) != null) {
+            return true;
         }
         // Comprobar en la lista de socios federados
-        for (SocioFederadoModel socio : sociosFederados) {
-            if (socio.getNumeroSocio() == codigoSocio) {
-                return true;
-            }
+        if (SocioFederadoModel.getSocioPorNumeroSocio(numeroSocio) != null) {
+            return true;
         }
         // Comprobar en la lista de socios infantiles
-        for (SocioInfantilModel socio : sociosInfantiles) {
-            if (socio.getNumeroSocio() == codigoSocio) {
-                return true;
-            }
+        if (SocioInfantilModel.getSocioPorNumeroSocio(numeroSocio) != null) {
+            return true;
         }
         // Si no se encuentra en ninguna lista, devolver false
         return false;
     }
 
-    public static String[] listarSociosModel() throws SQLException {
-        // Se obtienen los datos desde el DAO.
-        try {
-            sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();
-            sociosFederados = socioFederadoDAO.obtenerTodosSocioFederado();
-            sociosInfantiles = socioInfantilDAO.obtenerTodosSocioInfantil();
-        } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
-        }
+    ////////////////// Metodo para listar todos los socios
+    public static String[] listarSocios() {
+        StringBuilder listado = new StringBuilder();
+        int contador = 0;
+        String[] datos = null;
+        // Se obtienen los datos desde la tabla socio estandar.
+        datos = SocioEstandarModel.listarSocios(contador);
+        listado.append(datos[0]);
+        contador = Integer.parseInt(datos[1]);
+        // Se obtienen los datos desde la tabla socio federados.
+        datos = SocioFederadoModel.listarSocios(contador);
+        listado.append(datos[0]);
+        contador = Integer.parseInt(datos[1]);
+        // Se obtienen los datos desde la tabla socio estandar.
+        datos = SocioInfantilModel.listarSocios(contador);
+        listado.append(datos[0]);
+        contador = Integer.parseInt(datos[1]);
+        // Se devuelven los datos obtenidos
+        return new String[] { listado.toString(), String.valueOf(contador) };
+    }
+
+    /////////////////// Metodo para obtener el tipo de socio por numero de socio.
+    public static String obtenerTipoSocioPorNumeroSocio(int numeroSocio) {
         // Comprobar en la lista de socios estándar
-        StringBuilder listado = new StringBuilder();
-        int contador = 0;
-        // Comprobar en la lista de socios federados
-        for (SocioEstandarModel socio : sociosEstandar) {
-            contador++;
-            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio())
-                    .append(" | Nombre: ").append(socio.getNombre()).append(" | Tipo de socio: Estandar");
+        if (SocioEstandarModel.getSocioPorNumeroSocio(numeroSocio) != null) {
+            return "Estandar";
         }
         // Comprobar en la lista de socios federados
-        for (SocioFederadoModel socio : sociosFederados) {
-            contador++;
-            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio())
-                    .append(" | Nombre: ").append(socio.getNombre()).append(" | Tipo de socio: Federado");
+        if (SocioFederadoModel.getSocioPorNumeroSocio(numeroSocio) != null) {
+            return "Federado";
         }
-        // Añadir usuarios a la lista
-        for (SocioInfantilModel socio : sociosInfantiles) {
-            contador++;
-            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio())
-                    .append(" | Nombre: ").append(socio.getNombre()).append(" | Tipo de socio: Infantil");
+        // Comprobar en la lista de socios infantiles
+        if (SocioInfantilModel.getSocioPorNumeroSocio(numeroSocio) != null) {
+            return "Infantil";
         }
-
-        if (contador == 0) {
-            listado.append("\n  - Sin datos.");
-        }
-
-        return new String[] { listado.toString(), String.valueOf(contador) };
-    }
-
-    // Metodo paras listar los socios estandar.
-    public static String[] listarSociosEstandarModel() throws SQLException {
-        // Atributos.
-        StringBuilder listado = new StringBuilder();
-        int contador = 0;
-        // Se obtienen los datos desde el DAO.
-        try {
-            sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();
-        } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
-        }
-        for (SocioEstandarModel socio : sociosEstandar) {
-            contador++;
-            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio())
-                    .append(" | Nombre: ").append(socio.getNombre()).append(" | NIF: ").append(socio.getNIF())
-                    .append(" | Seguro: ").append(socio.seguro.getTipo());
-        }
-        if (contador == 0) {
-            listado.append("\n  - Sin datos.");
-        }
-        return new String[] { listado.toString(), String.valueOf(contador) };
-    }
-
-    // Metodo para listar los socios federados.
-    public static String[] listarSociosFederadosModel() throws SQLException {
-        // Se obtienen los datos desde el DAO.
-        try {
-            sociosFederados = socioFederadoDAO.obtenerTodosSocioFederado();
-        } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
-        }
-        // Atributos.
-        StringBuilder listado = new StringBuilder();
-        int contador = 0;
-        for (SocioFederadoModel socio : sociosFederados) {
-            contador++;
-            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio())
-                    .append(" | Nombre: ").append(socio.getNombre()).append(" | NIF: ").append(socio.getNIF())
-                    .append(" | Seguro: ").append(socio.federacion.getNombre());
-        }
-        if (contador == 0) {
-            listado.append("\n  - Sin datos.");
-        }
-        return new String[] { listado.toString(), String.valueOf(contador) };
-    }
-
-    // Metodo para listar los socios infantiles.
-    public static String[] listarSociosInfantilesModel() throws SQLException {
-        // Se obtienen los datos desde el DAO.
-        try {
-            sociosInfantiles = socioInfantilDAO.obtenerTodosSocioInfantil();
-        } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
-        }
-        // Atributos.
-        StringBuilder listado = new StringBuilder();
-        int contador = 0;
-        for (SocioInfantilModel socio : sociosInfantiles) {
-            contador++;
-            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio())
-                    .append(" | Nombre: ").append(socio.getNombre()).append(" | Numero socio parental: ")
-                    .append(socio.getNumeroSocioPadreMadre());
-        }
-        if (contador == 0) {
-            listado.append("\n  - Sin datos.");
-        }
-        return new String[] { listado.toString(), String.valueOf(contador) };
-    }
-
-    // Metodo para obtener el tipo de socio por numero de socio.
-    public static String obtenerTipoSocioPorNumSocio(int numeroSocio) throws SQLException {
-        // Se obtienen los datos desde el DAO.
-        try {
-            sociosEstandar = socioEstandarDAO.obtenerTodosSocioEstandar();
-            sociosFederados = socioFederadoDAO.obtenerTodosSocioFederado();
-            sociosInfantiles = socioInfantilDAO.obtenerTodosSocioInfantil();
-        } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
-        }
-        // Buscar en el array de socios federados
-        for (SocioFederadoModel socio : sociosFederados) {
-            if (socio.getNumeroSocio() == numeroSocio) {
-                return "Federado";
-            }
-        }
-        // Buscar en el array de socios infantiles
-        for (SocioInfantilModel socio : sociosInfantiles) {
-            if (socio.getNumeroSocio() == numeroSocio) {
-                return "Infantil";
-            }
-        }
-        // Buscar en el array de socios estandar
-        for (SocioEstandarModel socio : sociosEstandar) {
-            if (socio.getNumeroSocio() == numeroSocio) {
-                return "Estandar";
-            }
-        }
+        // Si no se encuentra en ninguna lista, devolver false
         return null;
     }
 }

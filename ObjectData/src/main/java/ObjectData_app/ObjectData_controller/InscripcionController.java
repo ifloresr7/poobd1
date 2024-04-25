@@ -7,7 +7,6 @@ import ObjectData_app.ObjectData_view.*;
 
 import ObjectData_app.ObjectData_model.ExcursionModel;
 
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -62,7 +61,7 @@ public class InscripcionController {
         // pide ingresar el número de socio
         // Comprueba si el socio existe
         try {
-            if (!SocioModel.comprobarSocioPorNumSocio(numeroSocio)) {
+            if (!SocioModel.comprobarSocioPorNumeroSocio(numeroSocio)) {
                 RespView.excepcionesControllerView("Socio no encontrado.");
                 return;
             }

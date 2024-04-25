@@ -5,7 +5,6 @@ import ObjectData_app.ObjectData_model.SocioFederadoModel;
 import ObjectData_app.ObjectData_model.SocioInfantilModel;
 import ObjectData_app.ObjectData_model.SocioModel;
 
-
 import java.util.Random;
 
 import ObjectData_app.ObjectData_model.FederacionModel;
@@ -147,7 +146,7 @@ public class SocioController {
             }
             // Obtenemos el objeto socio estandar (si existe)
             try {
-                socio = SocioEstandarModel.getSocioEstandarNumeroSocio(numeroSocio);
+                socio = SocioEstandarModel.getSocioPorNumeroSocio(numeroSocio);
             } catch (Exception e) {
                 RespView.excepcionesControllerView(e.getMessage());
             }
@@ -344,7 +343,7 @@ public class SocioController {
         }
         // Verificar el tipo de socio y llamar al método eliminar correspondiente
         try {
-            tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(numeroSocio);
+            tipoSocio = SocioModel.obtenerTipoSocioPorNumeroSocio(numeroSocio);
         } catch (Exception e) {
             RespView.excepcionesControllerView(e.getMessage());
         }
@@ -404,19 +403,19 @@ public class SocioController {
             switch (opcion) {
                 case 1:
                     RespView.respuestaControllerView(
-                            "Listado de todos los socios: " + SocioModel.listarSociosModel()[0]);
+                            "Listado de todos los socios: " + SocioModel.listarSocios()[0]);
                     break;
                 case 2:
                     RespView.respuestaControllerView(
-                            "\nListado de socios estandar: " + SocioModel.listarSociosEstandarModel()[0]);
+                            "\nListado de socios estandar: " + SocioEstandarModel.listarSocios(0)[0]);
                     break;
                 case 3:
                     RespView.respuestaControllerView(
-                            "\nListado de socios federados: " + SocioModel.listarSociosFederadosModel()[0]);
+                            "\nListado de socios federados: " + SocioFederadoModel.listarSocios(0)[0]);
                     break;
                 case 4:
                     RespView.respuestaControllerView(
-                            "\nListado de socios infantiles: " + SocioModel.listarSociosInfantilesModel()[0]);
+                            "\nListado de socios infantiles: " + SocioInfantilModel.listarSocios(0)[0]);
                     break;
                 case 5:
                     AppController.gestionSocios();
@@ -462,9 +461,9 @@ public class SocioController {
                 break;
             } else {
                 try {
-                    if (SocioModel.comprobarSocioPorNumSocio(numeroSocio)) {
+                    if (SocioModel.comprobarSocioPorNumeroSocio(numeroSocio)) {
                         try {
-                            tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(numeroSocio);
+                            tipoSocio = SocioModel.obtenerTipoSocioPorNumeroSocio(numeroSocio);
                             valoresComprobados = true;
                         } catch (Exception e) {
                             RespView.excepcionesControllerView(e.getMessage());
@@ -486,7 +485,7 @@ public class SocioController {
             // Al intentar obtener datos de un medio exteno, en este caso la BBDD, debemos
             // usar try para comprobar posibles excepciones.
             try {
-                precioSeguro = SocioEstandarModel.getSocioEstandarNumeroSocio(numeroSocio).getSeguro().getPrecio();
+                precioSeguro = SocioEstandarModel.getSocioPorNumeroSocio(numeroSocio).getSeguro().getPrecio();
             } catch (Exception e) {
                 RespView.excepcionesControllerView(e.getMessage());
             }

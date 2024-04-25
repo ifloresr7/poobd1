@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import ObjectData_app.ObjectData_model.ObjectData_Hibernate.InscripcionHib;
-import ObjectData_app.ObjectData_model.ObjectData_Hibernate.socioEstandarHib;
+import ObjectData_app.ObjectData_model.ObjectData_Hibernate.SocioEstandarHib;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -84,12 +84,12 @@ public class InscripcionModel {
 
     // Metodo para crear la session de hibernate
     private static void crearSessionHib() {
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(socioEstandarHib.class)
+        sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(SocioEstandarHib.class)
                 .buildSessionFactory();
         session = sessionFactory.openSession();
     }
 
-    public static String[] listarInscripcionesFecha(Date fechaI, Date fechaF) throws SQLException {
+    public static String[] listarInscripcionesFecha(Date fechaI, Date fechaF) {
         crearSessionHib();
         Transaction transaction = null;
         StringBuilder listado = new StringBuilder();
@@ -108,7 +108,7 @@ public class InscripcionModel {
             for (InscripcionModel inscripcion : insc) {
                 String nombreExcursion = ExcursionModel
                         .obtenerNombreExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion());
-                String tipoSocio = SocioModel.obtenerTipoSocioPorNumSocio(inscripcion.getNumeroSocio());
+                String tipoSocio = SocioModel.obtenerTipoSocioPorNumeroSocio(inscripcion.getNumeroSocio());
                 double precio = ExcursionModel.obtenerPrecioExcursion(inscripcion.getNumeroExcursion());
                 String nombreSocio = "";
                 double precioTotal = precio;
@@ -117,7 +117,7 @@ public class InscripcionModel {
                 if (tipoSocio.equals("Federado")) {
                     // buscar el nombre de socio
                     SocioFederadoModel Socio = SocioFederadoModel
-                            .getSocioFederadoNumeroSocio(inscripcion.getNumeroSocio());
+                            .getSocioPorNumeroSocio(inscripcion.getNumeroSocio());
                     nombreSocio = Socio.getNombre();
                     double descuento = precio * 0.1;
                     precioTotal -= descuento;
@@ -126,7 +126,7 @@ public class InscripcionModel {
                 } else if (tipoSocio.equals("Estandar")) {
                     // buscar socio
                     SocioEstandarModel Socio = SocioEstandarModel
-                            .getSocioEstandarNumeroSocio(inscripcion.getNumeroSocio());
+                            .getSocioPorNumeroSocio(inscripcion.getNumeroSocio());
                     nombreSocio = Socio.getNombre();
                     double precioSeguro = SocioEstandarModel
                             .obtenerPrecioSeguroPorNumeroSocio(inscripcion.getNumeroSocio());
@@ -136,7 +136,7 @@ public class InscripcionModel {
                 } else if (tipoSocio.equals("Infantil")) {
                     // buscar socio
                     SocioInfantilModel socioInfantil = SocioInfantilModel
-                            .getSocioInfantilNumeroSocio(inscripcion.getNumeroSocio());
+                            .getSocioPorNumeroSocio(inscripcion.getNumeroSocio());
                     if (socioInfantil != null) {
                         nombreSocio = socioInfantil.getNombre();
                     } else {
@@ -207,7 +207,7 @@ public class InscripcionModel {
     }
 
     // Metodo para crear inscripcion
-    public static String crearInscripcion(InscripcionModel inscripcion) throws SQLException {
+    public static String crearInscripcion(InscripcionModel inscripcion) {
         crearSessionHib();
         try {
             InscripcionHib ins = new InscripcionHib(
@@ -271,7 +271,7 @@ public class InscripcionModel {
     }
 
     // Metodo para obtener inscripciones de un socio mediante numeroSocio
-    public static String[] obtenerInscripcionesByNumSocio(int numeroSocio) throws SQLException {
+    public static String[] obtenerInscripcionesByNumSocio(int numeroSocio) {
         Session session = null;
         // Se llama al DAO para obtener las inscripciones desde MySQL
         try {
@@ -285,7 +285,8 @@ public class InscripcionModel {
             int contador = 0;
             for (InscripcionHib inscripcion : inscripciones) {
                 contador++;
-                Double precioExcursion = ExcursionModel.obtenerExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion())
+                Double precioExcursion = ExcursionModel
+                        .obtenerExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion())
                         .getPrecioInscripcion();
                 String descripcionExcursion = ExcursionModel
                         .obtenerExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion()).getDescripcion();
@@ -299,22 +300,22 @@ public class InscripcionModel {
                 listado.append("\n - Sin inscripciones.");
             }
             return new String[] { listado.toString(), String.valueOf(total) };
-    
+
         } catch (Exception e) {
             // Implementar logica para devolver el error.
-            throw new SQLException("No se han podido obtener las inscripciones del socio seleccionado.");
-        }
-        
+            throw e;
         }
 
+    }
+
     // Metodo para comprobar si un usuario tiene inscripciones
-    public static boolean comprobarSocioInscrito(int numeroSocio) throws SQLException {
+    public static boolean comprobarSocioInscrito(int numeroSocio) {
         // Se llama al DAO para obtener las inscripciones desde MySQL
         try {
 
         } catch (Exception e) {
             // Implementar logica para devolver el error.
-            throw new SQLException("No se han podido obtener las inscripciones para este socio.");
+            throw e;
         }
         for (InscripcionModel inscripcion : inscripciones) {
             if (inscripcion.getNumeroSocio() == numeroSocio) {

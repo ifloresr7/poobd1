@@ -78,30 +78,30 @@ public class ExcursionModel {
     }
 
     // Método para crear una excursion
-    public String crearExcursionModel(ExcursionModel excursion) throws SQLException {
+    public String crearExcursionModel(ExcursionModel excursion) {
         try {
             excursionDAO.crearExcursion(excursion);
             return "¡Se ha guardado correctamente!";
         } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
+            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 
     // Metodo para devolver el nombre de la excursion.
-    public static String obtenerNombreExcursionPorNumeroExcursion(int numeroExcursion) throws SQLException {
+    public static String obtenerNombreExcursionPorNumeroExcursion(int numeroExcursion) {
         try {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getDescripcion();
         } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
+            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 
     // Metodo para obtener el precio de la excursion.
-    public static double obtenerPrecioExcursion(int numeroExcursion) throws SQLException {
+    public static double obtenerPrecioExcursion(int numeroExcursion) {
         try {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getPrecioInscripcion();
         } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
+            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 
@@ -179,11 +179,11 @@ public class ExcursionModel {
     }
 
     // Metodo para obtener la excursion mediante seleccion de lista
-    public static ExcursionModel obtenerExcursionPorNumeroExcursion(int numeroExcursion) throws SQLException {
+    public static ExcursionModel obtenerExcursionPorNumeroExcursion(int numeroExcursion) {
         try {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion);
         } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
+            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 }

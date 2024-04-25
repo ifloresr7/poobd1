@@ -56,30 +56,53 @@ public class SocioFederadoModel extends SocioModel {
 
     // Metodos propios
     // Crear socio Federado
-    public void crearSocioFederado(SocioFederadoModel socio) throws SQLException {
+    public void crearSocioFederado(SocioFederadoModel socio) {
         try {
             socioFederadoDAO.crearSocioFederado(socio);
         } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
+            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 
     // Obtener socio federado por número de socio.
-    public static SocioFederadoModel getSocioFederadoNumeroSocio(int numeroSocio) throws SQLException {
+    public static SocioFederadoModel getSocioPorNumeroSocio(int numeroSocio) {
         try {
             return socioFederadoDAO.obtenerPorNumeroSocio(numeroSocio);
         } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
+            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 
+    // Metodo para listar los socios federados.
+    public static String[] listarSocios(int valorInicialContador) {
+        // Se obtienen los datos desde el DAO.
+        try {
+            sociosFederados = socioFederadoDAO.obtenerTodosSocioFederado();
+        } catch (Exception e) {
+            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
+        }
+        // Atributos.
+        StringBuilder listado = new StringBuilder();
+        int contador = valorInicialContador;
+        for (SocioFederadoModel socio : sociosFederados) {
+            contador++;
+            listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio())
+                    .append(" | Nombre: ").append(socio.getNombre()).append(" | NIF: ").append(socio.getNIF())
+                    .append(" | Seguro: ").append(socio.federacion.getNombre());
+        }
+        if (contador == 0) {
+            listado.append("\n  - Sin datos de socios Federados.");
+        }
+        return new String[] { listado.toString(), String.valueOf(contador) };
+    }
+
     // Método para eliminar socio infantil de la base de datos
-    public static boolean eliminarSocioModel(int numeroSocio) throws SQLException {
+    public static boolean eliminarSocioModel(int numeroSocio) {
         try {
             socioFederadoDAO.eliminarSocioFederado(numeroSocio);
             return true;
         } catch (Exception e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
+            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 }
