@@ -9,7 +9,10 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 public class SocioEstandarModel extends SocioModel {
-    // Atributos
+    // Propiedades de Hibernate
+    static SessionFactory sessionFactory;
+    static Session session;
+    // Propiedades del constructor
     String NIF;
     SeguroModel seguro;
 
@@ -20,17 +23,31 @@ public class SocioEstandarModel extends SocioModel {
         this.seguro = seguro;
     }
 
+    // Metodo para crear la session de hibernate
+    private static void crearSessionHib() {
+        sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(socioEstandarHib.class)
+                .buildSessionFactory();
+        session = sessionFactory.openSession();
+    }
+
     // Método para agregar un socio estandar a la lista en Datos.
-    public void crearSocioEstandar(SocioEstandarModel socioEstandar) throws SQLException {
-        SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(socioEstandarHib.class).buildSessionFactory();
-        Session session = sessionFactory.openSession();
+    public static void crearSocioEstandar(SocioEstandarModel socioEstandar) throws SQLException {
+        crearSessionHib();
         try {
-            socioEstandarHib socio = new socioEstandarHib(socioEstandar.getNumeroSocio(),socioEstandar.getNombre(),socioEstandar.getNIF(),socioEstandar.getSeguro().getTipo().toString());
+            //Creamos el objeto socio mapeado
+            socioEstandarHib socio = new socioEstandarHib(
+                socioEstandar.getNumeroSocio(), //Obtenemos el numero de socio desde el objeto socioEstandar //Columna numeroSocio
+                socioEstandar.getNombre(), //Obtenemos el nombre de socio desde el objeto socioEstandar //Columna nombre
+                socioEstandar.getNIF(), //Obtenemos el NIF de socio desde el objeto socioEstandar //Columna NIF
+                socioEstandar.getSeguro().getTipo().toString() //Obtenemos el nombre del tipo de seguro del seguro del objeto de socioEstandar //Columna seguro
+            );
             session.beginTransaction();
             session.persist(socio);
             session.getTransaction().commit();
-            session.close();
+        } catch(Exception e){
+            session.getTransaction().rollback();
         } finally {
+            session.close();
             sessionFactory.close();
         }
     }
@@ -40,18 +57,28 @@ public class SocioEstandarModel extends SocioModel {
         // Se obtienen los datos desde el DAO.
         try {
             return socioEstandarDAO.obtenerSocioEstandarPorNumeroSocio(numeroSocio);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 
     // Metodo para actualizar el seguro del socio:
     public void actualizarSeguroSocioEstandar(SeguroModel seguro, SocioEstandarModel socio) throws SQLException {
+        crearSessionHib();
         try {
-            socio.setSeguro(seguro);
-            socioEstandarDAO.actualizarSocioEstandar(socio);
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
+            session.beginTransaction();
+            int updateEntities = session.createMutationQuery("update socioEstandar set seguro = :seguro where numeroSocio = :numeroSocio")
+                .setParameter("seguro", seguro.getTipo().toString())
+                .setParameter("numeroSocio", socio.getNumeroSocio())
+                .executeUpdate();
+            session.getTransaction().commit();
+            System.out.println("Entidades actualizadas " + updateEntities);
+        } catch(Exception e){
+            session.getTransaction().rollback();
+            System.out.println(e);
+        } finally {
+            session.close();
+            sessionFactory.close();
         }
     }
 
@@ -60,22 +87,23 @@ public class SocioEstandarModel extends SocioModel {
         // Se obtienen los datos desde el DAO.
         try {
             return socioEstandarDAO.obtenerSocioEstandarPorNumeroSocio(numeroSocio).seguro.getPrecio();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 
     // Método para eliminar socio estandar de la base de datos
-    public static void eliminarSocioModel(int numeroSocio) throws SQLException {
-        SessionFactory sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(socioEstandarHib.class).buildSessionFactory();
-        Session session = sessionFactory.openSession();
+    public static void eliminarSocioModel(int numeroSocio) {
+        crearSessionHib();
         try {
             session.beginTransaction();
-            session.createQuery("delete socioEstandar where numeroSocio = :numeroSocio",socioEstandarHib.class).setParameter("numeroSocio", numeroSocio);
-            System.out.println("borrandooooo");
+            int rowsAffeccted = session.createMutationQuery("delete socioEstandar where numeroSocio = :numeroSocio")
+                    .setParameter("numeroSocio", numeroSocio)
+                    .executeUpdate();
             session.getTransaction().commit();
-            session.close();
+            System.out.println(rowsAffeccted);
         } finally {
+            session.close();
             sessionFactory.close();
         }
     }

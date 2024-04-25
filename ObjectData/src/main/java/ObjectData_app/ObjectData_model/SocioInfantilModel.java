@@ -8,14 +8,17 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.DAOFacto
 import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.SocioInfantilDAO;
 
 public class SocioInfantilModel extends SocioModel {
-    // Se crea una instancia estática de DAOFactoryImpl, que probablemente implementa la interfaz DAOFactory.
+    // Se crea una instancia estática de DAOFactoryImpl, que probablemente
+    // implementa la interfaz DAOFactory.
     static DAOFactory factory = new DAOFactoryImpl();
-    // Se obtiene una instancia estática de SocioInfantilDAO utilizando el objeto factory.
+    // Se obtiene una instancia estática de SocioInfantilDAO utilizando el objeto
+    // factory.
     static SocioInfantilDAO socioInfantilDAO = factory.instanciaSocioInfantilDAO();
     // Se crea una lista estática para almacenar objetos SocioInfantilModel.
     static ArrayList<SocioInfantilModel> sociosInfantiles = new ArrayList<>();
 
     private int numeroSocioPadreMadre;
+
     // Constructor
     public SocioInfantilModel(int numeroSocio, String nombre, int numeroSocioPadreMadre) {
         super(numeroSocio, nombre);
@@ -43,29 +46,31 @@ public class SocioInfantilModel extends SocioModel {
 
     // Metodos propios
     // Crear socio infantil
-    public String crearSocioInfantil(SocioInfantilModel socio) throws SQLException{
+    public String crearSocioInfantil(SocioInfantilModel socio) throws SQLException {
         try {
             socioInfantilDAO.crearSocioInfantil(socio);
             return "Socio infantil guardado correctamente!";
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
+        } catch (Exception e) {
+            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
-    //Metodo para obtener socio infantil mediante numero de socio.
-    public static SocioInfantilModel getSocioInfantilNumeroSocio(int numeroSocio) throws SQLException{
-        try{
+
+    // Metodo para obtener socio infantil mediante numero de socio.
+    public static SocioInfantilModel getSocioInfantilNumeroSocio(int numeroSocio) throws SQLException {
+        try {
             return socioInfantilDAO.obtenerPorNumeroSocio(numeroSocio);
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
+        } catch (Exception e) {
+            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
+
     // Método para eliminar socio infantil de la base de datos
-    public static boolean eliminarSocioModel(int numeroSocio) throws SQLException{
-        try{
+    public static boolean eliminarSocioModel(int numeroSocio) throws SQLException {
+        try {
             socioInfantilDAO.eliminarSocioInfantil(numeroSocio);
-            return true; 
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
+            return true;
+        } catch (Exception e) {
+            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 }

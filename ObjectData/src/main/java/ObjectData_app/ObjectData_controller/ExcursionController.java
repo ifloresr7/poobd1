@@ -39,20 +39,21 @@ public class ExcursionController {
         String respuesta = null;
         RespView.tituloDeLaFuncion("-- FORMULARIO PARA CREAR EXCURSIONES --");
 
-        //Pedimos la descripcion de la excursión
+        // Pedimos la descripcion de la excursión
         String descripcionExcursion = ExcuView.pedirDescripcionExcursion();
-        if(descripcionExcursion.isEmpty()){
+        if (descripcionExcursion.isEmpty()) {
             RespView.respuestaControllerView("Operación cancelada.");
             AppController.gestionExcursiones();
         }
-        //Pedimos la fecha de excursión y comprobamos el dato.
-        do{
+        // Pedimos la fecha de excursión y comprobamos el dato.
+        do {
             String retorno = ExcuView.pedirFechaExcursion();
-            if(retorno.isEmpty()){
+            if (retorno.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
-                AppController.gestionExcursiones();       
-            } else if (!retorno.matches("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$")){
-                RespView.excepcionesControllerView("Las fechas y horas introducidas no son válidas. Formato esperado: yyyy-MM-dd HH:mm");
+                AppController.gestionExcursiones();
+            } else if (!retorno.matches("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$")) {
+                RespView.excepcionesControllerView(
+                        "Las fechas y horas introducidas no son válidas. Formato esperado: yyyy-MM-dd HH:mm");
                 continue;
             }
             try {
@@ -62,12 +63,12 @@ public class ExcursionController {
                 RespView.excepcionesControllerView("Error al parsear la fecha: " + e.getMessage());
                 continue;
             }
-        }while(!comprobadoOk);
+        } while (!comprobadoOk);
         comprobadoOk = false;
-        //Pedimos el numero de dias y comprobamos el dato.
-        do{
+        // Pedimos el numero de dias y comprobamos el dato.
+        do {
             String retorno = ExcuView.pedirNumeroDiasExcursion();
-            if(retorno.isEmpty()){
+            if (retorno.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
                 AppController.gestionExcursiones();
             } else if (retorno.matches("\\d+")) { // Verifica si el retorno es un número entero
@@ -79,13 +80,13 @@ public class ExcursionController {
                 RespView.excepcionesControllerView("El número de excursión debe ser un numero entero.");
                 continue;
             }
-        }while(!comprobadoOk);
+        } while (!comprobadoOk);
         comprobadoOk = false;
-        do{
+        do {
             String retorno = ExcuView.pedirPrecioExcursion();
-            if(retorno.isEmpty()){
+            if (retorno.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
-                AppController.gestionExcursiones();       
+                AppController.gestionExcursiones();
             } else if (retorno.matches("\\d+(\\.\\d+)?")) { // Verifica si el retorno es un número entero o double
                 precio = Double.parseDouble(retorno);
                 comprobadoOk = true;
@@ -95,7 +96,7 @@ public class ExcursionController {
                 RespView.excepcionesControllerView("El precio debe ser un número válido.");
                 continue;
             }
-        } while(!comprobadoOk);
+        } while (!comprobadoOk);
         comprobadoOk = false;
         // Método para generar un numeroExcursion aleatorio
         int numeroExcursion = Integer.parseInt("1" + generarID()); // numeroExcursion
@@ -107,7 +108,7 @@ public class ExcursionController {
         // instancia como el objeto creado
         try {
             respuesta = excursion.crearExcursionModel(excursion);
-        }catch (SQLException e){
+        } catch (Exception e) {
             RespView.excepcionesControllerView(e.getMessage());
         }
         // Devuelvo la respuesta del modelo y la imprimo en la vista

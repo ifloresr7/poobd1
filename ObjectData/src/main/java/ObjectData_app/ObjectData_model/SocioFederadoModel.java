@@ -8,9 +8,11 @@ import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.DAOFacto
 import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.SocioFederadoDAO;
 
 public class SocioFederadoModel extends SocioModel {
-    // Se crea una instancia estática de DAOFactoryImpl, que probablemente implementa la interfaz DAOFactory.
+    // Se crea una instancia estática de DAOFactoryImpl, que probablemente
+    // implementa la interfaz DAOFactory.
     static DAOFactory factory = new DAOFactoryImpl();
-    // Se obtiene una instancia estática de SocioFederadoDAO utilizando el objeto factory.
+    // Se obtiene una instancia estática de SocioFederadoDAO utilizando el objeto
+    // factory.
     static SocioFederadoDAO socioFederadoDAO = factory.instanciaSocioFederadoDAO();
     // Se crea una lista estática para almacenar objetos SocioFederadoModel.
     static ArrayList<SocioFederadoModel> sociosFederados = new ArrayList<>();
@@ -52,30 +54,32 @@ public class SocioFederadoModel extends SocioModel {
                 '}';
     }
 
-    //Metodos propios
-    //Crear socio Federado
+    // Metodos propios
+    // Crear socio Federado
     public void crearSocioFederado(SocioFederadoModel socio) throws SQLException {
         try {
             socioFederadoDAO.crearSocioFederado(socio);
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
+        } catch (Exception e) {
+            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
+
     // Obtener socio federado por número de socio.
     public static SocioFederadoModel getSocioFederadoNumeroSocio(int numeroSocio) throws SQLException {
-        try{
+        try {
             return socioFederadoDAO.obtenerPorNumeroSocio(numeroSocio);
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
+        } catch (Exception e) {
+            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
-     // Método para eliminar socio infantil de la base de datos
-     public static boolean eliminarSocioModel(int numeroSocio) throws SQLException {
-        try{
+
+    // Método para eliminar socio infantil de la base de datos
+    public static boolean eliminarSocioModel(int numeroSocio) throws SQLException {
+        try {
             socioFederadoDAO.eliminarSocioFederado(numeroSocio);
-            return true; 
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
+            return true;
+        } catch (Exception e) {
+            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
-     }
+    }
 }

@@ -36,7 +36,7 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             }
             con.commit();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             if (con != null) {
                 con.rollback();
             }
@@ -77,7 +77,7 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             }
             con.commit();
 
-        } catch (SQLException e) {
+        } catch (Exception e) {
             if (con != null) {
                 con.rollback();
             }
@@ -109,7 +109,7 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             pst.setString(4, socio.getSeguro().getTipo().toString());
             pst.executeUpdate();
             con.commit();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             if (con != null) {
                 con.rollback();
             }
@@ -140,7 +140,7 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             pst.setInt(4, socio.getNumeroSocio());
             pst.executeUpdate();
             con.commit(); // Si todo va bien, confirmamos la transacción
-        } catch (SQLException e) {
+        } catch (Exception e) {
             if (con != null) {
                 con.rollback();
             }
@@ -167,7 +167,7 @@ public class SocioEstandarDAOImpl implements SocioEstandarDAO {
             pst.setInt(1, numeroSocio);
             pst.executeUpdate();
             con.commit();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             if (con != null) {
                 con.rollback();
             }

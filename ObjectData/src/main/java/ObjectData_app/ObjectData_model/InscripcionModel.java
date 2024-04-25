@@ -80,15 +80,15 @@ public class InscripcionModel {
                 " | Fecha Inscripción: " + fechaInscripcion;
     }
 
-    public static String[] listarInscripcionesFecha(Date fechaI, Date fechaF) throws SQLException{
-        // Se llama al DAO para obtener las inscripciones desde MySQL 
+    public static String[] listarInscripcionesFecha(Date fechaI, Date fechaF) throws SQLException {
+        // Se llama al DAO para obtener las inscripciones desde MySQL
         try {
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             // Implementar logica para devolver el error.
             throw new SQLException("No se ha podido obtener las inscripciones.");
         }
-        
+
         StringBuilder listado = new StringBuilder();
         int contador = 0;
 
@@ -129,7 +129,7 @@ public class InscripcionModel {
                         .append(" | Excursión: ").append(nombreExcursion)
                         .append(" | Fecha de inscripción: ").append(inscripcion.fechaInscripcion)
                         .append(" | Precio de la inscripción: ").append(precio)
-                        .append("\n").append(cadenaDescuento);                        
+                        .append("\n").append(cadenaDescuento);
             }
         }
         if (contador == 0) {
@@ -137,14 +137,14 @@ public class InscripcionModel {
         }
         return new String[] { listado.toString(), String.valueOf(contador) };
     }
-    
+
     public static boolean eliminarInscripcionNumero(int numeroInscripcion) throws SQLException {
         // Se llama al DAO para obtener las inscripciones y las excursiones desde MySQL
         try {
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
             excursiones = excursionDAO.obtenerTodasExcursiones();
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
+        } catch (Exception e) {
+            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         for (int i = 0; i < inscripciones.size(); i++) {
             InscripcionModel inscripcion = inscripciones.get(i);
@@ -153,12 +153,14 @@ public class InscripcionModel {
                 int numeroExcursion = inscripcion.getNumeroExcursion();
                 // Buscar la fecha de la excursión correspondiente en el array de excursiones
                 for (ExcursionModel excursion : excursiones) {
-                    // Comprueba que el numero de excursion coincida y adema compara la fecha de la excursión con la fecha actual.
-                    if ((excursion.getNumeroExcursion() == numeroExcursion) && (new Date().before(excursion.getFecha()))) {
+                    // Comprueba que el numero de excursion coincida y adema compara la fecha de la
+                    // excursión con la fecha actual.
+                    if ((excursion.getNumeroExcursion() == numeroExcursion)
+                            && (new Date().before(excursion.getFecha()))) {
                         try {
                             inscripcionDAO.eliminarInscripcion(numeroInscripcion);
                             return true;
-                        } catch (SQLException e) {
+                        } catch (Exception e) {
                             throw new SQLException(e.getMessage());
                         }
                     }
@@ -168,6 +170,7 @@ public class InscripcionModel {
         // Si no se encontró la inscripción con el número proporcionado
         return false;
     }
+
     // Metodo para crear inscripcion
     public static String crearInscripcion(InscripcionModel inscripcion) throws SQLException {
         try {
@@ -182,13 +185,13 @@ public class InscripcionModel {
         // Se llama al DAO para obtener las inscripciones desde MySQL
         try {
             inscripciones = inscripcionDAO.obtenerTodasLasInscripciones();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             // Implementar logica para devolver el error.
             throw new SQLException("No se ha podido obtener el listado de inscripciones.");
         }
         // Atributos
         int contador = 0;
-        String listado = "Listado de Inscripciones:\n"; //No se añade StringBuilder por la simplicidad del output
+        String listado = "Listado de Inscripciones:\n"; // No se añade StringBuilder por la simplicidad del output
         for (InscripcionModel inscripcion : inscripciones) {
             contador++;
             listado += "\n   -" + contador + ". " + inscripcion.toString();
@@ -204,7 +207,7 @@ public class InscripcionModel {
         // Se llama al DAO para obtener las inscripciones desde MySQL
         try {
             inscripciones = inscripcionDAO.obtenerTodasPorNumeroSocio(numeroSocio);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             // Implementar logica para devolver el error.
             throw new SQLException("No se han podido obtener las inscripciones del socio seleccionado.");
         }
@@ -217,7 +220,8 @@ public class InscripcionModel {
                     .getPrecioInscripcion();
             String descripcionExcursion = ExcursionModel
                     .obtenerExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion()).getDescripcion();
-                    listado.append("\n- ").append(contador).append(". ID Inscripción: ").append(inscripcion.getNumeroInscripcion())
+            listado.append("\n- ").append(contador).append(". ID Inscripción: ")
+                    .append(inscripcion.getNumeroInscripcion())
                     .append(" | Precio excursion: ").append(precioExcursion)
                     .append(" | Descripcion excursion: ").append(descripcionExcursion);
             total += precioExcursion;
@@ -233,7 +237,7 @@ public class InscripcionModel {
         // Se llama al DAO para obtener las inscripciones desde MySQL
         try {
             inscripciones = inscripcionDAO.obtenerTodasPorNumeroSocio(numeroSocio);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             // Implementar logica para devolver el error.
             throw new SQLException("No se han podido obtener las inscripciones para este socio.");
         }

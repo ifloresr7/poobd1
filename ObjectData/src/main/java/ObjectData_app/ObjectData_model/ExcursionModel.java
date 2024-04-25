@@ -28,7 +28,8 @@ public class ExcursionModel {
     double precioInscripcion;
 
     // Constructor
-    public ExcursionModel(int numeroExcursion, String descripcion, Date fecha, int numeroDias, double precioInscripcion) {
+    public ExcursionModel(int numeroExcursion, String descripcion, Date fecha, int numeroDias,
+            double precioInscripcion) {
         this.numeroExcursion = numeroExcursion;
         this.descripcion = descripcion;
         this.fecha = fecha;
@@ -81,8 +82,8 @@ public class ExcursionModel {
         try {
             excursionDAO.crearExcursion(excursion);
             return "¡Se ha guardado correctamente!";
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
+        } catch (Exception e) {
+            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 
@@ -90,8 +91,8 @@ public class ExcursionModel {
     public static String obtenerNombreExcursionPorNumeroExcursion(int numeroExcursion) throws SQLException {
         try {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getDescripcion();
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
+        } catch (Exception e) {
+            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 
@@ -99,18 +100,19 @@ public class ExcursionModel {
     public static double obtenerPrecioExcursion(int numeroExcursion) throws SQLException {
         try {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getPrecioInscripcion();
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
+        } catch (Exception e) {
+            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 
     // Metodo para mostrar escursiones por fecha
     public static String mostrarExcursiones(Date fechaInicio, Date fechaFin) {
-        // Se obtienen todas las excursiones con el DAO y se almacenan en un array temporal.
+        // Se obtienen todas las excursiones con el DAO y se almacenan en un array
+        // temporal.
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
             excursiones = excursionDAO.obtenerTodasExcursiones();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             // Implementar logica para devolver error a la vista.
             return e.getMessage();
         }
@@ -124,10 +126,12 @@ public class ExcursionModel {
             if (!excursion.fecha.before(fechaInicio) && !excursion.fecha.after(fechaFin)) {
                 contador++;
                 listado.append("\n- ").append(contador).append(". Código: ").append(excursion.numeroExcursion)
-                .append(" | Descripción: ").append(excursion.descripcion)
-                .append(" | Fecha y hora: ").append(dateFormat.format(excursion.fecha)) // Uso de dateFormat para formatear la fecha y hora
-                .append(" | Número de días: ").append(excursion.numeroDias)
-                .append(" | Precio de la inscripción: ").append(excursion.precioInscripcion);
+                        .append(" | Descripción: ").append(excursion.descripcion)
+                        .append(" | Fecha y hora: ").append(dateFormat.format(excursion.fecha)) // Uso de dateFormat
+                                                                                                // para formatear la
+                                                                                                // fecha y hora
+                        .append(" | Número de días: ").append(excursion.numeroDias)
+                        .append(" | Precio de la inscripción: ").append(excursion.precioInscripcion);
             }
         }
         if (contador == 0) {
@@ -142,7 +146,7 @@ public class ExcursionModel {
             excursiones = excursionDAO.obtenerTodasExcursiones();
             // Lógica para convertir las excursiones a una lista de cadenas de texto
             // y devolverlas en un arreglo
-        } catch (SQLException e) {
+        } catch (Exception e) {
             // Captura de la excepción y devolución del mensaje de error
             return new String[] { "Fallo al obtener las excursiones: " + e.getMessage() };
         }
@@ -152,7 +156,7 @@ public class ExcursionModel {
         for (ExcursionModel excursion : excursiones) {
             contador++;
             listado.append("\n- ").append(contador).append(". Descripción: ").append(excursion.getDescripcion())
-            .append(" | Precio: ").append(excursion.getPrecioInscripcion());
+                    .append(" | Precio: ").append(excursion.getPrecioInscripcion());
         }
         if (contador == 0) {
             listado.append("\n  - Sin datos.");
@@ -178,8 +182,8 @@ public class ExcursionModel {
     public static ExcursionModel obtenerExcursionPorNumeroExcursion(int numeroExcursion) throws SQLException {
         try {
             return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion);
-        } catch (SQLException e) {
-            throw new SQLException(e.getMessage()); //Captura el mensaje de error del DAO y lo envia aguas arriba.
+        } catch (Exception e) {
+            throw new SQLException(e.getMessage()); // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
 }

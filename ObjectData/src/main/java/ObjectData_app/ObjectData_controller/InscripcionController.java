@@ -34,42 +34,41 @@ public class InscripcionController {
     // Metodo para crear una Inscripcion
     public static void crearInscripcion() {
 
-    int numeroSocio = 0;
-    String respuesta = InscView.formCrearInscripcionView();
-    int numeroExcursion = 0;    
-    if (respuesta == null || respuesta.isEmpty()) {
-        RespView.respuestaControllerView("Operación cancelada.");
-        return;
-    } else if (respuesta.equals("N")) {
-        SocioController.crearNuevoSocio();
-        AppController.gestionInscripciones();
-        return;
-    } else if (respuesta.equals("S")) {
-        String retorno = InscView.formSeguirCrearInscripcionView();
-    if (retorno.isEmpty()) {
-        RespView.respuestaControllerView("Número de socio vacío. Operación cancelada.");
-        return;
-    }
-    
-    numeroSocio = Integer.parseInt(retorno);
-         
-    } else {
-        RespView.excepcionesControllerView("Debes introducir 'S' o 'N'. Operación cancelada.");
-        return;
-    }
+        int numeroSocio = 0;
+        String respuesta = InscView.formCrearInscripcionView();
+        int numeroExcursion = 0;
+        if (respuesta == null || respuesta.isEmpty()) {
+            RespView.respuestaControllerView("Operación cancelada.");
+            return;
+        } else if (respuesta.equals("N")) {
+            SocioController.crearNuevoSocio();
+            AppController.gestionInscripciones();
+            return;
+        } else if (respuesta.equals("S")) {
+            String retorno = InscView.formSeguirCrearInscripcionView();
+            if (retorno.isEmpty()) {
+                RespView.respuestaControllerView("Número de socio vacío. Operación cancelada.");
+                return;
+            }
 
-    // Si se llega aquí, significa que el usuario indicó que el socio existe y se le pide ingresar el número de socio
-    // Comprueba si el socio existe
-    try {
-        if (!SocioModel.comprobarSocioPorNumSocio(numeroSocio)) {
-        RespView.excepcionesControllerView("Socio no encontrado.");
-        return;
+            numeroSocio = Integer.parseInt(retorno);
+
+        } else {
+            RespView.excepcionesControllerView("Debes introducir 'S' o 'N'. Operación cancelada.");
+            return;
         }
-        }
-    catch (SQLException e)
-    {
+
+        // Si se llega aquí, significa que el usuario indicó que el socio existe y se le
+        // pide ingresar el número de socio
+        // Comprueba si el socio existe
+        try {
+            if (!SocioModel.comprobarSocioPorNumSocio(numeroSocio)) {
+                RespView.excepcionesControllerView("Socio no encontrado.");
+                return;
+            }
+        } catch (Exception e) {
             RespView.excepcionesControllerView(e.getMessage());
-    }
+        }
 
         // Obtiene y muestra el listado de excursiones
         String[] listadoExcursiones = ExcursionModel.obtenerListadoExcursiones();
@@ -88,7 +87,7 @@ public class InscripcionController {
                 RespView.excepcionesControllerView("Excursión no encontrada.");
                 return;
             }
-        }catch (SQLException e){
+        } catch (Exception e) {
             RespView.excepcionesControllerView(e.getMessage());
         }
 
@@ -102,7 +101,7 @@ public class InscripcionController {
         try {
             String respuest = InscripcionModel.crearInscripcion(inscripcion);
             RespView.respuestaControllerView(respuest);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             RespView.excepcionesControllerView(e.getMessage());
         }
     }
@@ -143,34 +142,36 @@ public class InscripcionController {
         String[] retorno = InscView.formFiltrarPorSocio();
         if (retorno != null && retorno.length > 0) {
             String numSocio = retorno[0];
-            if (!numSocio.isEmpty() && numSocio.matches("\\d+")) { // Verifica si la cadena no está vacía y contiene solo dígitos
+            if (!numSocio.isEmpty() && numSocio.matches("\\d+")) { // Verifica si la cadena no está vacía y contiene
+                                                                   // solo dígitos
                 int numeroSocio = Integer.parseInt(numSocio);
                 try {
                     RespView.respuestaControllerView("Listado de todas las inscripciones para el socio seleccionado: "
                             + InscripcionModel.obtenerInscripcionesByNumSocio(numeroSocio)[0]);
-                } catch (SQLException e) {
-                    RespView.excepcionesControllerView("Error. No se ha podido obtener las inscripciones." + e.getMessage());
+                } catch (Exception e) {
+                    RespView.excepcionesControllerView(
+                            "Error. No se ha podido obtener las inscripciones." + e.getMessage());
                 }
             } else {
                 RespView.excepcionesControllerView("El número de socio ingresado no es válido.");
             }
         }
     }
-    
+
     public static void eliminarInscripcion() {
         String listadoInscripciones = "";
         boolean inscripcionEliminada = false;
 
         try {
             listadoInscripciones = InscripcionModel.obtenerListadoInscripciones();
-        } catch (SQLException e) {
+        } catch (Exception e) {
             RespView.excepcionesControllerView(e.getMessage());
         }
         RespView.respuestaControllerView(listadoInscripciones);
         String retorno = InscView.formEliminarInscripcionView(listadoInscripciones);
         int num;
         // Manejar el caso en que el usuario no ingrese un número válido
-        if(retorno.matches("\\d+")) {
+        if (retorno.matches("\\d+")) {
             num = Integer.parseInt(retorno);
         } else {
             RespView.excepcionesControllerView("El número de inscripción ingresado no es válido.");
@@ -179,10 +180,10 @@ public class InscripcionController {
 
         try {
             inscripcionEliminada = InscripcionModel.eliminarInscripcionNumero(num);
-        } catch (SQLException e) {
+        } catch (Exception e) {
             RespView.excepcionesControllerView(e.getMessage());
         }
-        
+
         if (inscripcionEliminada) {
             RespView.respuestaControllerView("La inscripción ha sido eliminada exitosamente.");
         } else {
@@ -191,7 +192,7 @@ public class InscripcionController {
         }
     }
 
-    public static void mostrarInscripcionPorFecha(){
+    public static void mostrarInscripcionPorFecha() {
         String[] inscripciones = null;
         String[] retorno = InscView.formFiltrarPorFechas();
         if (retorno != null && retorno.length == 2) {
@@ -203,8 +204,8 @@ public class InscripcionController {
                 RespView.excepcionesControllerView("Formato de fecha inválido. Se esperaba yyyy-MM-dd.");
             } else {
                 try { // Parsear las fechas de inicio y fin
-                fechaI = sdf.parse(fechaInicio);
-                fechaF = sdf.parse(fechaFin);
+                    fechaI = sdf.parse(fechaInicio);
+                    fechaF = sdf.parse(fechaFin);
                 } catch (ParseException e) {
                     RespView.excepcionesControllerView("No se han podido parsear las fechas.");
                 }
@@ -212,10 +213,10 @@ public class InscripcionController {
 
             try {
                 inscripciones = InscripcionModel.listarInscripcionesFecha(fechaI, fechaF);
-            } catch (SQLException e){
+            } catch (Exception e) {
                 RespView.excepcionesControllerView("No se ha podido listar las Inscripciones.");
 
-            } 
+            }
             if (inscripciones.length > 0) {
                 RespView.respuestaControllerView("Listado de inscripciones por rango de fechas: " + inscripciones[0]);
             } else {
