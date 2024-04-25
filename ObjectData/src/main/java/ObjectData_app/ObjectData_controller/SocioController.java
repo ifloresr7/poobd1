@@ -5,7 +5,7 @@ import ObjectData_app.ObjectData_model.SocioFederadoModel;
 import ObjectData_app.ObjectData_model.SocioInfantilModel;
 import ObjectData_app.ObjectData_model.SocioModel;
 
-import java.sql.SQLException;
+
 import java.util.Random;
 
 import ObjectData_app.ObjectData_model.FederacionModel;

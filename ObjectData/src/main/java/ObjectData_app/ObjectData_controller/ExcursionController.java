@@ -4,7 +4,7 @@ import ObjectData_app.ObjectData_model.ExcursionModel;
 import ObjectData_app.ObjectData_view.ExcursionesView;
 import ObjectData_app.ObjectData_view.MensajeControllerView;
 
-import java.sql.SQLException;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
