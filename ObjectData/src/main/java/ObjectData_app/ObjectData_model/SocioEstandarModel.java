@@ -1,9 +1,8 @@
 package ObjectData_app.ObjectData_model;
 
-import ObjectData_app.ObjectData_model.SeguroModel.TipoSeguro;
-import ObjectData_app.ObjectData_model.ObjectData_Hibernate.SocioEstandarHib;
+import ObjectData_app.ObjectData_model.ObjectData_Hibernate.socioEstandarHib;
 
-import java.sql.SQLException;
+
 import java.util.List;
 
 import org.hibernate.Session;
@@ -27,7 +26,7 @@ public class SocioEstandarModel extends SocioModel {
 
     /////////////////// Metodo para crear la session de hibernate
     private static void crearSessionHib() {
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(SocioEstandarHib.class)
+        sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(socioEstandarHib.class)
                 .buildSessionFactory();
         session = sessionFactory.openSession();
     }
@@ -39,7 +38,7 @@ public class SocioEstandarModel extends SocioModel {
         try {
             // Iniciamos una transacción en la sesión
             session.beginTransaction();
-            SocioEstandarHib socio = new SocioEstandarHib(
+            socioEstandarHib socio = new socioEstandarHib(
                     socioEstandar.getNumeroSocio(), // Obtenemos el numero de socio desde el objeto socioEstandar
                                                     // //Columna numeroSocio
                     socioEstandar.getNombre(), // Obtenemos el nombre de socio desde el objeto socioEstandar //Columna
@@ -69,13 +68,13 @@ public class SocioEstandarModel extends SocioModel {
     public static SocioEstandarModel getSocioPorNumeroSocio(int numeroSocio) {
         // Creamos una sesión de Hibernate y la iniciamos
         crearSessionHib();
-        SocioEstandarHib socio = null;
+        socioEstandarHib socio = null;
         try {
             // Iniciamos una transacción en la sesión
             session.beginTransaction();
             // Obtenemos el socio por numero de socio
             socio = session
-                    .createQuery("FROM SocioEstandarHib WHERE numeroSocio = :numeroSocio", SocioEstandarHib.class)
+                    .createQuery("FROM socioEstandarHib WHERE numeroSocio = :numeroSocio", socioEstandarHib.class)
                     .setParameter("numeroSocio", numeroSocio)
                     .uniqueResult();
         } catch (Exception e) {
@@ -130,12 +129,12 @@ public class SocioEstandarModel extends SocioModel {
     public static double obtenerPrecioSeguroPorNumeroSocio(int numeroSocio) {
         // Creamos una sesión de Hibernate y la iniciamos
         crearSessionHib();
-        SocioEstandarHib socio = null;
+        socioEstandarHib socio = null;
         try {
             // Iniciamos una transacción en la sesión
             session.beginTransaction();
             socio = session
-                    .createQuery("FROM SocioEstandarHib WHERE numeroSocio = :numeroSocio", SocioEstandarHib.class)
+                    .createQuery("FROM socioEstandarHib WHERE numeroSocio = :numeroSocio", socioEstandarHib.class)
                     .setParameter("numeroSocio", numeroSocio)
                     .uniqueResult();
         } catch (Exception e) {
@@ -180,11 +179,11 @@ public class SocioEstandarModel extends SocioModel {
     public static String[] listarSocios(int valorInicialContador) {
         // Creamos una sesión de Hibernate y la iniciamos
         crearSessionHib();
-        List<SocioEstandarHib> sociosEstandar = null;
+        List<socioEstandarHib> sociosEstandar = null;
         try {
             // Iniciamos una transacción en la sesión
             session.beginTransaction();
-            sociosEstandar = session.createQuery("FROM SocioEstandarHib", SocioEstandarHib.class).list();
+            sociosEstandar = session.createQuery("FROM socioEstandarHib", socioEstandarHib.class).list();
         } catch (Exception e) {
             // Devolvemos el error aguas arriba en las clases
             throw e;
@@ -197,7 +196,7 @@ public class SocioEstandarModel extends SocioModel {
         // Comprobar en la lista de socios estándar
         StringBuilder listado = new StringBuilder();
         int contador = valorInicialContador;
-        for (SocioEstandarHib socio : sociosEstandar) {
+        for (socioEstandarHib socio : sociosEstandar) {
             contador++;
             listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio())
                     .append(" | Nombre: ").append(socio.getNombre()).append(" | NIF: ").append(socio.getNIF())
