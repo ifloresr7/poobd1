@@ -16,9 +16,21 @@ public class InscripcionesView {
     public String formCrearInscripcionView() {
         System.out.println(limpiezaConsola + h1 + "-- CREAR UNA INSCRIPCIÓN --" + p);
         System.out.println("NOTA: Puede detener la creación de inscripciones si omite algún dato durante la recolección de información.");
-        System.out.print(p2 + "- Introduzca el número de socio: " + p);
-        String numSocio = teclado.nextLine();
-        return numSocio;
+        System.out.print(p2 + "- ¿El socio existe? (S/N): " + p);
+        String respuesta = teclado.nextLine().toUpperCase(); 
+        if (respuesta.equals("S")) {
+            System.out.print(p2 + "- Introduzca el número de socio: " + p);
+            String numSocio = teclado.nextLine();
+            return numSocio;
+        }
+        else if (respuesta.equalsIgnoreCase("N"))
+        {
+            String numSocio = "0";
+            return numSocio;
+        } 
+        
+        return null;    
+        
     }
     public String formListadoExcursionesView(String listado){
         System.out.println(limpiezaConsola + h2 + "- Listado de excursiones." + p);

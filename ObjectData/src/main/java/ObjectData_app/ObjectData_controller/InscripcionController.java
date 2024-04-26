@@ -3,7 +3,7 @@ package ObjectData_app.ObjectData_controller;
 //Se añade la vista principal
 import ObjectData_app.ObjectData_model.InscripcionModel;
 import ObjectData_app.ObjectData_model.SocioModel;
-import ObjectData_app.ObjectData_view.InscripcionesView;
+import ObjectData_app.ObjectData_view.*;
 import ObjectData_app.ObjectData_model.Datos;
 import ObjectData_app.ObjectData_model.ExcursionModel;
 
@@ -29,68 +29,59 @@ public class InscripcionController {
     // Metodo para crear una Inscripcion
     public static void crearInscripcion(Datos BBDD) {
         boolean valoresComprobados = false;
-        int numeroSocio = 0;
-        int numeroExcursion = 0;
-        do {
+        while (!valoresComprobados) {
+            int numeroSocio = 0;
+            int numeroExcursion = 0;
             String retorno = View.formCrearInscripcionView();
-            // Compruebo que el usuario de la app no quiera Cancelar y salir.
-            if (retorno == "") {
+            // Comprueba si se cancela la operación
+            if (retorno == null || retorno.isEmpty()) {
                 View.respuestaControllerView("Operación cancelada.");
-                AppController.gestionInscripciones(BBDD);
-                break;
+                return;
             }
-            try {
-                numeroSocio = Integer.parseInt(retorno);
-            } catch (Exception e) {
-                View.respuestaControllerView("Debes introducir un valor númerico.");
-                continue;
-            }
-            // COmpruebo que el socio exista
-            if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroSocio)) {
-                View.respuestaControllerView("Socio no encontrado.");
-                continue;
+            // Si se solicita crear un nuevo socio
+            if (retorno.equals("N")) {
+                SocioController.crearNuevoSocio(BBDD);
+                valoresComprobados=true;
             } else {
-                valoresComprobados = true;
+                try {
+                    numeroSocio = Integer.parseInt(retorno);
+                } catch (Exception e) {
+                    View.respuestaControllerView("Debes introducir un valor númerico.");
+                    continue; // Vuelve al principio del bucle
+                }
+                // Comprueba si el socio existe
+                if (!SocioModel.comprobarSocioPorNumSocio(BBDD, numeroSocio)) {
+                    View.respuestaControllerView("Socio no encontrado.");
+                    continue; // Vuelve al principio del bucle
+                }
+                // Obtiene y muestra el listado de excursiones
+                String[] listadoExcursiones = ExcursionModel.obtenerListadoExcursiones(BBDD);
+                String retorno1 = View.formListadoExcursionesView(listadoExcursiones[0]);
+                try {
+                    int opcion = Integer.parseInt(retorno1);
+                    numeroExcursion = ExcursionModel.obtenerExcursionDesdeLista(BBDD, opcion).getNumeroExcursion();
+                } catch (Exception e) {
+                    View.respuestaControllerView("Debes introducir un valor númerico.");
+                    continue; // Vuelve al principio del bucle
+                }
+                // Comprueba si la excursión existe
+                if (!ExcursionModel.comprobarExcursionPorNumExcursion(BBDD, numeroExcursion)) {
+                    View.respuestaControllerView("Excursión no encontrada.");
+                    continue; // Vuelve al principio del bucle
+                }
+                // Genera un número de inscripción aleatorio
+                int numeroInscripcion = generarID();
+                View.respuestaControllerView("- Número de inscripción generado: " + numeroInscripcion);
+                // Crea la inscripción
+                InscripcionModel inscripcion = new InscripcionModel(numeroInscripcion, numeroSocio, numeroExcursion, new Date());
+                String respuesta = InscripcionModel.crearInscripcion(BBDD, inscripcion);
+                // Muestra la respuesta del modelo
+                View.respuestaControllerView(respuesta);
+                valoresComprobados = true; // Indica que se han comprobado todos los valores correctamente
             }
-        } while (!valoresComprobados);
-        // Reseteo el estado de valoresComprobados para realizar otra excepcion
-        valoresComprobados = false;
-        String[] listadoExcursiones = ExcursionModel.obtenerListadoExcursiones(BBDD);
-        do {
-            String retorno = View.formListadoExcursionesView(listadoExcursiones[0]);
-            try {
-                int opcion = Integer.parseInt(retorno);
-                numeroExcursion = ExcursionModel.obtenerExcursionDesdeLista(BBDD, opcion).getNumeroExcursion();
-            } catch (Exception e) {
-                View.respuestaControllerView("Debes introducir un valor númerico.");
-                continue;
-            }
-            // Compruebo que el usuario de la app no quiera Cancelar y salir.
-            if (numeroExcursion == 0) {
-                AppController.gestionInscripciones(BBDD);
-                break;
-            } else if (!ExcursionModel.comprobarExcursionPorNumExcursion(BBDD, numeroExcursion)) {
-                View.respuestaControllerView("Excursión no encontrada.");
-                continue;
-            } else {
-                valoresComprobados = true;
-            }
-        } while (!valoresComprobados);
-        // Método para generar un número de socio aleatorio
-        int numeroInscripcion = generarID(); // Número de socio
-        // Mandamos el numero de inscripcion generado a la pantalla:
-        View.respuestaControllerView("- Número de inscripción generado: " + numeroInscripcion);
-        // Creamos un objeto de tipo llamado inscripcion con los datos correctos
-        InscripcionModel inscripcion = new InscripcionModel(numeroInscripcion, numeroSocio, numeroExcursion,
-                new Date());
-        // Enviamos la información al modelo para que añada la inscripción a la BBDD
-        String respuesta = InscripcionModel.crearInscripcion(BBDD, inscripcion);
-        // Una vez que el modelo responde confirmando la acción, enviamos la respuesta
-        // recibida por parte modelo al controlador hacia la vista.
-        View.respuestaControllerView(respuesta);
-        // Volvemos al menu principal de la gestión de los socios.
-        AppController.gestionInscripciones(BBDD);
+        }
     }
+    
 
     public static void mostrarInscripcion(Datos BBDD) {
         boolean valoresComprobados = false;
