@@ -2,6 +2,10 @@ package ObjectData_app.ObjectData_view;
 
 import java.util.Scanner;
 
+import javax.swing.text.View;
+
+import ObjectData_app.ObjectData_controller.AppController;
+
 public class InscripcionesView {
     // Teclado, colores de texto y limpieza de consola.
     static Scanner teclado = new Scanner(System.in);
@@ -14,12 +18,24 @@ public class InscripcionesView {
 
     // Metodos de clase
     public String formCrearInscripcionView() {
-        System.out.println(limpiezaConsola + h1 + "-- CREA UNA INSCRIPCIÓN --" + p);
-        System.out.println("NOTA: Puede cancelar la creación de la inscripción al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
-        System.out.print(p2 + "- Introduzca el número de socio: " + p);
-        String numSocio = teclado.nextLine();
-        return numSocio;
+        System.out.println(limpiezaConsola + h1 + "-- CREAR UNA INSCRIPCIÓN --" + p);
+        System.out.println("NOTA: Puede detener la creación de inscripciones si omite algún dato durante la recolección de información.");
+        System.out.print(p2 + "- ¿El socio existe? (S/N): " + p);
+        String respuesta = teclado.nextLine().toUpperCase(); 
+        if (respuesta.equals("S")) {
+            System.out.print(p2 + "- Introduzca el número de socio: " + p);
+            String numSocio = teclado.nextLine();
+            return numSocio.isEmpty() ? "" : numSocio; // Devuelve una cadena vacía si la entrada está vacía
+        } else if (respuesta.equals("N")) {
+            return "0"; // Devuelve "0" para indicar que se debe crear un nuevo socio
+        } else {
+            // Si la respuesta no es ni "S", ni "N", ni está vacía
+            return ""; // Devuelve una cadena vacía en caso de una entrada no válida
+        }
     }
+    
+    
+    
     public String formListadoExcursionesView(String listado){
         System.out.println(limpiezaConsola + h2 + "- Listado de excursiones." + p);
         System.out.println(listado);
@@ -28,8 +44,8 @@ public class InscripcionesView {
     }
 
 
-    public String formEliminarInscripcionView() {
-        System.out.println(limpiezaConsola + h1 + "-- ELIMINA UNA INSCRIPCIÓN --" + p);
+    public String formEliminarInscripcionView(String[] listadoInscripciones) {
+        
         System.out.println("NOTA: Puede cancelar la eliminación de una inscripción al finalizar la recolección de datos si durante la recopilación de estos usted deja un dato en blanco.");
         System.out.print(p2 + "- Introduzca el número de inscripción a eliminar: " + p);
         String numInscripcion = teclado.nextLine();
