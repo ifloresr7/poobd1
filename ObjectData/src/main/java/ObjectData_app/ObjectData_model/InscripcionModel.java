@@ -1,12 +1,11 @@
 package ObjectData_app.ObjectData_model;
 
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import ObjectData_app.ObjectData_model.ObjectData_Hibernate.InscripcionHib;
-import ObjectData_app.ObjectData_model.ObjectData_Hibernate.SocioEstandarHib;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -84,7 +83,7 @@ public class InscripcionModel {
 
     // Metodo para crear la session de hibernate
     private static void crearSessionHib() {
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(SocioEstandarHib.class)
+        sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(InscripcionHib.class)
                 .buildSessionFactory();
         session = sessionFactory.openSession();
     }
