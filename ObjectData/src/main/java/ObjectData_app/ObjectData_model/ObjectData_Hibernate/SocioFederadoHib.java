@@ -1,12 +1,10 @@
 package ObjectData_app.ObjectData_model.ObjectData_Hibernate;
 
+import ObjectData_app.ObjectData_model.FederacionModel;
 import jakarta.persistence.*;
-
-//Establecemos la tabla
 @Entity
-@Table(name = "socioEstandar")
-public class socioEstandarHib {
-    // Mapeo de columnas de la tabla
+@Table(name = "socioFederado")
+public class SocioFederadoHib {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -17,19 +15,18 @@ public class socioEstandarHib {
     private String nombre;
     @Column(name = "NIF")
     private String NIF;
-    @Column(name = "seguro")
-    private String seguro;
-
+    @Column(name = "federacion")
+    private FederacionModel federacion;
     // Constructor por defecto
-    public socioEstandarHib() {
+    public SocioFederadoHib() {
     }
 
     // Contructor de mapeo
-    public socioEstandarHib(int numeroSocio, String nombre, String NIF, String seguro) {
+    public SocioFederadoHib(int numeroSocio, String nombre, String NIF, FederacionModel federacion) {
         this.numeroSocio = numeroSocio;
         this.nombre = nombre;
         this.NIF = NIF;
-        this.seguro = seguro;
+        this.federacion = federacion;
     }
 
     public int getId() {
@@ -50,7 +47,7 @@ public class socioEstandarHib {
 
     public String getNombre() {
         return nombre;
-}
+    }
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
@@ -64,11 +61,14 @@ public class socioEstandarHib {
         NIF = nIF;
     }
 
-    public String getSeguro() {
-        return seguro;
+    public FederacionModel getFederacion() {
+        return federacion;
     }
 
-    public void setSeguro(String seguro) {
-        this.seguro = seguro;
+    public void setFederacion(FederacionModel federacion) {
+        this.federacion = federacion;
     }
-} 
+
+    
+
+}

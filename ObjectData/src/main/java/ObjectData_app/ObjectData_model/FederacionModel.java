@@ -3,17 +3,11 @@ package ObjectData_app.ObjectData_model;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Implementacion.DAOFactoryImpl;
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.DAOFactory;
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.FederacionDAO;
 
 public class FederacionModel {
     // Se crea una instancia estática de DAOFactoryImpl, que probablemente
     // implementa la interfaz DAOFactory.
-    static DAOFactory factory = new DAOFactoryImpl();
-    // Se obtiene una instancia estática de FederacionDAO utilizando el objeto
-    // factory.
-    static FederacionDAO federacionDAO = factory.instanciaFederacionDAO();
+    
     // Se crea una lista estática para almacenar objetos FederacionModel.
     static ArrayList<FederacionModel> federaciones = new ArrayList<>();
 
@@ -53,7 +47,7 @@ public class FederacionModel {
     // Metodos porpios
     public static String[] obtenerListadoFederacion() {
         try {
-            federaciones = federacionDAO.obtenerTodasFederaciones();
+            //federaciones = federacionDAO.obtenerTodasFederaciones();
         } catch (Exception e) {
             throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
@@ -72,8 +66,9 @@ public class FederacionModel {
     // Obtener federacion mediante seleccion de lista.
     public static FederacionModel obtenerFederacion(int seleccion) {
         // Se obtienen todas las federaciones con el DAO
+        
         try {
-            federaciones = federacionDAO.obtenerTodasFederaciones();
+           
         } catch (Exception e) {
             throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }

@@ -181,7 +181,7 @@ public class ExcursionModel {
     // Metodo para obtener la excursion mediante seleccion de lista
     public static ExcursionModel obtenerExcursionPorNumeroExcursion(int numeroExcursion) {
         try {
-            return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion);
+            //return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion);
         } catch (Exception e) {
             throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
