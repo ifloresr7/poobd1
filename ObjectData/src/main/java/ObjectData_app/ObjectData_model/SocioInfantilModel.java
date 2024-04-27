@@ -14,14 +14,6 @@ public class SocioInfantilModel extends SocioModel {
     static Session session;
     private int numeroSocioPadreMadre;
 
-    //Constructor para hibernate
-    public SocioInfantilModel(int numeroSocio,String nombre)
-    {
-        super(numeroSocio, nombre);
-    }
-    
-    
-
     // Constructor que también inicializa la clase base SocioModel
     public SocioInfantilModel(int numeroSocio, String nombre, int numeroSocioPadreMadre) {
         super(numeroSocio, nombre);
@@ -80,20 +72,26 @@ public class SocioInfantilModel extends SocioModel {
     }
     // Método para listar todos los socios infantiles, ajustado para devolver un array de String
     public static String[] listarSocios(int valorInicialContador) {
-        Session session = sessionFactory.openSession();
-        List<SocioInfantilModel> socios = null;
+        crearSessionHib();
+        List<SocioInfantilHib> socios = null;
         StringBuilder listado = new StringBuilder();
         int contador = valorInicialContador;
         try {
-            socios = session.createQuery("from SocioInfantilModel", SocioInfantilModel.class).list();
-            for (SocioInfantilModel socio : socios) {
+            session.beginTransaction();
+            socios = session.createQuery("from SocioInfantilHib", SocioInfantilHib.class).list();
+            for (SocioInfantilHib socio : socios) {
                 contador++;
                 listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio())
                         .append(" | Nombre: ").append(socio.getNombre()).append(" | Numero socio parental: ")
-                        .append(socio.getNumeroSocioPadreMadre());
+                        .append(socio.getNumeroSocioTutorLegal());
             }
-        } finally {
-            session.close();
+        } 
+        finally 
+        {
+                  // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
+                  session.close();
+                  // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
+                  sessionFactory.close();
         }
 
         if (contador == valorInicialContador) {
@@ -130,20 +128,26 @@ public class SocioInfantilModel extends SocioModel {
           
     // Método para eliminar un socio infantil
     public static void eliminarSocioModel(int numeroSocio) {
-        Session session = sessionFactory.openSession();
+        crearSessionHib();
         Transaction transaction = null;
         try {
-            transaction = session.beginTransaction();
-            SocioInfantilModel socio = session.get(SocioInfantilModel.class, numeroSocio);
-            if (socio != null) {
-                session.remove(socio);
-            }
-            transaction.commit();
-        } catch (RuntimeException e) {
-            if (transaction != null) transaction.rollback();
+            session.beginTransaction();
+            // Creamos una consulta DELETE utilizando createMutationQuery()
+            session.createMutationQuery("DELETE FROM SocioInfantilHib WHERE numeroSocio = :numeroSocio")
+                    .setParameter("numeroSocio", numeroSocio)
+                    .executeUpdate();
+            // Confirmamos la transacción
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            // En caso de error, realizamos un rollback de la transacción
+            session.getTransaction().rollback();
+            // Devolvemos el error aguas arriba en las clases
             throw e;
         } finally {
-            session.close();
+              // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
+              session.close();
+              // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
+              sessionFactory.close();
         }
     }
 }
