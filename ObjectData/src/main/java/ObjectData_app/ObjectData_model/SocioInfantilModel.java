@@ -2,7 +2,6 @@ package ObjectData_app.ObjectData_model;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.Transaction;
 
 import ObjectData_app.ObjectData_model.ObjectData_Hibernate.SocioInfantilHib;
 
@@ -92,7 +91,7 @@ public class SocioInfantilModel extends SocioModel {
                   session.close();
                   // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
                   sessionFactory.close();
-        }
+       }
 
         if (contador == valorInicialContador) {
             listado.append("\n  - Sin datos de socios Infantiles.");
@@ -129,7 +128,6 @@ public class SocioInfantilModel extends SocioModel {
     // Método para eliminar un socio infantil
     public static void eliminarSocioModel(int numeroSocio) {
         crearSessionHib();
-        Transaction transaction = null;
         try {
             session.beginTransaction();
             // Creamos una consulta DELETE utilizando createMutationQuery()

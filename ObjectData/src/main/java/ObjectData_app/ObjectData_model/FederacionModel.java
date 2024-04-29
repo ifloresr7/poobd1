@@ -1,6 +1,6 @@
 package ObjectData_app.ObjectData_model;
 
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 
 

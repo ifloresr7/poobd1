@@ -1,22 +1,19 @@
 package ObjectData_app.ObjectData_model;
 
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.Date;
 
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Implementacion.DAOFactoryImpl;
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.DAOFactory;
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.ExcursionDAO;
 
 import java.text.SimpleDateFormat;
 
 public class ExcursionModel {
     // Se crea una instancia estática de DAOFactoryImpl, que probablemente
     // implementa la interfaz DAOFactory.
-    static DAOFactory factory = new DAOFactoryImpl();
+    //static DAOFactory factory = new DAOFactoryImpl();
     // Se obtiene una instancia estática de ExcursionDAO utilizando el objeto
     // factory.
-    static ExcursionDAO excursionDAO = factory.instanciaExcursionDAO();
+    //static ExcursionDAO excursionDAO = factory.instanciaExcursionDAO();
     // Se crea una lista estática para almacenar objetos ExcursionModel.
     static ArrayList<ExcursionModel> excursiones = new ArrayList<>();
 
@@ -80,7 +77,7 @@ public class ExcursionModel {
     // Método para crear una excursion
     public String crearExcursionModel(ExcursionModel excursion) {
         try {
-            excursionDAO.crearExcursion(excursion);
+           // excursionDAO.crearExcursion(excursion);
             return "¡Se ha guardado correctamente!";
         } catch (Exception e) {
             throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
@@ -90,8 +87,9 @@ public class ExcursionModel {
     // Metodo para devolver el nombre de la excursion.
     public static String obtenerNombreExcursionPorNumeroExcursion(int numeroExcursion) {
         try {
-            return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getDescripcion();
-        } catch (Exception e) {
+      //      return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getDescripcion();
+    return null;    
+    } catch (Exception e) {
             throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
     }
@@ -99,7 +97,7 @@ public class ExcursionModel {
     // Metodo para obtener el precio de la excursion.
     public static double obtenerPrecioExcursion(int numeroExcursion) {
         try {
-            return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getPrecioInscripcion();
+            return 0.0;//excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getPrecioInscripcion();
         } catch (Exception e) {
             throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
@@ -111,7 +109,7 @@ public class ExcursionModel {
         // temporal.
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         try {
-            excursiones = excursionDAO.obtenerTodasExcursiones();
+            //excursiones = excursionDAO.obtenerTodasExcursiones();
         } catch (Exception e) {
             // Implementar logica para devolver error a la vista.
             return e.getMessage();
@@ -143,7 +141,7 @@ public class ExcursionModel {
     // Metodo para mostrar una lista de excursiones
     public static String[] obtenerListadoExcursiones() {
         try {
-            excursiones = excursionDAO.obtenerTodasExcursiones();
+            //excursiones = excursionDAO.obtenerTodasExcursiones();
             // Lógica para convertir las excursiones a una lista de cadenas de texto
             // y devolverlas en un arreglo
         } catch (Exception e) {
@@ -181,6 +179,7 @@ public class ExcursionModel {
     // Metodo para obtener la excursion mediante seleccion de lista
     public static ExcursionModel obtenerExcursionPorNumeroExcursion(int numeroExcursion) {
         try {
+            return null;
             //return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion);
         } catch (Exception e) {
             throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
