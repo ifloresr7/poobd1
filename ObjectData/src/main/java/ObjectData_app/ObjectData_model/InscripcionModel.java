@@ -305,31 +305,26 @@ public class InscripcionModel {
 
     // Metodo para comprobar si un usuario tiene inscripciones
     public static boolean comprobarSocioInscrito(int numeroSocio) {
-        
+        InscripcionHib inscripcion = null;
         try {
             crearSessionHib(); // Crear la sesión de Hibernate
-
-            session.beginTransaction();
     
             // Buscar la inscripción del socio por su número de socio
-            InscripcionHib inscripcion = session.find(InscripcionHib.class, numeroSocio);
-    
-            if (inscripcion!=null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-    
-            // Devuelve true si se encontró la inscripción para el socio
-            
+            inscripcion = session.find(InscripcionHib.class, numeroSocio);
         } catch (Exception e) {
-            // Implementar logica para devolver el error.
-            throw e;
+            // Manejar la excepción apropiadamente
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+            if (sessionFactory != null && !sessionFactory.isClosed()) {
+                sessionFactory.close();
+            }
         }
-        
-        
+    
+        // Devolver true si se encontró la inscripción para el socio
+        return inscripcion != null;
     }
 }
