@@ -232,11 +232,13 @@ public class SocioController {
             // Con este metodo del modelo obtengo el objeto seleccionado por el usuario
             try {
                 federacion = FederacionModel.obtenerFederacion(seleccion);
+                
             } catch (Exception e) {
                 RespView.excepcionesControllerView(e.getMessage());
             }
+            String codigoFederacion=federacion.getCodigo();
             // Creamos el objeto con los datos recolectados.
-            SocioFederadoModel socio = new SocioFederadoModel(numeroSocio, nombre, NIF, federacion);
+            SocioFederadoModel socio = new SocioFederadoModel(numeroSocio, nombre, NIF, codigoFederacion);
             // Enviamos la información al modelo para que añada el socio a la
             try {
                 socio.crearSocioFederado(socio);

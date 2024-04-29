@@ -1,6 +1,6 @@
 package ObjectData_app.ObjectData_model;
 
-import java.sql.SQLException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,18 +9,16 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
 import ObjectData_app.ObjectData_model.ObjectData_Hibernate.SocioFederadoHib;
-import ObjectData_app.ObjectData_model.ObjectData_Hibernate.SocioInfantilHib;
-
 
 public class SocioFederadoModel extends SocioModel {
     static SessionFactory sessionFactory;
     static Session session;
     static ArrayList<SocioFederadoModel> sociosFederados = new ArrayList<>();
     String NIF;
-    FederacionModel federacion;
+    String federacion;
 
     // Constructor
-    public SocioFederadoModel(int numeroSocio, String nombre, String NIF, FederacionModel federacion) {
+    public SocioFederadoModel(int numeroSocio, String nombre, String NIF, String federacion) {
         super(numeroSocio, nombre);
         this.NIF = NIF;
         this.federacion = federacion;
@@ -34,11 +32,11 @@ public class SocioFederadoModel extends SocioModel {
         this.NIF = NIF;
     }
 
-    public FederacionModel getFederacion() {
+    public String getFederacion() {
         return federacion;
     }
 
-    public void setFederacion(FederacionModel federacion) {
+    public void setFederacion(String federacion) {
         this.federacion = federacion;
     }
 
@@ -119,25 +117,24 @@ public class SocioFederadoModel extends SocioModel {
     // Metodo para listar los socios federados.
     public static String[] listarSocios(int valorInicialContador) {
         crearSessionHib();
-        List<SocioFederadoHib> socios = null;
+        List<SocioFederadoHib> sociosFederados = null;
         StringBuilder listado = new StringBuilder();
         try 
         {
             session.beginTransaction();
-            socios = session.createQuery("from SocioFederadoHib", SocioFederadoHib.class).list();
+            sociosFederados  = session.createQuery("from SocioFederadoHib", SocioFederadoHib.class).list();
         } 
         catch (Exception e) 
         {
             throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         // Atributos.
-        StringBuilder list = new StringBuilder();
         int contador = valorInicialContador;
-        for (SocioFederadoModel socio : sociosFederados) {
+        for (SocioFederadoHib socio : sociosFederados) {
             contador++;
             listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio())
                     .append(" | Nombre: ").append(socio.getNombre()).append(" | NIF: ").append(socio.getNIF())
-                    .append(" | Seguro: ").append(socio.federacion.getNombre());
+                    .append(" | Codigo Federación: ").append(socio.getFederacion());
         }
         if (contador == 0) {
             listado.append("\n  - Sin datos de socios Federados.");

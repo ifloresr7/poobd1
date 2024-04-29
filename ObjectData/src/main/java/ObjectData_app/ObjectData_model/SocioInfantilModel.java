@@ -81,6 +81,24 @@ public class SocioInfantilModel extends SocioModel {
         List<SocioInfantilHib> socios = null;
         try {
             session.beginTransaction();
+<<<<<<< HEAD
+            socios = session.createQuery("from SocioInfantilHib", SocioInfantilHib.class).list();
+            for (SocioInfantilHib socio : socios) {
+                contador++;
+                listado.append("\n- ").append(contador).append(". Numero Socio: ").append(socio.getNumeroSocio())
+                        .append(" | Nombre: ").append(socio.getNombre()).append(" | Numero socio parental: ")
+                        .append(socio.getNumeroSocioTutorLegal());
+            }
+        } 
+        finally 
+        {
+                  // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
+                  session.close();
+                  // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
+                  sessionFactory.close();
+       }
+
+=======
             socios = session.createQuery("FROM SocioInfantilHib", SocioInfantilHib.class).list();
         } catch (Exception e) {
             // Devolvemos el error aguas arriba en las clases
@@ -100,6 +118,7 @@ public class SocioInfantilModel extends SocioModel {
                     .append(" | Nombre: ").append(socio.getNombre()).append(" | Numero socio parental: ")
                     .append(socio.getNumeroSocioTutorLegal());
         }
+>>>>>>> 6fb1032c7e8c2240476f9187b008448c21c4a887
         if (contador == valorInicialContador) {
             listado.append("\n  - Sin datos de socios Infantiles.");
         }

@@ -269,14 +269,16 @@ public class InscripcionModel {
     }
 
     // Metodo para obtener inscripciones de un socio mediante numeroSocio
+   
     public static String[] obtenerInscripcionesByNumSocio(int numeroSocio) {
         Session session = null;
         // Se llama al DAO para obtener las inscripciones desde MySQL
         try {
             crearSessionHib(); // Crear la sesión de Hibernate
             session = sessionFactory.openSession();
-            String hql = "FROM InscripcionHib WHERE numerosocio = :numeroSocio";
-            Query<InscripcionHib> query = session.createQuery(hql, InscripcionHib.class);
+            Query<InscripcionHib> query = session.createQuery("FROM InscripcionHib WHERE numeroSocio = :numeroSocio", InscripcionHib.class);
+            query.setParameter("numeroSocio", numeroSocio);
+            
             List<InscripcionHib> inscripciones = query.getResultList();
             double total = 0.0;
             StringBuilder listado = new StringBuilder("\n    - Lista de inscripciones del socio: ");
