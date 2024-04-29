@@ -146,7 +146,7 @@ public class InscripcionController {
                 int numeroSocio = Integer.parseInt(numSocio);
                 try {
                     RespView.respuestaControllerView("Listado de todas las inscripciones para el socio seleccionado: "
-                            + InscripcionModel.obtenerInscripcionesByNumSocio(numeroSocio));
+                            + InscripcionModel.obtenerInscripcionesByNumSocio(numeroSocio)[0]);
                 } catch (Exception e) {
                     RespView.excepcionesControllerView(
                             "Error. No se ha podido obtener las inscripciones." + e.getMessage());
