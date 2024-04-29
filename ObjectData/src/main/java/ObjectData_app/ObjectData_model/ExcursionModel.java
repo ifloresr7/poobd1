@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import ObjectData_app.ObjectData_model.ObjectData_Hibernate.ExcursionModelHib;
-import ObjectData_app.ObjectData_model.ObjectData_Hibernate.socioEstandarHib;
 
 public class ExcursionModel {
     static SessionFactory sessionFactory;
@@ -33,19 +32,16 @@ public class ExcursionModel {
     }
 
     private static void crearSessionHib() {
-        if (sessionFactory == null) {
-            sessionFactory = new Configuration().configure("hibernate.cfg.xml")
-                    .addAnnotatedClass(ExcursionModelHib.class).buildSessionFactory();
-        }
+        sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(ExcursionModelHib.class)
+                .buildSessionFactory();
         session = sessionFactory.openSession();
     }
 
     // Método para crear una excursion
     public String crearExcursionModel(ExcursionModel excursion) {
         crearSessionHib();
-        Transaction transaction = null;
         try {
-            transaction = session.beginTransaction();
+            session.beginTransaction();
             ExcursionModelHib excursionHib = new ExcursionModelHib(
                     excursion.getNumeroExcursion(),
                     excursion.getDescripcion(),
@@ -53,13 +49,17 @@ public class ExcursionModel {
                     excursion.getNumeroDias(),
                     excursion.getPrecioInscripcion());
             session.persist(excursionHib);
-            transaction.commit();
+            // Confirmamos la transacción
+            session.getTransaction().commit();
         } catch (Exception e) {
-            if (transaction != null)
-                transaction.rollback();
+            // En caso de error, realizamos un rollback de la transacción
+            session.getTransaction().rollback();
+            // Devolvemos el error aguas arriba en las clases
             throw e;
         } finally {
+            // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
             session.close();
+            // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
             sessionFactory.close();
         }
         return "Se creo la excursión correctamente.";
@@ -75,9 +75,13 @@ public class ExcursionModel {
                             ExcursionModelHib.class)
                     .setParameter("numeroExcursion", numeroExcursion)
                     .uniqueResult();
-            session.getTransaction().commit();
+        } catch (Exception e) {
+            // Devolvemos el error aguas arriba en las clases
+            throw e;
         } finally {
+            // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
             session.close();
+            // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
             sessionFactory.close();
         }
         return new ExcursionModel(excursion.getNumeroExcursion(), excursion.getDescripcion(), excursion.getFecha(),
@@ -94,9 +98,13 @@ public class ExcursionModel {
                             ExcursionModelHib.class)
                     .setParameter("numeroExcursion", numeroExcursion)
                     .uniqueResult();
-            session.getTransaction().commit();
+        } catch (Exception e) {
+            // Devolvemos el error aguas arriba en las clases
+            throw e;
         } finally {
+            // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
             session.close();
+            // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
             sessionFactory.close();
         }
         // Uso de operador ternario: condición ? valorSiVerdadero : valorSiFalso;
@@ -128,8 +136,13 @@ public class ExcursionModel {
             if (contador == 0) {
                 listado.append("\n  - Sin datos.");
             }
+        } catch (Exception e) {
+            // Devolvemos el error aguas arriba en las clases
+            throw e;
         } finally {
+            // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
             session.close();
+            // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
             sessionFactory.close();
         }
         return listado.toString();
@@ -143,7 +156,8 @@ public class ExcursionModel {
         try {
             // Iniciamos una transacción en la sesión
             session.beginTransaction();
-            excursionList = session.createQuery("FROM excursion", ExcursionModelHib.class).list();
+            excursionList = session.createQuery("FROM ExcursionModelHib", ExcursionModelHib.class).list();
+
         } catch (Exception e) {
             // Devolvemos el error aguas arriba en las clases
             throw e;
@@ -174,7 +188,7 @@ public class ExcursionModel {
         try {
             // Iniciamos una transacción en la sesión
             session.beginTransaction();
-            excursionList = session.createQuery("FROM excursion", ExcursionModelHib.class).list();
+            excursionList = session.createQuery("FROM ExcursionModelHib", ExcursionModelHib.class).list();
         } catch (Exception e) {
             // Devolvemos el error aguas arriba en las clases
             throw e;
