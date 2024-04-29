@@ -105,8 +105,7 @@ public class InscripcionModel {
 
             List<InscripcionModel> insc = query.getResultList();
             for (InscripcionModel inscripcion : insc) {
-                String nombreExcursion = ExcursionModel
-                        .obtenerNombreExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion());
+                String nombreExcursion = ExcursionModel.obtenerExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion()).getDescripcion();
                 String tipoSocio = SocioModel.obtenerTipoSocioPorNumeroSocio(inscripcion.getNumeroSocio());
                 double precio = ExcursionModel.obtenerPrecioExcursion(inscripcion.getNumeroExcursion());
                 String nombreSocio = "";
