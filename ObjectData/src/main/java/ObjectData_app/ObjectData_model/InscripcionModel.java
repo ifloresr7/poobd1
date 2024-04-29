@@ -1,5 +1,6 @@
 package ObjectData_app.ObjectData_model;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -304,19 +305,31 @@ public class InscripcionModel {
 
     // Metodo para comprobar si un usuario tiene inscripciones
     public static boolean comprobarSocioInscrito(int numeroSocio) {
-        // Se llama al DAO para obtener las inscripciones desde MySQL
+        
         try {
+            crearSessionHib(); // Crear la sesión de Hibernate
 
+            session.beginTransaction();
+    
+            // Buscar la inscripción del socio por su número de socio
+            InscripcionHib inscripcion = session.find(InscripcionHib.class, numeroSocio);
+    
+            if (inscripcion!=null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+    
+            // Devuelve true si se encontró la inscripción para el socio
+            
         } catch (Exception e) {
             // Implementar logica para devolver el error.
             throw e;
         }
-        for (InscripcionModel inscripcion : inscripciones) {
-            if (inscripcion.getNumeroSocio() == numeroSocio) {
-                // Devuelve true si el socio esta inscrito en una excursión
-                return true;
-            }
-        }
-        return false;
+        
+        
     }
 }
