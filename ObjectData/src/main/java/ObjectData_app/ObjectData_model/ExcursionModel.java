@@ -1,31 +1,25 @@
 package ObjectData_app.ObjectData_model;
 
-import java.sql.SQLException;
-import java.util.ArrayList;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import java.util.List;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Implementacion.DAOFactoryImpl;
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.DAOFactory;
-import ObjectData_app.ObjectData_model.ObjectData_DAO_Unused.Interfaces.ExcursionDAO;
-
-import java.text.SimpleDateFormat;
+import ObjectData_app.ObjectData_model.ObjectData_Hibernate.ExcursionModelHib;
 
 public class ExcursionModel {
-    // Se crea una instancia estática de DAOFactoryImpl, que probablemente
-    // implementa la interfaz DAOFactory.
-    static DAOFactory factory = new DAOFactoryImpl();
-    // Se obtiene una instancia estática de ExcursionDAO utilizando el objeto
-    // factory.
-    static ExcursionDAO excursionDAO = factory.instanciaExcursionDAO();
-    // Se crea una lista estática para almacenar objetos ExcursionModel.
-    static ArrayList<ExcursionModel> excursiones = new ArrayList<>();
+    static SessionFactory sessionFactory;
+    static Session session;
 
     // Propiedades de clase
-    int numeroExcursion;
-    String descripcion;
-    Date fecha;
-    int numeroDias;
-    double precioInscripcion;
+    private int numeroExcursion;
+    private String descripcion;
+    private Date fecha;
+    private int numeroDias;
+    private double precioInscripcion;
 
     // Constructor
     public ExcursionModel(int numeroExcursion, String descripcion, Date fecha, int numeroDias,
@@ -37,6 +31,191 @@ public class ExcursionModel {
         this.precioInscripcion = precioInscripcion;
     }
 
+    private static void crearSessionHib() {
+        sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(ExcursionModelHib.class)
+                .buildSessionFactory();
+        session = sessionFactory.openSession();
+    }
+
+    // Método para crear una excursion
+    public String crearExcursionModel(ExcursionModel excursion) {
+        crearSessionHib();
+        try {
+            session.beginTransaction();
+            ExcursionModelHib excursionHib = new ExcursionModelHib(
+                    excursion.getNumeroExcursion(),
+                    excursion.getDescripcion(),
+                    excursion.getFecha(),
+                    excursion.getNumeroDias(),
+                    excursion.getPrecioInscripcion());
+            session.persist(excursionHib);
+            // Confirmamos la transacción
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            // En caso de error, realizamos un rollback de la transacción
+            session.getTransaction().rollback();
+            // Devolvemos el error aguas arriba en las clases
+            throw e;
+        } finally {
+            // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
+            session.close();
+            // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
+            sessionFactory.close();
+        }
+        return "Se creo la excursión correctamente.";
+    }
+
+    public static ExcursionModel obtenerExcursionPorNumeroExcursion(int numeroExcursion) {
+        crearSessionHib();
+        ExcursionModelHib excursion = null;
+        try {
+            session.beginTransaction();
+            excursion = session
+                    .createQuery("FROM ExcursionModelHib WHERE numeroExcursion = :numeroExcursion",
+                            ExcursionModelHib.class)
+                    .setParameter("numeroExcursion", numeroExcursion)
+                    .uniqueResult();
+        } catch (Exception e) {
+            // Devolvemos el error aguas arriba en las clases
+            throw e;
+        } finally {
+            // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
+            session.close();
+            // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
+            sessionFactory.close();
+        }
+        return new ExcursionModel(excursion.getNumeroExcursion(), excursion.getDescripcion(), excursion.getFecha(),
+                excursion.getNumeroDias(), excursion.getPrecioInscripcion());
+    }
+
+    public static double obtenerPrecioExcursion(int numeroExcursion) {
+        crearSessionHib();
+        ExcursionModelHib excursion = null;
+        try {
+            session.beginTransaction();
+            excursion = session
+                    .createQuery("FROM ExcursionModelHib WHERE numeroExcursion = :numeroExcursion",
+                            ExcursionModelHib.class)
+                    .setParameter("numeroExcursion", numeroExcursion)
+                    .uniqueResult();
+        } catch (Exception e) {
+            // Devolvemos el error aguas arriba en las clases
+            throw e;
+        } finally {
+            // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
+            session.close();
+            // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
+            sessionFactory.close();
+        }
+        // Uso de operador ternario: condición ? valorSiVerdadero : valorSiFalso;
+        return excursion != null ? excursion.getPrecioInscripcion() : 0;
+    }
+
+    public static String mostrarExcursiones(Date fechaInicio, Date fechaFin) {
+        crearSessionHib();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        List<ExcursionModelHib> excursions = null;
+        StringBuilder listado = new StringBuilder();
+        try {
+            session.beginTransaction();
+            excursions = session
+                    .createQuery("FROM ExcursionModelHib WHERE fecha BETWEEN :start AND :end", ExcursionModelHib.class)
+                    .setParameter("start", fechaInicio)
+                    .setParameter("end", fechaFin)
+                    .list();
+            session.getTransaction().commit();
+            int contador = 0;
+            for (ExcursionModelHib excursion : excursions) {
+                contador++;
+                listado.append("\n- ").append(contador).append(". Código: ").append(excursion.getNumeroExcursion())
+                        .append(" | Descripción: ").append(excursion.getDescripcion())
+                        .append(" | Fecha y hora: ").append(dateFormat.format(excursion.getFecha()))
+                        .append(" | Número de días: ").append(excursion.getNumeroDias())
+                        .append(" | Precio de la inscripción: ").append(excursion.getPrecioInscripcion());
+            }
+            if (contador == 0) {
+                listado.append("\n  - Sin datos.");
+            }
+        } catch (Exception e) {
+            // Devolvemos el error aguas arriba en las clases
+            throw e;
+        } finally {
+            // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
+            session.close();
+            // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
+            sessionFactory.close();
+        }
+        return listado.toString();
+    }
+
+    // Metodo paras listar los socios estandar.
+    public static String[] obtenerListadoExcursiones() {
+        // Creamos una sesión de Hibernate y la iniciamos
+        crearSessionHib();
+        List<ExcursionModelHib> excursionList = null;
+        try {
+            // Iniciamos una transacción en la sesión
+            session.beginTransaction();
+            excursionList = session.createQuery("FROM ExcursionModelHib", ExcursionModelHib.class).list();
+
+        } catch (Exception e) {
+            // Devolvemos el error aguas arriba en las clases
+            throw e;
+        } finally {
+            // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
+            session.close();
+            // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
+            sessionFactory.close();
+        }
+        // Comprobar en la lista de socios estándar
+        StringBuilder listado = new StringBuilder();
+        int contador = 0;
+        for (ExcursionModelHib excursion : excursionList) {
+            contador++;
+            listado.append("\n- ").append(contador).append(". Descripción: ").append(excursion.getDescripcion())
+                    .append(" | Precio: ").append(excursion.getPrecioInscripcion());
+        }
+        if (contador == 0) {
+            listado.append("\n  - Sin datos de socios Estandar.");
+        }
+        return new String[] { listado.toString(), String.valueOf(contador) };
+    }
+
+    public static ExcursionModel obtenerExcursionDesdeLista(int seleccion) {
+        // Creamos una sesión de Hibernate y la iniciamos
+        crearSessionHib();
+        List<ExcursionModelHib> excursionList = null;
+        try {
+            // Iniciamos una transacción en la sesión
+            session.beginTransaction();
+            excursionList = session.createQuery("FROM ExcursionModelHib", ExcursionModelHib.class).list();
+        } catch (Exception e) {
+            // Devolvemos el error aguas arriba en las clases
+            throw e;
+        } finally {
+            // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
+            session.close();
+            // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
+            sessionFactory.close();
+        }
+        // Comprobar en la lista de socios estándar
+        int contador = 0;
+        // Logica
+        for (ExcursionModelHib excursion : excursionList) {
+            contador++;
+            if (contador == seleccion) {
+                return new ExcursionModel(
+                        excursion.getNumeroExcursion(),
+                        excursion.getDescripcion(),
+                        excursion.getFecha(),
+                        excursion.getNumeroDias(),
+                        excursion.getPrecioInscripcion());
+            }
+        }
+        return null;
+    }
+
+    // Getters y Setters
     public int getNumeroExcursion() {
         return numeroExcursion;
     }
@@ -75,115 +254,5 @@ public class ExcursionModel {
 
     public void setPrecioInscripcion(double precioInscripcion) {
         this.precioInscripcion = precioInscripcion;
-    }
-
-    // Método para crear una excursion
-    public String crearExcursionModel(ExcursionModel excursion) {
-        try {
-            excursionDAO.crearExcursion(excursion);
-            return "¡Se ha guardado correctamente!";
-        } catch (Exception e) {
-            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
-        }
-    }
-
-    // Metodo para devolver el nombre de la excursion.
-    public static String obtenerNombreExcursionPorNumeroExcursion(int numeroExcursion) {
-        try {
-            return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getDescripcion();
-        } catch (Exception e) {
-            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
-        }
-    }
-
-    // Metodo para obtener el precio de la excursion.
-    public static double obtenerPrecioExcursion(int numeroExcursion) {
-        try {
-            return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion).getPrecioInscripcion();
-        } catch (Exception e) {
-            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
-        }
-    }
-
-    // Metodo para mostrar escursiones por fecha
-    public static String mostrarExcursiones(Date fechaInicio, Date fechaFin) {
-        // Se obtienen todas las excursiones con el DAO y se almacenan en un array
-        // temporal.
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        try {
-            excursiones = excursionDAO.obtenerTodasExcursiones();
-        } catch (Exception e) {
-            // Implementar logica para devolver error a la vista.
-            return e.getMessage();
-        }
-        // Atributos.
-        StringBuilder listado = new StringBuilder();
-        int contador = 0;
-        // Primero comprueba que haya excursiones dentro del ArrayList
-        for (ExcursionModel excursion : excursiones) {
-            // Comprueba si la fecha de la excursión está dentro del rango introducido e
-            // imprime la info de la misma
-            if (!excursion.fecha.before(fechaInicio) && !excursion.fecha.after(fechaFin)) {
-                contador++;
-                listado.append("\n- ").append(contador).append(". Código: ").append(excursion.numeroExcursion)
-                        .append(" | Descripción: ").append(excursion.descripcion)
-                        .append(" | Fecha y hora: ").append(dateFormat.format(excursion.fecha)) // Uso de dateFormat
-                                                                                                // para formatear la
-                                                                                                // fecha y hora
-                        .append(" | Número de días: ").append(excursion.numeroDias)
-                        .append(" | Precio de la inscripción: ").append(excursion.precioInscripcion);
-            }
-        }
-        if (contador == 0) {
-            listado.append("\n  - Sin datos.");
-        }
-        return listado.toString();
-    }
-
-    // Metodo para mostrar una lista de excursiones
-    public static String[] obtenerListadoExcursiones() {
-        try {
-            excursiones = excursionDAO.obtenerTodasExcursiones();
-            // Lógica para convertir las excursiones a una lista de cadenas de texto
-            // y devolverlas en un arreglo
-        } catch (Exception e) {
-            // Captura de la excepción y devolución del mensaje de error
-            return new String[] { "Fallo al obtener las excursiones: " + e.getMessage() };
-        }
-        // Atributos
-        StringBuilder listado = new StringBuilder();
-        int contador = 0;
-        for (ExcursionModel excursion : excursiones) {
-            contador++;
-            listado.append("\n- ").append(contador).append(". Descripción: ").append(excursion.getDescripcion())
-                    .append(" | Precio: ").append(excursion.getPrecioInscripcion());
-        }
-        if (contador == 0) {
-            listado.append("\n  - Sin datos.");
-        }
-        return new String[] { listado.toString(), String.valueOf(contador) };
-    }
-
-    // Metodo para obtener la excursion mediante seleccion de lista
-    public static ExcursionModel obtenerExcursionDesdeLista(int seleccion) {
-        // Atributos
-        int contador = 0;
-        // Logica
-        for (ExcursionModel excursion : excursiones) {
-            contador++;
-            if (contador == seleccion) {
-                return excursion;
-            }
-        }
-        return null;
-    }
-
-    // Metodo para obtener la excursion mediante seleccion de lista
-    public static ExcursionModel obtenerExcursionPorNumeroExcursion(int numeroExcursion) {
-        try {
-            //return excursionDAO.obtenerPorNumeroExcursion(numeroExcursion);
-        } catch (Exception e) {
-            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
-        }
     }
 }

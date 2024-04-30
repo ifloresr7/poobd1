@@ -15,14 +15,14 @@ public class SocioFederadoHib {
     private String nombre;
     @Column(name = "NIF")
     private String NIF;
-    @Column(name = "federacion")
-    private FederacionModel federacion;
+    @Column(name = "codigoFederacion")
+    private String federacion;
     // Constructor por defecto
     public SocioFederadoHib() {
     }
 
     // Contructor de mapeo
-    public SocioFederadoHib(int numeroSocio, String nombre, String NIF, FederacionModel federacion) {
+    public SocioFederadoHib(int numeroSocio, String nombre, String NIF, String federacion) {
         this.numeroSocio = numeroSocio;
         this.nombre = nombre;
         this.NIF = NIF;
@@ -61,11 +61,11 @@ public class SocioFederadoHib {
         NIF = nIF;
     }
 
-    public FederacionModel getFederacion() {
+    public String getFederacion() {
         return federacion;
     }
 
-    public void setFederacion(FederacionModel federacion) {
+    public void setFederacion(String federacion) {
         this.federacion = federacion;
     }
 

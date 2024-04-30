@@ -1,11 +1,11 @@
 package ObjectData_app.ObjectData_model;
 
-
-import java.util.ArrayList;
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
 import ObjectData_app.ObjectData_model.ObjectData_Hibernate.InscripcionHib;
+import ObjectData_app.ObjectData_model.ObjectData_Hibernate.socioEstandarHib;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -18,12 +18,6 @@ public class InscripcionModel {
     // Propiedades de Hibernate
     static SessionFactory sessionFactory;
     static Session session;
-
-    // Se crea una lista estática para almacenar objetos InscripcionModel.
-    static ArrayList<InscripcionModel> inscripciones = new ArrayList<>();
-
-    // Se crea una lista estática para almacenar objetos ExcursionModel.
-    static ArrayList<ExcursionModel> excursiones = new ArrayList<>();
 
     private int numeroInscripcion;
     private int numeroSocio;
@@ -99,14 +93,14 @@ public class InscripcionModel {
 
             // Consulta SQL nativa para obtener las inscripciones dentro del rango de fechas
             String sql = "SELECT * FROM InscripcionModel WHERE fechaInscripcion BETWEEN :fechaI AND :fechaF";
-            Query<InscripcionModel> query = session.createNativeQuery(sql, InscripcionModel.class);
+            Query<InscripcionHib> query = session.createNativeQuery(sql, InscripcionHib.class);
             query.setParameter("fechaI", fechaI);
             query.setParameter("fechaF", fechaF);
 
-            List<InscripcionModel> insc = query.getResultList();
-            for (InscripcionModel inscripcion : insc) {
+            List<InscripcionHib> insc = query.getResultList();
+            for (InscripcionHib inscripcion : insc) {
                 String nombreExcursion = ExcursionModel
-                        .obtenerNombreExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion());
+                        .obtenerExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion()).getDescripcion();
                 String tipoSocio = SocioModel.obtenerTipoSocioPorNumeroSocio(inscripcion.getNumeroSocio());
                 double precio = ExcursionModel.obtenerPrecioExcursion(inscripcion.getNumeroExcursion());
                 String nombreSocio = "";
@@ -270,58 +264,67 @@ public class InscripcionModel {
     }
 
     // Metodo para obtener inscripciones de un socio mediante numeroSocio
+
     public static String[] obtenerInscripcionesByNumSocio(int numeroSocio) {
-        Session session = null;
-        // Se llama al DAO para obtener las inscripciones desde MySQL
+        crearSessionHib();
+        List<InscripcionHib> inscripcionesSocio = null;
         try {
-            crearSessionHib(); // Crear la sesión de Hibernate
+            // Crear la sesión de Hibernate
             session = sessionFactory.openSession();
-            String hql = "FROM InscripcionHib WHERE numerosocio = :numeroSocio";
-            Query<InscripcionHib> query = session.createQuery(hql, InscripcionHib.class);
-            List<InscripcionHib> inscripciones = query.getResultList();
-            double total = 0.0;
-            StringBuilder listado = new StringBuilder("\n    - Lista de inscripciones del socio: ");
-            int contador = 0;
-            for (InscripcionHib inscripcion : inscripciones) {
-                contador++;
-                Double precioExcursion = ExcursionModel
-                        .obtenerExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion())
-                        .getPrecioInscripcion();
-                String descripcionExcursion = ExcursionModel
-                        .obtenerExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion()).getDescripcion();
-                listado.append("\n- ").append(contador).append(". ID Inscripción: ")
-                        .append(inscripcion.getNumeroInscripcion())
-                        .append(" | Precio excursion: ").append(precioExcursion)
-                        .append(" | Descripcion excursion: ").append(descripcionExcursion);
-                total += precioExcursion;
-            }
-            if (contador == 0) {
-                listado.append("\n - Sin inscripciones.");
-            }
-            return new String[] { listado.toString(), String.valueOf(total) };
-
+            inscripcionesSocio = session
+                    .createQuery("FROM InscripcionHib WHERE numeroSocio = :numeroSocio", InscripcionHib.class)
+                    .setParameter("numeroSocio", numeroSocio).list();
         } catch (Exception e) {
-            // Implementar logica para devolver el error.
+            // Devolvemos el error aguas arriba en las clases
             throw e;
+        } finally {
+            // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
+            session.close();
+            // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
+            sessionFactory.close();
         }
-
+        double total = 0.0;
+        StringBuilder listado = new StringBuilder("\n    - Lista de inscripciones del socio: ");
+        int contador = 0;
+        for (InscripcionHib inscripcion : inscripcionesSocio) {
+            contador++;
+            ExcursionModel excursion = ExcursionModel.obtenerExcursionPorNumeroExcursion(inscripcion.getNumeroExcursion());
+            Double precioExcursion = excursion.getPrecioInscripcion();
+            String descripcionExcursion = excursion.getDescripcion();
+            listado.append("\n- ").append(contador).append(". ID Inscripción: ")
+                    .append(inscripcion.getNumeroInscripcion())
+                    .append(" | Precio excursion: ").append(precioExcursion)
+                    .append(" | Descripcion excursion: ").append(descripcionExcursion);
+            total += precioExcursion;
+        }
+        if (contador == 0) {
+            listado.append("\n - Sin inscripciones.");
+        }
+        return new String[] { listado.toString(), String.valueOf(total) };
     }
 
     // Metodo para comprobar si un usuario tiene inscripciones
     public static boolean comprobarSocioInscrito(int numeroSocio) {
-        // Se llama al DAO para obtener las inscripciones desde MySQL
+        InscripcionHib inscripcion = null;
         try {
-
+            crearSessionHib(); // Crear la sesión de Hibernate
+    
+            // Buscar la inscripción del socio por su número de socio
+            inscripcion = session.find(InscripcionHib.class, numeroSocio);
         } catch (Exception e) {
-            // Implementar logica para devolver el error.
-            throw e;
-        }
-        for (InscripcionModel inscripcion : inscripciones) {
-            if (inscripcion.getNumeroSocio() == numeroSocio) {
-                // Devuelve true si el socio esta inscrito en una excursión
-                return true;
+            // Manejar la excepción apropiadamente
+            e.printStackTrace();
+            return false;
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close();
+            }
+            if (sessionFactory != null && !sessionFactory.isClosed()) {
+                sessionFactory.close();
             }
         }
-        return false;
+    
+        // Devolver true si se encontró la inscripción para el socio
+        return inscripcion != null;
     }
 }

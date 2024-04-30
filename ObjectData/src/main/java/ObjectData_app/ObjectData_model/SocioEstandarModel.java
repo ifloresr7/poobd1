@@ -26,8 +26,7 @@ public class SocioEstandarModel extends SocioModel {
 
     /////////////////// Metodo para crear la session de hibernate
     private static void crearSessionHib() {
-        sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(socioEstandarHib.class)
-                .buildSessionFactory();
+        sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(socioEstandarHib.class).buildSessionFactory();
         session = sessionFactory.openSession();
     }
 
