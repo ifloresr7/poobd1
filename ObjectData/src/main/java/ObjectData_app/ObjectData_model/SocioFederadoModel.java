@@ -1,7 +1,5 @@
 package ObjectData_app.ObjectData_model;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -11,9 +9,11 @@ import org.hibernate.cfg.Configuration;
 import ObjectData_app.ObjectData_model.ObjectData_Hibernate.SocioFederadoHib;
 
 public class SocioFederadoModel extends SocioModel {
+    // Propiedades de la sesion.
     static SessionFactory sessionFactory;
     static Session session;
-    static ArrayList<SocioFederadoModel> sociosFederados = new ArrayList<>();
+
+    // Propiedades de la clase
     String NIF;
     String federacion;
 
@@ -50,6 +50,7 @@ public class SocioFederadoModel extends SocioModel {
                 ", federacion=" + federacion +
                 '}';
     }
+
     private static void crearSessionHib() {
         sessionFactory = new Configuration().configure("hibernate.cfg.xml").addAnnotatedClass(SocioFederadoHib.class)
                 .buildSessionFactory();
@@ -62,73 +63,67 @@ public class SocioFederadoModel extends SocioModel {
         crearSessionHib();
         try {
             session.beginTransaction();
-            SocioFederadoHib socioI = new SocioFederadoHib(
-                    socio.getNumeroSocio(), // Obtenemos el numero de socio desde el objeto socioEstandar
-                                                    // //Columna numeroSocio
+            SocioFederadoHib socioHib = new SocioFederadoHib(
+                    socio.getNumeroSocio(), // Obtenemos el numero de socio desde el objeto socioEstandar columna
+                                            // numeroSocio
                     socio.getNombre(), // Obtenemos el nombre de socio desde el objeto socioEstandar //Columna
-                    socio.getNIF(),                           // nombre
+                    socio.getNIF(), // nombre
                     socio.getFederacion());
+
             // Lanzamos el comando para insertar el objeto en la base de datos
-            session.persist(socioI);
+            session.persist(socioHib);
             // Confirmamos la transacción
             session.getTransaction().commit();
-        } 
-        catch (Exception e) 
-        {
-            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
+        } catch (Exception e) {
+            // En caso de error, realizamos un rollback de la transacción
+            session.getTransaction().rollback();
+            throw e;
+        } finally {
+            // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
+            session.close();
+            // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
+            sessionFactory.close();
         }
-        finally 
-        {
-        // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
-        session.close();
-        // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
-        sessionFactory.close();
-        }
-}
+    }
 
     // Obtener socio federado por número de socio.
     public static SocioFederadoModel getSocioPorNumeroSocio(int numeroSocio) {
         crearSessionHib();
-        SocioFederadoHib socio = null;
+        SocioFederadoHib socio;
         try {
             session.beginTransaction();
             // Obtenemos el socio por numero de socio
             socio = session
-                        .createQuery("FROM SocioFederadoHib WHERE numeroSocio = :numeroSocio", SocioFederadoHib.class)
-                        .setParameter("numeroSocio", numeroSocio)
-                        .uniqueResult();
+                    .createQuery("FROM SocioFederadoHib WHERE numeroSocio = :numeroSocio", SocioFederadoHib.class)
+                    .setParameter("numeroSocio", numeroSocio)
+                    .uniqueResult();
         } catch (Exception e) {
             throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
-        }
-        finally 
-        {
+        } finally {
             session.close();
             // Cerramos la fábrica de sesiones de Hibernate para liberar recursos
             sessionFactory.close();
         }
         if (socio != null) {
-            return new SocioFederadoModel(socio.getNumeroSocio(),socio.getNombre(),socio.getNIF(), socio.getFederacion());
+            return new SocioFederadoModel(socio.getNumeroSocio(), socio.getNombre(), socio.getNIF(),
+                    socio.getFederacion());
         } else {
             return null;
         }
     }
-    
 
     // Metodo para listar los socios federados.
     public static String[] listarSocios(int valorInicialContador) {
         crearSessionHib();
         List<SocioFederadoHib> sociosFederados = null;
-        StringBuilder listado = new StringBuilder();
-        try 
-        {
+        try {
             session.beginTransaction();
-            sociosFederados  = session.createQuery("from SocioFederadoHib", SocioFederadoHib.class).list();
-        } 
-        catch (Exception e) 
-        {
+            sociosFederados = session.createQuery("FROM SocioFederadoHib", SocioFederadoHib.class).list();
+        } catch (Exception e) {
             throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
         }
         // Atributos.
+        StringBuilder listado = new StringBuilder();        
         int contador = valorInicialContador;
         for (SocioFederadoHib socio : sociosFederados) {
             contador++;
@@ -144,8 +139,8 @@ public class SocioFederadoModel extends SocioModel {
 
     // Método para eliminar socio infantil de la base de datos
     public static boolean eliminarSocioModel(int numeroSocio) {
-         // Creamos una sesión de Hibernate y la iniciamos
-         crearSessionHib();
+        // Creamos una sesión de Hibernate y la iniciamos
+        crearSessionHib();
         try {
             // Iniciamos una transacción en la sesión
             session.beginTransaction();
@@ -159,9 +154,8 @@ public class SocioFederadoModel extends SocioModel {
         } catch (Exception e) {
             // En caso de error, realizamos un rollback de la transacción
             session.getTransaction().rollback();
-            throw e; // Captura el mensaje de error del DAO y lo envia aguas arriba.
-        }
-        finally {
+            throw e; 
+        } finally {
             // Finalmente cerramos la sesión y el objeto de fábrica de sesiones
             session.close();
             // Cerramos la fábrica de sesiones de Hibernate para liberar recursos

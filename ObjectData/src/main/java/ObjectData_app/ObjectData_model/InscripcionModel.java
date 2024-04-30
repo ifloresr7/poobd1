@@ -1,11 +1,9 @@
 package ObjectData_app.ObjectData_model;
 
-import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
 import ObjectData_app.ObjectData_model.ObjectData_Hibernate.InscripcionHib;
-import ObjectData_app.ObjectData_model.ObjectData_Hibernate.socioEstandarHib;
 
 import org.hibernate.HibernateException;
 import org.hibernate.Session;

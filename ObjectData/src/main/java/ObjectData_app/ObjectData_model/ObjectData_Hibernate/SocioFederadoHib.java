@@ -1,7 +1,7 @@
 package ObjectData_app.ObjectData_model.ObjectData_Hibernate;
 
-import ObjectData_app.ObjectData_model.FederacionModel;
 import jakarta.persistence.*;
+
 @Entity
 @Table(name = "socioFederado")
 public class SocioFederadoHib {

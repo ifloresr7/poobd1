@@ -5,17 +5,21 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FederacionModel {
-
     /////////////////// Propiedades de Hibernete
     private static SessionFactory sessionFactory;
     private static Session session;
 
-   /////////////////// Constructor vacio, (por si se quiere instanciar)
-    public FederacionModel() {
+    /////////////// Propiedades de la clase
+    String codigo;
+    String nombre;
+
+    // Constructor
+    public FederacionModel(String codigo, String nombre) {
+        this.codigo = codigo;
+        this.nombre = nombre;
     }
 
     /////////////////// Metodo para crear la session de hibernate
@@ -25,55 +29,77 @@ public class FederacionModel {
         session = sessionFactory.openSession();
     }
 
-    public static FederacionModel obtenerFederacion(int id) {
-        // Crear sesión de Hibernate e inicializar
+    /////////////////// Método para obtener todas las federaciones de la base de
+    /////////////////// datos
+    public static String[] obtenerListadoFederacion() {
+        // Crear sesion hibernete e inicializacion
         crearSessionHib();
+        // Propiedades del metodo
+        List<FederacionHib> listaFederaciones;
         try {
             // Iniciar transacción
             session.beginTransaction();
-            // Consultar la federación por su id
-            FederacionModel federacion = session.get(FederacionModel.class, id);
-            session.getTransaction().commit(); // Confirmar transacción
-            return federacion; // Devolver la federación encontrada
-        } catch (Exception e) { // Capturar excepciones
-            session.getTransaction().rollback(); // Deshacer transacción
+            // Consulta para obtener las federaciones y guardarlas en la lista
+            listaFederaciones = session.createQuery("FROM FederacionHib", FederacionHib.class).list();
+        } catch (Exception e) {// Captura posibles excepciones
             throw e;
         } finally {
             session.close(); // Cerrar la sesión
             sessionFactory.close(); // Cerrar fábrica de sesiones de Hibernate
         }
+        String listado = "";
+        int contador = 0;
+        for (FederacionHib federacion : listaFederaciones) {
+            contador++;
+            listado += "\n    - " + contador + ". " + federacion.toString();
+        }
+        if (contador == 0) {
+            listado = "- Sin datos.";
+        }
+        return new String[] { listado, String.valueOf(contador) };
     }
-    
 
-    /////////////////// Método para obtener todas las federaciones de la base de datos
-    public static String[] obtenerListadoFederacion() {
-        ArrayList<String> listaFederaciones = new ArrayList<>();
-        //Crear sesion hibernete e inicializacion
+    public static FederacionModel obtenerFederacion(int seleccion) {
+        // Crear sesión de Hibernate e inicializar
         crearSessionHib();
+        // Propiedades del metodo
+        List<FederacionHib> listaFederaciones;
         try {
             // Iniciar transacción
             session.beginTransaction();
-            
             // Consulta para obtener las federaciones y guardarlas en la lista
-            List<FederacionHib> federaciones = session.createQuery("FROM FederacionHib", FederacionHib.class).list();
-            for (FederacionHib federacion : federaciones) {
-                listaFederaciones.add(federacion.getId() + ". " + federacion.getNombre()); // Agregar el id y el nombre de la federación
-            }
-            
-            session.getTransaction().commit(); // Confirmar la transacción
-        } catch (Exception e) {//Captura posibles excepciones
-            session.getTransaction().rollback(); //Si hay problemas no se guardan los cambios
+            listaFederaciones = session.createQuery("FROM FederacionHib", FederacionHib.class).list();
+        } catch (Exception e) {// Captura posibles excepciones
             throw e;
-        } finally { 
-            session.close();//Cerramos la sesion de hibernete
+        } finally {
+            session.close(); // Cerrar la sesión
+            sessionFactory.close(); // Cerrar fábrica de sesiones de Hibernate
         }
-        
-        // Convertir la lista de cadenas a un arreglo de cadenas
-        String[] arrayFederaciones = new String[listaFederaciones.size()];
-        arrayFederaciones = listaFederaciones.toArray(arrayFederaciones);
-        
-        return arrayFederaciones; // Devolver el arreglo de cadenas2
-        
-            
+        int contador = 0;
+        for (FederacionHib federacion : listaFederaciones) {
+            contador++;
+            if(contador == seleccion){
+                return new FederacionModel(federacion.getCodigo(), federacion.getNombre());
+            }
+        }
+        return null;
+    }
+
+    // Getters
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    // Setters
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 }
