@@ -270,7 +270,7 @@ public class SocioController {
                 RespView.respuestaControllerView("Operación cancelada.");
                 AppController.gestionSocios();
             }
-
+            todoOk = true;
         } while (!todoOk);
         todoOk = false;
         do {
