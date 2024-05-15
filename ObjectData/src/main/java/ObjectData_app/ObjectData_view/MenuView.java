@@ -1,37 +1,37 @@
 package ObjectData_app.ObjectData_view;
 
-import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class MenuView extends Application{
-    public static void main(String[] args) {
-        launch(args); // Launch the JavaFX application
-    }
-
-    @Override
-    public void start(Stage primaryStage) {
-        Image image = new Image("file:image.jpg");
-        ImageView mv = new ImageView(image);
+public class MenuView {
+    // Método para mostrar el menú principal
+    public int menuInicioView(Stage stage) {
         Group root = new Group();
-        root.getChildren().addAll(mv);
-        Scene scene = new Scene(root, 1280, 720);
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.setTitle("ObjectData App");
-        primaryStage.show();
-    }
+        Scene scene = new Scene(root, 600, 400);
     
-    // Propiedades de clase
-    public void menuInicioView(Stage primaryStage) {
-        System.out.println("---MENU PRINCIPAL DE LA APLICACION---");
-        System.out.println("    1. Gestión Excursiones");
-        System.out.println("    2. Gestión de Socios");
-        System.out.println("    3. Gestión de Inscripciones");
-        System.out.println("    4. Salir de la aplicación");
+        Label menuTitle = new Label("Menú Principal");
+        menuTitle.setFont(new Font("Arial", 20));
+        menuTitle.setLayoutX(250);
+        menuTitle.setLayoutY(50);
+    
+        Button button = new Button("Click me!");
+        button.setLayoutX(250);
+        button.setLayoutY(200);
+        button.setOnAction(event -> {
+            return 1;
+        });
+    
+        root.getChildren().addAll(menuTitle, button);
+    
+        stage.setScene(scene);
+        stage.setTitle("Menú Principal");
+        stage.show();
+    
+        return 0;
     }
 
     public void menuGestionExcursionesView() {
@@ -62,7 +62,7 @@ public class MenuView extends Application{
     public int getOpcionView(int value) {
         try {
             System.out.print("Elije una opción válida (1 - " + value + "): ");
-            int opcion = 2;
+            int opcion = 0;
             if (opcion < 1 || opcion > value) {
                 System.out.println("Opción no válida.");
                 return getOpcionView(value);
@@ -73,4 +73,5 @@ public class MenuView extends Application{
             return getOpcionView(value);
         }
     }
+
 }
