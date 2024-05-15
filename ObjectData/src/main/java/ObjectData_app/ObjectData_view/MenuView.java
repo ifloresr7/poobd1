@@ -1,13 +1,11 @@
 package ObjectData_app.ObjectData_view;
 
 import javafx.application.Application;
-import javafx.application.Platform;
+import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
-
-import java.util.Scanner;
 
 public class MenuView extends Application{
     public static void main(String[] args) {
@@ -15,28 +13,25 @@ public class MenuView extends Application{
     }
 
     @Override
-    public void start(Stage primaryStage) {        
-        Button button = new Button("Click me!");
-        button.setOnAction(e -> System.out.println("Button clicked!"));
-        Scene scene = new Scene(button, 1280, 720);
+    public void start(Stage primaryStage) {
+        Image image = new Image("file:image.jpg");
+        ImageView mv = new ImageView(image);
+        Group root = new Group();
+        root.getChildren().addAll(mv);
+        Scene scene = new Scene(root, 1280, 720);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("JavaFX Application");
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("ObjectData App");
         primaryStage.show();
     }
+    
     // Propiedades de clase
-    public void menuInicioView() {
+    public void menuInicioView(Stage primaryStage) {
         System.out.println("---MENU PRINCIPAL DE LA APLICACION---");
         System.out.println("    1. Gestión Excursiones");
         System.out.println("    2. Gestión de Socios");
         System.out.println("    3. Gestión de Inscripciones");
         System.out.println("    4. Salir de la aplicación");
-        Platform.runLater(() -> {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setTitle("Alerta");
-            alert.setContentText("textoalerta");
-            alert.showAndWait();
-        });
     }
 
     public void menuGestionExcursionesView() {
