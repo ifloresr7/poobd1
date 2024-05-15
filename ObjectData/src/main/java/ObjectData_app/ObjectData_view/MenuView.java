@@ -1,10 +1,14 @@
 package ObjectData_app.ObjectData_view;
 
 import javafx.application.Application;
+import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class MenuView extends Application{
@@ -13,26 +17,88 @@ public class MenuView extends Application{
     }
 
     @Override
-    public void start(Stage primaryStage) {
-        Image image = new Image("file:image.jpg");
-        ImageView mv = new ImageView(image);
-        Group root = new Group();
-        root.getChildren().addAll(mv);
-        Scene scene = new Scene(root, 1280, 720);
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.setTitle("ObjectData App");
-        primaryStage.show();
-    }
+public void start(Stage primaryStage) {
+    // Crear la imagen
+    Image image = new Image("file:image.jpg");
     
+    // Crear el ImageView y configurarlo con la imagen
+    ImageView mv = new ImageView(image);
+    
+    // Crear los botones con un tamaño de fuente más grande
+    Button socioButton = new Button("Socio");
+    socioButton.setStyle("-fx-font-size: 20px;");
+    Button excursionesButton = new Button("Excursiones");
+    excursionesButton.setStyle("-fx-font-size: 20px;");
+    Button inscripcionesButton = new Button("Inscripciones");
+    inscripcionesButton.setStyle("-fx-font-size: 20px;");
+    Button salirButton = new Button("Salir");
+    salirButton.setStyle("-fx-font-size: 20px;");
+    
+    // Establecer el tamaño de los botones
+    socioButton.setPrefSize(150, 50);
+    excursionesButton.setPrefSize(150, 50);
+    inscripcionesButton.setPrefSize(150, 50);
+    salirButton.setPrefSize(150, 50);
+    
+    // Distribuir los botones horizontalmente
+    HBox buttonBox = new HBox(20); // Espacio entre los botones
+    buttonBox.getChildren().addAll(socioButton, excursionesButton, inscripcionesButton, salirButton);
+    buttonBox.setPadding(new Insets(20)); // Espacio alrededor de los botones
+    
+    // Crear el contenedor para los elementos (imagen y botones)
+    VBox root = new VBox(); // Contenedor vertical
+    root.getChildren().addAll(buttonBox, mv);
+    
+    // Crear la escena
+    Scene scene = new Scene(root, 1280, 720);
+    
+    // Configurar la escena en el escenario
+    primaryStage.setScene(scene);
+    primaryStage.setResizable(false);
+    primaryStage.setTitle("ObjectData App");
+    primaryStage.show();
+}
     // Propiedades de clase
-    public void menuInicioView(Stage primaryStage) {
-        System.out.println("---MENU PRINCIPAL DE LA APLICACION---");
-        System.out.println("    1. Gestión Excursiones");
-        System.out.println("    2. Gestión de Socios");
-        System.out.println("    3. Gestión de Inscripciones");
-        System.out.println("    4. Salir de la aplicación");
-    }
+    public void menuInicioView() {
+        Image image = new Image("file:image.jpg");
+    
+    // Crear el ImageView y configurarlo con la imagen
+    ImageView mv = new ImageView(image);
+    
+    // Crear los botones con un tamaño de fuente más grande
+    Button socioButton = new Button("Socio");
+    socioButton.setStyle("-fx-font-size: 20px;");
+    Button excursionesButton = new Button("Excursiones");
+    excursionesButton.setStyle("-fx-font-size: 20px;");
+    Button inscripcionesButton = new Button("Inscripciones");
+    inscripcionesButton.setStyle("-fx-font-size: 20px;");
+    Button salirButton = new Button("Salir");
+    salirButton.setStyle("-fx-font-size: 20px;");
+    
+    // Establecer el tamaño de los botones
+    socioButton.setPrefSize(150, 50);
+    excursionesButton.setPrefSize(150, 50);
+    inscripcionesButton.setPrefSize(150, 50);
+    salirButton.setPrefSize(150, 50);
+    
+    // Distribuir los botones horizontalmente
+    HBox buttonBox = new HBox(20); // Espacio entre los botones
+    buttonBox.getChildren().addAll(socioButton, excursionesButton, inscripcionesButton, salirButton);
+    buttonBox.setPadding(new Insets(20)); // Espacio alrededor de los botones
+    
+    // Crear el contenedor para los elementos (imagen y botones)
+    VBox root = new VBox(); // Contenedor vertical
+    root.getChildren().addAll(buttonBox, mv);
+    
+    // Crear la escena
+    Scene scene = new Scene(root, 1280, 720);
+    
+    // Configurar la escena en el escenario
+    primaryStage.setScene(scene);
+    primaryStage.setResizable(false);
+    primaryStage.setTitle("ObjectData App");
+    primaryStage.show();
+}
 
     public void menuGestionExcursionesView() {
         System.out.println("---GESTIÓN DE EXCURSIONES---");
