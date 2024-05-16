@@ -1,44 +1,108 @@
 package ObjectData_app.ObjectData_view;
 
-import javafx.scene.Group;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.text.Font;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class MenuView {
-    // Método para mostrar el menú principal
-    public int menuInicioView(Stage stage) {
-        Group root = new Group();
-        Scene scene = new Scene(root, 600, 400);
-    
-        Label menuTitle = new Label("Menú Principal");
-        menuTitle.setFont(new Font("Arial", 20));
-        menuTitle.setLayoutX(250);
-        menuTitle.setLayoutY(50);
-    
-        Button button = new Button("Click me!");
-        button.setLayoutX(250);
-        button.setLayoutY(200);
-        button.setOnAction(event -> {
-            return 1;
-        });
-    
-        root.getChildren().addAll(menuTitle, button);
-    
+    private Stage stage;
+    private Scene scene;
+    private VBox layout;
+
+    public MenuView() {
+        layout = new VBox();
+        scene = new Scene(layout, 720, 480);
+
+        // Establecer imagen de fondo
+        Image backgroundImage = new Image("image.jpg");
+        ImageView backgroundImageView = new ImageView(backgroundImage);
+        layout.getChildren().add(backgroundImageView);
+
+        stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
-        stage.setTitle("Menú Principal");
-        stage.show();
-    
+    }
+
+    public int menuInicioView_() {
+        try{
+            Parent root = FXMLLoader.load(getClass().getResource("/HelloWorld.fxml"));
+            stage.setTitle("Hello World");
+            stage.setScene(new Scene(root));
+            stage.showAndWait();
+            return 1;
+        }catch(Exception e){
+            System.out.println("Error");
+        }
         return 0;
     }
 
-    public void menuGestionExcursionesView() {
-        System.out.println("---GESTIÓN DE EXCURSIONES---");
-        System.out.println("    1. Añadir Excursión");
-        System.out.println("    2. Mostrar Excursiones con filtro entre fechas");
-        System.out.println("    3. Volver al menu principal");
+    // Método para mostrar el menú principal
+    public int menuInicioView() {
+        layout.getChildren().clear();
+
+        Button enviar = new Button("Gestionar Excursiones");
+
+        // Arreglo para almacenar la opción seleccionada
+        final int[] opcionSeleccionada = { 0 };
+
+        // Asignar acciones a los botones
+        enviar.setOnAction(e -> {
+            opcionSeleccionada[0] = 1;
+        });
+
+        layout.getChildren().addAll(enviar);
+        // Hacer que la ventana sea modal
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.setTitle("Menú Principal");
+
+        // Mostrar la ventana
+        stage.showAndWait();
+
+        // Devolver la opción seleccionada
+        return opcionSeleccionada[0];
+    }
+
+    public int menuGestionExcursionesView() {
+        layout.getChildren().clear();
+
+        Button excursionesButton = new Button("Añadir Excursión");
+        Button sociosButton = new Button("Mostrar Excursiones con filtro entre fechas");
+        Button inscripcionesButton = new Button(" Volver al menu principal");
+
+        // Arreglo para almacenar la opción seleccionada
+        final int[] opcionSeleccionada = { 0 };
+
+        // Asignar acciones a los botones
+        excursionesButton.setOnAction(e -> {
+            opcionSeleccionada[0] = 1;
+        });
+        sociosButton.setOnAction(e -> {
+            opcionSeleccionada[0] = 2;
+        });
+        inscripcionesButton.setOnAction(e -> {
+            opcionSeleccionada[0] = 3;
+        });
+
+        layout.getChildren().addAll(excursionesButton, sociosButton, inscripcionesButton);
+
+        // Hacer que la ventana sea modal
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.setTitle("Menú Principal");
+
+        // Mostrar la ventana y esperar hasta que se cierre
+        stage.showAndWait();
+
+        // Devolver la opción seleccionada
+        return opcionSeleccionada[0];
     }
 
     public void menuGestionSociosView() {
@@ -58,20 +122,4 @@ public class MenuView {
         System.out.println("    3. Mostrar inscripciones con las opciones de filtrar por socio y/o fechas");
         System.out.println("    4. Volver al menu principal");
     }
-
-    public int getOpcionView(int value) {
-        try {
-            System.out.print("Elije una opción válida (1 - " + value + "): ");
-            int opcion = 0;
-            if (opcion < 1 || opcion > value) {
-                System.out.println("Opción no válida.");
-                return getOpcionView(value);
-            }
-            return opcion;
-        } catch (NumberFormatException e) {
-            System.out.println("Opción no válida. Debe ingresar un número.");
-            return getOpcionView(value);
-        }
-    }
-
 }

@@ -1,26 +1,24 @@
 package ObjectData_app.ObjectData_controller;
 //Se importan las librerias
 import ObjectData_app.ObjectData_view.MenuView;
-import javafx.stage.Stage;
 
 public class AppController {
     static MenuView MenuView = new MenuView();
     static boolean cerrarApp = false;
-
     // Inicio del menu de la APP.
-    public static void inicio(Stage stage) {
+    public static void inicio() {
         // arracamos el menu principal de la aplicación.
         do {
-            int opcion = MenuView.menuInicioView(stage);
+            int opcion = MenuView.menuInicioView();
             switch (opcion) {
                 case 1:
-                    gestionExcursiones(stage);
+                    gestionExcursiones();
                     break;
                 case 2:
-                    gestionSocios(stage);
+                    gestionSocios();
                     break;
                 case 3:
-                    gestionInscripciones(stage);
+                    gestionInscripciones();
                     break;
                 case 4:
                     cerrarApp = true;
@@ -30,9 +28,9 @@ public class AppController {
     }
 
     // Metodos de control para Excursiones.
-    public static void gestionExcursiones(Stage stage) {
+    public static void gestionExcursiones() {
         MenuView.menuGestionExcursionesView();
-        int opcion = MenuView.getOpcionView(3);
+        int opcion = 2;
         switch (opcion) {
             case 1:
                 ExcursionController.crearExcursion();
@@ -41,54 +39,54 @@ public class AppController {
                 ExcursionController.mostrarExcursionFecha();
                 break;
             case 3:
-                inicio(stage);
+                inicio();
                 break;
         }
     }
 
     // Metodos de control para Socios.
-    public static void gestionSocios(Stage stage) {
-        MenuView.menuGestionSociosView();
-        int opcion = MenuView.getOpcionView(6);
-        switch (opcion) {
-            case 1:
-                SocioController.crearNuevoSocio();
-                break;
-            case 2:
-                SocioController.modificarSeguroSocioEstandar();
-                break;
-            case 3:
-                SocioController.eliminarSocio();
-                break;
-            case 4:
-                SocioController.mostrarSocio();
-                break;
-            case 5:
-                SocioController.facturaMensualSocio();
-                break;
-            case 6:
-                inicio(stage);
-                break;
-        }
+    public static void gestionSocios() {
+        // MenuView.menuGestionSociosView();
+        // int opcion = MenuView.getOpcionView(6);
+        // switch (opcion) {
+        //     case 1:
+        //         SocioController.crearNuevoSocio();
+        //         break;
+        //     case 2:
+        //         SocioController.modificarSeguroSocioEstandar();
+        //         break;
+        //     case 3:
+        //         SocioController.eliminarSocio();
+        //         break;
+        //     case 4:
+        //         SocioController.mostrarSocio();
+        //         break;
+        //     case 5:
+        //         SocioController.facturaMensualSocio();
+        //         break;
+        //     case 6:
+        //         inicio();
+        //         break;
+        // }
     }
 
     // Metodos de control para Inscripciones.
-    public static void gestionInscripciones(Stage stage) {
-        MenuView.menuGestionInscripcionesView();
-        int opcion = MenuView.getOpcionView(4);
-        switch (opcion) {
-            case 1:
-                InscripcionController.crearInscripcion();
-                break;
-            case 2:
-                InscripcionController.eliminarInscripcion();
-                break;
-            case 3:
-                InscripcionController.mostrarInscripcion();
-                break;
-            case 4:
-                inicio(stage);
-                break;
-        }
+    public static void gestionInscripciones() {
+    //     MenuView.menuGestionInscripcionesView();
+    //     int opcion = MenuView.getOpcionView(4);
+    //     switch (opcion) {
+    //         case 1:
+    //             InscripcionController.crearInscripcion();
+    //             break;
+    //         case 2:
+    //             InscripcionController.eliminarInscripcion();
+    //             break;
+    //         case 3:
+    //             InscripcionController.mostrarInscripcion();
+    //             break;
+    //         case 4:
+    //             inicio();
+    //             break;
+    //     }
     }
 }

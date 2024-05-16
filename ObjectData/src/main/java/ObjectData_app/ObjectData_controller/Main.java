@@ -9,7 +9,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage stage) {
-        AppController.inicio(stage);
+        stage.close();
+        AppController.inicio();
     }
     public static void main(String[] args) {
         launch(args);
