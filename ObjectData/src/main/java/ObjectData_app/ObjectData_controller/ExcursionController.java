@@ -3,9 +3,11 @@ package ObjectData_app.ObjectData_controller;
 import ObjectData_app.ObjectData_model.ExcursionModel;
 import ObjectData_app.ObjectData_view.ExcursionControllerView;
 import ObjectData_app.ObjectData_view.MensajeControllerView;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -24,9 +26,9 @@ public class ExcursionController {
     TextField tfPrecioInscripcion;
 
     @FXML
-    Button btCrear;
-    @FXML
-    Button btCancelar;
+    public void btCrear(ActionEvent event) {
+        crearExcursion();
+    }
 
 
     // Se inicializan las vistas necasias.
@@ -62,14 +64,12 @@ public class ExcursionController {
         String descripcionExcursion = tfNombreExcursion.getText();
         if (descripcionExcursion.isEmpty()) {
             RespView.respuestaControllerView("Operación cancelada.");
-            //AppController.gestionExcursiones();
         }
         // Pedimos la fecha de excursión y comprobamos el dato.
         do {
             String retorno = tfFechaExcursion.getText();
             if (retorno.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
-                //AppController.gestionExcursiones();
             } else if (!retorno.matches("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$")) {
                 RespView.excepcionesControllerView(
                         "Las fechas y horas introducidas no son válidas. Formato esperado: yyyy-MM-dd HH:mm");
@@ -89,7 +89,6 @@ public class ExcursionController {
             String retorno = tfNumDias.getText();
             if (retorno.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
-                //AppController.gestionExcursiones();
             } else if (retorno.matches("\\d+")) { // Verifica si el retorno es un número entero
                 numeroDias = Integer.parseInt(retorno);
                 comprobadoOk = true;
@@ -105,7 +104,6 @@ public class ExcursionController {
             String retorno = tfPrecioInscripcion.getText();
             if (retorno.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
-                //AppController.gestionExcursiones();
             } else if (retorno.matches("\\d+(\\.\\d+)?")) { // Verifica si el retorno es un número entero o double
                 precio = Double.parseDouble(retorno);
                 comprobadoOk = true;
