@@ -22,6 +22,9 @@ public class MenuView{
             Parent root = FXMLLoader.load(getClass().getResource("/HelloWorld.fxml"));
             stage.setScene(new Scene(root));
             stage.setTitle("Menu Inicio");
+            root = FXMLLoader.load(getClass().getResource("/MenuPrincipal.fxml"));
+            stage.setScene(new Scene(root));
+            stage.setTitle("Menu Principal");
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
