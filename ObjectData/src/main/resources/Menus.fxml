@@ -12,22 +12,22 @@
             <Font name="Arial Bold" size="44.0" />
          </font>
       </Label>
-      <Button fx:id="option3" layoutX="249.0" layoutY="150.0" mnemonicParsing="false" onMouseClicked="#menuInicioView" prefHeight="30.0" prefWidth="223.0" text="Gestión de excursiones" textOverrun="CENTER_WORD_ELLIPSIS">
+      <Button fx:id="option3" layoutX="249.0" layoutY="150.0" mnemonicParsing="false" onMouseClicked="#nuevoSocioEstandar" prefHeight="30.0" prefWidth="223.0" text="Gestión de excursiones" textOverrun="CENTER_WORD_ELLIPSIS">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="option1" layoutX="249.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#menuInicioView" prefHeight="30.0" prefWidth="223.0" text="Salir de la aplicación">
+      <Button fx:id="option1" layoutX="249.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#nuevoSocioEstandar" prefHeight="30.0" prefWidth="223.0" text="Salir de la aplicación">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="option4" layoutX="249.0" layoutY="199.0" mnemonicParsing="false" onMouseClicked="#goodByeWorld" prefHeight="30.0" prefWidth="223.0" text="Gestión de usuarios">
+      <Button fx:id="option4" layoutX="249.0" layoutY="199.0" mnemonicParsing="false" onMouseClicked="#nuevoSocioEstandar" prefHeight="30.0" prefWidth="223.0" text="Gestión de usuarios">
          <font>
             <Font name="Arial" size="16.0" />
          </font>
       </Button>
-      <Button fx:id="option2" layoutX="249.0" layoutY="251.0" mnemonicParsing="false" onMouseClicked="#goodByeWorld" prefHeight="30.0" prefWidth="223.0" text="Gestión de inscripciones">
+      <Button fx:id="option2" layoutX="249.0" layoutY="251.0" mnemonicParsing="false" onMouseClicked="#nuevoSocioEstandar" prefHeight="30.0" prefWidth="223.0" text="Gestión de inscripciones">
          <font>
             <Font name="Arial" size="16.0" />
          </font>

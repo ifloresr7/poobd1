@@ -9,7 +9,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 
-public class MenuView{
+public class MenuView {
 
     @FXML
     private BorderPane mainContainer;
@@ -19,24 +19,28 @@ public class MenuView{
     @FXML
     public int menuInicioView() {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("/HelloWorld.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/Gestion.fxml"));
             stage.setScene(new Scene(root));
-            stage.setTitle("Menu Inicio");
-            root = FXMLLoader.load(getClass().getResource("/MenuPrincipal.fxml"));
-            stage.setScene(new Scene(root));
-            stage.setTitle("Menu Principal");
+            stage.setTitle("ObjectData Aplicación V1.0");
             stage.showAndWait();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return 0;
     }
-    
+
     @FXML
-    public void displayHelloWorld(MouseEvent event) {
+    public void nuevoSocioEstandar(MouseEvent event) {
         System.out.println("null");
+        System.out.println("null");
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/HelloWorld.fxml"));
+            mainContainer.setCenter(root); // Establecer la nueva vista en el contenedor principal
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-    
+
     @FXML
     public void goodByeWorld(MouseEvent event) {
         // Your event handling logic for "Good Bye World" button
