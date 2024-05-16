@@ -52,6 +52,7 @@ public class AppControllerView {
     @FXML
     public void mostrarSociosFXMLLoader() {
         FXMLLoader("/SocioView/mostrarSociosFXMLLoader.fxml");
+        SocioControllerView.mostrarTodosLosSocios();
     }
     @FXML
     public void mostrarSocioEstandarFXMLLoader() {
