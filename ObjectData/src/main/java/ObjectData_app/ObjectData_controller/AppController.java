@@ -8,22 +8,24 @@ public class AppController {
     // Inicio del menu de la APP.
     public static void inicio() {
         // arracamos el menu principal de la aplicación.
+        MenuView.menuInicioView();
         do {
-            int opcion = MenuView.menuInicioView();
-            switch (opcion) {
-                case 1:
-                    gestionExcursiones();
-                    break;
-                case 2:
-                    gestionSocios();
-                    break;
-                case 3:
-                    gestionInscripciones();
-                    break;
-                case 4:
-                    cerrarApp = true;
-                    break;
-            }
+             
+            // int opcion =
+            // switch (opcion) {
+            //     case 1:
+            //         gestionExcursiones();
+            //         break;
+            //     case 2:
+            //         gestionSocios();
+            //         break;
+            //     case 3:
+            //         gestionInscripciones();
+            //         break;
+            //     case 4:
+            //         cerrarApp = true;
+            //         break;
+            // }
         } while (!cerrarApp);
     }
 
