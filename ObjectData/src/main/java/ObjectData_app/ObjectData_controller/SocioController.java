@@ -13,12 +13,12 @@ import ObjectData_app.ObjectData_model.SeguroModel;
 import ObjectData_app.ObjectData_model.SeguroModel.TipoSeguro;
 import ObjectData_app.ObjectData_view.MensajeControllerView;
 //Se añaden las vistas necesarias.
-import ObjectData_app.ObjectData_view.SocioView;
+import ObjectData_app.ObjectData_view.SocioControllerView;
 
 public class SocioController {
     // Se inicializan las vistas necesasias.
     static MensajeControllerView RespView = new MensajeControllerView();
-    static SocioView SociView = new SocioView();
+    static SocioControllerView SociView = new SocioControllerView();
 
     // Método para generar un número de socio aleatorio
     public static int generarID() {

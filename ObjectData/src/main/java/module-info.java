@@ -1,14 +1,16 @@
+// Improved module-info.java file
 module ObjectData_app {
     requires javafx.controls;
     requires javafx.fxml;
     requires org.hibernate.orm.core;
     requires jakarta.persistence;
-    exports ObjectData_app.ObjectData_controller;
     requires javafx.graphics;
-    opens ObjectData_app.ObjectData_model.ObjectData_Hibernate to jakarta.persistence;
-    exports ObjectData_app.ObjectData_model.ObjectData_Hibernate;
-    opens ObjectData_app.ObjectData_model to org.hibernate.orm.core;
-    exports ObjectData_app.ObjectData_model;
-    opens ObjectData_app.ObjectData_view to javafx.fxml;
+
+    // Instead of exporting to javafx.fxml, export to all modules
     exports ObjectData_app.ObjectData_view;
+    exports ObjectData_app.ObjectData_controller;
+
+    // Open packages to javafx.fxml for reflection
+    opens ObjectData_app.ObjectData_view to javafx.fxml;
+    opens ObjectData_app.ObjectData_controller to javafx.fxml;
 }

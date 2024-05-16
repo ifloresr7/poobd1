@@ -15,7 +15,7 @@ import java.util.Random;
 public class InscripcionController {
     // Se inicializan las vistas necasias.
     static MensajeControllerView RespView = new MensajeControllerView();
-    static InscripcionesView InscView = new InscripcionesView();
+    static InscripcionesControllerView InscView = new InscripcionesControllerView();
 
     // Metodo para crear ID de inscripcion dinamicos
     public static int generarID() {

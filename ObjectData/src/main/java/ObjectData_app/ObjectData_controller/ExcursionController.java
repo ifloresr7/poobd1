@@ -1,7 +1,7 @@
 package ObjectData_app.ObjectData_controller;
 
 import ObjectData_app.ObjectData_model.ExcursionModel;
-import ObjectData_app.ObjectData_view.ExcursionesView;
+import ObjectData_app.ObjectData_view.ExcursionesControllerView;
 import ObjectData_app.ObjectData_view.MensajeControllerView;
 
 
@@ -13,7 +13,7 @@ import java.util.Random;
 public class ExcursionController {
     // Se inicializan las vistas necasias.
     static MensajeControllerView RespView = new MensajeControllerView();
-    static ExcursionesView ExcuView = new ExcursionesView();
+    static ExcursionesControllerView ExcuView = new ExcursionesControllerView();
 
     // Metodo para crear una ID ramdon de 8 digitos
     public static int generarID() {
