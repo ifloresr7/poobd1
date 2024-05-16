@@ -17,7 +17,7 @@ public class MenuView{
     private Stage stage = new Stage();
 
     @FXML
-    public void menuInicioView() {
+    public int menuInicioView() {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/HelloWorld.fxml"));
             stage.setScene(new Scene(root));
@@ -26,6 +26,7 @@ public class MenuView{
         } catch (IOException e) {
             e.printStackTrace();
         }
+        return 0;
     }
     
     @FXML

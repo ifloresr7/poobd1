@@ -8,7 +8,8 @@ public class AppController {
     // Inicio del menu de la APP.
     public static void inicio() {
         // arracamos el menu principal de la aplicación.
-        MenuView.menuInicioView();
+        int opcion = MenuView.menuInicioView();
+        System.out.println(opcion);
         do {
              
             // int opcion =
