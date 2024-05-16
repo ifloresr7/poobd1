@@ -2,8 +2,14 @@ package ObjectData_app.ObjectData_view;
 
 import java.util.Scanner;
 
-public class SocioControllerView {
+import javafx.fxml.FXML;
+import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
+public class SocioControllerView {
+    
+    @FXML
+    private  tableContainer;
 
     // Teclado, colores de texto y limpieza de consola.
     static Scanner teclado = new Scanner(System.in);
@@ -70,4 +76,5 @@ public class SocioControllerView {
         System.out.print(p2 + "Ingrese el número ordinal de la federación que quieres seleccionar: " + p);
         return teclado.nextLine();
     }
+
 }
