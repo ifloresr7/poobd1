@@ -3,7 +3,9 @@ package ObjectData_app.ObjectData_controller;
 import ObjectData_app.ObjectData_model.ExcursionModel;
 import ObjectData_app.ObjectData_view.ExcursionControllerView;
 import ObjectData_app.ObjectData_view.MensajeControllerView;
-
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,6 +13,22 @@ import java.util.Date;
 import java.util.Random;
 
 public class ExcursionController {
+
+    @FXML
+    TextField tfNombreExcursion;
+    @FXML
+    TextField tfFechaExcursion;
+    @FXML
+    TextField tfNumDias;
+    @FXML
+    TextField tfPrecioInscripcion;
+
+    @FXML
+    Button btCrear;
+    @FXML
+    Button btCancelar;
+
+
     // Se inicializan las vistas necasias.
     static MensajeControllerView RespView = new MensajeControllerView();
     static ExcursionControllerView ExcuView = new ExcursionControllerView();
@@ -30,7 +48,8 @@ public class ExcursionController {
 
     // Esta función sirve para crear una nueva excursión (Debemos importar , que
     // se inicializó al arranque de APP en main)
-    public static void crearExcursion() {
+    @FXML
+    public void crearExcursion() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         boolean comprobadoOk = false;
         Date fecha = null;
@@ -40,17 +59,17 @@ public class ExcursionController {
         RespView.tituloDeLaFuncion("-- FORMULARIO PARA CREAR EXCURSIONES --");
 
         // Pedimos la descripcion de la excursión
-        String descripcionExcursion = ExcuView.pedirDescripcionExcursion();
+        String descripcionExcursion = tfNombreExcursion.getText();
         if (descripcionExcursion.isEmpty()) {
             RespView.respuestaControllerView("Operación cancelada.");
-            AppController.gestionExcursiones();
+            //AppController.gestionExcursiones();
         }
         // Pedimos la fecha de excursión y comprobamos el dato.
         do {
-            String retorno = ExcuView.pedirFechaExcursion();
+            String retorno = tfFechaExcursion.getText();
             if (retorno.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
-                AppController.gestionExcursiones();
+                //AppController.gestionExcursiones();
             } else if (!retorno.matches("^\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}$")) {
                 RespView.excepcionesControllerView(
                         "Las fechas y horas introducidas no son válidas. Formato esperado: yyyy-MM-dd HH:mm");
@@ -67,10 +86,10 @@ public class ExcursionController {
         comprobadoOk = false;
         // Pedimos el numero de dias y comprobamos el dato.
         do {
-            String retorno = ExcuView.pedirNumeroDiasExcursion();
+            String retorno = tfNumDias.getText();
             if (retorno.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
-                AppController.gestionExcursiones();
+                //AppController.gestionExcursiones();
             } else if (retorno.matches("\\d+")) { // Verifica si el retorno es un número entero
                 numeroDias = Integer.parseInt(retorno);
                 comprobadoOk = true;
@@ -83,10 +102,10 @@ public class ExcursionController {
         } while (!comprobadoOk);
         comprobadoOk = false;
         do {
-            String retorno = ExcuView.pedirPrecioExcursion();
+            String retorno = tfPrecioInscripcion.getText();
             if (retorno.isEmpty()) {
                 RespView.respuestaControllerView("Operación cancelada.");
-                AppController.gestionExcursiones();
+                //AppController.gestionExcursiones();
             } else if (retorno.matches("\\d+(\\.\\d+)?")) { // Verifica si el retorno es un número entero o double
                 precio = Double.parseDouble(retorno);
                 comprobadoOk = true;
@@ -101,7 +120,7 @@ public class ExcursionController {
         // Método para generar un numeroExcursion aleatorio
         int numeroExcursion = Integer.parseInt("1" + generarID()); // numeroExcursion
         // Mandamos el numeroExcursion a la pantalla:
-        RespView.respuestaControllerView("- Número de excursion generada: " + numeroExcursion);
+        //RespView.respuestaControllerView("- Número de excursion generada: " + numeroExcursion);
         // Se genera el conjunto de en la variable excursion
         ExcursionModel excursion = new ExcursionModel(numeroExcursion, descripcionExcursion, fecha, numeroDias, precio);
         // Se llama al metodo crearExcursion del modelo ExcursionModel, se pasa tanto la
@@ -112,9 +131,9 @@ public class ExcursionController {
             RespView.excepcionesControllerView(e.getMessage());
         }
         // Devuelvo la respuesta del modelo y la imprimo en la vista
-        RespView.respuestaControllerView(respuesta);
+        //RespView.respuestaControllerView(respuesta);
         // Al finalizar vuelvo al menu de excursiones
-        AppController.gestionExcursiones();
+        //AppController.gestionExcursiones();
     }
 
     public static void mostrarExcursionFecha() {
@@ -125,7 +144,7 @@ public class ExcursionController {
             // Se comprueba si el usuario queire salir
             if (retorno[0].equals("") || retorno[1].equals("")) {
                 RespView.respuestaControllerView("Operación cancelada.");
-                AppController.gestionExcursiones();
+                //AppController.gestionExcursiones();
                 break;
             }
             // Se intenta transformar las fechas y se printan.
@@ -140,6 +159,6 @@ public class ExcursionController {
             }
         } while (!finalizar);
         // Al finalizar vuelvo al menu de excursiones
-        AppController.gestionExcursiones();
+        //AppController.gestionExcursiones();
     }
 }
