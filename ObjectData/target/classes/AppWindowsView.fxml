@@ -39,21 +39,21 @@
             </Menu>
             <Menu id="mnu_Inscripcion" mnemonicParsing="false" text="Gestión Inscripciones">
                <items>
-                  <MenuItem id="nuevaInscripcion" fx:id="mnu_nuevaInscripcion" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Nueva ..." />
+                  <MenuItem id="nuevaInscripcion" fx:id="mnu_nuevaInscripcion" mnemonicParsing="false" onAction="#nuevaInscripcionFXMLLoader" text="Nueva ..." />
                   <Menu id="mnu_mostrarInscripcion" mnemonicParsing="false" text="Mostrar ...">
                      <items>
-                        <MenuItem id="mostrarInscripcionFecha" fx:id="mnu_mostrarInscripcionFecha" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Mostrar inscripciones por fecha" />
-                        <MenuItem id="mostrarInscripcionSocio" fx:id="mnu_mostrarInscripcionSocio" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Mostrar inscripciones por socio" />
+                        <MenuItem id="mostrarInscripcionFecha" fx:id="mnu_mostrarInscripcionFecha" mnemonicParsing="false" onAction="#mostrarInscripcionFechaFXMLLoader" text="Mostrar inscripciones por fecha" />
+                        <MenuItem id="mostrarInscripcionSocio" fx:id="mnu_mostrarInscripcionSocio" mnemonicParsing="false" onAction="#mostrarInscripcionSocioFXMLLoader" text="Mostrar inscripciones por socio" />
                      </items>
                   </Menu>
-                  <MenuItem id="eliminarInscripcion" fx:id="mnu_eliminarInscripcion" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Eliminar inscripción" />
+                  <MenuItem id="eliminarInscripcion" fx:id="mnu_eliminarInscripcion" mnemonicParsing="false" onAction="#eliminarInscripcionFXMLLoader" text="Eliminar inscripción" />
                </items>
             </Menu>
             <Menu id="mnu_excursion" mnemonicParsing="false" text="Gestión Excursiones">
                <items>
-                  <MenuItem id="nuevaExcursion" fx:id="mnu_nuevaExcursion" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Nueva ..." />
-                  <MenuItem id="eliminarExcursion" fx:id="mnu_eliminarExcursion" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Eliminar excursión" />
-                  <MenuItem id="mostrarExcursion" fx:id="mnu_mostrarExcursion" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Mostrar excursiones por fecha" />
+                  <MenuItem id="nuevaExcursion" fx:id="mnu_nuevaExcursion" mnemonicParsing="false" onAction="#nuevaExcursionFXMLLoader" text="Nueva ..." />
+                  <MenuItem id="eliminarExcursion" fx:id="mnu_eliminarExcursion" mnemonicParsing="false" onAction="#eliminarExcursionFXMLLoader" text="Eliminar excursión" />
+                  <MenuItem id="mostrarExcursion" fx:id="mnu_mostrarExcursion" mnemonicParsing="false" onAction="#mostrarExcursionFechaFXMLLoader" text="Mostrar excursiones por fecha" />
                </items>
             </Menu>
             <Menu id="mnu_exit" mnemonicParsing="false" text="Salir">

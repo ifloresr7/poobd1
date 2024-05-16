@@ -51,9 +51,9 @@
             </Menu>
             <Menu id="mnu_excursion" mnemonicParsing="false" text="Gestión Excursiones">
                <items>
-                  <MenuItem id="nuevaExcursion" fx:id="mnu_nuevaExcursion" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Nueva ..." />
-                  <MenuItem id="eliminarExcursion" fx:id="mnu_eliminarExcursion" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Eliminar excursión" />
-                  <MenuItem id="mostrarExcursion" fx:id="mnu_mostrarExcursion" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Mostrar excursiones por fecha" />
+                  <MenuItem id="nuevaExcursion" fx:id="mnu_nuevaExcursion" mnemonicParsing="false" onAction="#nuevaExcursionFXMLLoader" text="Nueva ..." />
+                  <MenuItem id="eliminarExcursion" fx:id="mnu_eliminarExcursion" mnemonicParsing="false" onAction="#eliminarExcursionFXMLLoader" text="Eliminar excursión" />
+                  <MenuItem id="mostrarExcursion" fx:id="mnu_mostrarExcursion" mnemonicParsing="false" onAction="#mostrarExcursionFechaFXMLLoader" text="Mostrar excursiones por fecha" />
                </items>
             </Menu>
             <Menu id="mnu_exit" mnemonicParsing="false" text="Salir">

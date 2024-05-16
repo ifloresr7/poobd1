@@ -36,7 +36,7 @@ public class AppControllerView {
             e.printStackTrace();
         }
     }
-    //Estos metodos cargan FXML cuyo controlador es SocioControllerView
+    //Estos metodos cargan los FXML cuyo controlador es SocioControllerView (Gestión Socios)
     @FXML
     public void nuevoSocioEstandarFXMLLoader() {
         FXMLLoader("/SocioView/nuevoSocioEstandarFXMLLoader.fxml");
@@ -77,11 +77,37 @@ public class AppControllerView {
     public void mostrarFacturacionSocioFXMLLoader() {
         FXMLLoader("/SocioView/mostrarFacturacionSocioFXMLLoader.fxml");
     }
-    // Cierre de la app usando el menu Salir
+    //Estos metodos cargan los FXML cuyo controlador es InscripcionControllerView (Gestión Inscripciones)
     @FXML
-    public void nuevoSocioEstandar() {
-        System.exit(0);
+    public void nuevaInscripcionFXMLLoader() {
+        FXMLLoader("/InscripcionView/nuevaInscripcionFXMLLoader.fxml");
     }
+    @FXML
+    public void mostrarInscripcionFechaFXMLLoader() {
+        FXMLLoader("/InscripcionView/mostrarInscripcionFechaFXMLLoader.fxml");
+    }
+    @FXML
+    public void mostrarInscripcionSocioFXMLLoader() {
+        FXMLLoader("/InscripcionView/mostrarInscripcionSocioFXMLLoader.fxml");
+    }
+    @FXML
+    public void eliminarInscripcionFXMLLoader() {
+        FXMLLoader("/InscripcionView/eliminarInscripcionFXMLLoader.fxml");
+    }
+    //Estos metodos cargan los FXML cuyo controlador es ExcursionControllerView (Gestión Excursiones)
+    @FXML
+    public void nuevaExcursionFXMLLoader() {
+        FXMLLoader("/ExcursionView/nuevaExcursionFXMLLoader.fxml");
+    }
+    @FXML
+    public void eliminarExcursionFXMLLoader() {
+        FXMLLoader("/ExcursionView/eliminarExcursionFXMLLoader.fxml");
+    }
+    @FXML
+    public void mostrarExcursionFechaFXMLLoader() {
+        FXMLLoader("/ExcursionView/mostrarExcursionFechaFXMLLoader.fxml");
+    }
+    // Cierre de la app usando el menu Salir
     @FXML
     public void exitApp() {
         System.exit(0);
