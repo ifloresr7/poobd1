@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="927.0"  xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ObjectData_app.ObjectData_view.MenuView">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="579.0" prefWidth="927.0"  xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ObjectData_app.ObjectData_view.AppControllerView">
    <effect>
       <DropShadow />
       </effect>
@@ -19,22 +19,22 @@
                <items>
                      <Menu id="mnu_NuevoSocio" mnemonicParsing="false" text="Nuevo ...">
                         <items>
-                           <MenuItem id="nuevoSocioEstandar" fx:id="mnu_nuevoSocioEstandar" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Socio estandar" />
-                           <MenuItem id="nuevoSocioFederado" fx:id="mnu_nuevoSocioFederado" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Socio federado" />
-                           <MenuItem id="nuevoSocioInfantil" fx:id="mnu_nuevoSocioInfantil" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Socio infantil" />
+                           <MenuItem id="nuevoSocioEstandar" fx:id="mnu_nuevoSocioEstandar" mnemonicParsing="false" onAction="#nuevoSocioEstandarFXMLLoader" text="Socio estandar" />
+                           <MenuItem id="nuevoSocioFederado" fx:id="mnu_nuevoSocioFederado" mnemonicParsing="false" onAction="#nuevoSocioFederadoFXMLLoader" text="Socio federado" />
+                           <MenuItem id="nuevoSocioInfantil" fx:id="mnu_nuevoSocioInfantil" mnemonicParsing="false" onAction="#nuevoSocioInfantilFXMLLoader" text="Socio infantil" />
                         </items>
                      </Menu>
                      <Menu id="mnu_mostrarSocio" mnemonicParsing="false" text="Mostrar ...">
                         <items>
-                           <MenuItem id="mostrarSocioSocios" fx:id="mnu_mostrarTodosSocios" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Todos los socios" />
-                           <MenuItem id="mostrarSocioEstandar" fx:id="mnu_mostrarSocioEstandar" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Socios estandar" />
-                           <MenuItem id="mostrarSocioFederado" fx:id="mnu_mostrarSocioFederado" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Socios federados" />
-                           <MenuItem id="mostrarSocioInfantil" fx:id="mnu_mostrarSocioInfantil" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Socios infantiles" />
+                           <MenuItem id="mostrarSocioSocios" fx:id="mnu_mostrarTodosSocios" mnemonicParsing="false" onAction="#mostrarSociosFXMLLoader" text="Todos los socios" />
+                           <MenuItem id="mostrarSocioEstandar" fx:id="mnu_mostrarSocioEstandar" mnemonicParsing="false" onAction="#mostrarSocioEstandarFXMLLoader" text="Socios estandar" />
+                           <MenuItem id="mostrarSocioFederado" fx:id="mnu_mostrarSocioFederado" mnemonicParsing="false" onAction="#mostrarSocioFederadoFXMLLoader" text="Socios federados" />
+                           <MenuItem id="mostrarSocioInfantil" fx:id="mnu_mostrarSocioInfantil" mnemonicParsing="false" onAction="#mostrarSocioInfantilFXMLLoader" text="Socios infantiles" />
                         </items>
                      </Menu>
-                     <MenuItem id="eliminarSocio" fx:id="mnu_eliminarSocio" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Eliminar socio" />
-                     <MenuItem id="modificarSeguroSocio" fx:id="mnu_modificarSeguroSocio" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Moficiar seguro a socio" />
-                     <MenuItem id="mostrarFacturacionMensual" fx:id="mnu_mostrarFacturacionMensual" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Mostrar facturación mensual" />
+                     <MenuItem id="eliminarSocio" fx:id="mnu_eliminarSocio" mnemonicParsing="false" onAction="#eliminarFXMLLoader" text="Eliminar socio" />
+                     <MenuItem id="modificarSeguroSocio" fx:id="mnu_modificarSeguroSocio" mnemonicParsing="false" onAction="#modificarSeguroFXMLLoader" text="Moficiar seguro a socio" />
+                     <MenuItem id="mostrarFacturacionMensual" fx:id="mnu_mostrarFacturacionMensual" mnemonicParsing="false" onAction="#mostrarFacturacionSocioFXMLLoader" text="Mostrar facturación mensual" />
                </items>
             </Menu>
             <Menu id="mnu_Inscripcion" mnemonicParsing="false" text="Gestión Inscripciones">
@@ -56,7 +56,11 @@
                   <MenuItem id="mostrarExcursion" fx:id="mnu_mostrarExcursion" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Mostrar excursiones por fecha" />
                </items>
             </Menu>
-            <Menu id="exit" fx:id="mnu_exit" mnemonicParsing="false" onAction="#nuevoSocioEstandar" text="Salir"/>
+            <Menu id="mnu_exit" mnemonicParsing="false" text="Salir">
+               <items>
+                  <MenuItem id="exit" fx:id="mnu_exit" mnemonicParsing="false" onAction="#exitApp" text="Salir"/>
+               </items>
+            </Menu>
         </menus>
       </MenuBar>
       <SplitPane layoutX="244.0" layoutY="178.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" >
