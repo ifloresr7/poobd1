@@ -32,7 +32,7 @@
                            <MenuItem id="mostrarSocioInfantil" fx:id="mnu_mostrarSocioInfantil" mnemonicParsing="false" onAction="#mostrarSocioInfantilFXMLLoader" text="Socios infantiles" />
                         </items>
                      </Menu>
-                     <MenuItem id="eliminarSocio" fx:id="mnu_eliminarSocio" mnemonicParsing="false" onAction="#eliminarFXMLLoader" text="Eliminar socio" />
+                     <MenuItem id="eliminarSocio" fx:id="mnu_eliminarSocio" mnemonicParsing="false" onAction="#eliminarSocioFXMLLoader" text="Eliminar socio" />
                      <MenuItem id="modificarSeguroSocio" fx:id="mnu_modificarSeguroSocio" mnemonicParsing="false" onAction="#modificarSeguroFXMLLoader" text="Moficiar seguro a socio" />
                      <MenuItem id="mostrarFacturacionMensual" fx:id="mnu_mostrarFacturacionMensual" mnemonicParsing="false" onAction="#mostrarFacturacionSocioFXMLLoader" text="Mostrar facturación mensual" />
                </items>
