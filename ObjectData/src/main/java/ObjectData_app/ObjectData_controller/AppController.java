@@ -1,26 +1,26 @@
 package ObjectData_app.ObjectData_controller;
 //Se importan las librerias
 import ObjectData_app.ObjectData_view.MenuView;
+import javafx.stage.Stage;
 
 public class AppController {
     static MenuView MenuView = new MenuView();
     static boolean cerrarApp = false;
 
     // Inicio del menu de la APP.
-    public static void inicio() {
+    public static void inicio(Stage stage) {
         // arracamos el menu principal de la aplicación.
         do {
-            MenuView.menuInicioView();
-            int opcion = MenuView.getOpcionView(4);
+            int opcion = MenuView.menuInicioView(stage);
             switch (opcion) {
                 case 1:
-                    gestionExcursiones();
+                    gestionExcursiones(stage);
                     break;
                 case 2:
-                    gestionSocios();
+                    gestionSocios(stage);
                     break;
                 case 3:
-                    gestionInscripciones();
+                    gestionInscripciones(stage);
                     break;
                 case 4:
                     cerrarApp = true;
@@ -30,7 +30,7 @@ public class AppController {
     }
 
     // Metodos de control para Excursiones.
-    public static void gestionExcursiones() {
+    public static void gestionExcursiones(Stage stage) {
         MenuView.menuGestionExcursionesView();
         int opcion = MenuView.getOpcionView(3);
         switch (opcion) {
@@ -41,13 +41,13 @@ public class AppController {
                 ExcursionController.mostrarExcursionFecha();
                 break;
             case 3:
-                inicio();
+                inicio(stage);
                 break;
         }
     }
 
     // Metodos de control para Socios.
-    public static void gestionSocios() {
+    public static void gestionSocios(Stage stage) {
         MenuView.menuGestionSociosView();
         int opcion = MenuView.getOpcionView(6);
         switch (opcion) {
@@ -67,13 +67,13 @@ public class AppController {
                 SocioController.facturaMensualSocio();
                 break;
             case 6:
-                inicio();
+                inicio(stage);
                 break;
         }
     }
 
     // Metodos de control para Inscripciones.
-    public static void gestionInscripciones() {
+    public static void gestionInscripciones(Stage stage) {
         MenuView.menuGestionInscripcionesView();
         int opcion = MenuView.getOpcionView(4);
         switch (opcion) {
@@ -87,7 +87,7 @@ public class AppController {
                 InscripcionController.mostrarInscripcion();
                 break;
             case 4:
-                inicio();
+                inicio(stage);
                 break;
         }
     }

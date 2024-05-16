@@ -1,104 +1,38 @@
 package ObjectData_app.ObjectData_view;
 
-import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.Label;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class MenuView extends Application{
-    public static void main(String[] args) {
-        launch(args); // Launch the JavaFX application
+public class MenuView {
+    // Método para mostrar el menú principal
+    public int menuInicioView(Stage stage) {
+        Group root = new Group();
+        Scene scene = new Scene(root, 600, 400);
+    
+        Label menuTitle = new Label("Menú Principal");
+        menuTitle.setFont(new Font("Arial", 20));
+        menuTitle.setLayoutX(250);
+        menuTitle.setLayoutY(50);
+    
+        Button button = new Button("Click me!");
+        button.setLayoutX(250);
+        button.setLayoutY(200);
+        button.setOnAction(event -> {
+            return 1;
+        });
+    
+        root.getChildren().addAll(menuTitle, button);
+    
+        stage.setScene(scene);
+        stage.setTitle("Menú Principal");
+        stage.show();
+    
+        return 0;
     }
-
-    @Override
-public void start(Stage primaryStage) {
-    // Crear la imagen
-    Image image = new Image("file:image.jpg");
-    
-    // Crear el ImageView y configurarlo con la imagen
-    ImageView mv = new ImageView(image);
-    
-    // Crear los botones con un tamaño de fuente más grande
-    Button socioButton = new Button("Socio");
-    socioButton.setStyle("-fx-font-size: 20px;");
-    Button excursionesButton = new Button("Excursiones");
-    excursionesButton.setStyle("-fx-font-size: 20px;");
-    Button inscripcionesButton = new Button("Inscripciones");
-    inscripcionesButton.setStyle("-fx-font-size: 20px;");
-    Button salirButton = new Button("Salir");
-    salirButton.setStyle("-fx-font-size: 20px;");
-    
-    // Establecer el tamaño de los botones
-    socioButton.setPrefSize(150, 50);
-    excursionesButton.setPrefSize(150, 50);
-    inscripcionesButton.setPrefSize(150, 50);
-    salirButton.setPrefSize(150, 50);
-    
-    // Distribuir los botones horizontalmente
-    HBox buttonBox = new HBox(20); // Espacio entre los botones
-    buttonBox.getChildren().addAll(socioButton, excursionesButton, inscripcionesButton, salirButton);
-    buttonBox.setPadding(new Insets(20)); // Espacio alrededor de los botones
-    
-    // Crear el contenedor para los elementos (imagen y botones)
-    VBox root = new VBox(); // Contenedor vertical
-    root.getChildren().addAll(buttonBox, mv);
-    
-    // Crear la escena
-    Scene scene = new Scene(root, 1280, 720);
-    
-    // Configurar la escena en el escenario
-    primaryStage.setScene(scene);
-    primaryStage.setResizable(false);
-    primaryStage.setTitle("ObjectData App");
-    primaryStage.show();
-}
-    // Propiedades de clase
-    public void menuInicioView() {
-        Image image = new Image("file:image.jpg");
-    
-    // Crear el ImageView y configurarlo con la imagen
-    ImageView mv = new ImageView(image);
-    
-    // Crear los botones con un tamaño de fuente más grande
-    Button socioButton = new Button("Socio");
-    socioButton.setStyle("-fx-font-size: 20px;");
-    Button excursionesButton = new Button("Excursiones");
-    excursionesButton.setStyle("-fx-font-size: 20px;");
-    Button inscripcionesButton = new Button("Inscripciones");
-    inscripcionesButton.setStyle("-fx-font-size: 20px;");
-    Button salirButton = new Button("Salir");
-    salirButton.setStyle("-fx-font-size: 20px;");
-    
-    // Establecer el tamaño de los botones
-    socioButton.setPrefSize(150, 50);
-    excursionesButton.setPrefSize(150, 50);
-    inscripcionesButton.setPrefSize(150, 50);
-    salirButton.setPrefSize(150, 50);
-    
-    // Distribuir los botones horizontalmente
-    HBox buttonBox = new HBox(20); // Espacio entre los botones
-    buttonBox.getChildren().addAll(socioButton, excursionesButton, inscripcionesButton, salirButton);
-    buttonBox.setPadding(new Insets(20)); // Espacio alrededor de los botones
-    
-    // Crear el contenedor para los elementos (imagen y botones)
-    VBox root = new VBox(); // Contenedor vertical
-    root.getChildren().addAll(buttonBox, mv);
-    
-    // Crear la escena
-    Scene scene = new Scene(root, 1280, 720);
-    
-    // Configurar la escena en el escenario
-    primaryStage.setScene(scene);
-    primaryStage.setResizable(false);
-    primaryStage.setTitle("ObjectData App");
-    primaryStage.show();
-}
 
     public void menuGestionExcursionesView() {
         System.out.println("---GESTIÓN DE EXCURSIONES---");
@@ -128,7 +62,7 @@ public void start(Stage primaryStage) {
     public int getOpcionView(int value) {
         try {
             System.out.print("Elije una opción válida (1 - " + value + "): ");
-            int opcion = 2;
+            int opcion = 0;
             if (opcion < 1 || opcion > value) {
                 System.out.println("Opción no válida.");
                 return getOpcionView(value);
@@ -139,4 +73,5 @@ public void start(Stage primaryStage) {
             return getOpcionView(value);
         }
     }
+
 }

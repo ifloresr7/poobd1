@@ -3,8 +3,15 @@
 //la llamada al metodo menuInicio del controlador.
 package ObjectData_app.ObjectData_controller;
 
-public class Main {
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class Main extends Application {
+    @Override
+    public void start(Stage stage) {
+        AppController.inicio(stage);
+    }
     public static void main(String[] args) {
-        AppController.inicio();
+        launch(args);
     }
 }
